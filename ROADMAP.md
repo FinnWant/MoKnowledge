@@ -172,7 +172,7 @@ lib/
   scraper/
     crawler.ts  robots.ts  classify.ts  fetcher.ts
     extractors/*.ts              one file per extractor, pure + unit-tested
-    analyzers/*.ts               voice, palette, themes, completeness
+    analyzers/*.ts               palette, themes, text-metrics, completeness
     reconcile.ts                 evidence → knowledge base
     vendors.ts                   third-party signature table
   ai/
@@ -243,21 +243,17 @@ type Sourced<T> = {
 signals are already extracted but forced into ill-fitting fields (press mentions filed under
 `Funnels`; testimonial content paraphrased into person bios with the quotes discarded).
 
-**Remaining extensions:**
+| **`quality`** ★ | per-category completeness %, missing-field list, conflict flags, generated follow-up questions to ask the customer | Fits MoFlo's "do as much for them as possible" thesis, and carries the Data Quality requirement (R22) |
 
-| Extension | Contents | Serves |
-|---|---|---|
-| `voiceProfile` | tone axes, reading grade, avg sentence length, person (1st/3rd), preferred + banned lexicon, emoji/punctuation policy, capitalization of CTAs, 5 exemplar sentences | **All three.** Turns "Writing Style" prose into parameters a generator can actually condition on |
-| `messaging` | USPs, differentiators, objections + rebuttals, guarantees, taglines | All three — the actual arguments |
-| `conversionKit` | CTA inventory with target URLs, phone, booking link, forms, hours, service radius | Every generated asset needs a correct closing CTA + link |
-| `compliance` | disclaimers, regulated-claim flags (insurance/financial/medical/legal), required disclosures, prohibited claims | **Guardrails.** Stops auto-generated content from exposing a non-technical SMB to liability |
-| `seo` | title/meta patterns, keyword set, JSON-LD entity types found, OG image | MoBlogs metadata, MoSocial link previews |
-| `competitors` | named alternatives/comparisons found on site | Positioning language |
-| `mediaAssets` | images with alt text, OG image, hero images | MoSocial image selection |
-| `quality` | per-category completeness %, missing-field list, generated follow-up questions to ask the customer | Fits MoFlo's "do as much for them as possible" thesis |
+**Scope is exactly these three.** `voiceProfile`, `messaging`, `conversionKit`, `compliance`,
+`seo`, `competitors`, and `mediaAssets` were considered and deliberately cut to keep the schema
+sharp and buy time for scraping depth and UI polish. Two consequences worth noting:
 
-`compliance` and `voiceProfile` are the two strongest differentiators; lead with them in
-the README and in Answer #2 and #3.
+- The cut list is genuinely good material for **Answer #4** ("what would you improve with more
+  time") — a considered backlog reads better than a wish list.
+- Text metrics (sentence length, reading grade, pronoun ratios) are *not* dropped entirely;
+  they survive as an internal input to the `writingStyle` enrichment prompt rather than as a
+  schema category of their own.
 
 ---
 
@@ -287,9 +283,14 @@ SMB sites emit it.
 - **Fonts** — `@font-face`, Google Fonts `<link>`, resolved `font-family` stacks, filtered.
 - **Vendors/suppliers** — map script/iframe/link hosts against a signature table
   (Sendgrid, Twilio, Wufoo, Yext, HubSpot, Mailchimp, Calendly, Stripe, GA, Plausible…).
-- **Voice metrics** — sentence length distribution, Flesch-Kincaid grade, pronoun ratios,
-  exclamation/question density, imperative-verb frequency, top distinctive n-grams. All real
-  computation on the scraped corpus — no LLM, but it produces the most AI-useful field we have.
+- **Text metrics** — sentence length distribution, Flesch-Kincaid grade, pronoun ratios,
+  exclamation/question density, imperative-verb frequency, top distinctive n-grams. Real
+  computation on the scraped corpus, fed into the `writingStyle` enrichment prompt so that
+  field is grounded in measured signal rather than vibes. Internal input, not a schema field.
+- **Themes** — term frequency over the corpus with boilerplate stripped, scored against a
+  stopword + generic-business-language baseline. Feeds `contentIntelligence.themes`.
+- **Completeness** — per-category fill rate, conflict detection, and generated follow-up
+  questions. Feeds `quality`.
 
 ### 5.5 Failure modes we handle explicitly
 Non-200 / DNS failure · redirect to different domain · robots disallow · JS-rendered SPA with
@@ -381,7 +382,7 @@ P8/P9 are the finish.
 | JS-rendered sites | Detect and report, no headless browser | `cheerio` only. SPA/empty-DOM detection returns partial results plus an honest message; documented as a known limitation in the README |
 | AI enrichment | **Mock by default, live Claude call when `ANTHROPIC_API_KEY` is set** | Prompts in `/prompts` are executable, not theoretical. Must degrade cleanly to mock with no key, and label output `AI (live)` vs `AI (mock)` distinctly |
 | Testing | Vitest unit tests on saved HTML fixtures | Covers extractors, reconciler, analyzers. No E2E layer |
-| Prioritized extensions | `proof` + `contentIntelligence` (§4.2, [`docs/SCHEMA-EXTENSIONS.md`](docs/SCHEMA-EXTENSIONS.md)) | Get full field design, extractors, and UI treatment |
+| Beyond-baseline scope | Exactly three: `proof`, `contentIntelligence`, `quality` (§4.2, [`docs/SCHEMA-EXTENSIONS.md`](docs/SCHEMA-EXTENSIONS.md)) | Seven other proposed extensions cut; they become the substance of Answer #4 |
 | Test corpus | The 8 companies from the reference PDF ([`docs/VALIDATION.md`](docs/VALIDATION.md)) | Enables measured accuracy claims by cross-referencing our output against MoFlo's own |
 
 ### Follow-on work created by the live-LLM decision
