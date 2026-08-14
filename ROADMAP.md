@@ -232,11 +232,22 @@ type Sourced<T> = {
 
 **Beyond baseline — each justified by which MoFlo app it improves:**
 
+**Prioritized** (full design in [`docs/SCHEMA-EXTENSIONS.md`](docs/SCHEMA-EXTENSIONS.md)):
+
+| Extension | Contents | Serves |
+|---|---|---|
+| **`proof`** ★ | testimonials (quote/author/role/platform/linked people + offerings), aggregate ratings, case studies, certifications, memberships, awards, press mentions, trust stats ("40+ years", "$8.5B in sales"), guarantees, client logos | MoSocial credibility posts, MoMail trust blocks, MoBlogs case studies — and a bounded set of *verified* claims so the model never invents a credential |
+| **`contentIntelligence`** ★ | themes, posts, taxonomy, cadence + staleness, headline patterns, FAQ pairs, glossary of the company's own domain terms, seasonal signals, content gaps | MoBlogs topic pipeline, MoSocial hooks, MoMail newsletters |
+
+★ = prioritized. Both are justified directly by defects in the reference outputs, where these
+signals are already extracted but forced into ill-fitting fields (press mentions filed under
+`Funnels`; testimonial content paraphrased into person bios with the quotes discarded).
+
+**Remaining extensions:**
+
 | Extension | Contents | Serves |
 |---|---|---|
 | `voiceProfile` | tone axes, reading grade, avg sentence length, person (1st/3rd), preferred + banned lexicon, emoji/punctuation policy, capitalization of CTAs, 5 exemplar sentences | **All three.** Turns "Writing Style" prose into parameters a generator can actually condition on |
-| `proof` | testimonials (quote/author/role/source), aggregate ratings, certifications, awards, memberships, press mentions, hard stats ("40+ years", "$8.5B in sales") | MoSocial credibility posts, MoMail trust blocks |
-| `contentIntelligence` | recurring themes, blog taxonomy, publishing cadence, headline patterns, FAQ Q&A pairs | MoBlogs topic pipeline, MoSocial hooks |
 | `messaging` | USPs, differentiators, objections + rebuttals, guarantees, taglines | All three — the actual arguments |
 | `conversionKit` | CTA inventory with target URLs, phone, booking link, forms, hours, service radius | Every generated asset needs a correct closing CTA + link |
 | `compliance` | disclaimers, regulated-claim flags (insurance/financial/medical/legal), required disclosures, prohibited claims | **Guardrails.** Stops auto-generated content from exposing a non-technical SMB to liability |
@@ -348,8 +359,8 @@ Each phase ends with a working, committable state.
 |---|---|---|
 | **P0 — Scaffold** | `create-next-app@15` (TS, Tailwind, App Router, ESLint), Vitest, deps (`cheerio`, `zod`, `lucide-react`, `robots-parser`), scripts, `.gitignore`, first commit | `npm run dev` serves, `npm run lint` + `npm test` pass clean |
 | **P1 — Schema + design system** | zod schema for the full KB (§4), inferred types, `Sourced<T>` envelope, MoFlo theme tokens, base UI primitives | Schema compiles; a hand-written fixture KB validates; UI kit renders on a scratch page |
-| **P2 — Crawler** | robots, sitemap, discovery, classifier, budgeted concurrent fetcher, typed errors | CLI script crawls 3 real sites (a WordPress SMB, a Wix/Squarespace site, an SPA) and reports classified pages |
-| **P3 — Extractors + reconciler + analyzers** | All extractors, vendor table, voice/palette/theme analyzers, evidence reconciliation, AI layer (mock + optional live client) | Unit tests on saved fixtures green; end-to-end scrape of the 3 sites produces a schema-valid KB with sane confidence; enrichment works both with and without an API key |
+| **P2 — Crawler + golden set** | robots, sitemap, discovery, classifier, budgeted concurrent fetcher, typed errors, `scripts/snapshot.ts`, HTML fixtures + transcribed golden JSON for all 8 reference sites | Crawler snapshots all 8 golden sites and reports classified pages; fixtures committed so tests never hit the network |
+| **P3 — Extractors + reconciler + analyzers** | All extractors, vendor table, voice/palette/theme analyzers, evidence reconciliation, AI layer (mock + optional live client), `scripts/validate.ts` scoring harness | Unit tests on fixtures green; all 8 golden sites produce schema-valid KBs; `npm run validate` prints per-field recall vs. the reference; enrichment works with and without an API key |
 | **P4 — Scrape page** | `/knowledge`: URL form + validation, NDJSON progress UI, category display, provenance + confidence badges, completeness meter | Paste a URL → live progress → structured result; bad URLs and dead sites fail gracefully |
 | **P5 — Edit + save** | Draft context + reducer, inline field editors, add/remove list items, dirty tracking, unsaved-changes guard, JSON preview, save | Edit any field, see `user-edited` provenance, save, file appears in store |
 | **P6 — View/manage** | `/knowledge/view` card + table + detail modes, search, filter (industry/completeness/date), edit, delete w/ confirm, export JSON, version history | Full CRUD round-trip; all three view modes usable at 375px |
@@ -370,6 +381,8 @@ P8/P9 are the finish.
 | JS-rendered sites | Detect and report, no headless browser | `cheerio` only. SPA/empty-DOM detection returns partial results plus an honest message; documented as a known limitation in the README |
 | AI enrichment | **Mock by default, live Claude call when `ANTHROPIC_API_KEY` is set** | Prompts in `/prompts` are executable, not theoretical. Must degrade cleanly to mock with no key, and label output `AI (live)` vs `AI (mock)` distinctly |
 | Testing | Vitest unit tests on saved HTML fixtures | Covers extractors, reconciler, analyzers. No E2E layer |
+| Prioritized extensions | `proof` + `contentIntelligence` (§4.2, [`docs/SCHEMA-EXTENSIONS.md`](docs/SCHEMA-EXTENSIONS.md)) | Get full field design, extractors, and UI treatment |
+| Test corpus | The 8 companies from the reference PDF ([`docs/VALIDATION.md`](docs/VALIDATION.md)) | Enables measured accuracy claims by cross-referencing our output against MoFlo's own |
 
 ### Follow-on work created by the live-LLM decision
 
