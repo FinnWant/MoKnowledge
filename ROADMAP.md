@@ -323,18 +323,26 @@ and additionally execute those prompts for real when `ANTHROPIC_API_KEY` is pres
 default clone-and-run path needs no key, but the prompts are demonstrably functional rather
 than hypothetical. Minimum three, each demonstrating a different technique:
 
-1. `prompts/01-company-pitch.md` — role + few-shot + hard grounding constraints
-   ("use only the supplied evidence; output `null` rather than inferring"), JSON output contract.
-2. `prompts/02-voice-profile.md` — structured extraction into a fixed schema with an
-   enumerated tone vocabulary and per-field confidence, plus refusal rules for thin input.
-3. `prompts/03-offering-normalization.md` — many-to-one consolidation of duplicate service
-   listings across pages into deduped offerings with features and pricing.
-4. *(stretch)* `prompts/04-compliance-scan.md` — flag regulated claims needing disclaimers.
+**Written — see [`prompts/`](prompts/) (4 files + conventions README):**
 
-Each file: purpose · system prompt · user template with `{{placeholders}}` · expected JSON
-output · failure/edge-case handling · notes on why it's built that way. Generated fields carry
-an unmissable badge in the UI — `AI (mock)` for placeholder output as instructed, `AI (live)`
+1. `prompts/01-company-profile.md` — batched generation under hard grounding constraints.
+   Six prose fields in one call; `null` framed as a preferred outcome over a plausible guess.
+2. `prompts/02-offering-normalization.md` — many-to-one consolidation across pages with a
+   controlled category vocabulary and auditable merge provenance.
+3. `prompts/03-writing-style.md` — grounds a subjective judgment in metrics we compute
+   deterministically in TypeScript, so tone claims can't contradict the measured text.
+4. `prompts/04-proof-extraction.md` — extraction under a machine-verifiable constraint:
+   every quote must be a verbatim substring of the source, checked in code and dropped if not.
+
+Each file: purpose · model + params · system prompt · user template with `{{placeholders}}` ·
+JSON Schema output contract · edge-case table · design notes. Generated fields carry an
+unmissable badge in the UI — `AI sample` for placeholder output as instructed, `AI draft`
 when a real call produced it — so the reviewer is never unsure which they're looking at.
+
+Three constraints from the current API shaped all four (documented in `prompts/README.md`):
+structured outputs replace assistant prefill and its stop-sequence/retry scaffolding;
+`temperature`/`top_p` are rejected, so variance is steered by prompt text; and JSON Schema
+support excludes `minLength`/`maxLength`, so length budgets live in the prompt.
 
 ---
 
@@ -365,7 +373,7 @@ Each phase ends with a working, committable state.
 | **P4 — Scrape page** | `/knowledge`: URL form + validation, NDJSON progress UI, category display, provenance + confidence badges, completeness meter | Paste a URL → live progress → structured result; bad URLs and dead sites fail gracefully |
 | **P5 — Edit + save** | Draft context + reducer, 8 field editors, attention triage tier, conflict resolution, gap-question form, add/remove/reorder records, localStorage autosave, unsaved-changes guard, JSON preview, save — design in [`docs/EDIT-UX.md`](docs/EDIT-UX.md) | Click `Save` with zero edits and get a good KB; edit any field and see `You edited` provenance; `Accept all safe` clears uncontested items; works at 375px |
 | **P6 — View/manage** | `/knowledge/view` card + table + detail modes, search, filter (industry/completeness/date), edit, delete w/ confirm, export JSON, version history | Full CRUD round-trip; all three view modes usable at 375px |
-| **P7 — Docs + artifacts** | `prompts/`, `examples/*.json`, `docs/DATABASE.md`, `docs/DATA-QUALITY.md`, `docs/ENRICHMENT.md`, `supabase/schema.sql` | Every graded artifact exists and is accurate to shipped code |
+| **P7 — Docs + artifacts** | `examples/*.json`, `docs/DATABASE.md`, `docs/DATA-QUALITY.md`, `docs/ENRICHMENT.md`, `supabase/schema.sql` (`prompts/` ✅ done) | Every graded artifact exists and is accurate to shipped code |
 | **P8 — Hardening** | Error boundaries, loading/empty/error states everywhere, a11y pass (labels, focus, contrast), responsive audit, timeout tuning | Adversarial URL list all handled; keyboard-only pass; no console errors |
 | **P9 — Submission** | `README.md` (all 7 sub-sections), `ANSWERS.md` (5 questions), screenshots, final example JSON, repo push | Traceability table (§1) fully green; fresh `git clone && npm i && npm run dev` works |
 
