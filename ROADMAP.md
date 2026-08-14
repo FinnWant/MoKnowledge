@@ -145,7 +145,7 @@ Small, demonstrable wins worth calling out in the README:
 | JS-rendered sites | Not supported v1; detected and reported | Playwright is a heavy dep; we detect near-empty DOM + framework markers and tell the user honestly |
 | Validation + types | `zod` schema as single source of truth, types inferred | Satisfies R17 with zero drift between runtime and compile time |
 | Persistence | `StorageAdapter` interface; `LocalJsonAdapter` default | Reviewer can `npm run dev` with zero setup; Supabase adapter documented and slot-in ready |
-| State | `KnowledgeDraftContext` + `useReducer` | Mandated (hooks + context); reducer suits field-level edit/undo |
+| State | `KnowledgeDraftContext` + `useReducer`, split into state/dispatch contexts | Mandated (hooks + context); reducer suits path-addressed field edits. Split + memoized record cards avoid re-render storms on a 14-offering draft |
 | Errors | Typed `Result<T, ScrapeError>`, never throw across boundary | Partial results still render — a half-scraped KB is valuable |
 
 ### 3.3 Directory layout
@@ -363,7 +363,7 @@ Each phase ends with a working, committable state.
 | **P2 — Crawler + golden set** | robots, sitemap, discovery, classifier, budgeted concurrent fetcher, typed errors, `scripts/snapshot.ts`, HTML fixtures + transcribed golden JSON for all 8 reference sites | Crawler snapshots all 8 golden sites and reports classified pages; fixtures committed so tests never hit the network |
 | **P3 — Extractors + reconciler + analyzers** | All extractors, vendor table, voice/palette/theme analyzers, evidence reconciliation, AI layer (mock + optional live client), `scripts/validate.ts` scoring harness | Unit tests on fixtures green; all 8 golden sites produce schema-valid KBs; `npm run validate` prints per-field recall vs. the reference; enrichment works with and without an API key |
 | **P4 — Scrape page** | `/knowledge`: URL form + validation, NDJSON progress UI, category display, provenance + confidence badges, completeness meter | Paste a URL → live progress → structured result; bad URLs and dead sites fail gracefully |
-| **P5 — Edit + save** | Draft context + reducer, inline field editors, add/remove list items, dirty tracking, unsaved-changes guard, JSON preview, save | Edit any field, see `user-edited` provenance, save, file appears in store |
+| **P5 — Edit + save** | Draft context + reducer, 8 field editors, attention triage tier, conflict resolution, gap-question form, add/remove/reorder records, localStorage autosave, unsaved-changes guard, JSON preview, save — design in [`docs/EDIT-UX.md`](docs/EDIT-UX.md) | Click `Save` with zero edits and get a good KB; edit any field and see `You edited` provenance; `Accept all safe` clears uncontested items; works at 375px |
 | **P6 — View/manage** | `/knowledge/view` card + table + detail modes, search, filter (industry/completeness/date), edit, delete w/ confirm, export JSON, version history | Full CRUD round-trip; all three view modes usable at 375px |
 | **P7 — Docs + artifacts** | `prompts/`, `examples/*.json`, `docs/DATABASE.md`, `docs/DATA-QUALITY.md`, `docs/ENRICHMENT.md`, `supabase/schema.sql` | Every graded artifact exists and is accurate to shipped code |
 | **P8 — Hardening** | Error boundaries, loading/empty/error states everywhere, a11y pass (labels, focus, contrast), responsive audit, timeout tuning | Adversarial URL list all handled; keyboard-only pass; no console errors |
