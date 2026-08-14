@@ -302,6 +302,8 @@ a partial result rather than a dead end.
 
 ## 6. Data Quality Strategy (R22)
 
+Full design in [`docs/DATA-QUALITY.md`](docs/DATA-QUALITY.md). Summary:
+
 1. **Never fabricate.** A missing field is `{ value: null, method: 'not-found' }`, rendered as
    an explicit "Not found" chip — not an empty string, not an invented plausible value.
 2. **Tiered fallback per field:** primary source → secondary source → derived inference
@@ -372,7 +374,7 @@ Each phase ends with a working, committable state.
 | **P3 — Extractors + reconciler + analyzers** | All extractors, vendor table, voice/palette/theme analyzers, evidence reconciliation, AI layer (mock + optional live client), `scripts/validate.ts` scoring harness | Unit tests on fixtures green; all 8 golden sites produce schema-valid KBs; `npm run validate` prints per-field recall vs. the reference; enrichment works with and without an API key |
 | **P4 — Scrape page** | `/knowledge`: URL form + validation, NDJSON progress UI, category display, provenance + confidence badges, completeness meter | Paste a URL → live progress → structured result; bad URLs and dead sites fail gracefully |
 | **P5 — Edit + save** | Draft context + reducer, 8 field editors, attention triage tier, conflict resolution, gap-question form, add/remove/reorder records, localStorage autosave, unsaved-changes guard, JSON preview, save — design in [`docs/EDIT-UX.md`](docs/EDIT-UX.md) | Click `Save` with zero edits and get a good KB; edit any field and see `You edited` provenance; `Accept all safe` clears uncontested items; works at 375px |
-| **P6 — View/manage** | `/knowledge/view` card + table + detail modes, search, filter (industry/completeness/date), edit, delete w/ confirm, export JSON, version history | Full CRUD round-trip; all three view modes usable at 375px |
+| **P6 — View/manage** | `/knowledge/view` card + table + detail modes, search, filters, edit, delete w/ undo, export, version history + diff, re-scrape — design in [`docs/VIEW-PAGE.md`](docs/VIEW-PAGE.md) | Full CRUD round-trip; all three view modes usable at 375px |
 | **P7 — Docs + artifacts** | `examples/*.json`, `docs/DATABASE.md`, `docs/DATA-QUALITY.md`, `docs/ENRICHMENT.md`, `supabase/schema.sql` (`prompts/` ✅ done) | Every graded artifact exists and is accurate to shipped code |
 | **P8 — Hardening** | Error boundaries, loading/empty/error states everywhere, a11y pass (labels, focus, contrast), responsive audit, timeout tuning | Adversarial URL list all handled; keyboard-only pass; no console errors |
 | **P9 — Submission** | `README.md` (all 7 sub-sections), `ANSWERS.md` (5 questions), screenshots, final example JSON, repo push | Traceability table (§1) fully green; fresh `git clone && npm i && npm run dev` works |
