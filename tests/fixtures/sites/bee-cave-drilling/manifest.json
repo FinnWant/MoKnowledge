@@ -1,0 +1,177 @@
+{
+  "slug": "bee-cave-drilling",
+  "name": "Bee Cave Drilling",
+  "url": "https://beecavedrilling.com",
+  "capturedAt": "2026-08-15T20:49:19.512Z",
+  "durationMs": 32342,
+  "pagesDiscovered": 84,
+  "pages": [
+    {
+      "file": "index.html.gz",
+      "url": "https://www.beecavedrilling.com/",
+      "role": "home",
+      "status": 200,
+      "bytes": 191356,
+      "fetchedAt": "2026-08-15T20:48:56.471Z"
+    },
+    {
+      "file": "contact.html.gz",
+      "url": "https://www.beecavedrilling.com/contact/",
+      "role": "contact",
+      "status": 200,
+      "bytes": 182136,
+      "fetchedAt": "2026-08-15T20:48:58.277Z"
+    },
+    {
+      "file": "testimonials.html.gz",
+      "url": "https://www.beecavedrilling.com/testimonials/",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 227163,
+      "fetchedAt": "2026-08-15T20:48:59.964Z"
+    },
+    {
+      "file": "quote.html.gz",
+      "url": "https://www.beecavedrilling.com/quote/",
+      "role": "pricing",
+      "status": 200,
+      "bytes": 187978,
+      "fetchedAt": "2026-08-15T20:49:01.586Z"
+    },
+    {
+      "file": "troubleshooting-home.html.gz",
+      "url": "https://www.beecavedrilling.com/troubleshooting/home/",
+      "role": "other",
+      "status": 200,
+      "bytes": 127364,
+      "fetchedAt": "2026-08-15T20:49:02.078Z"
+    },
+    {
+      "file": "training-videos.html.gz",
+      "url": "https://www.beecavedrilling.com/training-videos/",
+      "role": "other",
+      "status": 200,
+      "bytes": 160652,
+      "fetchedAt": "2026-08-15T20:49:03.269Z"
+    },
+    {
+      "file": "staffbios.html.gz",
+      "url": "https://www.beecavedrilling.com/staffbios/",
+      "role": "other",
+      "status": 200,
+      "bytes": 210798,
+      "fetchedAt": "2026-08-15T20:49:07.025Z"
+    },
+    {
+      "file": "remote-monitoring.html.gz",
+      "url": "https://www.beecavedrilling.com/remote-monitoring/",
+      "role": "other",
+      "status": 200,
+      "bytes": 162077,
+      "fetchedAt": "2026-08-15T20:49:07.669Z"
+    },
+    {
+      "file": "troubleshooting-mw2.html.gz",
+      "url": "https://www.beecavedrilling.com/troubleshooting/mw2/",
+      "role": "other",
+      "status": 200,
+      "bytes": 132474,
+      "fetchedAt": "2026-08-15T20:49:08.378Z"
+    },
+    {
+      "file": "promotions.html.gz",
+      "url": "https://www.beecavedrilling.com/promotions/",
+      "role": "other",
+      "status": 200,
+      "bytes": 156054,
+      "fetchedAt": "2026-08-15T20:49:08.940Z"
+    },
+    {
+      "file": "callrail.html.gz",
+      "url": "https://www.beecavedrilling.com/callrail/",
+      "role": "other",
+      "status": 200,
+      "bytes": 188582,
+      "fetchedAt": "2026-08-15T20:49:10.324Z"
+    },
+    {
+      "file": "pumping-systems.html.gz",
+      "url": "https://www.beecavedrilling.com/pumping-systems/",
+      "role": "other",
+      "status": 200,
+      "bytes": 173837,
+      "fetchedAt": "2026-08-15T20:49:12.157Z"
+    },
+    {
+      "file": "troubleshooting-mw4.html.gz",
+      "url": "https://www.beecavedrilling.com/troubleshooting/mw4/",
+      "role": "other",
+      "status": 200,
+      "bytes": 226804,
+      "fetchedAt": "2026-08-15T20:49:12.646Z"
+    },
+    {
+      "file": "troubleshooting-mw5.html.gz",
+      "url": "https://www.beecavedrilling.com/troubleshooting/mw5/",
+      "role": "other",
+      "status": 200,
+      "bytes": 132554,
+      "fetchedAt": "2026-08-15T20:49:13.493Z"
+    },
+    {
+      "file": "well-inspections.html.gz",
+      "url": "https://www.beecavedrilling.com/well-inspections/",
+      "role": "other",
+      "status": 200,
+      "bytes": 171145,
+      "fetchedAt": "2026-08-15T20:49:15.880Z"
+    },
+    {
+      "file": "residential-and-commercial-well-drilling.html.gz",
+      "url": "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+      "role": "other",
+      "status": 200,
+      "bytes": 185499,
+      "fetchedAt": "2026-08-15T20:49:16.304Z"
+    },
+    {
+      "file": "drilling.html.gz",
+      "url": "https://www.beecavedrilling.com/drilling/",
+      "role": "other",
+      "status": 200,
+      "bytes": 172121,
+      "fetchedAt": "2026-08-15T20:49:17.257Z"
+    },
+    {
+      "file": "troubleshooting-mw6.html.gz",
+      "url": "https://www.beecavedrilling.com/troubleshooting/mw6/",
+      "role": "other",
+      "status": 200,
+      "bytes": 133169,
+      "fetchedAt": "2026-08-15T20:49:18.433Z"
+    },
+    {
+      "file": "troubleshooting-mw7.html.gz",
+      "url": "https://www.beecavedrilling.com/troubleshooting/mw7/",
+      "role": "other",
+      "status": 200,
+      "bytes": 133483,
+      "fetchedAt": "2026-08-15T20:49:18.740Z"
+    },
+    {
+      "file": "financing.html.gz",
+      "url": "https://www.beecavedrilling.com/financing/",
+      "role": "other",
+      "status": 200,
+      "bytes": 199744,
+      "fetchedAt": "2026-08-15T20:49:19.500Z"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "budget-exceeded",
+      "message": "We read 20 pages and stopped. 64 more were found.",
+      "url": null
+    }
+  ]
+}

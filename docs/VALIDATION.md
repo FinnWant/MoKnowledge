@@ -15,9 +15,9 @@ All eight companies profiled in `Knowledge Outputs 2.13.26.pdf`:
 | # | Company | Site | Industry | Why it's a useful test |
 |---|---|---|---|---|
 | 1 | Account IT | `account-it.net` | Accounting / tax | Sparse profile — no employee count, no revenue; tests graceful degradation. Richest `Suppliers` list (13 vendors) → best vendor-detection test |
-| 2 | Bee Cave Drilling | `beecavedrilling.com` | Well drilling | 14 offerings, 8 people, 2 locations — the densest profile. All people testimonial-derived → primary `proof` test |
+| 2 | Bee Cave Drilling | `beecavedrilling.com` | Well drilling | 13 offerings, 8 people, 2 locations — the densest profile. All people testimonial-derived → primary `proof` test |
 | 3 | Elevation Group AZ | `elevationgroupaz.com` | Real estate | Has `Industry Outlook`; leaked `var(--e-global-typography-…)` font → CSS-variable resolution test |
-| 4 | J&D Insurance Associates | `jdinsassociates.com` | Insurance | Regulated industry, bilingual (EN/ES) → compliance + locale signals |
+| 4 | ~~J&D Insurance Associates~~ | `jdinsassociates.com` | Insurance | **Offline as of 2026-08-15** — see §2. Reference-only; no fixtures |
 | 5 | Luxury Homes Las Vegas | `luxuryhomeslasvegas.com` | Luxury real estate | Press mentions (LEI Magazine, LV Review Journal, Mansion Global) → `pressMentions` test |
 | 6 | MoFlo | `moflo.ai` | AI software | The grader's own company. Only profile with `Employee Count`; leaked `var(--font-family)` |
 | 7 | Night Owl Monitoring | `nightowlmonitoring.com` | IoT / water monitoring | Blog-heavy with FAQ sections and a glossary of terms → primary `contentIntelligence` test |
@@ -37,6 +37,12 @@ scraping roughly six months later. Sites will have changed — new staff, new pr
 A disagreement is not automatically our error. Every run records `fetchedAt`, and disagreements
 on volatile fields (people, pricing, offerings, colors) get a `possible-drift` marker rather
 than a failure.
+
+> **This stopped being hypothetical during P2.** `jdinsassociates.com` now serves a Wix
+> *ConnectYourDomain Error* page and returns 404 at every path, `/robots.txt` included. Its
+> golden profile is kept, because the reference data is still real, but there is nothing left
+> to score it against — **7 of 8 sites have fixtures**. Substituting a different site would
+> quietly weaken the comparison the golden set exists to support, so we don't.
 
 **The reference has known defects.** Documented in `ROADMAP.md` §2.3: unresolved CSS variables
 in `Fonts` for two profiles, and Account IT's `Art Style` describing a blank gray image because
@@ -71,18 +77,27 @@ reference is the goal, so precision penalties only apply to values that are actu
 ```
 tests/
   golden/
-    account-it.json           hand-transcribed from the PDF (comparable fields only)
-    bee-cave-drilling.json
+    sites.ts                  the 8-site registry
+    schema.ts                 zod shape of a transcribed profile
+    account-it.json           transcribed from the PDF (comparable fields only)
     …                          8 files
+    README.md                 transcription method and the judgment calls in it
   fixtures/
-    account-it/               snapshotted HTML per crawled page + manifest.json
-    …
+    load.ts                   the only path tests take to fixture HTML
+    sites/account-it/         snapshotted HTML per crawled page + manifest.json
+    …                          7 directories
 scripts/
   snapshot.ts                 crawl a golden site → write fixtures/ (manual, rate-limited)
   validate.ts                 run pipeline over fixtures → compare to golden/ → report
 ```
 
-- `npm run snapshot -- <slug>` — one-time capture, so tests never hit the network.
+Snapshots are stored **gzipped**: 36 MB of raw HTML across seven sites compresses to 5 MB,
+and asking for a 36 MB checkout to run a test suite isn't reasonable. `tests/fixtures/load.ts`
+decompresses transparently, so nothing downstream knows the difference.
+
+- `npm run snapshot -- <slug>` — one-time capture, so tests never hit the network. Refuses to
+  re-crawl a site that already has fixtures unless `--force` is passed, so an accidental
+  `npm run snapshot -- all` costs nobody any bandwidth.
 - `npm run validate` — scores every site, prints a per-field table plus totals.
 - Vitest extractor unit tests run against the same fixtures, keeping tests deterministic and
   fast while remaining grounded in real-world HTML.

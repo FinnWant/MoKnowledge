@@ -1,0 +1,209 @@
+{
+  "slug": "moflo",
+  "name": "MoFlo",
+  "url": "https://moflo.ai",
+  "source": "Knowledge Outputs 2.13.26.pdf",
+  "referenceGeneratedAt": "2026-02-13",
+  "knownReferenceDefects": [
+    "Fonts contains the unresolved CSS custom property \"var(--font-family), sans-serif\". We resolve custom properties and filter junk."
+  ],
+  "exact": {
+    "website": "moflo.ai",
+    "industry": "AI Software",
+    "companyRole": "Software as a Service (SaaS) Provider",
+    "yearFounded": 2025,
+    "legalEntityType": null,
+    "employeeCount": 10,
+    "revenue": null,
+    "mainAddress": "Las Vegas, NV",
+    "logoUrl": "https://cdn.brandfetch.io/idXZ56_bak/w/5334/h/5334/theme/dark/logo.png?c=1bxcw3yseq6vwnl9gh3c8i49h54jfw2F1w6",
+    "socials": {
+      "linkedin": "https://linkedin.com/company/mofloai",
+      "instagram": "https://instagram.com/mofloai",
+      "twitter": "https://twitter.com/MoFloAI"
+    }
+  },
+  "sets": {
+    "serviceLocations": [
+      "Global",
+      "United States"
+    ],
+    "otherLocations": [
+      "San Francisco",
+      "CA",
+      "Hoboken",
+      "NJ"
+    ],
+    "altNames": [],
+    "buyers": [
+      "Small and medium-sized businesses (SMBs)",
+      "Real Estate Professionals",
+      "High Tech Professionals",
+      "Trades & Services Companies",
+      "Franchise Operators",
+      "Professional Services Firms (Attorneys, Accountants, Financial Advisors, Consultants)",
+      "Insurance Agents & Brokers",
+      "Construction Companies"
+    ],
+    "industryGroupings": [
+      "Real Estate",
+      "High Tech",
+      "Trades & Services",
+      "Franchises",
+      "Professional Services",
+      "Insurance",
+      "Construction Channels: Direct Online Sales"
+    ],
+    "channels": [],
+    "funnels": [
+      "Website",
+      "Sales Team Demos",
+      "Content Marketing (Case Studies, Blogs)",
+      "Webinars",
+      "Product Waitlists"
+    ],
+    "ctas": [
+      "Start for free",
+      "Get a demo",
+      "Schedule a Demo",
+      "Contact Sales",
+      "Join the Waitlist Today"
+    ],
+    "suppliers": [],
+    "fonts": [
+      "var(--font-family)",
+      "sans-serif"
+    ],
+    "colors": [
+      "#4a4a4a",
+      "#ffffff",
+      "#2663eb"
+    ]
+  },
+  "records": {
+    "people": [
+      {
+        "name": "NATHAN",
+        "title": "CEO & Co-Founder",
+        "gender": "male"
+      },
+      {
+        "name": "TRISTAN",
+        "title": "President & Co-Founder",
+        "gender": "male"
+      },
+      {
+        "name": "CHRIS",
+        "title": "Cloud Team Lead Dev",
+        "gender": "male"
+      },
+      {
+        "name": "CANDY",
+        "title": "Administration",
+        "gender": "female"
+      },
+      {
+        "name": "SOTIRIS",
+        "title": "Cloud Team Dev",
+        "gender": "male"
+      },
+      {
+        "name": "LUCAS",
+        "title": "Cloud Team Dev",
+        "gender": "male"
+      },
+      {
+        "name": "ALEXANDER",
+        "title": "Cloud Team Dev",
+        "gender": "male"
+      },
+      {
+        "name": "JONATHAN",
+        "title": "Cloud Team Dev",
+        "gender": "male"
+      },
+      {
+        "name": "JEREMIAH",
+        "title": "Cloud Team Dev",
+        "gender": "male"
+      }
+    ],
+    "offerings": [
+      {
+        "name": "Business Bundle",
+        "category": "Package",
+        "pricing": "Discounted bundle pricing"
+      },
+      {
+        "name": "AI Solutions for Insurance Agents & Brokers",
+        "category": "Industry Solution",
+        "pricing": null
+      },
+      {
+        "name": "AI Solutions for Professional Services",
+        "category": "Industry Solution",
+        "pricing": null
+      },
+      {
+        "name": "AI Solutions for Franchise Operators",
+        "category": "Industry Solution",
+        "pricing": null
+      },
+      {
+        "name": "AI Solutions for Trades & Services Companies",
+        "category": "Industry Solution",
+        "pricing": null
+      },
+      {
+        "name": "AI Solutions for High Tech Professionals",
+        "category": "Industry Solution",
+        "pricing": null
+      },
+      {
+        "name": "AI Solutions for Real Estate Professionals",
+        "category": "Industry Solution",
+        "pricing": null
+      },
+      {
+        "name": "MoQuotes",
+        "category": "Product",
+        "pricing": null
+      },
+      {
+        "name": "MoClicks",
+        "category": "Product",
+        "pricing": null
+      },
+      {
+        "name": "MoBlogs",
+        "category": "Product",
+        "pricing": null
+      },
+      {
+        "name": "MoMail",
+        "category": "Product",
+        "pricing": null
+      },
+      {
+        "name": "MoLetters",
+        "category": "Product",
+        "pricing": null
+      },
+      {
+        "name": "MoLeads",
+        "category": "Product",
+        "pricing": null
+      },
+      {
+        "name": "MoSocial",
+        "category": "Product",
+        "pricing": "/month (after a 7-day free trial) — 149"
+      },
+      {
+        "name": "MoFlo Cloud",
+        "category": "Platform",
+        "pricing": null
+      }
+    ]
+  }
+}

@@ -311,6 +311,25 @@ SMB sites emit it.
 - **Completeness** — per-category fill rate, conflict detection, and generated follow-up
   questions. Feeds `quality`.
 
+### 5.4b What crawling the real sites changed (P2, built)
+
+Every one of these was found by running the crawler against the eight golden sites, not by
+reasoning about it beforehand. They are the substance of Answer #5 ("most challenging part").
+
+| Found | Fix |
+|---|---|
+| **Elevation Group AZ spent 9 of 20 budget slots on copies of its own homepage.** Half its nav 301s to `/`, and each alias looks like a distinct URL right up until the response arrives | Dedupe on the URL we *landed* on, after redirects resolve — not the one we requested |
+| **A 20-page budget fetched 23 pages.** All four workers passed the `pages.length < maxPages` check before any of them pushed a result | Claim the budget slot *before* the await; release it only if the fetch failed, so a dead link costs a request but not a page |
+| **The homepage was fetched twice** — crawled explicitly for its nav, then again out of the frontier, because the sitemap lists `/` like any other URL | Mark the origin seen before discovery runs, not after |
+| **`?et_blog=` cost Planet Orange three slots.** Divi appends the empty parameter to every archive link | Drop empty-valued query parameters during normalization — an empty parameter never selects content |
+| **`/help/privacy-policy` classified as FAQ**, because legal pages nest under help and resources sections | Check legal patterns anywhere in the path, before the ordered rules |
+| **A nav link's good label was overwritten by a body link's "click here"**, because the tiebreak preferred the longer string | Placement decides; length only breaks a tie *within* a placement |
+| **`response.url` is empty on some responses**, and an empty string fails the same-site check — which would report every page as an offsite redirect | Fall back to the requested URL |
+
+Concurrency is 4, but all four workers share one rate limiter, so throughput stays at the
+~1 req/sec the etiquette rules require. Concurrency buys tolerance of a slow page — Account
+IT timed out on 16 requests and still returned its 20 pages — not extra load on the host.
+
 ### 5.5 Failure modes we handle explicitly
 Non-200 / DNS failure · redirect to different domain · robots disallow · JS-rendered SPA with
 empty DOM · Cloudflare or bot challenge · non-HTML content type · timeout · site with a single
@@ -412,7 +431,7 @@ P8/P9 are the finish.
 | AI enrichment | **Mock by default, live Claude call when `ANTHROPIC_API_KEY` is set** | Prompts in `/prompts` are executable, not theoretical. Must degrade cleanly to mock with no key, and label output `AI (live)` vs `AI (mock)` distinctly |
 | Testing | Vitest unit tests on saved HTML fixtures | Covers extractors, reconciler, analyzers. No E2E layer |
 | Beyond-baseline scope | Exactly three: `proof`, `contentIntelligence`, `quality` (§4.2, [`docs/SCHEMA-EXTENSIONS.md`](docs/SCHEMA-EXTENSIONS.md)) | Seven other proposed extensions cut; they become the substance of Answer #4 |
-| Test corpus | The 8 companies from the reference PDF ([`docs/VALIDATION.md`](docs/VALIDATION.md)) | Enables measured accuracy claims by cross-referencing our output against MoFlo's own |
+| Test corpus | The 8 companies from the reference PDF ([`docs/VALIDATION.md`](docs/VALIDATION.md)) | Enables measured accuracy claims by cross-referencing our output against MoFlo's own. **7 of 8 captured** — `jdinsassociates.com` went offline between the reference date and ours |
 
 ### Follow-on work created by the live-LLM decision
 

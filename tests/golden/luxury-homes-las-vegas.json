@@ -1,0 +1,150 @@
+{
+  "slug": "luxury-homes-las-vegas",
+  "name": "Luxury Homes Las Vegas",
+  "url": "https://luxuryhomeslasvegas.com",
+  "source": "Knowledge Outputs 2.13.26.pdf",
+  "referenceGeneratedAt": "2026-02-13",
+  "knownReferenceDefects": [],
+  "exact": {
+    "website": "https://luxuryhomeslasvegas.com/",
+    "industry": "Luxury Real Estate",
+    "companyRole": "A boutique real estate brokerage specializing in marketing and selling luxury homes, high rise condos, penthouses, and land.",
+    "yearFounded": null,
+    "legalEntityType": null,
+    "employeeCount": null,
+    "revenue": "$1B+",
+    "mainAddress": "7945 W Sahara Avenue Suite 202",
+    "logoUrl": "https://cdn.brandfetch.io/idiMeDrCGC/w/3500/h/600/theme/light/logo.png?c=1bxcw3yseq6vwnl9gh3c8i49h54jfw2F1w6",
+    "socials": {
+      "facebook": "https://facebook.com/KamranZand",
+      "instagram": "https://instagram.com/kamranzand",
+      "twitter": "https://twitter.com/kamranzand"
+    }
+  },
+  "sets": {
+    "serviceLocations": [
+      "Las Vegas Valley",
+      "Nevada",
+      "The Strip",
+      "Las Vegas",
+      "Off-Strip",
+      "South Strip",
+      "Downtown Las Vegas",
+      "Summerlin",
+      "Queensridge",
+      "Henderson"
+    ],
+    "otherLocations": [],
+    "altNames": [
+      "Luxury Estates International",
+      "LEI"
+    ],
+    "buyers": [
+      "Affluent domestic and international buyers",
+      "The rich and famous",
+      "Professional athletes",
+      "Chinese entrepreneurs",
+      "investors",
+      "and affluent property owners",
+      "High-end clients"
+    ],
+    "industryGroupings": [],
+    "channels": [
+      "Online website with property search",
+      "Direct sales via real estate professionals"
+    ],
+    "funnels": [
+      "Social media marketing (Facebook, Instagram, Twitter, Snapchat)",
+      "Property highlight videos",
+      "Partnerships with specialized companies (e.g., Caimeiju for Chinese market, SportStar Relocation for athletes)",
+      "Company magazine (LEI Magazine)",
+      "Press features in publications (e.g., Las Vegas Review Journal, Mansion Global)",
+      "Company blog"
+    ],
+    "ctas": [
+      "SEARCH",
+      "BOOK APPOINTMENT",
+      "FIND A HOME",
+      "SELL A HOME",
+      "CONTACT KAMRAN"
+    ],
+    "suppliers": [
+      "Luxury Homes Photography",
+      "Caimeiju",
+      "SportStar Relocation (SSR)"
+    ],
+    "fonts": [
+      "gothambook"
+    ],
+    "colors": [
+      "#424242",
+      "#ffffff"
+    ]
+  },
+  "records": {
+    "people": [
+      {
+        "name": "Kamran Zand",
+        "title": "Owner and Founder",
+        "gender": "male"
+      },
+      {
+        "name": "Nattaly Aleman",
+        "title": null,
+        "gender": "female"
+      }
+    ],
+    "offerings": [
+      {
+        "name": "Equestrian Home Sales",
+        "category": "Niche Real Estate Brokerage",
+        "pricing": null
+      },
+      {
+        "name": "Golf Course Frontage Homes",
+        "category": "Niche Real Estate Brokerage",
+        "pricing": null
+      },
+      {
+        "name": "Online Luxury Property Search",
+        "category": "Digital Tool",
+        "pricing": null
+      },
+      {
+        "name": "International Marketing to Chinese Buyers",
+        "category": "International Real Estate Marketing",
+        "pricing": null
+      },
+      {
+        "name": "Athlete Relocation Services",
+        "category": "Specialized Relocation Service",
+        "pricing": null
+      },
+      {
+        "name": "Luxury Land & Vacant Lot Sales",
+        "category": "Real Estate Brokerage Service",
+        "pricing": null
+      },
+      {
+        "name": "Buyer Representation & Consultation",
+        "category": "Real Estate Consultation Service",
+        "pricing": null
+      },
+      {
+        "name": "Seller Representation & Advanced Property Marketing",
+        "category": "Real Estate Marketing Service",
+        "pricing": null
+      },
+      {
+        "name": "High-Rise Condo & Penthouse Sales",
+        "category": "Real Estate Brokerage Service",
+        "pricing": null
+      },
+      {
+        "name": "Luxury Home Brokerage",
+        "category": "Real Estate Brokerage Service",
+        "pricing": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "slug": "planet-orange",
+  "name": "Planet Orange",
+  "url": "https://planetorange.com",
+  "capturedAt": "2026-08-15T20:55:47.329Z",
+  "durationMs": 25180,
+  "pagesDiscovered": 189,
+  "pages": [
+    {
+      "file": "index.html.gz",
+      "url": "https://planetorange.com/",
+      "role": "home",
+      "status": 200,
+      "bytes": 265072,
+      "fetchedAt": "2026-08-15T20:55:27.289Z"
+    },
+    {
+      "file": "about-us.html.gz",
+      "url": "https://planetorange.com/about-us",
+      "role": "about",
+      "status": 200,
+      "bytes": 252589,
+      "fetchedAt": "2026-08-15T20:55:28.284Z"
+    },
+    {
+      "file": "contact-us.html.gz",
+      "url": "https://planetorange.com/contact-us",
+      "role": "contact",
+      "status": 200,
+      "bytes": 268317,
+      "fetchedAt": "2026-08-15T20:55:29.302Z"
+    },
+    {
+      "file": "about-us-working-with-us.html.gz",
+      "url": "https://planetorange.com/about-us/working-with-us",
+      "role": "about",
+      "status": 200,
+      "bytes": 200996,
+      "fetchedAt": "2026-08-15T20:55:30.259Z"
+    },
+    {
+      "file": "about-us-customer-reviews.html.gz",
+      "url": "https://planetorange.com/about-us/customer-reviews",
+      "role": "about",
+      "status": 200,
+      "bytes": 206372,
+      "fetchedAt": "2026-08-15T20:55:31.319Z"
+    },
+    {
+      "file": "about-us-page-2.html.gz",
+      "url": "https://planetorange.com/about-us/page/2",
+      "role": "about",
+      "status": 200,
+      "bytes": 252751,
+      "fetchedAt": "2026-08-15T20:55:33.042Z"
+    },
+    {
+      "file": "about-us-concord.html.gz",
+      "url": "https://planetorange.com/about-us/concord",
+      "role": "about",
+      "status": 200,
+      "bytes": 203120,
+      "fetchedAt": "2026-08-15T20:55:33.307Z"
+    },
+    {
+      "file": "about-us-our-location.html.gz",
+      "url": "https://planetorange.com/about-us/our-location",
+      "role": "about",
+      "status": 200,
+      "bytes": 183792,
+      "fetchedAt": "2026-08-15T20:55:34.279Z"
+    },
+    {
+      "file": "about-us-employment.html.gz",
+      "url": "https://planetorange.com/about-us/employment",
+      "role": "about",
+      "status": 200,
+      "bytes": 183584,
+      "fetchedAt": "2026-08-15T20:55:35.313Z"
+    },
+    {
+      "file": "contact-us-page-2.html.gz",
+      "url": "https://planetorange.com/contact-us/page/2",
+      "role": "contact",
+      "status": 200,
+      "bytes": 268450,
+      "fetchedAt": "2026-08-15T20:55:37.996Z"
+    },
+    {
+      "file": "about-us-san-jose.html.gz",
+      "url": "https://planetorange.com/about-us/san-jose",
+      "role": "about",
+      "status": 200,
+      "bytes": 206111,
+      "fetchedAt": "2026-08-15T20:55:38.529Z"
+    },
+    {
+      "file": "termite-and-pest.html.gz",
+      "url": "https://planetorange.com/termite-and-pest",
+      "role": "other",
+      "status": 200,
+      "bytes": 259354,
+      "fetchedAt": "2026-08-15T20:55:39.276Z"
+    },
+    {
+      "file": "pest-control.html.gz",
+      "url": "https://planetorange.com/pest-control",
+      "role": "other",
+      "status": 200,
+      "bytes": 262915,
+      "fetchedAt": "2026-08-15T20:55:40.261Z"
+    },
+    {
+      "file": "contact-us-page-3.html.gz",
+      "url": "https://planetorange.com/contact-us/page/3",
+      "role": "contact",
+      "status": 200,
+      "bytes": 268669,
+      "fetchedAt": "2026-08-15T20:55:42.040Z"
+    },
+    {
+      "file": "commercial-pest.html.gz",
+      "url": "https://planetorange.com/commercial-pest",
+      "role": "other",
+      "status": 200,
+      "bytes": 252339,
+      "fetchedAt": "2026-08-15T20:55:42.345Z"
+    },
+    {
+      "file": "pest-library.html.gz",
+      "url": "https://planetorange.com/pest-library",
+      "role": "other",
+      "status": 200,
+      "bytes": 283937,
+      "fetchedAt": "2026-08-15T20:55:43.291Z"
+    },
+    {
+      "file": "our-values.html.gz",
+      "url": "https://planetorange.com/our-values",
+      "role": "other",
+      "status": 200,
+      "bytes": 165457,
+      "fetchedAt": "2026-08-15T20:55:44.272Z"
+    },
+    {
+      "file": "contact-us-page-4.html.gz",
+      "url": "https://planetorange.com/contact-us/page/4",
+      "role": "contact",
+      "status": 200,
+      "bytes": 269173,
+      "fetchedAt": "2026-08-15T20:55:45.984Z"
+    },
+    {
+      "file": "kids-corner.html.gz",
+      "url": "https://planetorange.com/kids-corner",
+      "role": "other",
+      "status": 200,
+      "bytes": 181558,
+      "fetchedAt": "2026-08-15T20:55:46.261Z"
+    },
+    {
+      "file": "schedule-your-consultation.html.gz",
+      "url": "https://planetorange.com/schedule-your-consultation",
+      "role": "other",
+      "status": 200,
+      "bytes": 270191,
+      "fetchedAt": "2026-08-15T20:55:47.301Z"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "budget-exceeded",
+      "message": "We read 20 pages and stopped. 168 more were found, including 1 we'd have liked to read.",
+      "url": null
+    }
+  ]
+}

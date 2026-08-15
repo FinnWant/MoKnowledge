@@ -1,0 +1,177 @@
+{
+  "slug": "night-owl-monitoring",
+  "name": "Night Owl Monitoring",
+  "url": "https://nightowlmonitoring.com",
+  "capturedAt": "2026-08-15T20:51:34.669Z",
+  "durationMs": 21204,
+  "pagesDiscovered": 116,
+  "pages": [
+    {
+      "file": "index.html.gz",
+      "url": "https://nightowlmonitoring.com/",
+      "role": "home",
+      "status": 200,
+      "bytes": 180744,
+      "fetchedAt": "2026-08-15T20:51:15.341Z"
+    },
+    {
+      "file": "about-us.html.gz",
+      "url": "https://nightowlmonitoring.com/about-us/",
+      "role": "about",
+      "status": 200,
+      "bytes": 147984,
+      "fetchedAt": "2026-08-15T20:51:17.610Z"
+    },
+    {
+      "file": "contact-us.html.gz",
+      "url": "https://nightowlmonitoring.com/contact-us/",
+      "role": "contact",
+      "status": 200,
+      "bytes": 77772,
+      "fetchedAt": "2026-08-15T20:51:18.453Z"
+    },
+    {
+      "file": "products-nightowl-tlm.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-tlm",
+      "role": "products",
+      "status": 200,
+      "bytes": 121937,
+      "fetchedAt": "2026-08-15T20:51:19.769Z"
+    },
+    {
+      "file": "products-nightowl-flex.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-flex",
+      "role": "products",
+      "status": 200,
+      "bytes": 96885,
+      "fetchedAt": "2026-08-15T20:51:20.576Z"
+    },
+    {
+      "file": "products-nightowl-ultra.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-ultra",
+      "role": "products",
+      "status": 200,
+      "bytes": 135102,
+      "fetchedAt": "2026-08-15T20:51:20.966Z"
+    },
+    {
+      "file": "products-nightowl-hawk.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-hawk",
+      "role": "products",
+      "status": 200,
+      "bytes": 137936,
+      "fetchedAt": "2026-08-15T20:51:21.725Z"
+    },
+    {
+      "file": "products-nightowl-ultra-line-shaft-turbine-oil-sensor.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-ultra/line-shaft-turbine-oil-sensor",
+      "role": "products",
+      "status": 200,
+      "bytes": 74084,
+      "fetchedAt": "2026-08-15T20:51:22.596Z"
+    },
+    {
+      "file": "products-nightowl-ultra-air-temperature-and-humidity.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-ultra/air-temperature-and-humidity",
+      "role": "products",
+      "status": 200,
+      "bytes": 72654,
+      "fetchedAt": "2026-08-15T20:51:23.598Z"
+    },
+    {
+      "file": "products-nightowl-ultra-water-level-in-the-well.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-ultra/water-level-in-the-well",
+      "role": "products",
+      "status": 200,
+      "bytes": 84365,
+      "fetchedAt": "2026-08-15T20:51:24.565Z"
+    },
+    {
+      "file": "products-nightowl-ultra-storage-and-chemical-tank-levels.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-ultra/storage-and-chemical-tank-levels",
+      "role": "products",
+      "status": 200,
+      "bytes": 75920,
+      "fetchedAt": "2026-08-15T20:51:25.635Z"
+    },
+    {
+      "file": "products-nightowl-ultra-water-pressure.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-ultra/water-pressure",
+      "role": "products",
+      "status": 200,
+      "bytes": 81025,
+      "fetchedAt": "2026-08-15T20:51:26.594Z"
+    },
+    {
+      "file": "products-nightowl-ultra-water-flow.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-ultra/water-flow",
+      "role": "products",
+      "status": 200,
+      "bytes": 82050,
+      "fetchedAt": "2026-08-15T20:51:27.595Z"
+    },
+    {
+      "file": "products-nightowl-ultra-water-quality.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-ultra/water-quality",
+      "role": "products",
+      "status": 200,
+      "bytes": 73494,
+      "fetchedAt": "2026-08-15T20:51:28.577Z"
+    },
+    {
+      "file": "products-nightowl-ultra-power-monitoring.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-ultra/power-monitoring",
+      "role": "products",
+      "status": 200,
+      "bytes": 80291,
+      "fetchedAt": "2026-08-15T20:51:29.579Z"
+    },
+    {
+      "file": "products-nightowl-ultra-motor-temperature-and-vibration.html.gz",
+      "url": "https://nightowlmonitoring.com/products/nightowl-ultra/motor-temperature-and-vibration",
+      "role": "products",
+      "status": 200,
+      "bytes": 74602,
+      "fetchedAt": "2026-08-15T20:51:30.578Z"
+    },
+    {
+      "file": "tag-case-studies.html.gz",
+      "url": "https://nightowlmonitoring.com/tag/case-studies/",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 73986,
+      "fetchedAt": "2026-08-15T20:51:31.669Z"
+    },
+    {
+      "file": "success-stories.html.gz",
+      "url": "https://nightowlmonitoring.com/success-stories/",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 77564,
+      "fetchedAt": "2026-08-15T20:51:32.871Z"
+    },
+    {
+      "file": "tag-testimonial.html.gz",
+      "url": "https://nightowlmonitoring.com/tag/testimonial/",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 78380,
+      "fetchedAt": "2026-08-15T20:51:33.817Z"
+    },
+    {
+      "file": "case-studies-hidden-water-leak-detection-nightowl.html.gz",
+      "url": "https://nightowlmonitoring.com/case-studies/hidden-water-leak-detection-nightowl",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 113701,
+      "fetchedAt": "2026-08-15T20:51:34.629Z"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "budget-exceeded",
+      "message": "We read 20 pages and stopped. 96 more were found, including 3 we'd have liked to read.",
+      "url": null
+    }
+  ]
+}

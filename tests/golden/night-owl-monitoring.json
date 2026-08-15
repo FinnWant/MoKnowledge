@@ -1,0 +1,185 @@
+{
+  "slug": "night-owl-monitoring",
+  "name": "Night Owl Monitoring",
+  "url": "https://nightowlmonitoring.com",
+  "source": "Knowledge Outputs 2.13.26.pdf",
+  "referenceGeneratedAt": "2026-02-13",
+  "knownReferenceDefects": [],
+  "exact": {
+    "website": "nightowlmonitoring.com",
+    "industry": "Water Well Monitoring and Control Systems",
+    "companyRole": "Provider of smart water well monitoring and control systems, including hardware (sensors) and software (cloud dashboards, mobile app), to deliver real-time visibility, reliability, and control for water wells, storage tanks, and pumping systems.",
+    "yearFounded": null,
+    "legalEntityType": null,
+    "employeeCount": null,
+    "revenue": null,
+    "mainAddress": null,
+    "logoUrl": "https://cdn.brandfetch.io/idukmYjMM4/w/200/h/53/theme/dark/logo.png?c=1bxcw3yseq6vwnl9gh3c8i49h54jfw2F1w6",
+    "socials": {
+      "linkedin": "https://linkedin.com/company/nightowl-monitoring-llc",
+      "facebook": "https://facebook.com/profile.php?id=61576121147948",
+      "instagram": "https://instagram.com/nightowl_monitoring",
+      "twitter": "https://twitter.com/monitoring34604"
+    }
+  },
+  "sets": {
+    "serviceLocations": [
+      "Texas Panhandle",
+      "Canyon-Amarillo area",
+      "Texas",
+      "Salinas Valley",
+      "California",
+      "San Marcos"
+    ],
+    "otherLocations": [],
+    "altNames": [
+      "NOM"
+    ],
+    "buyers": [
+      "Well Drillers and Service Companies",
+      "Homeowners with private wells",
+      "Agricultural operations",
+      "Commercial and Industrial facilities",
+      "Community water systems",
+      "Water and Wastewater Utilities",
+      "Property managers",
+      "System Integrators"
+    ],
+    "industryGroupings": [
+      "Water Well Drilling and Service",
+      "Groundwater Management",
+      "Rural Water Systems",
+      "Municipal Water Supply",
+      "Agricultural Irrigation",
+      "Water and Wastewater Utilities"
+    ],
+    "channels": [
+      "Direct sales via website",
+      "B2B partnerships with well professionals (drillers, service companies)"
+    ],
+    "funnels": [
+      "Content Marketing (Blog)",
+      "Lead Generation Forms (Contact Us, Subscribe)",
+      "Demo Dashboard",
+      "Testimonials and Case Studies",
+      "Partnership Program for Well Drillers",
+      "Industry Trade Shows and Events"
+    ],
+    "ctas": [
+      "Partner With Us",
+      "Click Here",
+      "Learn More",
+      "Contact Us",
+      "Submit",
+      "Access the Demo Dashboard",
+      "Read More",
+      "Schedule your demo"
+    ],
+    "suppliers": [],
+    "fonts": [
+      "var( --e-global-typography-9b3d8d7-font-family )",
+      "var( --e-global-typography-text-font-family )"
+    ],
+    "colors": [
+      "#31b131",
+      "#ffffff",
+      "#59cff6"
+    ]
+  },
+  "records": {
+    "people": [
+      {
+        "name": "Jim Blair",
+        "title": "CEO & Co-Founder",
+        "gender": "male"
+      },
+      {
+        "name": "Chris Sosnowski",
+        "title": "Founder and CEO",
+        "gender": "male"
+      },
+      {
+        "name": "Ryan Jefferson",
+        "title": "General Manager and Lead Sales Engineer",
+        "gender": "male"
+      },
+      {
+        "name": "Chad Patterson",
+        "title": "Service Manager",
+        "gender": "male"
+      },
+      {
+        "name": "Sean Trapp",
+        "title": null,
+        "gender": "male"
+      },
+      {
+        "name": "LeRoy McGrue",
+        "title": "Director of Water Services, Empire Pump Corp.",
+        "gender": "male"
+      },
+      {
+        "name": "Shane Curry",
+        "title": "Owner",
+        "gender": null
+      },
+      {
+        "name": "Gerard",
+        "title": null,
+        "gender": null
+      }
+    ],
+    "offerings": [
+      {
+        "name": "Continuing Education for Water Professionals",
+        "category": "Educational Service",
+        "pricing": "Event-based"
+      },
+      {
+        "name": "Customizable Monitoring Solutions",
+        "category": "Professional Service",
+        "pricing": "Custom Subscription"
+      },
+      {
+        "name": "Residential Well Monitoring",
+        "category": "Consumer Solution",
+        "pricing": null
+      },
+      {
+        "name": "Agricultural Well Monitoring Solutions",
+        "category": "Industry Solution",
+        "pricing": null
+      },
+      {
+        "name": "Well Driller Partnership Program",
+        "category": "Partnership Program",
+        "pricing": "Partnership/Reseller Model"
+      },
+      {
+        "name": "Remote System Control",
+        "category": "Core Feature",
+        "pricing": "Included with monitoring service"
+      },
+      {
+        "name": "Instant Notifications and Reporting",
+        "category": "Core Feature",
+        "pricing": "Included with monitoring service"
+      },
+      {
+        "name": "Remote System Monitoring",
+        "category": "Core Feature",
+        "pricing": "Included with monitoring service"
+      },
+      {
+        "name": "NightOwl Live Dashboard",
+        "category": "Software Platform",
+        "pricing": "Included with monitoring service"
+      },
+      {
+        "name": "Smart Water Well Monitoring and Control System",
+        "category": "Hardware & Software Solution",
+        "pricing": null
+      }
+    ]
+  }
+}

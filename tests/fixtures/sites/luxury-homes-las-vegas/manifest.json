@@ -1,0 +1,177 @@
+{
+  "slug": "luxury-homes-las-vegas",
+  "name": "Luxury Homes Las Vegas",
+  "url": "https://luxuryhomeslasvegas.com",
+  "capturedAt": "2026-08-15T20:50:47.619Z",
+  "durationMs": 58083,
+  "pagesDiscovered": 241,
+  "pages": [
+    {
+      "file": "index.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/",
+      "role": "home",
+      "status": 200,
+      "bytes": 475227,
+      "fetchedAt": "2026-08-15T20:50:23.695Z"
+    },
+    {
+      "file": "contact-us.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/contact-us",
+      "role": "contact",
+      "status": 200,
+      "bytes": 368461,
+      "fetchedAt": "2026-08-15T20:50:24.166Z"
+    },
+    {
+      "file": "team.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/team",
+      "role": "team",
+      "status": 200,
+      "bytes": 365416,
+      "fetchedAt": "2026-08-15T20:50:25.191Z"
+    },
+    {
+      "file": "testimonials.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/testimonials",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 371206,
+      "fetchedAt": "2026-08-15T20:50:26.110Z"
+    },
+    {
+      "file": "team-kamran-zand.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/team/kamran-zand",
+      "role": "team",
+      "status": 200,
+      "bytes": 355448,
+      "fetchedAt": "2026-08-15T20:50:29.102Z"
+    },
+    {
+      "file": "sellers.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/sellers/",
+      "role": "other",
+      "status": 200,
+      "bytes": 492736,
+      "fetchedAt": "2026-08-15T20:50:30.515Z"
+    },
+    {
+      "file": "team-sabrina-demarco.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/team/sabrina-demarco",
+      "role": "team",
+      "status": 200,
+      "bytes": 355852,
+      "fetchedAt": "2026-08-15T20:50:31.098Z"
+    },
+    {
+      "file": "team-nattaly-zand.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/team/nattaly-zand/",
+      "role": "team",
+      "status": 200,
+      "bytes": 355230,
+      "fetchedAt": "2026-08-15T20:50:33.152Z"
+    },
+    {
+      "file": "communities.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/communities/",
+      "role": "other",
+      "status": 200,
+      "bytes": 614894,
+      "fetchedAt": "2026-08-15T20:50:36.581Z"
+    },
+    {
+      "file": "team-alma-torres.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/team/alma-torres/",
+      "role": "team",
+      "status": 200,
+      "bytes": 355512,
+      "fetchedAt": "2026-08-15T20:50:37.388Z"
+    },
+    {
+      "file": "team-jennifer-stilz.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/team/jennifer-stilz/",
+      "role": "team",
+      "status": 200,
+      "bytes": 355271,
+      "fetchedAt": "2026-08-15T20:50:37.778Z"
+    },
+    {
+      "file": "team-eric-white.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/team/eric-white",
+      "role": "team",
+      "status": 200,
+      "bytes": 355478,
+      "fetchedAt": "2026-08-15T20:50:37.838Z"
+    },
+    {
+      "file": "team-mandy-domingues.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/team/mandy-domingues/",
+      "role": "team",
+      "status": 200,
+      "bytes": 357048,
+      "fetchedAt": "2026-08-15T20:50:38.230Z"
+    },
+    {
+      "file": "team-joseph-klinge.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/team/joseph-klinge",
+      "role": "team",
+      "status": 200,
+      "bytes": 355693,
+      "fetchedAt": "2026-08-15T20:50:38.825Z"
+    },
+    {
+      "file": "testimonials-9501-balatta-canyon-court.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/testimonials/9501-balatta-canyon-court",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 355055,
+      "fetchedAt": "2026-08-15T20:50:39.847Z"
+    },
+    {
+      "file": "testimonials-10324-summit-canyon-drive.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/testimonials/10324-summit-canyon-drive",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 495044,
+      "fetchedAt": "2026-08-15T20:50:41.021Z"
+    },
+    {
+      "file": "team-dylan-acosta.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/team/dylan-acosta/",
+      "role": "team",
+      "status": 200,
+      "bytes": 355283,
+      "fetchedAt": "2026-08-15T20:50:41.503Z"
+    },
+    {
+      "file": "testimonials-fairway-hills-unit-1075.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/testimonials/fairway-hills-unit-1075/",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 354630,
+      "fetchedAt": "2026-08-15T20:50:45.885Z"
+    },
+    {
+      "file": "testimonials-3470-cosima-lane.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/testimonials/3470-cosima-lane/",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 492815,
+      "fetchedAt": "2026-08-15T20:50:46.769Z"
+    },
+    {
+      "file": "testimonials-9801-orient-express-court.html.gz",
+      "url": "https://luxuryhomeslasvegas.com/testimonials/9801-orient-express-court/",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 493319,
+      "fetchedAt": "2026-08-15T20:50:47.550Z"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "budget-exceeded",
+      "message": "We read 20 pages and stopped. 221 more were found, including 2 we'd have liked to read.",
+      "url": null
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "slug": "account-it",
+  "name": "Account IT",
+  "url": "https://account-it.net",
+  "source": "Knowledge Outputs 2.13.26.pdf",
+  "referenceGeneratedAt": "2026-02-13",
+  "knownReferenceDefects": [
+    "Art Style describes \"a flat, monochromatic field of solid gray\" — the reference is narrating a failed logo fetch, not the brand. We validate the asset before describing it."
+  ],
+  "exact": {
+    "website": "https://account-it.net/",
+    "industry": "Accounting and Tax Services",
+    "companyRole": "Service Provider",
+    "yearFounded": 2003,
+    "legalEntityType": "LLC",
+    "employeeCount": null,
+    "revenue": null,
+    "mainAddress": "Boynton Beach, Florida 33437",
+    "logoUrl": "https://cdn.brandfetch.io/idgkRfawcH/w/32/h/32/theme/dark/logo.png?c=1bxcw3yseq6vwnl9gh3c8i49h54jfw2F1w6",
+    "socials": {
+      "linkedin": "https://linkedin.com/company/account-it-consulting-services",
+      "facebook": "https://facebook.com/account.itconsulting"
+    }
+  },
+  "sets": {
+    "serviceLocations": [
+      "Florida",
+      "Boynton Beach",
+      "South Florida"
+    ],
+    "otherLocations": [],
+    "altNames": [
+      "Account-it Consulting Services, LLC"
+    ],
+    "buyers": [
+      "individuals",
+      "businesses",
+      "brand-new businesses",
+      "businesses nearing retirement",
+      "small businesses with 1 to 10 employees"
+    ],
+    "industryGroupings": [],
+    "channels": [
+      "Online via website"
+    ],
+    "funnels": [
+      "Contact form",
+      "Appointment scheduler",
+      "Newsletter signup",
+      "Client referrals"
+    ],
+    "ctas": [
+      "Get started",
+      "Schedule Appointment",
+      "Contact us",
+      "Submit",
+      "Notify me",
+      "Make an Appointment"
+    ],
+    "suppliers": [
+      "Box.com",
+      "Google",
+      "Rackspace",
+      "DialogTech",
+      "Wufoo.com",
+      "Sendgrid",
+      "Twilio",
+      "Plausible",
+      "Amazon Web Services",
+      "Yext",
+      "MailGun",
+      "Bright Local",
+      "TransUnion"
+    ],
+    "fonts": [
+      "Inter"
+    ],
+    "colors": [
+      "#8a8a8a",
+      "#202938",
+      "#f9fafc"
+    ]
+  },
+  "records": {
+    "people": [
+      {
+        "name": "Doug Cohen",
+        "title": "Founder and CPA",
+        "gender": "male"
+      }
+    ],
+    "offerings": [
+      {
+        "name": "Estate, Gift & Trust Return Preparation",
+        "category": "Tax Services",
+        "pricing": null
+      },
+      {
+        "name": "Business Start-Up Services",
+        "category": "Business Services",
+        "pricing": null
+      },
+      {
+        "name": "Accounting & Bookkeeping",
+        "category": "Business Services",
+        "pricing": null
+      },
+      {
+        "name": "Part-time/Interim CFO and Controller Services",
+        "category": "Financial Consulting",
+        "pricing": null
+      },
+      {
+        "name": "QuickBooks Services",
+        "category": "Business Services",
+        "pricing": null
+      },
+      {
+        "name": "IRS Tax Problem Resolution",
+        "category": "IRS Representation",
+        "pricing": null
+      },
+      {
+        "name": "Payroll Services",
+        "category": "Business Services",
+        "pricing": null
+      },
+      {
+        "name": "Tax Preparation & Planning",
+        "category": "Tax Services",
+        "pricing": null
+      }
+    ]
+  }
+}

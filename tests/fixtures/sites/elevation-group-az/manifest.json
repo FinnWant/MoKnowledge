@@ -1,0 +1,107 @@
+{
+  "slug": "elevation-group-az",
+  "name": "Elevation Group AZ",
+  "url": "https://elevationgroupaz.com",
+  "capturedAt": "2026-08-15T20:54:30.457Z",
+  "durationMs": 39797,
+  "pagesDiscovered": 44,
+  "pages": [
+    {
+      "file": "index.html.gz",
+      "url": "https://elevationgroupaz.com/",
+      "role": "home",
+      "status": 200,
+      "bytes": 142070,
+      "fetchedAt": "2026-08-15T20:53:51.394Z"
+    },
+    {
+      "file": "contact-us.html.gz",
+      "url": "https://elevationgroupaz.com/contact-us",
+      "role": "contact",
+      "status": 200,
+      "bytes": 65724,
+      "fetchedAt": "2026-08-15T20:53:52.498Z"
+    },
+    {
+      "file": "kelly-jones.html.gz",
+      "url": "https://elevationgroupaz.com/kelly-jones",
+      "role": "other",
+      "status": 200,
+      "bytes": 70712,
+      "fetchedAt": "2026-08-15T20:53:54.507Z"
+    },
+    {
+      "file": "thomas-scott.html.gz",
+      "url": "https://elevationgroupaz.com/thomas-scott",
+      "role": "other",
+      "status": 200,
+      "bytes": 68302,
+      "fetchedAt": "2026-08-15T20:53:54.646Z"
+    },
+    {
+      "file": "elizabeth-flynn.html.gz",
+      "url": "https://elevationgroupaz.com/elizabeth-flynn",
+      "role": "other",
+      "status": 200,
+      "bytes": 65671,
+      "fetchedAt": "2026-08-15T20:53:55.490Z"
+    },
+    {
+      "file": "scottsdale.html.gz",
+      "url": "https://elevationgroupaz.com/scottsdale",
+      "role": "other",
+      "status": 200,
+      "bytes": 102154,
+      "fetchedAt": "2026-08-15T20:53:56.669Z"
+    },
+    {
+      "file": "arcadia.html.gz",
+      "url": "https://elevationgroupaz.com/arcadia",
+      "role": "other",
+      "status": 200,
+      "bytes": 96036,
+      "fetchedAt": "2026-08-15T20:53:57.374Z"
+    },
+    {
+      "file": "paradise-valley.html.gz",
+      "url": "https://elevationgroupaz.com/paradise-valley",
+      "role": "other",
+      "status": 200,
+      "bytes": 96092,
+      "fetchedAt": "2026-08-15T20:53:58.476Z"
+    },
+    {
+      "file": "phoenix.html.gz",
+      "url": "https://elevationgroupaz.com/phoenix",
+      "role": "other",
+      "status": 200,
+      "bytes": 93609,
+      "fetchedAt": "2026-08-15T20:53:59.384Z"
+    },
+    {
+      "file": "featured-listings.html.gz",
+      "url": "https://elevationgroupaz.com/featured-listings",
+      "role": "other",
+      "status": 200,
+      "bytes": 70320,
+      "fetchedAt": "2026-08-15T20:54:00.395Z"
+    },
+    {
+      "file": "sold-listings.html.gz",
+      "url": "https://elevationgroupaz.com/sold-listings",
+      "role": "other",
+      "status": 200,
+      "bytes": 79409,
+      "fetchedAt": "2026-08-15T20:54:01.397Z"
+    },
+    {
+      "file": "blog.html.gz",
+      "url": "https://elevationgroupaz.com/blog",
+      "role": "blog-index",
+      "status": 200,
+      "bytes": 113815,
+      "fetchedAt": "2026-08-15T20:54:02.463Z"
+    }
+  ],
+  "warnings": []
+}

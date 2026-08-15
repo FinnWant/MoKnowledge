@@ -1,0 +1,177 @@
+{
+  "slug": "moflo",
+  "name": "MoFlo",
+  "url": "https://moflo.ai",
+  "capturedAt": "2026-08-15T20:51:10.353Z",
+  "durationMs": 19647,
+  "pagesDiscovered": 67,
+  "pages": [
+    {
+      "file": "index.html.gz",
+      "url": "https://moflo.ai/",
+      "role": "home",
+      "status": 200,
+      "bytes": 965887,
+      "fetchedAt": "2026-08-15T20:50:51.269Z"
+    },
+    {
+      "file": "about.html.gz",
+      "url": "https://moflo.ai/about",
+      "role": "about",
+      "status": 200,
+      "bytes": 1347654,
+      "fetchedAt": "2026-08-15T20:50:52.283Z"
+    },
+    {
+      "file": "contact.html.gz",
+      "url": "https://moflo.ai/contact",
+      "role": "contact",
+      "status": 200,
+      "bytes": 547443,
+      "fetchedAt": "2026-08-15T20:50:53.267Z"
+    },
+    {
+      "file": "case-studies.html.gz",
+      "url": "https://moflo.ai/case-studies",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 532625,
+      "fetchedAt": "2026-08-15T20:50:54.230Z"
+    },
+    {
+      "file": "case-studies-social-media.html.gz",
+      "url": "https://moflo.ai/case-studies/social-media",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 556384,
+      "fetchedAt": "2026-08-15T20:50:55.323Z"
+    },
+    {
+      "file": "case-studies-target-list.html.gz",
+      "url": "https://moflo.ai/case-studies/target-list",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 560679,
+      "fetchedAt": "2026-08-15T20:50:56.260Z"
+    },
+    {
+      "file": "case-studies-lead-generation.html.gz",
+      "url": "https://moflo.ai/case-studies/lead-generation",
+      "role": "testimonials",
+      "status": 200,
+      "bytes": 554961,
+      "fetchedAt": "2026-08-15T20:50:57.258Z"
+    },
+    {
+      "file": "pricing.html.gz",
+      "url": "https://moflo.ai/pricing",
+      "role": "pricing",
+      "status": 200,
+      "bytes": 730907,
+      "fetchedAt": "2026-08-15T20:50:58.255Z"
+    },
+    {
+      "file": "help.html.gz",
+      "url": "https://moflo.ai/help",
+      "role": "faq",
+      "status": 200,
+      "bytes": 489014,
+      "fetchedAt": "2026-08-15T20:50:59.224Z"
+    },
+    {
+      "file": "help-faqs.html.gz",
+      "url": "https://moflo.ai/help/faqs",
+      "role": "faq",
+      "status": 200,
+      "bytes": 505956,
+      "fetchedAt": "2026-08-15T20:51:00.239Z"
+    },
+    {
+      "file": "help-getting-started.html.gz",
+      "url": "https://moflo.ai/help/getting-started",
+      "role": "faq",
+      "status": 200,
+      "bytes": 477161,
+      "fetchedAt": "2026-08-15T20:51:01.229Z"
+    },
+    {
+      "file": "changelog.html.gz",
+      "url": "https://moflo.ai/changelog",
+      "role": "other",
+      "status": 200,
+      "bytes": 815098,
+      "fetchedAt": "2026-08-15T20:51:02.688Z"
+    },
+    {
+      "file": "careers.html.gz",
+      "url": "https://moflo.ai/careers",
+      "role": "other",
+      "status": 200,
+      "bytes": 616744,
+      "fetchedAt": "2026-08-15T20:51:03.306Z"
+    },
+    {
+      "file": "integrations.html.gz",
+      "url": "https://moflo.ai/integrations",
+      "role": "other",
+      "status": 200,
+      "bytes": 688264,
+      "fetchedAt": "2026-08-15T20:51:04.282Z"
+    },
+    {
+      "file": "book-a-demo.html.gz",
+      "url": "https://moflo.ai/book-a-demo",
+      "role": "other",
+      "status": 200,
+      "bytes": 492722,
+      "fetchedAt": "2026-08-15T20:51:05.268Z"
+    },
+    {
+      "file": "blog.html.gz",
+      "url": "https://moflo.ai/blog",
+      "role": "blog-index",
+      "status": 200,
+      "bytes": 507649,
+      "fetchedAt": "2026-08-15T20:51:06.217Z"
+    },
+    {
+      "file": "flo-gen.html.gz",
+      "url": "https://moflo.ai/flo-gen",
+      "role": "other",
+      "status": 200,
+      "bytes": 685760,
+      "fetchedAt": "2026-08-15T20:51:07.315Z"
+    },
+    {
+      "file": "brand-power.html.gz",
+      "url": "https://moflo.ai/brand-power",
+      "role": "other",
+      "status": 200,
+      "bytes": 628746,
+      "fetchedAt": "2026-08-15T20:51:08.283Z"
+    },
+    {
+      "file": "check-brand-health.html.gz",
+      "url": "https://moflo.ai/check-brand-health",
+      "role": "other",
+      "status": 200,
+      "bytes": 594150,
+      "fetchedAt": "2026-08-15T20:51:09.263Z"
+    },
+    {
+      "file": "visibility-score.html.gz",
+      "url": "https://moflo.ai/visibility-score",
+      "role": "other",
+      "status": 200,
+      "bytes": 558545,
+      "fetchedAt": "2026-08-15T20:51:10.262Z"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "budget-exceeded",
+      "message": "We read 20 pages and stopped. 47 more were found.",
+      "url": null
+    }
+  ]
+}

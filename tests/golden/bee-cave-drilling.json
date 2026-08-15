@@ -1,0 +1,201 @@
+{
+  "slug": "bee-cave-drilling",
+  "name": "Bee Cave Drilling",
+  "url": "https://beecavedrilling.com",
+  "source": "Knowledge Outputs 2.13.26.pdf",
+  "referenceGeneratedAt": "2026-02-13",
+  "knownReferenceDefects": [],
+  "exact": {
+    "website": "beecavedrilling.com",
+    "industry": "Water Well Drilling and Services",
+    "companyRole": "Service provider specializing in the design, drilling, installation, and maintenance of water wells and pumping systems.",
+    "yearFounded": 1980,
+    "legalEntityType": "Inc",
+    "employeeCount": null,
+    "revenue": null,
+    "mainAddress": "185 Angel Fire Rd., Dripping Springs, TX 78620",
+    "logoUrl": "https://cdn.brandfetch.io/idtlqQgFa4/w/2500/h/785/theme/dark/logo.png?c=1bxcw3yseq6vwnl9gh3c8i49h54jfw2F1w6",
+    "socials": {
+      "linkedin": "https://linkedin.com/company/bee-cave-drilling-inc",
+      "facebook": "https://facebook.com/BeeCaveDrilling"
+    }
+  },
+  "sets": {
+    "serviceLocations": [
+      "Texas Hill Country",
+      "Dripping Springs",
+      "TX",
+      "Burnet"
+    ],
+    "otherLocations": [
+      "4231 E Hwy 29",
+      "Burnet",
+      "TX 78611"
+    ],
+    "altNames": [
+      "Bee Cave Drilling Inc"
+    ],
+    "buyers": [
+      "Residential homeowners",
+      "Commercial clients",
+      "Agricultural clients",
+      "Public/Community entities",
+      "Contractors"
+    ],
+    "industryGroupings": [
+      "Water Drilling",
+      "Pumping Systems",
+      "Well Inspections",
+      "Well Maintenance",
+      "Public Supply Wells",
+      "Well Plugging"
+    ],
+    "channels": [
+      "Direct Sales (via website forms and phone calls)"
+    ],
+    "funnels": [
+      "Free Estimate/Quote Forms",
+      "Service Request Forms",
+      "Well Inspection Scheduling",
+      "Newsletter Signup",
+      "Promotional Offers (e.g., Fall Water Well Savings)",
+      "Financing Options (through Regions Bank and NGWA)",
+      "Educational Content (FAQs, Videos, Articles)"
+    ],
+    "ctas": [
+      "Contact Request",
+      "Get an Estimate",
+      "Schedule My Inspection",
+      "CALL 512.273.7389 TODAY TO GET STARTED",
+      "GET MY FREE QUOTE",
+      "Get My Payment Options",
+      "Talk to a Project Manager",
+      "Request an Estimate",
+      "Apply Now"
+    ],
+    "suppliers": [
+      "National Ground Water Association (NGWA)",
+      "Regions Bank"
+    ],
+    "fonts": [
+      "DM Serif Text",
+      "Poppins"
+    ],
+    "colors": [
+      "#363636",
+      "#ffffff",
+      "#1033cf"
+    ]
+  },
+  "records": {
+    "people": [
+      {
+        "name": "Jim Blair",
+        "title": null,
+        "gender": "male"
+      },
+      {
+        "name": "Ethan",
+        "title": "Technician",
+        "gender": "male"
+      },
+      {
+        "name": "Kevin",
+        "title": null,
+        "gender": "male"
+      },
+      {
+        "name": "Alexander",
+        "title": null,
+        "gender": "male"
+      },
+      {
+        "name": "Melanie",
+        "title": null,
+        "gender": "female"
+      },
+      {
+        "name": "Shawn",
+        "title": null,
+        "gender": "male"
+      },
+      {
+        "name": "Barry",
+        "title": "Repair man",
+        "gender": "male"
+      },
+      {
+        "name": "Kenneth",
+        "title": "Repair man",
+        "gender": "male"
+      }
+    ],
+    "offerings": [
+      {
+        "name": "Cathodic Protection",
+        "category": "Service",
+        "pricing": "Per Project"
+      },
+      {
+        "name": "Pressure Cementing",
+        "category": "Service",
+        "pricing": "Per Project"
+      },
+      {
+        "name": "Groundwater Availability Studies",
+        "category": "Service",
+        "pricing": "Per Project"
+      },
+      {
+        "name": "Well Plugging & Decommissioning",
+        "category": "Service",
+        "pricing": "Per Project"
+      },
+      {
+        "name": "Solar Pumping Systems",
+        "category": "System Installation",
+        "pricing": "Free Estimate"
+      },
+      {
+        "name": "Irrigation & Industrial Wells",
+        "category": "Service",
+        "pricing": "Per Project"
+      },
+      {
+        "name": "Residential Financing",
+        "category": "Financial Service",
+        "pricing": "Loan terms vary (e.g., 9.99% APR)"
+      },
+      {
+        "name": "Public Supply Wells",
+        "category": "Service",
+        "pricing": "Per Project"
+      },
+      {
+        "name": "Water Well Service & Repair",
+        "category": "Service",
+        "pricing": "Per Service Call"
+      },
+      {
+        "name": "Well Maintenance",
+        "category": "Service",
+        "pricing": "Maintenance Contracts"
+      },
+      {
+        "name": "Well Inspections",
+        "category": "Service",
+        "pricing": "Per Inspection"
+      },
+      {
+        "name": "Pumping Systems",
+        "category": "System Installation",
+        "pricing": "Free Estimate"
+      },
+      {
+        "name": "Water Well Drilling",
+        "category": "Service",
+        "pricing": "Free Estimate / Per Project"
+      }
+    ]
+  }
+}

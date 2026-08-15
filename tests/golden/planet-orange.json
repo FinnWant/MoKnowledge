@@ -1,0 +1,164 @@
+{
+  "slug": "planet-orange",
+  "name": "Planet Orange",
+  "url": "https://planetorange.com",
+  "source": "Knowledge Outputs 2.13.26.pdf",
+  "referenceGeneratedAt": "2026-02-13",
+  "knownReferenceDefects": [],
+  "exact": {
+    "website": "planetorange.com",
+    "industry": "Pest Control Services",
+    "companyRole": "Direct-to-Consumer (D2C) and Business-to-Business (B2B) Service Provider",
+    "yearFounded": null,
+    "legalEntityType": null,
+    "employeeCount": null,
+    "revenue": null,
+    "mainAddress": "434 E. Brokaw Rd, San Jose, CA 95112",
+    "logoUrl": "https://cdn.brandfetch.io/idmhQ_eSpG/w/165/h/91/theme/light/logo.png?c=1bxcw3yseq6vwnl9gh3c8i49h54jfw2F1w6",
+    "socials": {}
+  },
+  "sets": {
+    "serviceLocations": [
+      "Greater Bay Area",
+      "Greater San Francisco Bay Area",
+      "Northern California",
+      "San Jose",
+      "San Francisco",
+      "Oakland",
+      "Santa Cruz",
+      "Monterey",
+      "Silicon Valley",
+      "Concord",
+      "Palo Alto",
+      "Pleasanton",
+      "Fremont",
+      "Marin County",
+      "Santa Cruz County",
+      "Monterey County",
+      "North Bay",
+      "South Bay"
+    ],
+    "otherLocations": [
+      "Concord",
+      "CA"
+    ],
+    "altNames": [],
+    "buyers": [
+      "Residential Homeowners",
+      "Commercial Clients",
+      "Industrial Clients",
+      "Food Services (Restaurants & Cafeterias)",
+      "Healthcare Facilities",
+      "Hotels",
+      "Multi-unit Dwellings",
+      "Public Properties",
+      "Large Venues (Levi’s® Stadium, AT&T Park)",
+      "Non-profits (The Red Cross)",
+      "Nurseries (Fremont Children's Nursery)"
+    ],
+    "industryGroupings": [],
+    "channels": [
+      "Online (Website)",
+      "Phone"
+    ],
+    "funnels": [
+      "Website contact forms (Get An Estimate, Schedule Your Consultation)",
+      "Direct phone calls",
+      "Free termite inspection leading to a service proposal"
+    ],
+    "ctas": [
+      "Get An Estimate",
+      "Schedule Your Consultation",
+      "Call 1-800-767-2643",
+      "Learn More"
+    ],
+    "suppliers": [
+      "Authorize.Net",
+      "XT-2000 Orange Oil"
+    ],
+    "fonts": [
+      "Raleway",
+      "ETmodules"
+    ],
+    "colors": [
+      "#f35e09",
+      "#111111",
+      "#ffffff"
+    ]
+  },
+  "records": {
+    "people": [],
+    "offerings": [
+      {
+        "name": "Spider Control",
+        "category": "Pest Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Cockroach Control",
+        "category": "Pest Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Ant Control",
+        "category": "Pest Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Bed Bug Control",
+        "category": "Pest Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Rodent Control",
+        "category": "Pest Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Mosquito Control",
+        "category": "Pest Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Orange Oil Termite Treatment (XT-2000)",
+        "category": "Termite Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Subterranean Termite Treatment",
+        "category": "Termite Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Drywood Termite Treatment",
+        "category": "Termite Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Termite Inspection",
+        "category": "Inspection Service",
+        "pricing": "Free Inspection — 0"
+      },
+      {
+        "name": "Termite Control",
+        "category": "Termite Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Industrial Pest Control",
+        "category": "Pest Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Commercial Pest Control",
+        "category": "Pest Control Service",
+        "pricing": "By Quote/Estimate"
+      },
+      {
+        "name": "Residential Pest Control",
+        "category": "Pest Control Service",
+        "pricing": "By Quote/Estimate"
+      }
+    ]
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "slug": "account-it",
+  "name": "Account IT",
+  "url": "https://account-it.net",
+  "capturedAt": "2026-08-15T20:57:49.979Z",
+  "durationMs": 111806,
+  "pagesDiscovered": 511,
+  "pages": [
+    {
+      "file": "index.html.gz",
+      "url": "https://account-it.net/",
+      "role": "home",
+      "status": 200,
+      "bytes": 375345,
+      "fetchedAt": "2026-08-15T20:55:58.802Z"
+    },
+    {
+      "file": "about-us-doug-cohen.html.gz",
+      "url": "https://account-it.net/about-us/doug-cohen",
+      "role": "about",
+      "status": 200,
+      "bytes": 230967,
+      "fetchedAt": "2026-08-15T20:55:59.872Z"
+    },
+    {
+      "file": "services-payroll.html.gz",
+      "url": "https://account-it.net/services/payroll",
+      "role": "services",
+      "status": 200,
+      "bytes": 227959,
+      "fetchedAt": "2026-08-15T20:56:00.804Z"
+    },
+    {
+      "file": "services-accounting-bookkeeping.html.gz",
+      "url": "https://account-it.net/services/accounting-bookkeeping",
+      "role": "services",
+      "status": 200,
+      "bytes": 228125,
+      "fetchedAt": "2026-08-15T20:56:01.827Z"
+    },
+    {
+      "file": "services-quickbooks.html.gz",
+      "url": "https://account-it.net/services/quickbooks",
+      "role": "services",
+      "status": 200,
+      "bytes": 229715,
+      "fetchedAt": "2026-08-15T20:56:02.799Z"
+    },
+    {
+      "file": "services.html.gz",
+      "url": "https://account-it.net/services",
+      "role": "services",
+      "status": 200,
+      "bytes": 250249,
+      "fetchedAt": "2026-08-15T20:56:03.806Z"
+    },
+    {
+      "file": "services-irs-tax-problems.html.gz",
+      "url": "https://account-it.net/services/irs-tax-problems",
+      "role": "services",
+      "status": 200,
+      "bytes": 237868,
+      "fetchedAt": "2026-08-15T20:56:04.813Z"
+    },
+    {
+      "file": "services-tax-preparation-planning.html.gz",
+      "url": "https://account-it.net/services/tax-preparation-planning",
+      "role": "services",
+      "status": 200,
+      "bytes": 232481,
+      "fetchedAt": "2026-08-15T20:56:05.793Z"
+    },
+    {
+      "file": "contact.html.gz",
+      "url": "https://account-it.net/contact",
+      "role": "contact",
+      "status": 200,
+      "bytes": 255406,
+      "fetchedAt": "2026-08-15T20:56:06.802Z"
+    },
+    {
+      "file": "learning-center.html.gz",
+      "url": "https://account-it.net/learning-center",
+      "role": "other",
+      "status": 200,
+      "bytes": 302110,
+      "fetchedAt": "2026-08-15T20:56:07.819Z"
+    },
+    {
+      "file": "blog-tax-deductions-for-sales-representatives.html.gz",
+      "url": "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+      "role": "blog-post",
+      "status": 200,
+      "bytes": 258372,
+      "fetchedAt": "2026-08-15T20:57:44.428Z"
+    },
+    {
+      "file": "blog-tax-deductions-for-realtors.html.gz",
+      "url": "https://account-it.net/blog/tax-deductions-for-realtors",
+      "role": "blog-post",
+      "status": 200,
+      "bytes": 257510,
+      "fetchedAt": "2026-08-15T20:57:45.519Z"
+    },
+    {
+      "file": "blog-tax-deductions-for-clergy.html.gz",
+      "url": "https://account-it.net/blog/tax-deductions-for-clergy",
+      "role": "blog-post",
+      "status": 200,
+      "bytes": 258022,
+      "fetchedAt": "2026-08-15T20:57:46.413Z"
+    },
+    {
+      "file": "blog-tax-deductions-for-day-care-providers.html.gz",
+      "url": "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+      "role": "blog-post",
+      "status": 200,
+      "bytes": 257491,
+      "fetchedAt": "2026-08-15T20:57:46.479Z"
+    },
+    {
+      "file": "blog-tax-deductions-for-entertainers.html.gz",
+      "url": "https://account-it.net/blog/tax-deductions-for-entertainers",
+      "role": "blog-post",
+      "status": 200,
+      "bytes": 257841,
+      "fetchedAt": "2026-08-15T20:57:46.520Z"
+    },
+    {
+      "file": "blog-tax-deductions-for-overnight-drivers.html.gz",
+      "url": "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+      "role": "blog-post",
+      "status": 200,
+      "bytes": 256788,
+      "fetchedAt": "2026-08-15T20:57:46.539Z"
+    },
+    {
+      "file": "blog-tax-deductions-for-restaurant-service-staff.html.gz",
+      "url": "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+      "role": "blog-post",
+      "status": 200,
+      "bytes": 256349,
+      "fetchedAt": "2026-08-15T20:57:47.032Z"
+    },
+    {
+      "file": "blog-tax-deductions-for-airline-flight-crew-personnel.html.gz",
+      "url": "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+      "role": "blog-post",
+      "status": 200,
+      "bytes": 258728,
+      "fetchedAt": "2026-08-15T20:57:47.965Z"
+    },
+    {
+      "file": "blog-tax-deductions-for-telecommuting-employees.html.gz",
+      "url": "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+      "role": "blog-post",
+      "status": 200,
+      "bytes": 258293,
+      "fetchedAt": "2026-08-15T20:57:48.978Z"
+    },
+    {
+      "file": "blog-small-business-guide.html.gz",
+      "url": "https://account-it.net/blog/small-business-guide",
+      "role": "blog-post",
+      "status": 200,
+      "bytes": 263763,
+      "fetchedAt": "2026-08-15T20:57:49.943Z"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/firm-background didn't respond in time.",
+      "url": "https://account-it.net/firm-background"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/thank-you didn't respond in time.",
+      "url": "https://account-it.net/thank-you"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/doug-cohen didn't respond in time.",
+      "url": "https://account-it.net/doug-cohen"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/accounting-bookkeeping didn't respond in time.",
+      "url": "https://account-it.net/accounting-bookkeeping"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/payroll didn't respond in time.",
+      "url": "https://account-it.net/payroll"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/quickbooks didn't respond in time.",
+      "url": "https://account-it.net/quickbooks"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/appointment didn't respond in time.",
+      "url": "https://account-it.net/appointment"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/track-your-refund didn't respond in time.",
+      "url": "https://account-it.net/track-your-refund"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/client-hub didn't respond in time.",
+      "url": "https://account-it.net/client-hub"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/firm-background/referrals didn't respond in time.",
+      "url": "https://account-it.net/firm-background/referrals"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/blog/blog-content didn't respond in time.",
+      "url": "https://account-it.net/blog/blog-content"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/blog/tax-deductions-for-educators didn't respond in time.",
+      "url": "https://account-it.net/blog/tax-deductions-for-educators"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/blog/tax-deductions-for-firefighters didn't respond in time.",
+      "url": "https://account-it.net/blog/tax-deductions-for-firefighters"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/blog/tax-deductions-for-peace-officers didn't respond in time.",
+      "url": "https://account-it.net/blog/tax-deductions-for-peace-officers"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/blog/tax-deductions-for-business-professionals didn't respond in time.",
+      "url": "https://account-it.net/blog/tax-deductions-for-business-professionals"
+    },
+    {
+      "code": "fetch-failed",
+      "message": "https://account-it.net/blog/tax-deductions-for-medical-professionals didn't respond in time.",
+      "url": "https://account-it.net/blog/tax-deductions-for-medical-professionals"
+    },
+    {
+      "code": "budget-exceeded",
+      "message": "We read 20 pages and stopped. 475 more were found.",
+      "url": null
+    }
+  ]
+}

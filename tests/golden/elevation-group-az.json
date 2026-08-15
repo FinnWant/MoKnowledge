@@ -1,0 +1,179 @@
+{
+  "slug": "elevation-group-az",
+  "name": "Elevation Group AZ",
+  "url": "https://elevationgroupaz.com",
+  "source": "Knowledge Outputs 2.13.26.pdf",
+  "referenceGeneratedAt": "2026-02-13",
+  "knownReferenceDefects": [
+    "Fonts contains the unresolved CSS custom property \"var(--e-global-typography-502e136-font-family)\". We resolve custom properties and filter junk."
+  ],
+  "exact": {
+    "website": "elevationgroupaz.com",
+    "industry": "Real Estate",
+    "companyRole": "Real Estate Brokerage",
+    "yearFounded": null,
+    "legalEntityType": null,
+    "employeeCount": null,
+    "revenue": null,
+    "mainAddress": null,
+    "logoUrl": "https://cdn.brandfetch.io/idNEh0B-SP/w/1146/h/560/theme/dark/logo.png?c=1bxcw3yseq6vwnl9gh3c8i49h54jfw2F1w6",
+    "socials": {}
+  },
+  "sets": {
+    "serviceLocations": [
+      "Scottsdale",
+      "Paradise Valley",
+      "Arcadia",
+      "Phoenix",
+      "Greater Phoenix area",
+      "Cave Creek",
+      "Queen Creek",
+      "Gilbert",
+      "Catalina Foothills",
+      "Fountain Hills",
+      "Chandler",
+      "Litchfield Park",
+      "Oro Valley",
+      "Marana",
+      "Tucson area",
+      "Maricopa County"
+    ],
+    "otherLocations": [],
+    "altNames": [
+      "Elevation Group"
+    ],
+    "buyers": [
+      "Buyers and Sellers of Exceptional Luxury Homes",
+      "Entertainers",
+      "Athletes",
+      "High-net-worth individuals",
+      "Families",
+      "Professionals",
+      "Investors",
+      "Retirees",
+      "First-time home buyers",
+      "Relocating individuals"
+    ],
+    "industryGroupings": [],
+    "channels": [
+      "Website with property listings",
+      "Direct sales via real estate agents"
+    ],
+    "funnels": [
+      "Content marketing (blog posts about local real estate markets, zip codes, and affluent neighborhoods)",
+      "Video marketing (Vimeo property tours)",
+      "Agent profile pages",
+      "Featured listings and recent sales galleries",
+      "Neighborhood guides"
+    ],
+    "ctas": [
+      "Contact Us",
+      "Contact Now",
+      "View Listings",
+      "Call Now",
+      "Read Bio",
+      "Exclusive Property Listings"
+    ],
+    "suppliers": [],
+    "fonts": [
+      "var( --e-global-typography-502e136-font-family )",
+      "-apple-system"
+    ],
+    "colors": [
+      "#cca63e",
+      "#74810b",
+      "#ffffff"
+    ]
+  },
+  "records": {
+    "people": [
+      {
+        "name": "Kelly Jones",
+        "title": "Founding Partner",
+        "gender": "female"
+      },
+      {
+        "name": "Thomas Scott",
+        "title": "Founding Partner",
+        "gender": "male"
+      },
+      {
+        "name": "Elizabeth Flynn",
+        "title": "Assistant",
+        "gender": "female"
+      }
+    ],
+    "offerings": [
+      {
+        "name": "Paradise Valley Home with Mountain Views",
+        "category": "Property Listing",
+        "pricing": "Fixed Price — 2500000"
+      },
+      {
+        "name": "New Scottsdale Home in Paso Fino Estates",
+        "category": "Property Listing",
+        "pricing": "Fixed Price — 2050000"
+      },
+      {
+        "name": "Spectacular Scottsdale Estate in Desert Mountain",
+        "category": "Property Listing",
+        "pricing": "Fixed Price — 5300000"
+      },
+      {
+        "name": "Stunning Paradise Valley Remodel",
+        "category": "Property Listing",
+        "pricing": "Fixed Price — 6600000"
+      },
+      {
+        "name": "Luxurious Scottsdale Waterfront Condo",
+        "category": "Property Listing",
+        "pricing": "Fixed Price — 2000000"
+      },
+      {
+        "name": "Desert Contemporary Masterpiece in Paradise Valley",
+        "category": "Property Listing",
+        "pricing": "Fixed Price — 9200000"
+      },
+      {
+        "name": "Phoenix Real Estate",
+        "category": "Service",
+        "pricing": "Commission-based"
+      },
+      {
+        "name": "Arcadia Real Estate",
+        "category": "Service",
+        "pricing": "Commission-based"
+      },
+      {
+        "name": "Scottsdale Real Estate",
+        "category": "Service",
+        "pricing": "Commission-based"
+      },
+      {
+        "name": "Paradise Valley Real Estate",
+        "category": "Service",
+        "pricing": "Commission-based"
+      },
+      {
+        "name": "Relocation Assistance",
+        "category": "Service",
+        "pricing": "Commission-based"
+      },
+      {
+        "name": "Seller's Real Estate Agent Services",
+        "category": "Service",
+        "pricing": "Commission-based"
+      },
+      {
+        "name": "Buyer's Real Estate Agent Services",
+        "category": "Service",
+        "pricing": "Commission-based"
+      },
+      {
+        "name": "Luxury Real Estate Services",
+        "category": "Service",
+        "pricing": "Commission-based"
+      }
+    ]
+  }
+}

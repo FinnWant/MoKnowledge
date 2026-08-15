@@ -1,0 +1,133 @@
+{
+  "slug": "jd-insurance",
+  "name": "JD Ins Associates",
+  "url": "https://jdinsassociates.com",
+  "source": "Knowledge Outputs 2.13.26.pdf",
+  "referenceGeneratedAt": "2026-02-13",
+  "knownReferenceDefects": [
+    "Site unreachable as of 2026-08-15: the domain serves a Wix \"ConnectYourDomain Error\" page and 404s at every path. No fixtures could be captured, so this profile is reference-only."
+  ],
+  "exact": {
+    "website": "https://jdinsassociates.com/",
+    "industry": "Insurance",
+    "companyRole": "Insurance Agency",
+    "yearFounded": null,
+    "legalEntityType": "LLC",
+    "employeeCount": null,
+    "revenue": null,
+    "mainAddress": null,
+    "logoUrl": "https://cdn.brandfetch.io/id79iJ33CE/w/180/h/180/theme/dark/logo.png?c=1bxcw3yseq6vwnl9gh3c8i49h54jfw2F1w6",
+    "socials": {
+      "linkedin": "https://linkedin.com/company/j-d-insurance-associates-llc",
+      "twitter": "https://twitter.com/jdinsassociates"
+    }
+  },
+  "sets": {
+    "serviceLocations": [
+      "Florida"
+    ],
+    "otherLocations": [],
+    "altNames": [
+      "J&D Insurance Associates, LLC",
+      "J&D Insurance Associates"
+    ],
+    "buyers": [
+      "Individuals",
+      "Families",
+      "Businesses",
+      "Homeowners",
+      "Vehicle Owners",
+      "Rental Property Owners",
+      "Spanish-speaking community"
+    ],
+    "industryGroupings": [
+      "Construction",
+      "Trades"
+    ],
+    "channels": [
+      "Online",
+      "Phone"
+    ],
+    "funnels": [
+      "Online Quote Forms",
+      "Personalized Risk Assessment Tool",
+      "Direct Phone Calls",
+      "Licensed Agent Consultations CTAs: Get a Quote Now",
+      "Contact Us",
+      "Learn More",
+      "Request a Quote",
+      "Click Here",
+      "Explore Other Services",
+      "Personalized Risk Assessment"
+    ],
+    "ctas": [],
+    "suppliers": [],
+    "fonts": [
+      "Arial"
+    ],
+    "colors": [
+      "#121212",
+      "#f5f5f5"
+    ]
+  },
+  "records": {
+    "people": [],
+    "offerings": [
+      {
+        "name": "Construction Business Insurance",
+        "category": "Business Insurance",
+        "pricing": "Personalized Quote"
+      },
+      {
+        "name": "Universal Life Insurance",
+        "category": "Life Insurance",
+        "pricing": "Personalized Quote"
+      },
+      {
+        "name": "Whole Life Insurance",
+        "category": "Life Insurance",
+        "pricing": "Personalized Quote"
+      },
+      {
+        "name": "Term Life Insurance",
+        "category": "Life Insurance",
+        "pricing": "Personalized Quote"
+      },
+      {
+        "name": "Rental Insurance",
+        "category": "Insurance",
+        "pricing": "Personalized Quote"
+      },
+      {
+        "name": "Umbrella Insurance",
+        "category": "Insurance",
+        "pricing": "Personalized Quote"
+      },
+      {
+        "name": "Flood Insurance",
+        "category": "Insurance",
+        "pricing": "Personalized Quote"
+      },
+      {
+        "name": "Life Insurance",
+        "category": "Insurance",
+        "pricing": "Personalized Quote"
+      },
+      {
+        "name": "Business Insurance",
+        "category": "Insurance",
+        "pricing": "Personalized Quote"
+      },
+      {
+        "name": "Auto Insurance",
+        "category": "Insurance",
+        "pricing": "Personalized Quote"
+      },
+      {
+        "name": "Home Insurance",
+        "category": "Insurance",
+        "pricing": "Personalized Quote"
+      }
+    ]
+  }
+}
