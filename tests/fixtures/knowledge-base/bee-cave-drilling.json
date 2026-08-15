@@ -1,0 +1,852 @@
+{
+  "id": "kb_beecave_fixture",
+  "version": 1,
+  "companyName": {
+    "value": "Bee Cave Drilling",
+    "method": "scraped",
+    "confidence": 0.95,
+    "sourceUrls": ["https://beecavedrilling.com/"]
+  },
+  "sourceUrl": "https://beecavedrilling.com",
+  "createdAt": "2026-08-15T09:00:00.000Z",
+  "updatedAt": "2026-08-15T09:04:12.000Z",
+  "scrape": {
+    "startedAt": "2026-08-15T09:00:00.000Z",
+    "finishedAt": "2026-08-15T09:00:37.000Z",
+    "durationMs": 37412,
+    "pagesDiscovered": 26,
+    "pages": [
+      {
+        "url": "https://beecavedrilling.com/",
+        "role": "home",
+        "status": 200,
+        "bytes": 148230,
+        "fetchedAt": "2026-08-15T09:00:02.000Z"
+      },
+      {
+        "url": "https://beecavedrilling.com/about/",
+        "role": "about",
+        "status": 200,
+        "bytes": 92110,
+        "fetchedAt": "2026-08-15T09:00:05.000Z"
+      },
+      {
+        "url": "https://beecavedrilling.com/services/",
+        "role": "services",
+        "status": 200,
+        "bytes": 131007,
+        "fetchedAt": "2026-08-15T09:00:09.000Z"
+      },
+      {
+        "url": "https://beecavedrilling.com/contact/",
+        "role": "contact",
+        "status": 200,
+        "bytes": 71544,
+        "fetchedAt": "2026-08-15T09:00:13.000Z"
+      },
+      {
+        "url": "https://beecavedrilling.com/reviews/",
+        "role": "testimonials",
+        "status": 200,
+        "bytes": 88320,
+        "fetchedAt": "2026-08-15T09:00:17.000Z"
+      }
+    ],
+    "robotsRespected": true,
+    "warnings": [
+      {
+        "code": "budget-exceeded",
+        "message": "We read 20 pages and stopped. 6 more were found.",
+        "url": null
+      }
+    ],
+    "scraperVersion": "0.1.0"
+  },
+
+  "foundation": {
+    "overview": {
+      "value": "Bee Cave Drilling drills, equips, and services water wells for homeowners, ranches, and builders across Central Texas. The company handles the full lifecycle — siting and drilling a new well, installing pumps and storage, and maintaining or rehabilitating existing wells.",
+      "method": "ai-mock",
+      "confidence": 0.8,
+      "sourceUrls": [
+        "https://beecavedrilling.com/",
+        "https://beecavedrilling.com/about/"
+      ]
+    },
+    "website": {
+      "value": "https://beecavedrilling.com",
+      "method": "scraped",
+      "confidence": 1,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "industry": {
+      "value": "Water well drilling",
+      "method": "scraped",
+      "confidence": 0.9,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "businessModel": {
+      "value": "mixed",
+      "method": "derived",
+      "confidence": 0.6,
+      "sourceUrls": ["https://beecavedrilling.com/services/"],
+      "note": "Serves both homeowners and builders"
+    },
+    "companyRole": {
+      "value": "contractor",
+      "method": "derived",
+      "confidence": 0.75,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "yearFounded": {
+      "value": 1980,
+      "method": "derived",
+      "confidence": 0.45,
+      "sourceUrls": ["https://beecavedrilling.com/about/"],
+      "note": "Read from \"serving Central Texas since 1980\" on the About page"
+    },
+    "legalEntityType": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "employeeCount": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "revenue": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "mainAddress": {
+      "value": {
+        "formatted": "13341 W Highway 71, Bee Cave, TX 78738",
+        "street": "13341 W Highway 71",
+        "city": "Bee Cave",
+        "region": "TX",
+        "postalCode": "78738",
+        "country": "US"
+      },
+      "method": "scraped",
+      "confidence": 0.95,
+      "sourceUrls": ["https://beecavedrilling.com/contact/"]
+    },
+    "otherLocations": {
+      "value": [
+        {
+          "formatted": "Marble Falls, TX",
+          "street": null,
+          "city": "Marble Falls",
+          "region": "TX",
+          "postalCode": null,
+          "country": "US"
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": ["https://beecavedrilling.com/contact/"]
+    },
+    "serviceLocations": {
+      "value": [
+        "Austin",
+        "Bee Cave",
+        "Lakeway",
+        "Dripping Springs",
+        "Spicewood",
+        "Marble Falls"
+      ],
+      "method": "scraped",
+      "confidence": 0.85,
+      "sourceUrls": ["https://beecavedrilling.com/services/"]
+    },
+    "altNames": {
+      "value": ["Bee Cave Drilling Co."],
+      "method": "scraped",
+      "confidence": 0.6,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "phone": {
+      "value": "512-273-7389",
+      "method": "scraped",
+      "confidence": 0.9,
+      "sourceUrls": ["https://beecavedrilling.com/contact/"],
+      "note": "A second number, 512-894-0055, appears in the footer"
+    },
+    "email": {
+      "value": "office@beecavedrilling.com",
+      "method": "scraped",
+      "confidence": 0.9,
+      "sourceUrls": ["https://beecavedrilling.com/contact/"]
+    }
+  },
+
+  "positioning": {
+    "pitch": {
+      "value": "Four decades of Central Texas wells. We find the water, drill it right, and keep it running.",
+      "method": "ai-mock",
+      "confidence": 0.75,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "foundingStory": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    }
+  },
+
+  "market": {
+    "buyers": {
+      "value": ["Homeowners", "Ranch owners", "Builders", "Property developers"],
+      "method": "derived",
+      "confidence": 0.7,
+      "sourceUrls": ["https://beecavedrilling.com/services/"]
+    },
+    "customerNeeds": {
+      "value": "Reliable access to water on properties outside municipal supply, plus fast repair when an existing well or pump fails.",
+      "method": "ai-mock",
+      "confidence": 0.7,
+      "sourceUrls": ["https://beecavedrilling.com/services/"]
+    },
+    "idealPersona": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "industryGroupings": {
+      "value": ["Construction", "Utilities", "Home services"],
+      "method": "derived",
+      "confidence": 0.6,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "industryOutlook": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "channels": {
+      "value": ["Organic search", "Referral", "Google Business Profile"],
+      "method": "derived",
+      "confidence": 0.55,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "funnels": {
+      "value": ["Quote request form", "Phone call", "Service scheduling"],
+      "method": "derived",
+      "confidence": 0.65,
+      "sourceUrls": ["https://beecavedrilling.com/contact/"]
+    },
+    "ctas": {
+      "value": [
+        "Request a quote",
+        "Call us today",
+        "Schedule service",
+        "Get started"
+      ],
+      "method": "scraped",
+      "confidence": 0.85,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "suppliersPartners": {
+      "value": ["Google Analytics", "WPForms", "Birdeye", "Grundfos"],
+      "method": "derived",
+      "confidence": 0.8,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    }
+  },
+
+  "branding": {
+    "writingStyle": {
+      "value": {
+        "description": "Plain, practical, and reassuring. Short sentences, second person, and concrete detail about equipment and process rather than marketing language.",
+        "tone": ["reassuring", "direct", "educational"],
+        "formality": "neutral",
+        "readerAddress": "second-person",
+        "preferredTerms": ["water well", "pump", "static water level", "casing"],
+        "avoidTerms": ["solutions", "cutting-edge"],
+        "ctaStyle": "Direct imperative — \"Call us today\", \"Request a quote\""
+      },
+      "method": "ai-mock",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://beecavedrilling.com/",
+        "https://beecavedrilling.com/services/"
+      ]
+    },
+    "artStyle": {
+      "value": "Photographic and utilitarian: rig and jobsite photography over flat blue and white panels, with minimal illustration.",
+      "method": "ai-mock",
+      "confidence": 0.6,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "fonts": {
+      "value": ["Open Sans", "Roboto Slab"],
+      "method": "derived",
+      "confidence": 0.85,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "colors": {
+      "value": [
+        {
+          "id": "color_1",
+          "method": "derived",
+          "confidence": 0.85,
+          "sourceUrls": ["https://beecavedrilling.com/"],
+          "hex": "#0d4f8b",
+          "role": "primary",
+          "frequency": 214
+        },
+        {
+          "id": "color_2",
+          "method": "derived",
+          "confidence": 0.8,
+          "sourceUrls": ["https://beecavedrilling.com/"],
+          "hex": "#ffffff",
+          "role": "background",
+          "frequency": 402
+        },
+        {
+          "id": "color_3",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": ["https://beecavedrilling.com/"],
+          "hex": "#f5a623",
+          "role": "accent",
+          "frequency": 47
+        }
+      ],
+      "method": "derived",
+      "confidence": 0.8,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "logos": {
+      "value": [
+        {
+          "id": "logo_1",
+          "method": "scraped",
+          "confidence": 0.9,
+          "sourceUrls": ["https://beecavedrilling.com/"],
+          "url": "https://beecavedrilling.com/wp-content/uploads/logo.png",
+          "alt": "Bee Cave Drilling",
+          "kind": "logo",
+          "width": 320,
+          "height": 96
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.9,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    }
+  },
+
+  "onlinePresence": {
+    "profiles": {
+      "value": [
+        {
+          "id": "social_1",
+          "method": "scraped",
+          "confidence": 0.9,
+          "sourceUrls": ["https://beecavedrilling.com/"],
+          "platform": "facebook",
+          "url": "https://www.facebook.com/beecavedrilling",
+          "handle": "beecavedrilling"
+        },
+        {
+          "id": "social_2",
+          "method": "scraped",
+          "confidence": 0.85,
+          "sourceUrls": ["https://beecavedrilling.com/"],
+          "platform": "google-business",
+          "url": "https://g.page/beecavedrilling",
+          "handle": null
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.9,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    }
+  },
+
+  "people": {
+    "value": [
+      {
+        "id": "person_1",
+        "method": "scraped",
+        "confidence": 0.85,
+        "sourceUrls": ["https://beecavedrilling.com/about/"],
+        "name": "Jim Blair",
+        "title": "Owner",
+        "role": "owner",
+        "gender": "male",
+        "bio": "Runs the business and handles well siting for new drilling projects.",
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "person_2",
+        "method": "derived",
+        "confidence": 0.4,
+        "sourceUrls": ["https://beecavedrilling.com/reviews/"],
+        "name": "Ethan",
+        "title": "Technician",
+        "role": "staff",
+        "gender": "male",
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null,
+        "note": "Name appears only in customer reviews; no staff page listing"
+      }
+    ],
+    "method": "scraped",
+    "confidence": 0.7,
+    "sourceUrls": [
+      "https://beecavedrilling.com/about/",
+      "https://beecavedrilling.com/reviews/"
+    ]
+  },
+
+  "offerings": {
+    "value": [
+      {
+        "id": "offering_1",
+        "method": "scraped",
+        "confidence": 0.95,
+        "sourceUrls": [
+          "https://beecavedrilling.com/services/",
+          "https://beecavedrilling.com/"
+        ],
+        "name": "Water Well Drilling",
+        "category": "service",
+        "description": "Siting and drilling new water wells for residential and ranch properties.",
+        "features": [
+          "Site evaluation",
+          "Rotary and air drilling",
+          "Casing and grouting",
+          "State well report filing"
+        ],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/services/water-well-drilling/",
+        "sourceCandidateIndexes": [0, 3, 11]
+      },
+      {
+        "id": "offering_2",
+        "method": "scraped",
+        "confidence": 0.9,
+        "sourceUrls": ["https://beecavedrilling.com/services/"],
+        "name": "Pump Installation & Repair",
+        "category": "service",
+        "description": "Installing, replacing, and repairing submersible and jet pumps.",
+        "features": ["Pump sizing", "Pressure tank replacement", "Emergency repair"],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/services/pumps/",
+        "sourceCandidateIndexes": [1, 7]
+      },
+      {
+        "id": "offering_3",
+        "method": "scraped",
+        "confidence": 0.8,
+        "sourceUrls": ["https://beecavedrilling.com/services/"],
+        "name": "Water Treatment Systems",
+        "category": "product",
+        "description": "Filtration and softening systems sized to a well's water chemistry.",
+        "features": ["Water testing", "Softener installation", "Iron and sulfur filtration"],
+        "pricing": null,
+        "url": null,
+        "sourceCandidateIndexes": [5]
+      }
+    ],
+    "method": "scraped",
+    "confidence": 0.9,
+    "sourceUrls": ["https://beecavedrilling.com/services/"]
+  },
+
+  "proof": {
+    "testimonials": {
+      "value": [
+        {
+          "id": "testimonial_1",
+          "method": "scraped",
+          "confidence": 0.9,
+          "sourceUrls": ["https://beecavedrilling.com/reviews/"],
+          "quote": "Ethan and his team found the problem with our pump in under an hour and had water back on the same day.",
+          "authorName": "Karen M.",
+          "authorRole": null,
+          "authorCompany": null,
+          "authorLocation": "Spicewood, TX",
+          "rating": 5,
+          "date": "2025-11-04",
+          "platform": "Google",
+          "mediaUrl": null,
+          "topics": ["pump repair", "response time"],
+          "mentionsPeople": ["person_2"],
+          "mentionsOfferings": ["offering_2"]
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.85,
+      "sourceUrls": ["https://beecavedrilling.com/reviews/"]
+    },
+    "aggregateRatings": {
+      "value": [],
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": ["https://beecavedrilling.com/about/"],
+      "note": "Birdeye review widget detected at /about; content is JS-rendered and not accessible to the static scraper"
+    },
+    "caseStudies": {
+      "value": [],
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "certifications": {
+      "value": [
+        {
+          "id": "cred_1",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": ["https://beecavedrilling.com/about/"],
+          "name": "Texas Licensed Water Well Driller",
+          "issuer": "Texas Department of Licensing and Regulation",
+          "identifier": null,
+          "validUntil": null,
+          "verifyUrl": null,
+          "kind": "license"
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.8,
+      "sourceUrls": ["https://beecavedrilling.com/about/"]
+    },
+    "memberships": {
+      "value": [
+        {
+          "id": "cred_2",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": ["https://beecavedrilling.com/about/"],
+          "name": "National Ground Water Association",
+          "issuer": "NGWA",
+          "identifier": null,
+          "validUntil": null,
+          "verifyUrl": null,
+          "kind": "membership"
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": ["https://beecavedrilling.com/about/"]
+    },
+    "awards": {
+      "value": [],
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "pressMentions": {
+      "value": [],
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "trustStats": {
+      "value": [
+        {
+          "id": "stat_1",
+          "method": "scraped",
+          "confidence": 0.85,
+          "sourceUrls": ["https://beecavedrilling.com/about/"],
+          "claim": "Serving Central Texas since 1980",
+          "value": 1980,
+          "unit": "year",
+          "category": "years-in-business",
+          "asOfDate": null
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.85,
+      "sourceUrls": ["https://beecavedrilling.com/about/"]
+    },
+    "guarantees": {
+      "value": [
+        {
+          "id": "guarantee_1",
+          "method": "scraped",
+          "confidence": 0.75,
+          "sourceUrls": ["https://beecavedrilling.com/"],
+          "text": "Licensed, bonded, and insured",
+          "kind": "licensing",
+          "terms": null
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.75,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "clientLogos": {
+      "value": [],
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    }
+  },
+
+  "contentIntelligence": {
+    "themes": {
+      "value": [
+        {
+          "id": "theme_1",
+          "method": "derived",
+          "confidence": 0.8,
+          "sourceUrls": ["https://beecavedrilling.com/services/"],
+          "label": "Well drilling and installation",
+          "weight": 0.42,
+          "terms": ["well", "drilling", "casing", "aquifer"],
+          "exampleUrls": ["https://beecavedrilling.com/services/"]
+        },
+        {
+          "id": "theme_2",
+          "method": "derived",
+          "confidence": 0.75,
+          "sourceUrls": ["https://beecavedrilling.com/services/pumps/"],
+          "label": "Pump service and repair",
+          "weight": 0.27,
+          "terms": ["pump", "pressure tank", "submersible"],
+          "exampleUrls": ["https://beecavedrilling.com/services/pumps/"]
+        }
+      ],
+      "method": "derived",
+      "confidence": 0.75,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "posts": {
+      "value": [],
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": [],
+      "note": "No blog or news section found in the sitemap or navigation"
+    },
+    "taxonomy": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "cadence": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "headlinePatterns": {
+      "value": [],
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "faqs": {
+      "value": [
+        {
+          "id": "faq_1",
+          "method": "scraped",
+          "confidence": 0.9,
+          "sourceUrls": ["https://beecavedrilling.com/services/"],
+          "question": "How deep will my well need to be?",
+          "answer": "Depth depends on the aquifer under your property. In the Bee Cave and Lakeway area most wells land between 300 and 700 feet.",
+          "topic": "Well drilling"
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.9,
+      "sourceUrls": ["https://beecavedrilling.com/services/"]
+    },
+    "glossary": {
+      "value": [
+        {
+          "id": "term_1",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": ["https://beecavedrilling.com/services/"],
+          "term": "Static water level",
+          "definition": "The distance from the ground surface down to the water in a well when the pump has been off long enough for the level to settle."
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.8,
+      "sourceUrls": ["https://beecavedrilling.com/services/"]
+    },
+    "seasonalSignals": {
+      "value": [
+        {
+          "id": "seasonal_1",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": ["https://beecavedrilling.com/"],
+          "label": "Fall Water Well Savings",
+          "period": "Autumn",
+          "text": "Fall Water Well Savings — book pump service before winter."
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": ["https://beecavedrilling.com/"]
+    },
+    "contentGaps": {
+      "value": [
+        {
+          "id": "gap_1",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": ["https://beecavedrilling.com/services/"],
+          "topic": "Water treatment systems",
+          "reason": "Listed as an offering but has no dedicated page or article",
+          "relatedOffering": "offering_3"
+        }
+      ],
+      "method": "derived",
+      "confidence": 0.6,
+      "sourceUrls": ["https://beecavedrilling.com/services/"]
+    }
+  },
+
+  "quality": {
+    "overallScore": 0.72,
+    "categoryScores": [
+      {
+        "category": "foundation",
+        "score": 0.81,
+        "filledFields": 12,
+        "totalFields": 15,
+        "needsAttention": 2
+      },
+      {
+        "category": "positioning",
+        "score": 0.5,
+        "filledFields": 1,
+        "totalFields": 2,
+        "needsAttention": 1
+      },
+      {
+        "category": "market",
+        "score": 0.7,
+        "filledFields": 7,
+        "totalFields": 9,
+        "needsAttention": 1
+      },
+      {
+        "category": "branding",
+        "score": 1,
+        "filledFields": 5,
+        "totalFields": 5,
+        "needsAttention": 2
+      },
+      {
+        "category": "onlinePresence",
+        "score": 1,
+        "filledFields": 1,
+        "totalFields": 1,
+        "needsAttention": 0
+      },
+      {
+        "category": "people",
+        "score": 1,
+        "filledFields": 1,
+        "totalFields": 1,
+        "needsAttention": 1
+      },
+      {
+        "category": "offerings",
+        "score": 1,
+        "filledFields": 1,
+        "totalFields": 1,
+        "needsAttention": 0
+      },
+      {
+        "category": "proof",
+        "score": 0.5,
+        "filledFields": 5,
+        "totalFields": 10,
+        "needsAttention": 1
+      },
+      {
+        "category": "contentIntelligence",
+        "score": 0.55,
+        "filledFields": 5,
+        "totalFields": 9,
+        "needsAttention": 0
+      }
+    ],
+    "missingFields": [
+      "foundation.legalEntityType",
+      "foundation.employeeCount",
+      "foundation.revenue",
+      "positioning.foundingStory",
+      "market.idealPersona",
+      "market.industryOutlook",
+      "proof.caseStudies",
+      "proof.awards",
+      "proof.pressMentions",
+      "contentIntelligence.posts"
+    ],
+    "conflicts": [
+      {
+        "path": "foundation.phone",
+        "label": "Phone",
+        "candidates": [
+          {
+            "value": "512-273-7389",
+            "sourceUrl": "https://beecavedrilling.com/contact/",
+            "sourceLabel": "on the Contact page",
+            "confidence": 0.9
+          },
+          {
+            "value": "512-894-0055",
+            "sourceUrl": "https://beecavedrilling.com/",
+            "sourceLabel": "in the footer",
+            "confidence": 0.6
+          }
+        ],
+        "resolved": false
+      }
+    ],
+    "followUpQuestions": [
+      {
+        "id": "q_1",
+        "question": "Roughly how many people work at the business?",
+        "example": "12",
+        "fills": ["foundation.employeeCount"],
+        "priority": 3,
+        "answered": false
+      },
+      {
+        "id": "q_2",
+        "question": "What made you start the business?",
+        "example": null,
+        "fills": ["positioning.foundingStory"],
+        "priority": 2,
+        "answered": false
+      },
+      {
+        "id": "q_3",
+        "question": "Describe your ideal customer — who do you most want to work with?",
+        "example": null,
+        "fills": ["market.idealPersona"],
+        "priority": 0.4,
+        "answered": false
+      }
+    ]
+  }
+}

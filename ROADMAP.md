@@ -255,6 +255,25 @@ sharp and buy time for scraping depth and UI polish. Two consequences worth noti
   they survive as an internal input to the `writingStyle` enrichment prompt rather than as a
   schema category of their own.
 
+### 4.3 Implementation notes (P1, built)
+
+Six places where the built schema in `lib/schema/` refines §4.2. Each is a superset of what
+was designed — nothing was dropped:
+
+| Refinement | Why |
+|---|---|
+| Records carry `RecordProvenance` (`id`, `method`, `confidence`, `sourceUrls`) instead of wrapping each sub-field in `Sourced<T>` | The record card in [`docs/EDIT-UX.md`](docs/EDIT-UX.md) §4 is the unit a reviewer accepts, edits, or removes — one badge and one Revert per card, not per sub-field. The surrounding collection stays `Sourced<T[]>`, which is what carries "Birdeye widget detected; content is JS-rendered" |
+| `onlinePresence` is `profiles: Sourced<SocialProfile[]>` rather than `linkedin`/`facebook`/… | A record with a `platform` enum handles the two Facebook pages and the Yelp listing that fixed fields cannot, and maps directly onto the `social_profiles` child table in the Supabase design (R20) |
+| `mainAddress` is a structured `Address` with a `formatted` line | JSON-LD `PostalAddress` is the tier-1 source; discarding its structure would lose data the database design needs. The `formatted` line is what the text editor edits, so the UI is unchanged |
+| `branding.writingStyle` is structured, not prose | Matches the output contract of [`prompts/03-writing-style.md`](prompts/03-writing-style.md). `tone` as an enumerated multi-select is what lets MoSocial/MoMail/MoBlogs condition on voice programmatically — the reference profiles' free-text Writing Style can be read but not used |
+| `foundation.phone` and `foundation.email` added | Contact details are extracted anyway, and `phone` is the worked conflict example in [`docs/DATA-QUALITY.md`](docs/DATA-QUALITY.md) §4; they had nowhere to live |
+| `proof.certifications` / `memberships` / `awards` stay separate arrays | Prompt 04 returns one `credentials[]` with a `kind` discriminator; `lib/ai/` routes by `kind` on the way in. Separate arrays keep the UI sections and database tables clean |
+
+Alongside the schema, `lib/schema/field-meta.ts` holds the static per-field registry —
+`impact` (1–5), `askable`, `answerCost`, plain-language `question`, `substitutes`, and which
+of the eight editors renders it. That table is what turns the schema into impact-weighted
+completeness scoring and ranked follow-up questions rather than a raw fill rate.
+
 ---
 
 ## 5. Scraping Pipeline Detail

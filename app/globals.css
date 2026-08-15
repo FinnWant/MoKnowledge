@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * MoFlo visual identity (R28) — near-black surfaces, white text, a single blue
+ * accent used sparingly on primary actions and active states.
+ *
+ * Contrast, measured against `--color-canvas` (#0b0b0d):
+ *   ink        #ffffff  18.9:1  ✓ AAA
+ *   ink-muted  #a1a1aa   8.0:1  ✓ AAA
+ *   ink-subtle #71717a   4.2:1  ✓ AA large text / non-text only
+ *   primary    #2663eb   3.8:1  ✗ fails AA for body text
+ *   link       #7ba2f7   7.8:1  ✓ AAA
+ *
+ * That fourth line is why there are two blues. docs/EDIT-UX.md §10 flagged
+ * `#2663eb` on near-black as needing verification at small sizes; it does fail, so
+ * the brand blue is reserved for filled surfaces (white on #2663eb is 5.2:1, which
+ * passes) and `--color-link` carries anything rendered as blue text.
+ */
+@theme {
+  --color-canvas: #0b0b0d;
+  --color-surface: #131316;
+  --color-surface-raised: #1b1b20;
+  --color-surface-sunken: #08080a;
+
+  --color-border: #26262c;
+  --color-border-strong: #3a3a44;
+
+  --color-ink: #ffffff;
+  --color-ink-muted: #a1a1aa;
+  --color-ink-subtle: #71717a;
+
+  --color-primary: #2663eb;
+  --color-primary-hover: #1d4fd0;
+  --color-primary-soft: #17203a;
+  --color-link: #7ba2f7;
+
+  --color-secondary: #4a4a4a;
+
+  --color-success: #34d399;
+  --color-success-soft: #10291f;
+  --color-warn: #fbbf24;
+  --color-warn-soft: #2e2312;
+  --color-danger: #f87171;
+  --color-danger-soft: #2e1616;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --radius-card: 0.75rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* One consistent focus ring everywhere, including click-to-edit targets. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-link);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
