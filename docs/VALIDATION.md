@@ -70,6 +70,30 @@ Fields are scored by class, because exact-match is meaningless for AI-generated 
 plus a net-new count. Recall matters more than precision here — extracting *more* than the
 reference is the goal, so precision penalties only apply to values that are actually wrong.
 
+### 3.1 Results as of P3 (extraction only, 7 sites, 457 reference values)
+
+`npm run validate` runs the deterministic half of the pipeline — no API key, no model call —
+so the number is reproducible on a fresh clone. Overall recall is **23%** (104 of 457), and the shape of
+the table matters more than the headline:
+
+| Band | Fields | Reading |
+|---|---|---|
+| 80–100% | website, socials, main address | Structured markup does the work; JSON-LD and OpenGraph are near-universal |
+| 40–70% | year founded, legal entity, channels, fonts, colors, CTAs | Heuristics over copy — real recall, real misses |
+| 10–35% | offerings, people, alt names, suppliers, funnels | Partial by nature: we find what a page states and miss what a reader infers |
+| 0–15% (flagged) | industry, company role, buyers, service locations | **Filled by enrichment, which this harness deliberately does not run** |
+
+Two structural caveats, both visible in the report itself:
+
+- **Four fields are enrichment-filled.** The reference fills `industry`, `companyRole`,
+  `buyers`, and `serviceLocations` on essentially every profile by *reading* the site, not by
+  parsing it — 54 buyer values and 59 service locations across seven sites, almost none of
+  them in markup. `prompts/01-company-profile.md` fills them the same way. The report labels
+  them `enrichment (not run here)` rather than quietly counting them as extraction failures.
+- **`logoUrl` scores 0% and should.** Every reference logo URL points at `cdn.brandfetch.io`,
+  a third-party brand-asset service. We return the logo the site actually serves. The values
+  can never match, and ours is the more useful one.
+
 ---
 
 ## 4. Harness design
@@ -98,7 +122,15 @@ decompresses transparently, so nothing downstream knows the difference.
 - `npm run snapshot -- <slug>` — one-time capture, so tests never hit the network. Refuses to
   re-crawl a site that already has fixtures unless `--force` is passed, so an accidental
   `npm run snapshot -- all` costs nobody any bandwidth.
-- `npm run validate` — scores every site, prints a per-field table plus totals.
+- `npm run validate` — scores every site, prints a per-field table plus totals. `--json` emits
+  the same data machine-readably for diffing two runs; a slug argument scores one site.
+  It also parses every produced knowledge base through `knowledgeBaseSchema` and exits
+  non-zero if any fails, so "schema-valid on all golden sites" is enforced rather than
+  claimed.
+- `tests/fixtures/load.ts` re-runs `classifyUrl` over each snapshot's URLs rather than
+  trusting the role recorded at capture time. Which pages were fetched is fixed by the
+  capture; what role each plays is code, and improving the classifier should show up in the
+  score without re-crawling seven live sites.
 - Vitest extractor unit tests run against the same fixtures, keeping tests deterministic and
   fast while remaining grounded in real-world HTML.
 

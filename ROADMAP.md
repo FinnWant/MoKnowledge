@@ -290,7 +290,9 @@ Score each candidate URL by path/anchor keywords into roles — `home`, `about`,
 `legal` — then crawl highest-value roles first so a truncated crawl still gets the good pages.
 
 ### 5.3 Extraction precedence
-`JSON-LD (schema.org)` > `microdata/RDFa` > `OpenGraph/meta` > `semantic DOM` > `regex heuristic`.
+`JSON-LD (schema.org)` > `OpenGraph/meta` > `computed` > `semantic DOM` > `regex heuristic`.
+(The planned `microdata/RDFa` tier was dropped in P3: zero of the 133 captured fixture pages
+use `itemtype`, while six of seven sites emit JSON-LD and all seven emit OpenGraph.)
 JSON-LD is the highest-leverage target: `Organization`, `LocalBusiness`, `Person`, `Product`,
 `Offer`, `FAQPage`, `Review`, `AggregateRating` cover founding year, address, hours, phone,
 `sameAs` socials, people, offerings and reviews in one hit, and most WordPress/Wix/Squarespace
@@ -329,6 +331,22 @@ reasoning about it beforehand. They are the substance of Answer #5 ("most challe
 Concurrency is 4, but all four workers share one rate limiter, so throughput stays at the
 ~1 req/sec the etiquette rules require. Concurrency buys tolerance of a slow page — Account
 IT timed out on 16 requests and still returned its 20 pages — not extra load on the host.
+
+### 5.4c What extracting from the real sites changed (P3, built)
+
+Same method as §5.4b: everything below came out of `npm run validate` disagreeing with the
+reference on a specific field, then reading the fixture to find out why.
+
+| Found | Fix |
+|---|---|
+| **Bee Cave's thirteen services scored 2/13.** Its service pages live at `/well-inspections/`, `/pumping-systems/`, `/drilling/` — all classified `other`, and the offering extractor only ran on `services`/`products`/`pricing` | Two new sources: the services dropdown on the home page (the company's own catalogue, in its own words), and the `<h1>` of any single-segment page. 2/13 → 9/13 |
+| **"Key People" included `webdev@drivinglocalleads.com` and `christy23424232hey`.** WordPress emits its post authors as schema.org `Person` | A name is capitalised words with no `@`, no digits, no slashes. A CMS login is not a member of staff |
+| **`"@type": "Plumber"` was not recognised as a business at all**, so every JSON-LD field on those sites was skipped — the suffix regex only matched `…Business`, `…Service`, `…Agency` | An explicit set of schema.org `LocalBusiness` subtypes alongside the suffix match |
+| **Every site's own assets were reported as third-party suppliers.** `registrableDomain` takes a hostname; the pipeline passed it a URL, so nothing ever matched the own-domain check | Pass the hostname. Caught by a fixture assertion, not by reading the code |
+| **`#111827` — the near-black half of every Tailwind palette — was never assigned the `text` role**, because HSL saturation blows up at the ends of the lightness range and reported it at 0.39 | Role assignment uses chroma (max−min channel distance), not HSL saturation |
+| **`Service Locations` scored 0 of 59.** Only one site publishes `areaServed` in markup; the rest write "Proudly Serving The Texas Hill Country" in a header | A locations extractor for the two shapes SMB sites actually use, plus prompt 01 for the prose case |
+| **Prompt 01 asked for one to three sentences of `businessModel`** — a field the schema stores as a controlled enum. Prose would have had nowhere to land | The prompt returns an enum. Four more classification/list fields (`industry`, `companyRole`, `buyers`, `serviceLocations`) moved into the same batched call, since the reference fills all four on all eight profiles and no parser produces them without guessing |
+| **Generated fields never wrote anything**, because `<meta name="description">` had already filled `foundation.overview` and the rule was "never overwrite an extracted value" | Five fields the schema documents as generated treat a low-confidence extraction as a *seed*: a 0.5-confidence SEO description gives way to a real overview, everything else still wins |
 
 ### 5.5 Failure modes we handle explicitly
 Non-200 / DNS failure · redirect to different domain · robots disallow · JS-rendered SPA with
@@ -409,7 +427,7 @@ Each phase ends with a working, committable state.
 | **P0 — Scaffold** | `create-next-app@15` (TS, Tailwind, App Router, ESLint), Vitest, deps (`cheerio`, `zod`, `lucide-react`, `robots-parser`), scripts, `.gitignore`, first commit | `npm run dev` serves, `npm run lint` + `npm test` pass clean |
 | **P1 — Schema + design system** | zod schema for the full KB (§4), inferred types, `Sourced<T>` envelope, MoFlo theme tokens, base UI primitives | Schema compiles; a hand-written fixture KB validates; UI kit renders on a scratch page |
 | **P2 — Crawler + golden set** | robots, sitemap, discovery, classifier, budgeted concurrent fetcher, typed errors, `scripts/snapshot.ts`, HTML fixtures + transcribed golden JSON for all 8 reference sites | Crawler snapshots all 8 golden sites and reports classified pages; fixtures committed so tests never hit the network |
-| **P3 — Extractors + reconciler + analyzers** | All extractors, vendor table, voice/palette/theme analyzers, evidence reconciliation, AI layer (mock + optional live client), `scripts/validate.ts` scoring harness | Unit tests on fixtures green; all 8 golden sites produce schema-valid KBs; `npm run validate` prints per-field recall vs. the reference; enrichment works with and without an API key |
+| **P3 — Extractors + reconciler + analyzers** ✅ | All extractors, vendor table, voice/palette/theme analyzers, evidence reconciliation, AI layer (mock + optional live client), `scripts/validate.ts` scoring harness | Unit tests on fixtures green; all 8 golden sites produce schema-valid KBs; `npm run validate` prints per-field recall vs. the reference; enrichment works with and without an API key |
 | **P4 — Scrape page** | `/knowledge`: URL form + validation, NDJSON progress UI, category display, provenance + confidence badges, completeness meter | Paste a URL → live progress → structured result; bad URLs and dead sites fail gracefully |
 | **P5 — Edit + save** | Draft context + reducer, 8 field editors, attention triage tier, conflict resolution, gap-question form, add/remove/reorder records, localStorage autosave, unsaved-changes guard, JSON preview, save — design in [`docs/EDIT-UX.md`](docs/EDIT-UX.md) | Click `Save` with zero edits and get a good KB; edit any field and see `You edited` provenance; `Accept all safe` clears uncontested items; works at 375px |
 | **P6 — View/manage** | `/knowledge/view` card + table + detail modes, search, filters, edit, delete w/ undo, export, version history + diff, re-scrape — design in [`docs/VIEW-PAGE.md`](docs/VIEW-PAGE.md) | Full CRUD round-trip; all three view modes usable at 375px |

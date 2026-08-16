@@ -1,14 +1,23 @@
 # Prompt 01 — Company Profile
 
-**Fills:** `foundation.overview`, `foundation.businessModel`, `positioning.pitch`,
-`positioning.foundingStory`, `market.customerNeeds`, `market.idealPersona`
+**Fills:** `foundation.overview`, `foundation.industry`, `foundation.businessModel`,
+`foundation.companyRole`, `foundation.serviceLocations`, `positioning.pitch`,
+`positioning.foundingStory`, `market.customerNeeds`, `market.idealPersona`, `market.buyers`
 **Technique:** batched generation under hard grounding constraints
 **Effort:** `medium` — prose synthesis from supplied evidence, not deep reasoning
 
-Six fields in one call. Batching is the point: these fields draw on the same evidence and
-would otherwise re-send the whole scraped corpus six times. It also keeps them mutually
+Ten fields in one call. Batching is the point: these fields draw on the same evidence and
+would otherwise re-send the whole scraped corpus ten times. It also keeps them mutually
 consistent — a pitch that contradicts the overview is a real failure mode when each field
 is generated in isolation.
+
+Four of the ten are not prose. `industry`, `companyRole`, `buyers`, and `serviceLocations`
+are the fields the reference profiles fill on every single company and that no deterministic
+extractor can produce without guessing: a site says "Proudly serving the Texas Hill
+Country" in its header and lists nine towns in its footer copy, and turning that into a
+list is reading, not parsing. The scraper still extracts what is stated in markup
+(`areaServed`, schema.org business type) and those values are passed in as facts, so this
+prompt is adding to a floor rather than replacing it.
 
 ---
 
@@ -32,16 +41,26 @@ is generated in isolation.
 >   three good fields and three nulls is more useful than six fields where two are wrong.
 > - Do not invent numbers, dates, founder names, locations, or credentials. If the
 >   evidence says "decades of experience", write that — do not convert it to a year.
-> - Write in third person for `overview`, `businessModel`, `customerNeeds`, and
->   `idealPersona`. Write `pitch` in the company's own first-person voice ("we", "our").
+> - Write in third person for `overview`, `customerNeeds`, and `idealPersona`. Write
+>   `pitch` in the company's own first-person voice ("we", "our").
+> - `businessModel` and `companyRole` are classifications, not prose: pick the one value
+>   that fits. `mixed` is for a company that genuinely serves two audiences at comparable
+>   scale, not a hedge — use `null` when the evidence doesn't say.
+> - `industry` is the trade in the company's own terms, two to four words ("well drilling",
+>   "residential real estate"), not a sector label like "services".
+> - `buyers` and `serviceLocations` are lists drawn from the evidence only. A town belongs
+>   in `serviceLocations` when the site says it serves it — not because it is near the
+>   company's address, and not because it is in the same county as one that is listed.
+>   Return an empty array rather than a plausible one; an invented service area sends a
+>   business's marketing to a town it does not cover.
 > - Match the company's register. A drilling contractor and a SaaS vendor should not
 >   sound alike.
 > - Set `confidence` per field: how well the evidence supports what you wrote. Below 0.5
 >   means a human should check it before use.
 >
-> Length: `overview` 60–120 words. `pitch` 60–110 words. `businessModel` one to three
-> sentences. `customerNeeds` and `idealPersona` 50–100 words each. `foundingStory` 40–90
-> words, and `null` unless the evidence actually describes a founding.
+> Length: `overview` 60–120 words. `buyers` up to 8 entries, `serviceLocations` up to 20. `pitch` 60–110 words. `customerNeeds` and
+> `idealPersona` 50–100 words each. `foundingStory` 40–90 words, and `null` unless the
+> evidence actually describes a founding.
 
 ## User message template
 
@@ -68,15 +87,46 @@ Page excerpts:
 {
   "type": "object",
   "additionalProperties": false,
-  "required": ["overview", "businessModel", "pitch", "foundingStory",
-               "customerNeeds", "idealPersona"],
+  "required": ["overview", "industry", "businessModel", "companyRole",
+               "serviceLocations", "pitch", "foundingStory", "customerNeeds",
+               "idealPersona", "buyers"],
   "properties": {
     "overview":      { "$ref": "#/$defs/field" },
-    "businessModel": { "$ref": "#/$defs/field" },
+    "industry":      { "$ref": "#/$defs/field" },
     "pitch":         { "$ref": "#/$defs/field" },
     "foundingStory": { "$ref": "#/$defs/field" },
     "customerNeeds": { "$ref": "#/$defs/field" },
-    "idealPersona":  { "$ref": "#/$defs/field" }
+    "idealPersona":  { "$ref": "#/$defs/field" },
+    "buyers":           { "$ref": "#/$defs/listField" },
+    "serviceLocations": { "$ref": "#/$defs/listField" },
+    "companyRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "confidence", "sourceUrls"],
+      "properties": {
+        "value": {
+          "type": ["string", "null"],
+          "enum": ["manufacturer", "distributor", "retailer", "service-provider",
+                   "contractor", "agency", "broker", "consultancy",
+                   "software-vendor", "nonprofit", "other", null]
+        },
+        "confidence": { "type": "number" },
+        "sourceUrls": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "businessModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "confidence", "sourceUrls"],
+      "properties": {
+        "value": {
+          "type": ["string", "null"],
+          "enum": ["b2b", "b2c", "b2b2c", "b2g", "marketplace", "mixed", null]
+        },
+        "confidence": { "type": "number" },
+        "sourceUrls": { "type": "array", "items": { "type": "string" } }
+      }
+    }
   },
   "$defs": {
     "field": {
@@ -88,10 +138,28 @@ Page excerpts:
         "confidence": { "type": "number" },
         "sourceUrls": { "type": "array", "items": { "type": "string" } }
       }
+    },
+    "listField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "confidence", "sourceUrls"],
+      "properties": {
+        "value":      { "type": "array", "items": { "type": "string" } },
+        "confidence": { "type": "number" },
+        "sourceUrls": { "type": "array", "items": { "type": "string" } }
+      }
     }
   }
 }
 ```
+
+`businessModel` and `companyRole` are enumerated because both are controlled values in the
+knowledge base. An earlier draft of this prompt asked for one to three sentences of
+`businessModel` prose, which no `businessModelSchema` value could hold; the enum is the fix.
+
+The list fields use an empty array rather than `null` for "nothing found", matching
+`Sourced<T[]>` — the knowledge base distinguishes "looked and found none" (`[]`) from
+"never looked" (`null`), and this prompt is always the former.
 
 The wrapper mirrors `Sourced<T>` exactly, so the response drops into the knowledge base
 without a translation layer, and `sourceUrls` gives the review UI a "where did this come

@@ -3,6 +3,8 @@ import { gunzipSync } from "node:zlib";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { PageRole } from "@/lib/schema";
+import type { CrawlResult } from "@/lib/scraper/crawler";
+import { classifyUrl } from "@/lib/scraper/classify";
 
 /**
  * Reads the committed HTML snapshots of the golden sites.
@@ -70,6 +72,39 @@ export function loadPageByRole(slug: string, role: PageRole): LoadedPage | null 
   const manifest = loadManifest(slug);
   const page = manifest.pages.find((candidate) => candidate.role === role);
   return page ? { ...page, html: loadPageHtml(slug, page.file) } : null;
+}
+
+/**
+ * A snapshotted site in the shape `lib/scraper/pipeline.ts` expects.
+ *
+ * The pipeline takes a `CrawlResult` rather than a URL precisely so this
+ * substitution is possible: identical extraction code runs in the app, in the
+ * test suite, and in `npm run validate`, with the network swapped for disk.
+ */
+export function loadCrawlResult(slug: string): CrawlResult {
+  const { manifest, pages } = loadSite(slug);
+
+  return {
+    originUrl: manifest.url,
+    pages: pages.map((page) => ({
+      url: page.url,
+      // Re-classified rather than read from the manifest. Which pages were
+      // fetched is fixed by the capture; what role each one plays is a function
+      // of `classifyUrl`, so an improvement to the classifier shows up in the
+      // fixture tests and in `npm run validate` without re-crawling a live site.
+      role: classifyUrl(page.url).role,
+      html: page.html,
+      status: page.status,
+      bytes: page.bytes,
+      fetchedAt: page.fetchedAt,
+    })),
+    warnings: manifest.warnings as CrawlResult["warnings"],
+    pagesDiscovered: manifest.pagesDiscovered,
+    robotsRespected: true,
+    startedAt: manifest.capturedAt,
+    finishedAt: manifest.capturedAt,
+    durationMs: manifest.durationMs,
+  };
 }
 
 /**

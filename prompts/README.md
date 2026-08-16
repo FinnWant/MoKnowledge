@@ -6,7 +6,7 @@ is set, and the mock generator consumes the same templates when it isn't.
 
 | Prompt | Technique demonstrated | Fills |
 |---|---|---|
-| [`01-company-profile.md`](01-company-profile.md) | Batched generation under hard grounding constraints | `foundation.overview`, `foundation.businessModel`, `positioning.pitch`, `positioning.foundingStory`, `market.customerNeeds`, `market.idealPersona` |
+| [`01-company-profile.md`](01-company-profile.md) | Batched generation under hard grounding constraints | `foundation.overview`, `foundation.industry`, `foundation.businessModel`, `foundation.companyRole`, `foundation.serviceLocations`, `positioning.pitch`, `positioning.foundingStory`, `market.customerNeeds`, `market.idealPersona`, `market.buyers` |
 | [`02-offering-normalization.md`](02-offering-normalization.md) | Many-to-one consolidation with a controlled vocabulary | `offerings[]` |
 | [`03-writing-style.md`](03-writing-style.md) | Grounding a subjective judgment in computed metrics | `branding.writingStyle` |
 | [`04-proof-extraction.md`](04-proof-extraction.md) | Extraction with a machine-verifiable output constraint | `proof.testimonials`, `proof.credentials`, `proof.trustStats` |
@@ -84,5 +84,23 @@ matters most for a knowledge base an SMB will publish from:
 - Live output is parsed through the same zod schema as everything else. A validation
   failure falls back to mock rather than surfacing an error — a knowledge base with a
   placeholder pitch beats a broken scrape.
-- One batched call per scrape, not one per field. Prompt 01 fills six fields in a single
+- One batched call per scrape, not one per field. Prompt 01 fills ten fields in a single
   request precisely so enrichment costs one round trip.
+
+### What the mock does *not* do
+
+`mock-enrich.ts` assembles sentences out of values the extractors actually found, and returns
+`null` or `[]` for anything it cannot ground — founding story, business model, company role,
+service locations, and every field of prompt 04. That is not a gap in the implementation: a
+mock that wrote a plausible founding story, or invented a testimonial attributed to a named
+customer, would be indistinguishable from a real one in the saved JSON, which is the exact
+failure the grounding design exists to prevent.
+
+### Checks applied to live output before it is stored
+
+Three of them are machine-verifiable, and all three drop rather than flag:
+
+1. **Quotes** must appear verbatim in the excerpts the model was shown (`lib/ai/verify.ts`).
+2. **Offerings** must cite at least one valid candidate index, and a price is copied only if a
+   candidate stated that price.
+3. **`sourceUrls`** are filtered to pages we actually fetched, so a cited URL always resolves.

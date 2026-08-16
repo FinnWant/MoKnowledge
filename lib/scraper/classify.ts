@@ -60,8 +60,8 @@ const RULES: Rule[] = [
     role: "team",
     priority: 75,
     patterns: [
-      /^\/(team|our-team|staff|people|leadership|agents|attorneys|providers)(\/|$)/,
-      /\/(our-team|meet-the-team|staff-directory)(\/|$)/,
+      /^\/(team|our-team|staff|people|leadership|management|agents|attorneys|providers)(\/|$)/,
+      /\/(our-team|meet-the-team|meet-our-team|staff-directory|staff-?bios|our-staff)(\/|$)/,
     ],
   },
   {

@@ -8,7 +8,7 @@ The other prompts feed the model text. This one feeds it **numbers we computed o
 and asks it to explain them, which is the difference between "the tone feels professional"
 and a description a content generator can act on.
 
-`lib/scraper/analyzers/text-metrics.ts` computes the measurements deterministically over
+`lib/scraper/analyzers/text.ts` computes the measurements deterministically over
 the scraped corpus — no LLM involved. The model's job is turning them into prose plus a
 small set of structured parameters, with the numbers constraining what it can claim.
 
@@ -44,15 +44,14 @@ small set of structured parameters, with the numbers constraining what it can cl
 ```
 Company: {{companyName}} — {{industry}}
 
-Computed metrics (from {{wordCount}} words across {{pageCount}} pages):
-- Mean sentence length: {{meanSentenceLength}} words (σ {{sentenceLengthStdDev}})
-- Flesch-Kincaid grade level: {{fleschKincaidGrade}}
-- First-person plural ("we", "our"): {{firstPersonPluralRatio}} per 1000 words
-- Second person ("you", "your"): {{secondPersonRatio}} per 1000 words
-- Questions: {{questionRatio}} per 1000 sentences
-- Exclamations: {{exclamationRatio}} per 1000 sentences
-- Imperative openers: {{imperativeRatio}} per 1000 sentences
-- Mean paragraph length: {{meanParagraphSentences}} sentences
+Computed metrics (from {{wordCount}} words in {{sentenceCount}} sentences across {{pageCount}} pages):
+- Mean sentence length: {{averageSentenceLength}} words (σ {{sentenceLengthStdDev}})
+- Flesch-Kincaid grade level: {{readingGrade}}
+- Sentences using "we"/"our": {{firstPersonPluralRatio}} of all sentences
+- Sentences using "you"/"your": {{secondPersonRatio}} of all sentences
+- Questions: {{questionRatio}} of all sentences
+- Exclamations: {{exclamationRatio}} of all sentences
+- Imperative openers ("Call", "Schedule", "Get"): {{imperativeRatio}} of all sentences
 - Distinctive terms (high relative frequency): {{#each distinctiveTerms}}{{term}} ({{count}}), {{/each}}
 
 Representative sentences:
