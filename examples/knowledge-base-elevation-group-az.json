@@ -1,0 +1,2628 @@
+{
+  "id": "example-elevation-group-az",
+  "version": 1,
+  "companyName": {
+    "value": "Kelly Jones Scottsdale Luxury Real Estate Agent",
+    "method": "scraped",
+    "confidence": 0.85,
+    "sourceUrls": [
+      "https://elevationgroupaz.com/contact-us",
+      "https://elevationgroupaz.com/",
+      "https://elevationgroupaz.com/kelly-jones",
+      "https://elevationgroupaz.com/thomas-scott",
+      "https://elevationgroupaz.com/elizabeth-flynn",
+      "https://elevationgroupaz.com/scottsdale",
+      "https://elevationgroupaz.com/arcadia",
+      "https://elevationgroupaz.com/paradise-valley",
+      "https://elevationgroupaz.com/phoenix",
+      "https://elevationgroupaz.com/featured-listings",
+      "https://elevationgroupaz.com/sold-listings",
+      "https://elevationgroupaz.com/blog"
+    ]
+  },
+  "sourceUrl": "https://elevationgroupaz.com",
+  "createdAt": "2026-08-18T12:00:00.000Z",
+  "updatedAt": "2026-08-18T12:00:00.000Z",
+  "scrape": {
+    "startedAt": "2026-08-15T20:54:30.457Z",
+    "finishedAt": "2026-08-15T20:54:30.457Z",
+    "durationMs": 39797,
+    "pagesDiscovered": 44,
+    "pages": [
+      {
+        "url": "https://elevationgroupaz.com/",
+        "role": "home",
+        "status": 200,
+        "bytes": 142070,
+        "fetchedAt": "2026-08-15T20:53:51.394Z"
+      },
+      {
+        "url": "https://elevationgroupaz.com/contact-us",
+        "role": "contact",
+        "status": 200,
+        "bytes": 65724,
+        "fetchedAt": "2026-08-15T20:53:52.498Z"
+      },
+      {
+        "url": "https://elevationgroupaz.com/kelly-jones",
+        "role": "other",
+        "status": 200,
+        "bytes": 70712,
+        "fetchedAt": "2026-08-15T20:53:54.507Z"
+      },
+      {
+        "url": "https://elevationgroupaz.com/thomas-scott",
+        "role": "other",
+        "status": 200,
+        "bytes": 68302,
+        "fetchedAt": "2026-08-15T20:53:54.646Z"
+      },
+      {
+        "url": "https://elevationgroupaz.com/elizabeth-flynn",
+        "role": "other",
+        "status": 200,
+        "bytes": 65671,
+        "fetchedAt": "2026-08-15T20:53:55.490Z"
+      },
+      {
+        "url": "https://elevationgroupaz.com/scottsdale",
+        "role": "other",
+        "status": 200,
+        "bytes": 102154,
+        "fetchedAt": "2026-08-15T20:53:56.669Z"
+      },
+      {
+        "url": "https://elevationgroupaz.com/arcadia",
+        "role": "other",
+        "status": 200,
+        "bytes": 96036,
+        "fetchedAt": "2026-08-15T20:53:57.374Z"
+      },
+      {
+        "url": "https://elevationgroupaz.com/paradise-valley",
+        "role": "other",
+        "status": 200,
+        "bytes": 96092,
+        "fetchedAt": "2026-08-15T20:53:58.476Z"
+      },
+      {
+        "url": "https://elevationgroupaz.com/phoenix",
+        "role": "other",
+        "status": 200,
+        "bytes": 93609,
+        "fetchedAt": "2026-08-15T20:53:59.384Z"
+      },
+      {
+        "url": "https://elevationgroupaz.com/featured-listings",
+        "role": "other",
+        "status": 200,
+        "bytes": 70320,
+        "fetchedAt": "2026-08-15T20:54:00.395Z"
+      },
+      {
+        "url": "https://elevationgroupaz.com/sold-listings",
+        "role": "other",
+        "status": 200,
+        "bytes": 79409,
+        "fetchedAt": "2026-08-15T20:54:01.397Z"
+      },
+      {
+        "url": "https://elevationgroupaz.com/blog",
+        "role": "blog-index",
+        "status": 200,
+        "bytes": 113815,
+        "fetchedAt": "2026-08-15T20:54:02.463Z"
+      }
+    ],
+    "robotsRespected": true,
+    "warnings": [],
+    "scraperVersion": "0.1.0"
+  },
+  "foundation": {
+    "overview": {
+      "value": "Arizona’s trusted real estate team led by Kelly Jones. Explore luxury homes in Scottsdale, Paradise Valley, Arcadia, and Phoenix with Elevation Group.",
+      "method": "scraped",
+      "confidence": 0.45,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/"
+      ],
+      "note": "We found 12 different values: discover your dream home or sell with confidence. kelly jones offers expert real estate guidance, local market insights, and client-first service across arizona., meet kelly jones, founding partner of elevation group. specializing in luxury real estate across scottsdale, paradise valley, and arcadia, arizona., learn about thomas scott, founding partner at elevation group. trusted scottsdale realtor helping clients buy and sell arizona luxury homes., discover elizabeth flynn, elevation group partner specializing in paradise valley and scottsdale luxury real estate. fluent in english, russian, and ukrainian., explore scottsdale luxury real estate with elevation group. find upscale homes, golf properties, and modern residences in arizona’s premier desert city., explore arcadia luxury real estate with elevation group. find modern homes and historic estates in one of arizona’s most desirable neighborhoods., explore paradise valley luxury real estate with elevation group. find exclusive estates and elegant homes surrounded by arizona’s scenic mountain views., explore phoenix luxury real estate with elevation group. discover premier homes, condos, and estates in arizona’s vibrant desert capital., explore featured listings by elevation group. discover luxury homes in scottsdale, paradise valley, arcadia, and phoenix with trusted arizona realtors., explore recently sold luxury homes by elevation group in scottsdale, paradise valley, phoenix, and arcadia. trusted arizona real estate experts., read the latest real estate news and insights from elevation group. explore scottsdale and paradise valley market trends, listings, and expert advice."
+    },
+    "website": {
+      "value": "https://elevationgroupaz.com/",
+      "method": "scraped",
+      "confidence": 0.85,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/"
+      ]
+    },
+    "industry": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "businessModel": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "companyRole": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "yearFounded": {
+      "value": 2007,
+      "method": "scraped",
+      "confidence": 0.55,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/thomas-scott"
+      ]
+    },
+    "legalEntityType": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "employeeCount": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "revenue": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "mainAddress": {
+      "value": {
+        "formatted": "41781 N 99TH WAY, SCOTTSDALE, AZ 85262",
+        "street": "41781 N 99TH WAY",
+        "city": "SCOTTSDALE",
+        "region": "AZ",
+        "postalCode": "85262",
+        "country": null
+      },
+      "method": "scraped",
+      "confidence": 0.45,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/blog"
+      ],
+      "note": "We found 5 different values: 8847 e ann way, scottsdale, az 85260, 6158 n paradise view dr, paradise valley, az 85253, 5800 n monte vista dr, paradise valley, az 85253, 7175 e camelback rd unit 508, scottsdale, az 85251"
+    },
+    "otherLocations": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "serviceLocations": {
+      "value": [
+        "Scottsdale",
+        "Paradise Valley",
+        "Arcadia",
+        "Greater Phoenix"
+      ],
+      "method": "scraped",
+      "confidence": 0.5,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/"
+      ]
+    },
+    "altNames": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "phone": {
+      "value": "480-399-9322",
+      "method": "scraped",
+      "confidence": 0.45,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/",
+        "https://elevationgroupaz.com/kelly-jones"
+      ],
+      "note": "We found 3 different values: 480-482-9260, 480-370-0941"
+    },
+    "email": {
+      "value": "info@elevationgroupaz.com",
+      "method": "scraped",
+      "confidence": 0.45,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/contact-us",
+        "https://elevationgroupaz.com/",
+        "https://elevationgroupaz.com/kelly-jones",
+        "https://elevationgroupaz.com/thomas-scott",
+        "https://elevationgroupaz.com/elizabeth-flynn",
+        "https://elevationgroupaz.com/scottsdale",
+        "https://elevationgroupaz.com/arcadia",
+        "https://elevationgroupaz.com/paradise-valley",
+        "https://elevationgroupaz.com/phoenix",
+        "https://elevationgroupaz.com/featured-listings",
+        "https://elevationgroupaz.com/sold-listings",
+        "https://elevationgroupaz.com/blog"
+      ],
+      "note": "We found 3 different values: kelly@elevationgroupaz.com, thomas@elevationgroupaz.com"
+    }
+  },
+  "positioning": {
+    "pitch": {
+      "value": "We offer Kelly Jones, Thomas Scott, Elizabeth Flynn and Scottsdale Real Estate in Scottsdale, Paradise Valley, Arcadia, Greater Phoenix. This placeholder pitch repeats what the website says; a live model call rewrites it in the company's own voice.",
+      "method": "ai-mock",
+      "confidence": 0.25,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/",
+        "https://elevationgroupaz.com/contact-us",
+        "https://elevationgroupaz.com/kelly-jones"
+      ],
+      "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+    },
+    "foundingStory": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    }
+  },
+  "market": {
+    "buyers": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "customerNeeds": {
+      "value": "They come for Kelly Jones, Thomas Scott, Elizabeth Flynn and Scottsdale Real Estate. Placeholder text — a live model call replaces this with a written description.",
+      "method": "ai-mock",
+      "confidence": 0.25,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/",
+        "https://elevationgroupaz.com/contact-us",
+        "https://elevationgroupaz.com/kelly-jones"
+      ],
+      "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+    },
+    "idealPersona": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "industryGroupings": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "industryOutlook": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "channels": {
+      "value": [
+        "Blog / organic search",
+        "Website",
+        "Phone",
+        "Email"
+      ],
+      "method": "derived",
+      "confidence": 0.55,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/",
+        "https://elevationgroupaz.com/contact-us",
+        "https://elevationgroupaz.com/kelly-jones",
+        "https://elevationgroupaz.com/thomas-scott",
+        "https://elevationgroupaz.com/elizabeth-flynn",
+        "https://elevationgroupaz.com/scottsdale",
+        "https://elevationgroupaz.com/arcadia",
+        "https://elevationgroupaz.com/paradise-valley",
+        "https://elevationgroupaz.com/phoenix",
+        "https://elevationgroupaz.com/featured-listings",
+        "https://elevationgroupaz.com/sold-listings",
+        "https://elevationgroupaz.com/blog"
+      ]
+    },
+    "funnels": {
+      "value": [
+        "Phone call",
+        "Email",
+        "Contact form"
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/contact-us"
+      ]
+    },
+    "ctas": {
+      "value": [
+        "View Listings",
+        "Contact Now",
+        "Call Now"
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/",
+        "https://elevationgroupaz.com/kelly-jones"
+      ]
+    },
+    "suppliersPartners": {
+      "value": [
+        "Google",
+        "Google Analytics"
+      ],
+      "method": "scraped",
+      "confidence": 0.8,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/contact-us"
+      ]
+    }
+  },
+  "branding": {
+    "writingStyle": {
+      "value": {
+        "description": "Sentences average 29.48 words (σ 26.33) at a Flesch-Kincaid grade of 17.41. 32% of sentences use \"we\" or \"our\" and 13% address the reader as \"you\". 7% open with an instruction. This description reports the measurements; a live model call turns them into a usable voice guide.",
+        "tone": [
+          "technical",
+          "urgent"
+        ],
+        "formality": "formal",
+        "readerAddress": "third-person",
+        "preferredTerms": [
+          "scottsdale",
+          "valley",
+          "paradise",
+          "estate",
+          "real",
+          "luxury",
+          "listings",
+          "arizona"
+        ],
+        "avoidTerms": [],
+        "ctaStyle": "Calls to action found verbatim: \"View Listings\", \"Contact Now\", \"Call Now\"."
+      },
+      "method": "ai-mock",
+      "confidence": 0.25,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/",
+        "https://elevationgroupaz.com/contact-us",
+        "https://elevationgroupaz.com/kelly-jones",
+        "https://elevationgroupaz.com/thomas-scott",
+        "https://elevationgroupaz.com/elizabeth-flynn"
+      ],
+      "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+    },
+    "artStyle": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "fonts": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "colors": {
+      "value": [
+        {
+          "id": "elevation-group-az-0001",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#ff6900",
+          "role": "primary",
+          "frequency": 8
+        },
+        {
+          "id": "elevation-group-az-0002",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#000000",
+          "role": "background",
+          "frequency": 7
+        },
+        {
+          "id": "elevation-group-az-0003",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#ffffff",
+          "role": "text",
+          "frequency": 6
+        },
+        {
+          "id": "elevation-group-az-0004",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#cf2e2e",
+          "role": "secondary",
+          "frequency": 6
+        },
+        {
+          "id": "elevation-group-az-0005",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#fcb900",
+          "role": "accent",
+          "frequency": 6
+        },
+        {
+          "id": "elevation-group-az-0006",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#0693e3",
+          "role": "unknown",
+          "frequency": 6
+        },
+        {
+          "id": "elevation-group-az-0007",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#9b51e0",
+          "role": "unknown",
+          "frequency": 6
+        },
+        {
+          "id": "elevation-group-az-0008",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#abb8c3",
+          "role": "border",
+          "frequency": 4
+        },
+        {
+          "id": "elevation-group-az-0009",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#f78da7",
+          "role": "unknown",
+          "frequency": 4
+        },
+        {
+          "id": "elevation-group-az-0010",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#7bdcb5",
+          "role": "unknown",
+          "frequency": 4
+        },
+        {
+          "id": "elevation-group-az-0011",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#00d084",
+          "role": "unknown",
+          "frequency": 4
+        },
+        {
+          "id": "elevation-group-az-0012",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/contact-us",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/elizabeth-flynn",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/paradise-valley",
+            "https://elevationgroupaz.com/phoenix",
+            "https://elevationgroupaz.com/featured-listings",
+            "https://elevationgroupaz.com/sold-listings",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "hex": "#8ed1fc",
+          "role": "unknown",
+          "frequency": 4
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/contact-us"
+      ]
+    },
+    "logos": {
+      "value": [
+        {
+          "id": "og-image-home",
+          "method": "scraped",
+          "confidence": 0.4,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "url": "https://elevationgroupaz.com/wp-content/uploads/2025/11/elevationgroup-logo.webp",
+          "alt": "Elevation Groupaz Logo",
+          "kind": "logo",
+          "width": 1146,
+          "height": 560
+        },
+        {
+          "id": "elevation-group-az-0013",
+          "method": "scraped",
+          "confidence": 0.75,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "url": "http://elevationgroupaz.com/wp-content/uploads/2025/11/elevationgroup-logo.webp",
+          "alt": "Elevation Groupaz Logo",
+          "kind": "logo",
+          "width": null,
+          "height": null
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.575,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/"
+      ],
+      "note": "Social sharing image; may not be the logo"
+    }
+  },
+  "onlinePresence": {
+    "profiles": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    }
+  },
+  "people": {
+    "value": [
+      {
+        "id": "elevation-group-az-0014",
+        "method": "scraped",
+        "confidence": 0.75,
+        "sourceUrls": [
+          "https://elevationgroupaz.com/kelly-jones"
+        ],
+        "name": "Kelly Jones",
+        "title": "Founding Partner",
+        "role": "executive",
+        "gender": null,
+        "bio": "I have helped numerous clients relocate, many of them from California. I will inform, guide, and assist you with your luxury home goals and provide you “All of the” necessary tools for finding the right property. I have experience with investing in luxury real estate and have an eye for spotting the hidden gems enabling me to achieve the best possible return on your investment.",
+        "email": "kelly@elevationgroupaz.com",
+        "phone": "(480)%20399-9322",
+        "imageUrl": "https://elevationgroupaz.com/wp-content/uploads/2025/11/elevationgroup-logo.webp",
+        "profileUrl": "https://elevationgroupaz.com/kelly-jones",
+        "linkedin": null
+      },
+      {
+        "id": "elevation-group-az-0015",
+        "method": "scraped",
+        "confidence": 0.75,
+        "sourceUrls": [
+          "https://elevationgroupaz.com/thomas-scott"
+        ],
+        "name": "Thomas Scott",
+        "title": "Founding Partner",
+        "role": "executive",
+        "gender": null,
+        "bio": "Assisting Buyers and Sellers of Exceptional Luxury Homes Providing expert professional service & representation With integrity, courtesy, and gratitude.",
+        "email": "thomas@elevationgroupaz.com",
+        "phone": "(480)%20399-9322",
+        "imageUrl": "https://elevationgroupaz.com/wp-content/uploads/2025/11/elevationgroup-logo.webp",
+        "profileUrl": "https://elevationgroupaz.com/thomas-scott",
+        "linkedin": null
+      },
+      {
+        "id": "elevation-group-az-0016",
+        "method": "scraped",
+        "confidence": 0.75,
+        "sourceUrls": [
+          "https://elevationgroupaz.com/elizabeth-flynn"
+        ],
+        "name": "Elizabeth Flynn",
+        "title": "Assistant",
+        "role": "staff",
+        "gender": null,
+        "bio": "Individuals and families who work with Elizabeth Flynn appreciate her calm, thoughtful approach and her firsthand understanding of what it truly means to relocate. Raised in Connecticut in a family that owned and operated a real estate brokerage, Elizabeth was surrounded by real estate from an early age and earned her license there before her journey took her across the country.",
+        "email": "Info@elevationgroupaz.com",
+        "phone": "(480)%20399-9322",
+        "imageUrl": "https://elevationgroupaz.com/wp-content/uploads/2025/11/elevationgroup-logo.webp",
+        "profileUrl": "https://elevationgroupaz.com/elizabeth-flynn",
+        "linkedin": null
+      }
+    ],
+    "method": "scraped",
+    "confidence": 0.75,
+    "sourceUrls": [
+      "https://elevationgroupaz.com/kelly-jones",
+      "https://elevationgroupaz.com/thomas-scott",
+      "https://elevationgroupaz.com/elizabeth-flynn"
+    ]
+  },
+  "offerings": {
+    "value": [
+      {
+        "id": "elevation-group-az-0017",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://elevationgroupaz.com/kelly-jones"
+        ],
+        "name": "Kelly Jones",
+        "category": "service",
+        "description": "Individuals who have decided to sell their home, have without exception, been more than happy with the results that she has achieved for them. Kelly’s extensive networking and advertising/marketing allows her to liaise with a range of agents and prospective buyers across the valley. Kelly’s ability to provide honest and accurate valuation of individual homes is beneficial to a more expedient sale. And as a result many of her new clients come about as a result of referrals.",
+        "features": [],
+        "pricing": null,
+        "url": "https://elevationgroupaz.com/kelly-jones",
+        "sourceCandidateIndexes": [
+          0
+        ]
+      },
+      {
+        "id": "elevation-group-az-0018",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://elevationgroupaz.com/thomas-scott"
+        ],
+        "name": "Thomas Scott",
+        "category": "service",
+        "description": "Thomas has been in the Real Estate Business since 2007. He worked for one of the top teams in Minnesota at RE/MAX Results (The Kris Lindahl Team). In 2017, Thomas joined Russ Lyon Sotheby’s International Realty and has been recognized as a top producing agent in the Valley. He has extensive knowledge when it comes to trends, marketing, new construction, and investment properties. Instead of being reactive, he takes a proactive approach when it comes to working with his clients, providing off-market opportunities for buyers to explore and actively seeking out buyers instead of simply throwing a",
+        "features": [],
+        "pricing": null,
+        "url": "https://elevationgroupaz.com/thomas-scott",
+        "sourceCandidateIndexes": [
+          1
+        ]
+      },
+      {
+        "id": "elevation-group-az-0019",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://elevationgroupaz.com/elizabeth-flynn"
+        ],
+        "name": "Elizabeth Flynn",
+        "category": "service",
+        "description": "Individuals and families who work with Elizabeth Flynn appreciate her calm, thoughtful approach and her firsthand understanding of what it truly means to relocate. Raised in Connecticut in a family that owned and operated a real estate brokerage, Elizabeth was surrounded by real estate from an early age and earned her license there before her journey took her across the country.",
+        "features": [],
+        "pricing": null,
+        "url": "https://elevationgroupaz.com/elizabeth-flynn",
+        "sourceCandidateIndexes": [
+          2
+        ]
+      },
+      {
+        "id": "elevation-group-az-0020",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://elevationgroupaz.com/scottsdale"
+        ],
+        "name": "Scottsdale Real Estate",
+        "category": "service",
+        "description": "Scottsdale, Arizona – Luxury Living in the Heart of the Desert",
+        "features": [],
+        "pricing": null,
+        "url": "https://elevationgroupaz.com/scottsdale",
+        "sourceCandidateIndexes": [
+          3
+        ]
+      },
+      {
+        "id": "elevation-group-az-0021",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://elevationgroupaz.com/paradise-valley"
+        ],
+        "name": "Paradise Valley Real Estate",
+        "category": "service",
+        "description": "Paradise Valley, Arizona – Where Luxury and Natural Beauty Meet",
+        "features": [],
+        "pricing": null,
+        "url": "https://elevationgroupaz.com/paradise-valley",
+        "sourceCandidateIndexes": [
+          4
+        ]
+      },
+      {
+        "id": "elevation-group-az-0022",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://elevationgroupaz.com/phoenix"
+        ],
+        "name": "Phoenix Real Estate",
+        "category": "service",
+        "description": "Phoenix is one of the most exciting and fast-growing cities in the country. Known for its endless sunshine and desert beauty, the city offers a perfect mix of outdoor adventure, cultural attractions, and modern living.",
+        "features": [],
+        "pricing": null,
+        "url": "https://elevationgroupaz.com/phoenix",
+        "sourceCandidateIndexes": [
+          5
+        ]
+      },
+      {
+        "id": "elevation-group-az-0023",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://elevationgroupaz.com/featured-listings"
+        ],
+        "name": "Featured Listings",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://elevationgroupaz.com/featured-listings",
+        "sourceCandidateIndexes": [
+          6
+        ]
+      },
+      {
+        "id": "elevation-group-az-0024",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://elevationgroupaz.com/sold-listings"
+        ],
+        "name": "Sold Listings",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://elevationgroupaz.com/sold-listings",
+        "sourceCandidateIndexes": [
+          7
+        ]
+      }
+    ],
+    "method": "ai-mock",
+    "confidence": 0.25,
+    "sourceUrls": [
+      "https://elevationgroupaz.com/kelly-jones",
+      "https://elevationgroupaz.com/thomas-scott",
+      "https://elevationgroupaz.com/elizabeth-flynn",
+      "https://elevationgroupaz.com/scottsdale",
+      "https://elevationgroupaz.com/paradise-valley",
+      "https://elevationgroupaz.com/phoenix",
+      "https://elevationgroupaz.com/featured-listings",
+      "https://elevationgroupaz.com/sold-listings"
+    ],
+    "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+  },
+  "proof": {
+    "testimonials": {
+      "value": [
+        {
+          "id": "elevation-group-az-0025",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "quote": "Md Rony Hossain3 months agoKelly JonesI had an outstanding experience working with Kelly Jones during my home search in Scottsdale. From the beginning, she demonstrated deep knowledge of the luxury real estate market and provided clear, honest guidance at every step.Kelly was always responsive, patient, and attentive to exactly what I was looking for. She didn’t just show properties—she helped me understand value, location advantages, and long-term investment potential, which made a big difference in my decision-making.What stood out most was her professionalism combined with genuine care. She made the entire process smooth, stress-free, and efficient, even in a competitive market.I would highly recommend Kelly Jones to anyone looking for a dedicated and highly skilled luxury real estate agent in Scottsdale.",
+          "authorName": "Md Rony Hossain",
+          "authorRole": null,
+          "authorCompany": null,
+          "authorLocation": null,
+          "rating": null,
+          "date": null,
+          "platform": null,
+          "mediaUrl": null,
+          "topics": [],
+          "mentionsPeople": [],
+          "mentionsOfferings": []
+        },
+        {
+          "id": "elevation-group-az-0026",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "quote": "tanwi Mazumder6 months ago⭐️⭐️⭐️⭐️⭐️Working with Kelly Jones was an absolute pleasure from start to finish! Kelly’s expertise in the Scottsdale luxury market is truly exceptional — she knows the area inside and out and guided me with confidence, professionalism, and genuine care. Her attention to detail, strategic insights, and thoughtful communication made the entire process smooth, efficient, and stress‑free. Kelly was always available to answer questions, offer sound advice, and ensure I felt comfortable and informed every step of the way. She went above and beyond to exceed my expectations, and I couldn’t be happier with the results. If you’re looking for a dedicated, knowledgeable, and trustworthy luxury real estate agent in Scottsdale, Kelly is the one to choose!",
+          "authorName": null,
+          "authorRole": null,
+          "authorCompany": null,
+          "authorLocation": null,
+          "rating": null,
+          "date": null,
+          "platform": null,
+          "mediaUrl": null,
+          "topics": [],
+          "mentionsPeople": [],
+          "mentionsOfferings": []
+        },
+        {
+          "id": "elevation-group-az-0027",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "quote": "Munni Islam6 months ago⭐⭐⭐⭐⭐I had an outstanding experience with Kelly Jones, Scottsdale Luxury Real Estate Agent! Kelly is professional, knowledgeable, and truly committed to helping her clients achieve their real estate goals. From start to finish, she made the entire process smooth, stress-free, and enjoyable.Her expertise in the Scottsdale luxury market, combined with clear communication and exceptional negotiation skills, gave me complete confidence every step of the way. Kelly was always responsive, attentive to detail, and genuinely focused on achieving the best possible outcome.If you’re looking for a reliable, experienced, and client-focused luxury real estate agent, I highly recommend Kelly Jones. Five stars all the way! 🌟",
+          "authorName": "Munni Islam",
+          "authorRole": null,
+          "authorCompany": null,
+          "authorLocation": null,
+          "rating": null,
+          "date": null,
+          "platform": null,
+          "mediaUrl": null,
+          "topics": [],
+          "mentionsPeople": [],
+          "mentionsOfferings": []
+        },
+        {
+          "id": "elevation-group-az-0028",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "quote": "Wendy Callaghan5 years agoWhen my Goth girl daughter wanted to buy her first home in the 2021 crazy competitive market, I immediately thought of Kelly because I witnessed her fight for the best deal for her client against a jerk homebuilder and shut him down. My daughter was looking in some funky neighborhoods and most of the properties were far from \"luxury\", but Kelly was exceptional in helping her secure a nice condo at a fair price. We truly appreciate your help. In the local sea of skinny blonde real estate agents, Kelly is a shark-- She deserves every success!",
+          "authorName": "Wendy Callaghan",
+          "authorRole": null,
+          "authorCompany": null,
+          "authorLocation": null,
+          "rating": null,
+          "date": null,
+          "platform": null,
+          "mediaUrl": null,
+          "topics": [],
+          "mentionsPeople": [],
+          "mentionsOfferings": []
+        },
+        {
+          "id": "elevation-group-az-0029",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "quote": "Elizabeth Tatum5 years agoKelly is an amazing real estate agent who took the time to listen to us and understand our requirements. She shared viable options given the market conditions. Kelly was patient and left no detail unattended. She has a gift and vision to suggest how a house might be transformed into the one of your dreams. Kelly has a strong understanding of the real estate market and has many resources in which to draw from. She is a true gem. We highly recommend Kelly to anyone in the market for a new home.",
+          "authorName": "Elizabeth Tatum",
+          "authorRole": null,
+          "authorCompany": null,
+          "authorLocation": null,
+          "rating": null,
+          "date": null,
+          "platform": null,
+          "mediaUrl": null,
+          "topics": [],
+          "mentionsPeople": [],
+          "mentionsOfferings": []
+        },
+        {
+          "id": "elevation-group-az-0030",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "quote": "Kat5 years agoWe were very lucky to find Kelly through a mutual friend. She helped us find the perfect home and without her and her network, we would have never had the opportunity to purchase it (since we found it before it was ever even listed). She has been a wealth of knowledge along the way and always so patient. She truly is a gem and we would highly recommend her to anyone.",
+          "authorName": "Kat",
+          "authorRole": null,
+          "authorCompany": null,
+          "authorLocation": null,
+          "rating": null,
+          "date": null,
+          "platform": null,
+          "mediaUrl": null,
+          "topics": [],
+          "mentionsPeople": [],
+          "mentionsOfferings": []
+        },
+        {
+          "id": "elevation-group-az-0031",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "quote": "Andrew Phares5 years agoKelly really helped me through my first time buying a home. She was very knowledgeable and responded to all my questions quickly. I’d definitely recommend her and will be calling on her again in the future. Thanks Kelly!",
+          "authorName": "Andrew Phares",
+          "authorRole": null,
+          "authorCompany": null,
+          "authorLocation": null,
+          "rating": null,
+          "date": null,
+          "platform": null,
+          "mediaUrl": null,
+          "topics": [],
+          "mentionsPeople": [],
+          "mentionsOfferings": []
+        },
+        {
+          "id": "elevation-group-az-0032",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "quote": "Munyema Hasan5 years agoKelly is a class act. She's not just a seasoned realtor. She's passionate about what she does, a straight talker, and prioritizes your needs no matter what.",
+          "authorName": "Munyema Hasan",
+          "authorRole": null,
+          "authorCompany": null,
+          "authorLocation": null,
+          "rating": null,
+          "date": null,
+          "platform": null,
+          "mediaUrl": null,
+          "topics": [],
+          "mentionsPeople": [],
+          "mentionsOfferings": []
+        },
+        {
+          "id": "elevation-group-az-0033",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "quote": "Corinne Monson5 years agoKelly is an A plus realtor and we are so grateful to have found her as first time home buyers. She made everything as clear and simple as possible and held our hands every step of the way in this current insane market. We always felt like we were in good hands and she went over and beyond what was expected of her as a realtor. We can't recommend her enough.",
+          "authorName": "Corinne Monson",
+          "authorRole": null,
+          "authorCompany": null,
+          "authorLocation": null,
+          "rating": null,
+          "date": null,
+          "platform": null,
+          "mediaUrl": null,
+          "topics": [],
+          "mentionsPeople": [],
+          "mentionsOfferings": []
+        },
+        {
+          "id": "elevation-group-az-0034",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "quote": "Jay Weinberger5 years agoWhen looking for a home in Scottsdale, we had the tremendously good luck of finding Kelly. Living in Chicago we had only three days to find our dream home. It seemed like every place we toured was better than the previous! She clearly understood what we were looking for. Not only did Kelly make the search fun, she’s been a valuable resource after the closing with suggestions for contractors or other services providers. Kelly provided the attentive attention to details that discerning buyers will surely appreciate. Thank you Kelly, for make our dream a reality! Jay and Julie Weinberger",
+          "authorName": "Jay Weinberger",
+          "authorRole": null,
+          "authorCompany": null,
+          "authorLocation": null,
+          "rating": null,
+          "date": null,
+          "platform": null,
+          "mediaUrl": null,
+          "topics": [],
+          "mentionsPeople": [],
+          "mentionsOfferings": []
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/"
+      ]
+    },
+    "aggregateRatings": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "caseStudies": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "certifications": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "memberships": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "awards": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "pressMentions": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "trustStats": {
+      "value": [
+        {
+          "id": "elevation-group-az-0035",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "claim": "over 50 years of experience",
+          "value": 50,
+          "unit": "years",
+          "category": "years-in-business",
+          "asOfDate": null
+        },
+        {
+          "id": "elevation-group-az-0036",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/"
+          ],
+          "claim": "$8.5B in career sales the partnership is set",
+          "value": 8.5,
+          "unit": "currency",
+          "category": "volume-transacted",
+          "asOfDate": null
+        },
+        {
+          "id": "elevation-group-az-0037",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/kelly-jones"
+          ],
+          "claim": "$300 million mark",
+          "value": 300,
+          "unit": "currency",
+          "category": "volume-transacted",
+          "asOfDate": null
+        },
+        {
+          "id": "elevation-group-az-0038",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/thomas-scott"
+          ],
+          "claim": "since 2007",
+          "value": 2007,
+          "unit": "year",
+          "category": "years-in-business",
+          "asOfDate": null
+        },
+        {
+          "id": "elevation-group-az-0039",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "claim": "$1.1 million, the Scottsdale real estate market is e",
+          "value": 1.1,
+          "unit": "currency",
+          "category": "volume-transacted",
+          "asOfDate": null
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.6,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/",
+        "https://elevationgroupaz.com/kelly-jones",
+        "https://elevationgroupaz.com/thomas-scott",
+        "https://elevationgroupaz.com/blog"
+      ]
+    },
+    "guarantees": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "clientLogos": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    }
+  },
+  "contentIntelligence": {
+    "themes": {
+      "value": [
+        {
+          "id": "elevation-group-az-0040",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott"
+          ],
+          "label": "Property",
+          "weight": 0.23,
+          "terms": [
+            "property",
+            "exclusive",
+            "estates",
+            "high",
+            "premier",
+            "individuals"
+          ],
+          "exampleUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott"
+          ]
+        },
+        {
+          "id": "elevation-group-az-0041",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia"
+          ],
+          "label": "Elegant",
+          "weight": 0.15,
+          "terms": [
+            "elegant",
+            "desert",
+            "across",
+            "cave",
+            "creek",
+            "properties"
+          ],
+          "exampleUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/scottsdale",
+            "https://elevationgroupaz.com/arcadia"
+          ]
+        },
+        {
+          "id": "elevation-group-az-0042",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "label": "Worth",
+          "weight": 0.14,
+          "terms": [
+            "worth",
+            "strategic",
+            "structural",
+            "family",
+            "agent",
+            "perfect"
+          ],
+          "exampleUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/blog"
+          ]
+        },
+        {
+          "id": "elevation-group-az-0043",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/scottsdale"
+          ],
+          "label": "Explore",
+          "weight": 0.11,
+          "terms": [
+            "explore",
+            "every",
+            "living",
+            "lifestyle",
+            "community",
+            "desirable"
+          ],
+          "exampleUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/thomas-scott",
+            "https://elevationgroupaz.com/scottsdale"
+          ]
+        },
+        {
+          "id": "elevation-group-az-0044",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott"
+          ],
+          "label": "Partner",
+          "weight": 0.1,
+          "terms": [
+            "partner",
+            "results",
+            "guide",
+            "investment",
+            "recommend",
+            "process"
+          ],
+          "exampleUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/thomas-scott"
+          ]
+        },
+        {
+          "id": "elevation-group-az-0045",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/scottsdale"
+          ],
+          "label": "Helped",
+          "weight": 0.1,
+          "terms": [
+            "helped",
+            "find",
+            "modern",
+            "mountain",
+            "sales",
+            "looking"
+          ],
+          "exampleUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/scottsdale"
+          ]
+        },
+        {
+          "id": "elevation-group-az-0046",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "label": "Highly",
+          "weight": 0.09,
+          "terms": [
+            "highly",
+            "neighborhoods",
+            "happy",
+            "achieve",
+            "continuously",
+            "featuring"
+          ],
+          "exampleUrls": [
+            "https://elevationgroupaz.com/",
+            "https://elevationgroupaz.com/arcadia",
+            "https://elevationgroupaz.com/blog"
+          ]
+        },
+        {
+          "id": "elevation-group-az-0047",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/blog"
+          ],
+          "label": "Sale",
+          "weight": 0.08,
+          "terms": [
+            "sale",
+            "sell",
+            "relocation",
+            "agents",
+            "finding",
+            "valuation"
+          ],
+          "exampleUrls": [
+            "https://elevationgroupaz.com/kelly-jones",
+            "https://elevationgroupaz.com/blog"
+          ]
+        }
+      ],
+      "method": "derived",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/",
+        "https://elevationgroupaz.com/contact-us",
+        "https://elevationgroupaz.com/kelly-jones",
+        "https://elevationgroupaz.com/thomas-scott",
+        "https://elevationgroupaz.com/elizabeth-flynn",
+        "https://elevationgroupaz.com/scottsdale",
+        "https://elevationgroupaz.com/arcadia",
+        "https://elevationgroupaz.com/paradise-valley",
+        "https://elevationgroupaz.com/phoenix",
+        "https://elevationgroupaz.com/featured-listings",
+        "https://elevationgroupaz.com/sold-listings",
+        "https://elevationgroupaz.com/blog"
+      ]
+    },
+    "posts": {
+      "value": [
+        {
+          "id": "elevation-group-az-0048",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Kelly Jones",
+          "url": "https://elevationgroupaz.com/kelly-jones",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0049",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Thomas Scott",
+          "url": "https://elevationgroupaz.com/thomas-scott",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0050",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Elizabeth Flynn",
+          "url": "https://elevationgroupaz.com/elizabeth-flynn",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0051",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Scottsdale",
+          "url": "https://elevationgroupaz.com/scottsdale",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0052",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Paradise Valley",
+          "url": "https://elevationgroupaz.com/paradise-valley",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0053",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Featured Listings",
+          "url": "https://elevationgroupaz.com/featured-listings",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0054",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Sold Listings",
+          "url": "https://elevationgroupaz.com/sold-listings",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0055",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Contact Us",
+          "url": "https://elevationgroupaz.com/contact-us",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0056",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Structural Trends in Portfolio Diversification: Where Scottsdale Residents Acquire Weekend Escapes",
+          "url": "https://elevationgroupaz.com/news/2026/6/15/structural-trends-in-portfolio-diversification-where-scottsdale-residents-acquire-weekend-escapes",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "Analyzing the Secondary Market for High-Net-Worth Buyers At Elevation Group, we continuously analyze portfolio diversification strategies among high-net-worth individuals holding primary assets in the Phoenix…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0057",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "The Hidden Costs of Waiting to Sell Your Luxury Home",
+          "url": "https://elevationgroupaz.com/news/2026/6/13/the-hidden-costs-of-waiting-to-sell-your-luxury-home",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "The Structural Economics of Timing the Market At Elevation Group, we continuously analyze the underlying metrics of the Arizona luxury real estate sector. A common…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0058",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Evaluating Premium Family Amenities and Their Impact on Scottsdale Luxury Real Estate This Season",
+          "url": "https://elevationgroupaz.com/news/2026/6/11/evaluating-premium-family-amenities-and-their-impact-on-scottsdale-luxury-real-estate-this-season",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "The Intersection of Lifestyle Infrastructure and Market Velocity At Elevation Group, we continuously monitor the structural market drivers influencing the Phoenix luxury market. A primary…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0059",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "The Economics of Relocation Versus Renovation: A Guide for Arizona Luxury Homeowners",
+          "url": "https://elevationgroupaz.com/news/2026/6/9/the-economics-of-relocation-versus-renovation-a-guide-for-arizona-luxury-homeowners",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "Analyzing the Renovation Versus Relocation Dilemma At Elevation Group, we frequently analyze the structural market drivers that influence high-net-worth real estate decisions. One of the…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0060",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Strategic Valuation: An Analysis of Record-Breaking Premier Estates in Paradise Valley",
+          "url": "https://elevationgroupaz.com/news/2026/6/6/strategic-valuation-an-analysis-of-record-breaking-premier-estates-in-paradise-valley",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "The luxury real estate market in Paradise Valley operates on a distinct set of valuation principles. For high-net-worth individuals, entertainers, and athletes, acquiring a premier…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0061",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Deep Dive into Paradise Valley and Scottsdale Luxury Market Trends",
+          "url": "https://elevationgroupaz.com/news/2026/6/4/deep-dive-into-paradise-valley-and-scottsdale-luxury-market-trends",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "The Analytical Framework for Arizona’s Ultra-Luxury Sector At Elevation Group, we continuously monitor the structural shifts defining the high-end real estate sector. The ultra-luxury markets…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0062",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Strategic Relocation to Arizona’s Premier Luxury Real Estate Market",
+          "url": "https://elevationgroupaz.com/news/2026/6/1/strategic-relocation-to-arizonas-premier-luxury-real-estate-market",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "Relocating to Arizona represents a strategic acquisition for high-net-worth individuals seeking both lifestyle enhancement and robust investment returns. The luxury real estate market in Arizona…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0063",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Strategic Analysis of Record-Breaking Luxury Home Sales in Paradise Valley",
+          "url": "https://elevationgroupaz.com/news/2026/5/29/strategic-analysis-of-record-breaking-luxury-home-sales-in-paradise-valley",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "The luxury real estate market in Paradise Valley continues to demonstrate unprecedented resilience and growth, solidifying its position as a premier destination for high-net-worth individuals.…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0064",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Finding Your Perfect Pocket of The Valley: A Guide to Arcadia and Paradise Valley",
+          "url": "https://elevationgroupaz.com/news/2026/5/27/finding-your-perfect-pocket-of-the-valley-a-guide-to-arcadia-and-paradise-valley",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "There is a specific kind of magic that happens in The Valley just before the sun clears the McDowell Mountains. I usually catch it while…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0065",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Strategic Positioning of Multi-Million Dollar Estates in Arizona: A Case Study in Luxury Marketing",
+          "url": "https://elevationgroupaz.com/news/2026/5/15/strategic-positioning-of-multi-million-dollar-estates-in-arizona-a-case-study-in-luxury-marketing",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "The successful disposition of ultra-luxury real estate in Arizona requires a sophisticated approach that transcends traditional marketing. For high-net-worth individuals, entertainers, and athletes, a premier…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0066",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Strategic Asset Protection: The Luxury Homeowner Guide to Monsoon Season Preparedness",
+          "url": "https://elevationgroupaz.com/news/2026/5/13/strategic-asset-protection-the-luxury-homeowner-guide-to-monsoon-season-preparedness",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "The Economic Impact of Seasonal Weather on Luxury Assets At Elevation Group, we analyze the Arizona luxury real estate market through a lens of structural…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0067",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Analyzing the Hidden Costs of Acquiring Luxury Real Estate in Arizona",
+          "url": "https://elevationgroupaz.com/news/2026/5/11/analyzing-the-hidden-costs-of-acquiring-luxury-real-estate-in-arizona",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "The Structural Economics of Luxury Acquisitions At Elevation Group, we continuously monitor the structural market drivers shaping the Phoenix luxury market. When high-net-worth buyers evaluate…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0068",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Strategic Marketing of Iconic Arizona Estates: A Case Study in Ultra-Luxury Real Estate",
+          "url": "https://elevationgroupaz.com/news/2026/5/4/strategic-marketing-of-iconic-arizona-estates-a-case-study-in-ultra-luxury-real-estate",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "The marketing of multi-million dollar estates in Arizona requires a sophisticated approach that transcends traditional real estate practices, focusing instead on strategic asset positioning and…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0069",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Deep Dive into Paradise Valley and Scottsdale Luxury Market Trends: A Structural Analysis",
+          "url": "https://elevationgroupaz.com/news/2026/5/1/deep-dive-into-paradise-valley-and-scottsdale-luxury-market-trends-a-structural-analysis",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "Deep Dive into Paradise Valley and Scottsdale Luxury Market Trends: A Structural Analysis At Elevation Group, we continuously monitor the micro-economic indicators driving Arizona’s premium…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0070",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Maximizing ROI on High-End Home Upgrades in Scottsdale: A Data-Driven Analysis of Turnkey Premiums",
+          "url": "https://elevationgroupaz.com/news/2026/4/29/maximizing-roi-on-high-end-home-upgrades-in-scottsdale-a-data-driven-analysis-of-turnkey-premiums",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "The Economic Catalyst for the Turnkey Premium At Elevation Group, we continuously monitor the structural drivers of property valuation within the Arizona luxury real estate…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0071",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Beyond the Listing: How High-Net-Worth Individuals Leverage Expert Real Estate Networks in Arizona",
+          "url": "https://elevationgroupaz.com/news/2026/4/16/beyond-the-listing-how-high-net-worth-individuals-leverage-expert-real-estate-networks-in-arizona",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "In Arizona’s vibrant luxury real estate market, high-net-worth individuals seek more than just a transaction; they desire a strategic partnership that understands their unique needs…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0072",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Navigating Arizona’s Elite: Luxury Real Estate Trends in Scottsdale & Paradise Valley",
+          "url": "https://elevationgroupaz.com/news/2026/4/15/navigating-arizonas-elite-luxury-real-estate-trends-in-scottsdale-paradise-valley",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "Arizona’s luxury real estate market continues to captivate high-net-worth individuals seeking an unparalleled lifestyle. Specifically, the prestigious enclaves of Scottsdale and Paradise Valley are experiencing…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0073",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Wealthiest Cities in Arizona 2026",
+          "url": "https://elevationgroupaz.com/news/2026/1/7/wealthiest-cities-in-arizona",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "Arizona is more than rugged landscapes and year-round sunshine. It is also home to some of the most affluent communities in the Southwest. From tranquil…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0074",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Phoenix AZ Area Zip Codes: A Local, Easy-to-Understand Guide",
+          "url": "https://elevationgroupaz.com/news/2026/1/7/phoenix-az-area-zip-codes",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "If you have ever searched for Phoenix AZ area zip codes, you are not alone. Phoenix is one of the largest cities in the United…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0075",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "How To Find The Perfect Buyer’s Real Estate Agent",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/how-to-find-the-perfect-buyers-real-estate-agent",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "How do you weigh the importance of buying a home – one of the most important purchases you’ll ever make – against the importance of…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0076",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Elevation Group Transitions to New Brokerage",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/elevation-group-transitions-to-new-brokerage",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "Elevation Group, a renowned name in real estate, proudly announces its move to a new brokerage, marking a significant milestone in its journey of excellence…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0077",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Scottsdale Real Estate Market Update",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/scottsdale-real-estate-market-update",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "With a year-over-year gain of 27.6% and a median listing price of $1.1 million, the Scottsdale real estate market is expanding rapidly. Homes usually sell…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0078",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Spectacular Scottsdale Estate For Sale!",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/spectacular-scottsdale-estate-for-sale",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "41781 N 99TH WAY, SCOTTSDALE, AZ 85262 $5,300,000 4 BEDS 6 BATHS 7,328 SQFT GOLF MEMBERSHIP AVAILABLE! This exquisite custom built estate radiates meticulous design, quality…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0079",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "New Scottsdale Home For Sale!",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/new-scottsdale-home-for-sale",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "8847 E Ann Way, Scottsdale, AZ 85260 $2,050,000 3 bed 3.5 bath 4,621 sqft Nestled within the highly sought-after gated community of Paso Fino Estates, in the heart of…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0080",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Stunning Paradise Valley Remodel For Sale!",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/stunning-paradise-valley-remodel-for-sale",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "6158 N Paradise View Dr, Paradise Valley, AZ 85253 5 BED 6 BATH 6,675 SQFT $6,600,000 Beautiful turnkey Santa Barbara remodel with views of Phoenix Mountain Preserve is situated…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0081",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Scottsdale Real Estate Agents",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/scottsdale-real-estate-agents",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "The real estate market in Scottsdale, Arizona, is thriving and in high demand. Working with a top realtor who is familiar with the Scottsdale real…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0082",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "A Modern Masterpiece In Paradise Valley For Sale!",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/a-modern-masterpiece-in-paradise-valley-for-sale",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "In Paradise Valley, a private gated soft modern masterpiece! As soon as you enter the magnificently handcrafted front door, the courtyard’s stunning vista of Camelback…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0083",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Desert Contemporary Masterpiece In Paradise Valley",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/desert-contemporary-masterpiece-in-paradise-valley",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "5800 N MONTE VISTA DR, PARADISE VALLEY, AZ 85253 5 BD 7 BA 7,439 SQFT $9,200,000 Experience this Iconic Desert Contemporary Masterpiece by MP Design &…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0084",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Luxurious Scottsdale Waterfront Condo For Sale!",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/luxurious-scottsdale-waterfront-condo-for-sale",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "7175 E CAMELBACK RD UNIT 508, SCOTTSDALE, AZ 85251 2 BD 3 BA 1,983 SQFT $2,000,000 Stunning 5th-floor FULLY REMODELED unit which is located at the…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0085",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "New Paradise Valley Home For Sale!",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/new-paradise-valley-home-for-sale",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "4 bed 3 bath 2,858 square feet $2,500,000 Perfect location and Great opportunity!!! Smaller Paradise Valley footprint with views of Downtown and Camelback Mt. This…",
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "elevation-group-az-0086",
+          "method": "scraped",
+          "confidence": 0.65,
+          "sourceUrls": [
+            "https://elevationgroupaz.com/blog"
+          ],
+          "title": "Scottsdale Real Estate – Cromford Daily Observation Issues Red Flag Warning",
+          "url": "https://elevationgroupaz.com/news/2025/11/6/scottsdale-real-estate-cromford-daily-observation-issues-red-flag-warning",
+          "publishedAt": null,
+          "author": null,
+          "category": null,
+          "excerpt": "Cromford Daily Observation ~ We issued a red flag warning on April 24 and in the 5 weeks since then the market has deteriorated at the…",
+          "wordCount": null,
+          "headings": []
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.65,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/blog"
+      ]
+    },
+    "taxonomy": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "cadence": {
+      "value": {
+        "postsPerMonth": null,
+        "firstPublished": null,
+        "lastPublished": null,
+        "daysSinceLast": null,
+        "isStale": false
+      },
+      "method": "derived",
+      "confidence": 0.75,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/",
+        "https://elevationgroupaz.com/contact-us",
+        "https://elevationgroupaz.com/kelly-jones",
+        "https://elevationgroupaz.com/thomas-scott",
+        "https://elevationgroupaz.com/elizabeth-flynn",
+        "https://elevationgroupaz.com/scottsdale",
+        "https://elevationgroupaz.com/arcadia",
+        "https://elevationgroupaz.com/paradise-valley",
+        "https://elevationgroupaz.com/phoenix",
+        "https://elevationgroupaz.com/featured-listings",
+        "https://elevationgroupaz.com/sold-listings",
+        "https://elevationgroupaz.com/blog"
+      ]
+    },
+    "headlinePatterns": {
+      "value": [
+        {
+          "id": "elevation-group-az-0087",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [],
+          "pattern": "other",
+          "count": 35,
+          "examples": [
+            "Kelly Jones",
+            "Thomas Scott",
+            "Elizabeth Flynn"
+          ]
+        },
+        {
+          "id": "elevation-group-az-0088",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [],
+          "pattern": "local-service",
+          "count": 2,
+          "examples": [
+            "Analyzing the Hidden Costs of Acquiring Luxury Real Estate in Arizona",
+            "Beyond the Listing: How High-Net-Worth Individuals Leverage Expert Real Estate Networks in Arizona"
+          ]
+        },
+        {
+          "id": "elevation-group-az-0089",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [],
+          "pattern": "comparison",
+          "count": 1,
+          "examples": [
+            "The Economics of Relocation Versus Renovation: A Guide for Arizona Luxury Homeowners"
+          ]
+        },
+        {
+          "id": "elevation-group-az-0090",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [],
+          "pattern": "how-to",
+          "count": 1,
+          "examples": [
+            "How To Find The Perfect Buyer’s Real Estate Agent"
+          ]
+        }
+      ],
+      "method": "derived",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://elevationgroupaz.com/",
+        "https://elevationgroupaz.com/contact-us",
+        "https://elevationgroupaz.com/kelly-jones",
+        "https://elevationgroupaz.com/thomas-scott",
+        "https://elevationgroupaz.com/elizabeth-flynn",
+        "https://elevationgroupaz.com/scottsdale",
+        "https://elevationgroupaz.com/arcadia",
+        "https://elevationgroupaz.com/paradise-valley",
+        "https://elevationgroupaz.com/phoenix",
+        "https://elevationgroupaz.com/featured-listings",
+        "https://elevationgroupaz.com/sold-listings",
+        "https://elevationgroupaz.com/blog"
+      ]
+    },
+    "faqs": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "glossary": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "seasonalSignals": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "contentGaps": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    }
+  },
+  "quality": {
+    "overallScore": 0.469,
+    "categoryScores": [
+      {
+        "category": "foundation",
+        "score": 0.593,
+        "filledFields": 8,
+        "totalFields": 16,
+        "needsAttention": 4
+      },
+      {
+        "category": "positioning",
+        "score": 0.556,
+        "filledFields": 1,
+        "totalFields": 2,
+        "needsAttention": 1
+      },
+      {
+        "category": "market",
+        "score": 0.536,
+        "filledFields": 5,
+        "totalFields": 9,
+        "needsAttention": 1
+      },
+      {
+        "category": "branding",
+        "score": 0.688,
+        "filledFields": 3,
+        "totalFields": 5,
+        "needsAttention": 2
+      },
+      {
+        "category": "onlinePresence",
+        "score": 0,
+        "filledFields": 0,
+        "totalFields": 1,
+        "needsAttention": 0
+      },
+      {
+        "category": "people",
+        "score": 1,
+        "filledFields": 1,
+        "totalFields": 1,
+        "needsAttention": 0
+      },
+      {
+        "category": "offerings",
+        "score": 1,
+        "filledFields": 1,
+        "totalFields": 1,
+        "needsAttention": 1
+      },
+      {
+        "category": "proof",
+        "score": 0.281,
+        "filledFields": 2,
+        "totalFields": 10,
+        "needsAttention": 0
+      },
+      {
+        "category": "contentIntelligence",
+        "score": 0.435,
+        "filledFields": 4,
+        "totalFields": 9,
+        "needsAttention": 0
+      }
+    ],
+    "missingFields": [
+      "foundation.industry",
+      "foundation.businessModel",
+      "foundation.companyRole",
+      "foundation.legalEntityType",
+      "foundation.employeeCount",
+      "foundation.revenue",
+      "foundation.otherLocations",
+      "foundation.altNames",
+      "positioning.foundingStory",
+      "market.buyers",
+      "market.idealPersona",
+      "market.industryGroupings",
+      "market.industryOutlook",
+      "branding.artStyle",
+      "branding.fonts",
+      "onlinePresence.profiles",
+      "proof.aggregateRatings",
+      "proof.caseStudies",
+      "proof.certifications",
+      "proof.memberships",
+      "proof.awards",
+      "proof.pressMentions",
+      "proof.guarantees",
+      "proof.clientLogos",
+      "contentIntelligence.taxonomy",
+      "contentIntelligence.faqs",
+      "contentIntelligence.glossary",
+      "contentIntelligence.seasonalSignals",
+      "contentIntelligence.contentGaps"
+    ],
+    "conflicts": [
+      {
+        "path": "foundation.overview",
+        "label": "overview",
+        "candidates": [
+          {
+            "value": "Arizona’s trusted real estate team led by Kelly Jones. Explore luxury homes in Scottsdale, Paradise Valley, Arcadia, and Phoenix with Elevation Group.",
+            "sourceUrl": "https://elevationgroupaz.com/",
+            "sourceLabel": "on the home page",
+            "confidence": 0.5
+          },
+          {
+            "value": "Discover your dream home or sell with confidence. Kelly Jones offers expert real estate guidance, local market insights, and client-first service across Arizona.",
+            "sourceUrl": "https://elevationgroupaz.com/contact-us",
+            "sourceLabel": "on the Contact page",
+            "confidence": 0.35
+          },
+          {
+            "value": "Meet Kelly Jones, founding partner of Elevation Group. Specializing in luxury real estate across Scottsdale, Paradise Valley, and Arcadia, Arizona.",
+            "sourceUrl": "https://elevationgroupaz.com/kelly-jones",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Learn about Thomas Scott, founding partner at Elevation Group. Trusted Scottsdale realtor helping clients buy and sell Arizona luxury homes.",
+            "sourceUrl": "https://elevationgroupaz.com/thomas-scott",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Discover Elizabeth Flynn, Elevation Group partner specializing in Paradise Valley and Scottsdale luxury real estate. Fluent in English, Russian, and Ukrainian.",
+            "sourceUrl": "https://elevationgroupaz.com/elizabeth-flynn",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Explore Scottsdale luxury real estate with Elevation Group. Find upscale homes, golf properties, and modern residences in Arizona’s premier desert city.",
+            "sourceUrl": "https://elevationgroupaz.com/scottsdale",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Explore Arcadia luxury real estate with Elevation Group. Find modern homes and historic estates in one of Arizona’s most desirable neighborhoods.",
+            "sourceUrl": "https://elevationgroupaz.com/arcadia",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Explore Paradise Valley luxury real estate with Elevation Group. Find exclusive estates and elegant homes surrounded by Arizona’s scenic mountain views.",
+            "sourceUrl": "https://elevationgroupaz.com/paradise-valley",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Explore Phoenix luxury real estate with Elevation Group. Discover premier homes, condos, and estates in Arizona’s vibrant desert capital.",
+            "sourceUrl": "https://elevationgroupaz.com/phoenix",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Explore featured listings by Elevation Group. Discover luxury homes in Scottsdale, Paradise Valley, Arcadia, and Phoenix with trusted Arizona realtors.",
+            "sourceUrl": "https://elevationgroupaz.com/featured-listings",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Explore recently sold luxury homes by Elevation Group in Scottsdale, Paradise Valley, Phoenix, and Arcadia. Trusted Arizona real estate experts.",
+            "sourceUrl": "https://elevationgroupaz.com/sold-listings",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Read the latest real estate news and insights from Elevation Group. Explore Scottsdale and Paradise Valley market trends, listings, and expert advice.",
+            "sourceUrl": "https://elevationgroupaz.com/blog",
+            "sourceLabel": "on the blog",
+            "confidence": 0.35
+          }
+        ],
+        "resolved": false
+      },
+      {
+        "path": "foundation.phone",
+        "label": "phone",
+        "candidates": [
+          {
+            "value": "480-399-9322",
+            "sourceUrl": "https://elevationgroupaz.com/",
+            "sourceLabel": "on the home page",
+            "confidence": 0.85
+          },
+          {
+            "value": "480-482-9260",
+            "sourceUrl": "https://elevationgroupaz.com/",
+            "sourceLabel": "on the home page",
+            "confidence": 0.85
+          },
+          {
+            "value": "480-370-0941",
+            "sourceUrl": "https://elevationgroupaz.com/elizabeth-flynn",
+            "sourceLabel": "on the website",
+            "confidence": 0.85
+          }
+        ],
+        "resolved": false
+      },
+      {
+        "path": "foundation.email",
+        "label": "email",
+        "candidates": [
+          {
+            "value": "info@elevationgroupaz.com",
+            "sourceUrl": "https://elevationgroupaz.com/contact-us",
+            "sourceLabel": "on the Contact page",
+            "confidence": 0.85
+          },
+          {
+            "value": "kelly@elevationgroupaz.com",
+            "sourceUrl": "https://elevationgroupaz.com/",
+            "sourceLabel": "on the home page",
+            "confidence": 0.85
+          },
+          {
+            "value": "thomas@elevationgroupaz.com",
+            "sourceUrl": "https://elevationgroupaz.com/",
+            "sourceLabel": "on the home page",
+            "confidence": 0.85
+          }
+        ],
+        "resolved": false
+      },
+      {
+        "path": "foundation.mainAddress",
+        "label": "mainAddress",
+        "candidates": [
+          {
+            "value": {
+              "formatted": "41781 N 99TH WAY, SCOTTSDALE, AZ 85262",
+              "street": "41781 N 99TH WAY",
+              "city": "SCOTTSDALE",
+              "region": "AZ",
+              "postalCode": "85262",
+              "country": null
+            },
+            "sourceUrl": "https://elevationgroupaz.com/blog",
+            "sourceLabel": "on the blog",
+            "confidence": 0.5
+          },
+          {
+            "value": {
+              "formatted": "8847 E Ann Way, Scottsdale, AZ 85260",
+              "street": "8847 E Ann Way",
+              "city": "Scottsdale",
+              "region": "AZ",
+              "postalCode": "85260",
+              "country": null
+            },
+            "sourceUrl": "https://elevationgroupaz.com/blog",
+            "sourceLabel": "on the blog",
+            "confidence": 0.5
+          },
+          {
+            "value": {
+              "formatted": "6158 N Paradise View Dr, Paradise Valley, AZ 85253",
+              "street": "6158 N Paradise View Dr",
+              "city": "Paradise Valley",
+              "region": "AZ",
+              "postalCode": "85253",
+              "country": null
+            },
+            "sourceUrl": "https://elevationgroupaz.com/blog",
+            "sourceLabel": "on the blog",
+            "confidence": 0.5
+          },
+          {
+            "value": {
+              "formatted": "5800 N MONTE VISTA DR, PARADISE VALLEY, AZ 85253",
+              "street": "5800 N MONTE VISTA DR",
+              "city": "PARADISE VALLEY",
+              "region": "AZ",
+              "postalCode": "85253",
+              "country": null
+            },
+            "sourceUrl": "https://elevationgroupaz.com/blog",
+            "sourceLabel": "on the blog",
+            "confidence": 0.5
+          },
+          {
+            "value": {
+              "formatted": "7175 E CAMELBACK RD UNIT 508, SCOTTSDALE, AZ 85251",
+              "street": "7175 E CAMELBACK RD UNIT 508",
+              "city": "SCOTTSDALE",
+              "region": "AZ",
+              "postalCode": "85251",
+              "country": null
+            },
+            "sourceUrl": "https://elevationgroupaz.com/blog",
+            "sourceLabel": "on the blog",
+            "confidence": 0.5
+          }
+        ],
+        "resolved": false
+      }
+    ],
+    "followUpQuestions": [
+      {
+        "id": "q-credentials",
+        "question": "What licences or certifications does the business hold, are you a member of any trade or industry associations, and have you won any awards?",
+        "example": null,
+        "fills": [
+          "proof.certifications",
+          "proof.memberships",
+          "proof.awards"
+        ],
+        "priority": 9,
+        "answered": false
+      },
+      {
+        "id": "q-foundation-industry",
+        "question": "What industry are you in?",
+        "example": "Well drilling",
+        "fills": [
+          "foundation.industry"
+        ],
+        "priority": 5,
+        "answered": false
+      },
+      {
+        "id": "q-foundation-businessModel",
+        "question": "Do you mostly serve other businesses, or the general public?",
+        "example": null,
+        "fills": [
+          "foundation.businessModel"
+        ],
+        "priority": 4,
+        "answered": false
+      },
+      {
+        "id": "q-location",
+        "question": "Do you have any other locations?",
+        "example": null,
+        "fills": [
+          "foundation.otherLocations"
+        ],
+        "priority": 4,
+        "answered": false
+      },
+      {
+        "id": "q-onlinePresence-profiles",
+        "question": "Which social accounts do you use?",
+        "example": "Instagram, LinkedIn",
+        "fills": [
+          "onlinePresence.profiles"
+        ],
+        "priority": 4,
+        "answered": false
+      },
+      {
+        "id": "q-proof-guarantees",
+        "question": "Do you offer any guarantees, warranties, or insurance cover?",
+        "example": null,
+        "fills": [
+          "proof.guarantees"
+        ],
+        "priority": 4,
+        "answered": false
+      }
+    ]
+  }
+}

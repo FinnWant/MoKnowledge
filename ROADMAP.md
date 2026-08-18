@@ -164,9 +164,14 @@ app/
     knowledge-bases/[id]/route.ts  GET · PATCH · DELETE
 components/
   ui/                            Button, Input, Badge, Card, Accordion, Skeleton…
-  knowledge/                     UrlForm, ScrapeProgress, CategorySection,
-                                 EditableField, ProvenanceBadge, CompletenessMeter,
-                                 KbCard, KbTable, ViewModeSwitcher, JsonPreview
+  knowledge/                     UrlForm, ScrapeProgress, KnowledgeEditor,
+                                 CategorySection, EditableField, AttentionTier,
+                                 GapQuestions, SaveBar, JsonPreview, CompletenessRail,
+                                 ProvenanceBadge
+    editors/                     FieldEditor (8 kinds) · RecordListField
+    library/                     Library, LibraryToolbar, FilterPanel, KbCard, KbTable,
+                                 RecordMenu, DeleteToast, CompletenessRing,
+                                 KnowledgeDetail, VersionRail, DiffPanel, RescrapePanel
 lib/
   schema/knowledge-base.ts       zod schema + inferred types  ← source of truth
   scraper/
@@ -178,13 +183,21 @@ lib/
   ai/
     prompts.ts                   prompt templates as constants
     mock-enrich.ts               labelled placeholder generator
+  knowledge/
+    display.ts                   knowledge base → readable, pure and unit-tested
+    draft.ts                     draft reducer, attention triage, autosave codec
+    records.ts                   per-collection editor specs and blank records
+    progress.ts                  NDJSON events → progress state
+    library.ts                   search, filters, sorting, duplicate-as-template
+    diff.ts                      field-level diff for version history + re-scrape
+    client.ts                    typed calls to the knowledge-base routes
   storage/
     types.ts  local-json.ts  supabase.ts(documented)
   utils/
-context/KnowledgeDraftContext.tsx
+context/knowledge-draft.tsx      split state/dispatch contexts + autosave + guard
 prompts/                         R21 — the graded prompt artifacts
 docs/                            DATABASE.md · DATA-QUALITY.md · ENRICHMENT.md · screenshots/
-examples/                        R19 — real scraper output
+examples/                        R19 — real scraper output, built by scripts/build-examples.ts
 supabase/schema.sql              R27 bonus
 data/knowledge-bases/            local store (gitignored except examples)
 tests/fixtures/                  saved HTML for deterministic extractor tests
@@ -196,6 +209,33 @@ Derived from the instructions PDF and MoFlo's own profile in the outputs PDF:
 near-black background, white text, primary blue `#2663eb`, secondary gray `#4a4a4a`,
 Inter-family sans, generous spacing, rounded cards. Dark-first with the accent used
 sparingly on primary actions and active states.
+
+### 3.5 What building the scrape page changed (P4, built)
+
+Same method as §5.4b/c — everything below came from running the page against a real
+scrape of `beecavedrilling.com`, not from reasoning about it beforehand.
+
+| Found | Fix |
+|---|---|
+| **The result event is always split across chunk boundaries.** It carries a whole knowledge base — ~400 KB for a twenty-page site — so a client that parses per chunk works on a stub and fails on every real site | A line splitter that buffers the remainder between reads. Tested by feeding the stream three bytes at a time |
+| **The "extracting" event never reached the browser before extraction finished.** Extraction is synchronous and cheerio-heavy, so it blocks the event loop with the event still in the buffer — the user watches a stalled list for the whole of it | Yield to the event loop after enqueuing the stage event, before the blocking work starts |
+| **"Products & services: 1 of 1 found"** — true of a category whose single field holds eighteen offerings, and useless | Where a category *is* one collection, the summary counts records, not fields |
+| **A muted `Chip` rendered at full contrast.** `cn` is a plain join, not `tailwind-merge` (deliberately — see `lib/utils/cn.ts`), so `text-ink-subtle` passed as `className` never beat the component's own `text-ink` | Gaps render as their own muted element rather than a restyled `Chip`. The rule this implies: pass `className` for layout, never to override a component's own colours |
+
+### 3.6 What building the library changed (P6, built)
+
+Same method again. Everything below came out of building `/knowledge/view` against a
+store holding five real scrapes, not from reading the design doc back.
+
+| Found | Fix |
+|---|---|
+| **A diff over stored values reports every record as changed.** Records are minted with `crypto.randomUUID` at extraction, so re-scraping an unchanged page produces structurally different objects holding identical content — all fourteen offerings would come back "changed" on the first run and the feature would be noise | Compare fields **as rendered**, reusing the P4 presenters. It is also the right question: a diff answers "is this different", not "was this rewritten". This is the load-bearing test in `tests/knowledge/diff.test.ts` — two builds of the same crawl must report nothing |
+| **The summary couldn't answer the questions the library asks.** Cards and the table both show a location; search is specified across offering and people names; the filters need testimonial counts. None of it was in `KnowledgeBaseSummary`, and shipping the categories that hold it would have broken the one promise the summary exists to keep | `location`, `testimonialsCount` and a capped `keywords[]` computed server-side. Search matches an offering name without the list route shipping the offerings |
+| **`needsReviewCount` counted conflicts.** The filter set distinguishes "has unreviewed fields" from "has conflicts", and the field named for the first was measuring the second | Split into `attentionCount` (fields in the review tier) and `conflictCount` |
+| **`SavedVersion.rescraped` was defined in P5 and written by nothing** | Derived, not stored: editing keeps the crawl a knowledge base was built from, and applying a re-scrape brings the new crawl across with the values — so a version whose `scrape.startedAt` differs from its predecessor's is exactly a re-scraped one |
+| **Undo-after-delete would have silently destroyed the version history.** Deleting removes every version; restoring the record the build page's way — delete, then put it back — would re-create it as v1, so the undo would look like it worked and quietly lose the history | The request is *held* for the length of the toast rather than sent and reversed. Which makes the countdown worth showing, and makes `keepalive` the thing that flushes it when the page closes |
+| **Delete on the detail page has nowhere to put a ten-second undo** — the page it would appear on is the record being deleted | Deleting there routes back to the library with `?delete=<id>` and the library runs its own held delete. One delete path, one guard |
+| **The autosave key collides.** `KnowledgeDraftProvider` keyed drafts by `sourceUrl`, so editing a *saved* record of a site that had also been scraped fresh could restore the wrong draft over it | An explicit `autosaveKey`, `moknowledge:saved:<id>` for a saved record |
 
 ---
 
@@ -348,6 +388,22 @@ reference on a specific field, then reading the fixture to find out why.
 | **Prompt 01 asked for one to three sentences of `businessModel`** — a field the schema stores as a controlled enum. Prose would have had nowhere to land | The prompt returns an enum. Four more classification/list fields (`industry`, `companyRole`, `buyers`, `serviceLocations`) moved into the same batched call, since the reference fills all four on all eight profiles and no parser produces them without guessing |
 | **Generated fields never wrote anything**, because `<meta name="description">` had already filled `foundation.overview` and the rule was "never overwrite an extracted value" | Five fields the schema documents as generated treat a low-confidence extraction as a *seed*: a 0.5-confidence SEO description gives way to a real overview, everything else still wins |
 
+### 5.4d What rendering the output changed (P3 defects found in P4)
+
+Reading a knowledge base on a page is a different test from scoring it in a table.
+Four defects were invisible in `npm run validate` and obvious the moment a person
+looked at the result; the fifth was visible in the table all along and the page is
+what made anyone go and read the number. Overall recall **23% → 26%**, people
+**16% → 68%**.
+
+| Found | Fix |
+|---|---|
+| **`.text()` fuses words across element boundaries.** A footer reading `…All Rights Reserved</p><a>Privacy Policy</a>` came out as "ReservedPrivacy Policy", which is how a company's registered name reached the UI with a menu item welded on — and why `\ball rights reserved\b` silently stopped matching | `visibleText` inserts a space at block and link boundaries, and nowhere else: `<b>Bee</b>Cave` must stay one word. Every text-based extractor was reading fused text |
+| **People were found on one of seven sites.** The extractor read person *cards*; the other six sites publish a heading sequence (`<h2>NATHAN</h2>` then "CEO & Co-Founder", in unrelated containers) or a page per person (`/team/kamran-zand`) | Three strategies instead of one, plus a personhood test — nouns that never appear in a name, function words, single words only when set in caps. Bee Cave 30 · Luxury Homes 0 → 9 · moflo 0 → 10 (exactly the reference's nine, plus one it missed) · elevation 0 → 3 (exact) |
+| **A blog byline was published as a key person.** WordPress emits post authors as full `Person` nodes, with a Gravatar and a biography — indistinguishable from a staff profile except for what points at them | Skip `Person` nodes the graph names as an article's `author`, and any whose URL is an `/author/` archive |
+| **Every profile listed `Gmpg.org` as a supplier** — a 2003 XFN spec URL WordPress puts in every page. The exclusion list meant to catch it required a `.com\|.org\|.net` suffix *after* the name, so it only matched `gmpg.org.org` | Fixed the pattern, and dropped machine-generated hostnames (`ksrndkehqnwntyxlhgto.com`) by vowel ratio. Nine real vendors gained signatures on the way |
+| **"Texas Hill Country Pumping" was listed as a service area.** It is Bee Cave's sister company, and a business named after the region it serves looks exactly like the region | Trade-name words join the not-a-place list |
+
 ### 5.5 Failure modes we handle explicitly
 Non-200 / DNS failure · redirect to different domain · robots disallow · JS-rendered SPA with
 empty DOM · Cloudflare or bot challenge · non-HTML content type · timeout · site with a single
@@ -364,8 +420,9 @@ Full design in [`docs/DATA-QUALITY.md`](docs/DATA-QUALITY.md). Summary:
    an explicit "Not found" chip — not an empty string, not an invented plausible value.
 2. **Tiered fallback per field:** primary source → secondary source → derived inference
    (labelled, lower confidence) → user prompt. Example for `yearFounded`: JSON-LD
-   `foundingDate` → "since 1980"/"est. 1980" regex on about+footer → copyright-year floor
-   (low confidence) → ask the user.
+   `foundingDate` (0.95) → "since 1980"/"est. 1980" regex (0.55, dropping to 0.40 when a
+   page yields several years) → ask the user. The copyright year is deliberately *not* a
+   tier — it dates the site, not the company. Full chain in docs/DATA-QUALITY.md §3.
 3. **Confidence is surfaced, not hidden** — badge per field, so the reviewer's attention goes
    where it's needed.
 4. **Conflicts are flagged, not silently resolved** — two different phone numbers shows both.
@@ -397,10 +454,16 @@ JSON Schema output contract · edge-case table · design notes. Generated fields
 unmissable badge in the UI — `AI sample` for placeholder output as instructed, `AI draft`
 when a real call produced it — so the reviewer is never unsure which they're looking at.
 
-Three constraints from the current API shaped all four (documented in `prompts/README.md`):
-structured outputs replace assistant prefill and its stop-sequence/retry scaffolding;
-`temperature`/`top_p` are rejected, so variance is steered by prompt text; and JSON Schema
-support excludes `minLength`/`maxLength`, so length budgets live in the prompt.
+Three properties of the provider shaped all four (documented in `prompts/README.md`):
+generation is constrained by `output_config.format` rather than by a "reply with JSON"
+instruction, so no prompt has to beg for valid JSON; `effort` is set per prompt, `low` for
+prompt 03 whose judgment is already grounded in metrics computed in TypeScript; and the
+schemas stay simple — no recursion, no `minLength`/`maxLength` — so length budgets live in
+the prompt text rather than in a constraint the model cannot see.
+
+The model is set by `ANTHROPIC_MODEL`, and the request adapts to it: the reasoning controls
+go out only to models that accept them. See §10.1 for the provider history and §10.2 for
+what the first live run found.
 
 ---
 
@@ -428,10 +491,10 @@ Each phase ends with a working, committable state.
 | **P1 — Schema + design system** | zod schema for the full KB (§4), inferred types, `Sourced<T>` envelope, MoFlo theme tokens, base UI primitives | Schema compiles; a hand-written fixture KB validates; UI kit renders on a scratch page |
 | **P2 — Crawler + golden set** | robots, sitemap, discovery, classifier, budgeted concurrent fetcher, typed errors, `scripts/snapshot.ts`, HTML fixtures + transcribed golden JSON for all 8 reference sites | Crawler snapshots all 8 golden sites and reports classified pages; fixtures committed so tests never hit the network |
 | **P3 — Extractors + reconciler + analyzers** ✅ | All extractors, vendor table, voice/palette/theme analyzers, evidence reconciliation, AI layer (mock + optional live client), `scripts/validate.ts` scoring harness | Unit tests on fixtures green; all 8 golden sites produce schema-valid KBs; `npm run validate` prints per-field recall vs. the reference; enrichment works with and without an API key |
-| **P4 — Scrape page** | `/knowledge`: URL form + validation, NDJSON progress UI, category display, provenance + confidence badges, completeness meter | Paste a URL → live progress → structured result; bad URLs and dead sites fail gracefully |
-| **P5 — Edit + save** | Draft context + reducer, 8 field editors, attention triage tier, conflict resolution, gap-question form, add/remove/reorder records, localStorage autosave, unsaved-changes guard, JSON preview, save — design in [`docs/EDIT-UX.md`](docs/EDIT-UX.md) | Click `Save` with zero edits and get a good KB; edit any field and see `You edited` provenance; `Accept all safe` clears uncontested items; works at 375px |
-| **P6 — View/manage** | `/knowledge/view` card + table + detail modes, search, filters, edit, delete w/ undo, export, version history + diff, re-scrape — design in [`docs/VIEW-PAGE.md`](docs/VIEW-PAGE.md) | Full CRUD round-trip; all three view modes usable at 375px |
-| **P7 — Docs + artifacts** | `examples/*.json`, `docs/DATABASE.md`, `docs/DATA-QUALITY.md`, `docs/ENRICHMENT.md`, `supabase/schema.sql` (`prompts/` ✅ done) | Every graded artifact exists and is accurate to shipped code |
+| **P4 — Scrape page** ✅ | `/knowledge`: URL form + validation, streaming `POST /api/scrape`, NDJSON progress UI, category display, provenance + attention badges, completeness rail, JSON download — what building it changed is in §3.5 | Paste a URL → live progress → structured result; bad URLs and dead sites fail gracefully. Route tested end-to-end over a stubbed site; display presenters tested against a real fixture scrape |
+| **P5 — Edit + save** ✅ | Draft context + reducer, 8 field editors, attention triage tier, conflict resolution, gap-question form, add/remove/reorder records, localStorage autosave, unsaved-changes guard, JSON preview, `StorageAdapter` + versioned local JSON store, save/read/delete routes — design and outcomes in [`docs/EDIT-UX.md`](docs/EDIT-UX.md) | Save with zero edits produces a schema-valid KB; an edit shows `You edited`; `Accept all safe` clears uncontested items; every save writes a new immutable version. `Regenerate` (EDIT-UX §7, third enhance affordance) deferred — it needs an enrichment endpoint |
+| **P6 — View/manage** ✅ | `/knowledge/view` card + table + detail modes, search, filters, edit, delete w/ undo, export, duplicate as template, version history + diff, re-scrape with per-field accept — design in [`docs/VIEW-PAGE.md`](docs/VIEW-PAGE.md), what building it changed in §3.6 | Full CRUD round-trip verified end to end; all three view modes usable at 375px. Library rules and the diff engine unit-tested against real scrapes |
+| **P7 — Docs + artifacts** ✅ | `examples/*.json` generated by `npm run examples` from the committed fixtures and schema-validated on every build, `docs/DATABASE.md`, `docs/ENRICHMENT.md`, `supabase/schema.sql` (93 statements, parse-checked against the real PostgreSQL grammar), `docs/DATA-QUALITY.md` audited against shipped code, `prompts/` | Every graded artifact exists and is accurate to shipped code; `npm run examples -- --check` fails if an example drifts |
 | **P8 — Hardening** | Error boundaries, loading/empty/error states everywhere, a11y pass (labels, focus, contrast), responsive audit, timeout tuning | Adversarial URL list all handled; keyboard-only pass; no console errors |
 | **P9 — Submission** | `README.md` (all 7 sub-sections), `ANSWERS.md` (5 questions), screenshots, final example JSON, repo push | Traceability table (§1) fully green; fresh `git clone && npm i && npm run dev` works |
 
@@ -446,14 +509,14 @@ P8/P9 are the finish.
 |---|---|---|
 | Persistence v1 | Local JSON store behind `StorageAdapter` | Zero-setup for the reviewer. Supabase ships as documented schema only (R27), adapter stub left in place |
 | JS-rendered sites | Detect and report, no headless browser | `cheerio` only. SPA/empty-DOM detection returns partial results plus an honest message; documented as a known limitation in the README |
-| AI enrichment | **Mock by default, live Claude call when `ANTHROPIC_API_KEY` is set** | Prompts in `/prompts` are executable, not theoretical. Must degrade cleanly to mock with no key, and label output `AI (live)` vs `AI (mock)` distinctly |
+| AI enrichment | **Mock by default, live Anthropic call when `ANTHROPIC_API_KEY` is set** (§10.1 — briefly moved to NVIDIA and back) | Prompts in `/prompts` are executable, not theoretical. Must degrade cleanly to mock with no key, and label output `AI (live)` vs `AI (mock)` distinctly |
 | Testing | Vitest unit tests on saved HTML fixtures | Covers extractors, reconciler, analyzers. No E2E layer |
 | Beyond-baseline scope | Exactly three: `proof`, `contentIntelligence`, `quality` (§4.2, [`docs/SCHEMA-EXTENSIONS.md`](docs/SCHEMA-EXTENSIONS.md)) | Seven other proposed extensions cut; they become the substance of Answer #4 |
 | Test corpus | The 8 companies from the reference PDF ([`docs/VALIDATION.md`](docs/VALIDATION.md)) | Enables measured accuracy claims by cross-referencing our output against MoFlo's own. **7 of 8 captured** — `jdinsassociates.com` went offline between the reference date and ours |
 
 ### Follow-on work created by the live-LLM decision
 
-- `lib/ai/client.ts` — thin wrapper: reads `ANTHROPIC_API_KEY`, returns `null` when absent so
+- `lib/ai/client.ts` — thin wrapper: reads `ANTHROPIC_API_KEY`, fails closed when absent so
   every caller falls back to `mock-enrich.ts` without branching at the call site.
 - Prompt templates become the shared input to both paths — the mock generator consumes the
   same `{{placeholders}}`, so the prompts are proven by the mock path even with no key.
@@ -465,5 +528,70 @@ P8/P9 are the finish.
   documented path stays key-free.
 - Costs/latency: enrichment is one batched call over the reconciled evidence, not per field.
 
-*Note for implementation: load the `claude-api` skill before writing `lib/ai/client.ts` to get
-current model IDs and SDK usage rather than working from memory.*
+### 10.1 Provider: Anthropic → NVIDIA → Anthropic (settled 2026-08-18)
+
+The AI layer moved to NVIDIA's hosted inference API on 2026-08-17 and moved back the next
+day. Recording the round trip rather than deleting it, because the reason it failed is the
+useful part.
+
+**Why the move back.** NVIDIA's free `build.nvidia.com` endpoints were not usable. A valid
+inference key authenticated (a deliberately bogus key 403s in ~1s; a real one did not) and
+then every `chat/completions` request hung with no response headers at all, on both
+`meta/llama-3.3-70b-instruct` and `meta/llama-3.2-1b-instruct`. `GET /v1/models` answered
+in 1.1s throughout, so the endpoint was reachable — the inference path simply never
+returned. Nothing in the code could fix that.
+
+**The seam held, twice.** One file talks to a provider. `lib/ai/enrich.ts`, `messages.ts`,
+`verify.ts`, and `mock-enrich.ts` were untouched in both directions, and the four prompt
+files were executed verbatim throughout. The move out and the move back were each
+essentially one file plus its test.
+
+**What came back with it:** `@anthropic-ai/sdk`, `output_config.format` for structured
+output, `cache_control: ephemeral` on the system block, `PROMPT_EFFORT` per prompt in place
+of `PROMPT_TEMPERATURE`, and `stop_reason` rather than `finish_reason`. `extractJson` and
+the guided-JSON retry are gone — structured output makes both unnecessary.
+
+**What is new, and was not in the pre-NVIDIA version:**
+
+| Change | Why |
+|---|---|
+| `ANTHROPIC_MODEL` / `ANTHROPIC_MAX_TOKENS` env overrides | The model was hardcoded to `claude-opus-5` before. Which model is worth paying for is a deployment decision |
+| `supportsReasoningControls()` gates `thinking` and `effort` | See §10.2 — both are a 400 on pre-4.6 models, and the model is now an env var, so the request has to fit whatever is configured |
+| `nullableEnum()` in `schemas.ts` | See §10.2 — the old schema shape was rejected outright, and had never been run live |
+
+### 10.2 What the first live run actually found (2026-08-18)
+
+The pre-NVIDIA Anthropic client had never been executed against the API. Running it
+surfaced two defects that no amount of re-reading would have:
+
+1. **`thinking: {type: "adaptive"}` and `output_config.effort` are 400s on Haiku 4.5**
+   (`adaptive thinking is not supported on this model`, `This model does not support the
+   effort parameter`). Both arrived with the 4.6 generation. The old client sent them
+   unconditionally, so with the configured model every one of the four prompts would have
+   failed and silently fallen back to mock. `supportsReasoningControls()` now matches on
+   model family — not an id allow-list, since ids carry optional date suffixes — and shapes
+   the request accordingly.
+
+2. **A nullable enum was rejected by structured outputs.** `{type: ["string","null"],
+   enum: [...options, null]}` returns `Enum value 'manufacturer' does not match declared
+   type '['string', 'null']'`, and does so *even though `null` is in the enum* — probing
+   confirmed the type union and the enum simply cannot be combined. Dropping the redundant
+   `type` fixes it and keeps nullability, which matters: `null` is the answer these prompts
+   are supposed to give when the site does not say. This affected `companyRole` and
+   `businessModel`, so prompt 01 — the one that fills ten fields — was the one failing.
+
+**Verified working after both fixes**, against the Bee Cave fixture with
+`claude-haiku-4-5-20251001`:
+
+| Prompt | Result |
+|---|---|
+| `01-company-profile` | live, 9 fields filled |
+| `02-offering-normalization` | live |
+| `03-writing-style` | live |
+| `04-proof-extraction` | live, 3 fields filled |
+
+Completeness on that fixture goes **0.55 → 0.74** between the mock and live paths — which
+is the group (a) prediction in [`docs/ENRICHMENT.md`](docs/ENRICHMENT.md) §1 coming true:
+those fields were never enrichment gaps, only mock-mode artifacts. Four sequential calls
+take ~42s, which sits inside the scrape route's budget but is the number to watch if a
+fifth prompt is ever added.

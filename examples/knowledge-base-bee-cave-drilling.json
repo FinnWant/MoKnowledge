@@ -1,0 +1,2766 @@
+{
+  "id": "example-bee-cave-drilling",
+  "version": 1,
+  "companyName": {
+    "value": "Bee Cave Drilling",
+    "method": "scraped",
+    "confidence": 0.95,
+    "sourceUrls": [
+      "https://www.beecavedrilling.com/contact/",
+      "https://www.beecavedrilling.com/",
+      "https://www.beecavedrilling.com/staffbios/",
+      "https://www.beecavedrilling.com/testimonials/",
+      "https://www.beecavedrilling.com/quote/",
+      "https://www.beecavedrilling.com/training-videos/",
+      "https://www.beecavedrilling.com/remote-monitoring/",
+      "https://www.beecavedrilling.com/promotions/",
+      "https://www.beecavedrilling.com/callrail/",
+      "https://www.beecavedrilling.com/pumping-systems/",
+      "https://www.beecavedrilling.com/well-inspections/",
+      "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+      "https://www.beecavedrilling.com/drilling/",
+      "https://www.beecavedrilling.com/financing/"
+    ]
+  },
+  "sourceUrl": "https://beecavedrilling.com",
+  "createdAt": "2026-08-18T12:00:00.000Z",
+  "updatedAt": "2026-08-18T12:00:00.000Z",
+  "scrape": {
+    "startedAt": "2026-08-15T20:49:19.512Z",
+    "finishedAt": "2026-08-15T20:49:19.512Z",
+    "durationMs": 32342,
+    "pagesDiscovered": 84,
+    "pages": [
+      {
+        "url": "https://www.beecavedrilling.com/",
+        "role": "home",
+        "status": 200,
+        "bytes": 191356,
+        "fetchedAt": "2026-08-15T20:48:56.471Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/contact/",
+        "role": "contact",
+        "status": 200,
+        "bytes": 182136,
+        "fetchedAt": "2026-08-15T20:48:58.277Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/testimonials/",
+        "role": "testimonials",
+        "status": 200,
+        "bytes": 227163,
+        "fetchedAt": "2026-08-15T20:48:59.964Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/quote/",
+        "role": "pricing",
+        "status": 200,
+        "bytes": 187978,
+        "fetchedAt": "2026-08-15T20:49:01.586Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/troubleshooting/home/",
+        "role": "other",
+        "status": 200,
+        "bytes": 127364,
+        "fetchedAt": "2026-08-15T20:49:02.078Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/training-videos/",
+        "role": "other",
+        "status": 200,
+        "bytes": 160652,
+        "fetchedAt": "2026-08-15T20:49:03.269Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/staffbios/",
+        "role": "team",
+        "status": 200,
+        "bytes": 210798,
+        "fetchedAt": "2026-08-15T20:49:07.025Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/remote-monitoring/",
+        "role": "other",
+        "status": 200,
+        "bytes": 162077,
+        "fetchedAt": "2026-08-15T20:49:07.669Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/troubleshooting/mw2/",
+        "role": "other",
+        "status": 200,
+        "bytes": 132474,
+        "fetchedAt": "2026-08-15T20:49:08.378Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/promotions/",
+        "role": "other",
+        "status": 200,
+        "bytes": 156054,
+        "fetchedAt": "2026-08-15T20:49:08.940Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/callrail/",
+        "role": "other",
+        "status": 200,
+        "bytes": 188582,
+        "fetchedAt": "2026-08-15T20:49:10.324Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/pumping-systems/",
+        "role": "other",
+        "status": 200,
+        "bytes": 173837,
+        "fetchedAt": "2026-08-15T20:49:12.157Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/troubleshooting/mw4/",
+        "role": "other",
+        "status": 200,
+        "bytes": 226804,
+        "fetchedAt": "2026-08-15T20:49:12.646Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/troubleshooting/mw5/",
+        "role": "other",
+        "status": 200,
+        "bytes": 132554,
+        "fetchedAt": "2026-08-15T20:49:13.493Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/well-inspections/",
+        "role": "other",
+        "status": 200,
+        "bytes": 171145,
+        "fetchedAt": "2026-08-15T20:49:15.880Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+        "role": "other",
+        "status": 200,
+        "bytes": 185499,
+        "fetchedAt": "2026-08-15T20:49:16.304Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/drilling/",
+        "role": "other",
+        "status": 200,
+        "bytes": 172121,
+        "fetchedAt": "2026-08-15T20:49:17.257Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/troubleshooting/mw6/",
+        "role": "other",
+        "status": 200,
+        "bytes": 133169,
+        "fetchedAt": "2026-08-15T20:49:18.433Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/troubleshooting/mw7/",
+        "role": "other",
+        "status": 200,
+        "bytes": 133483,
+        "fetchedAt": "2026-08-15T20:49:18.740Z"
+      },
+      {
+        "url": "https://www.beecavedrilling.com/financing/",
+        "role": "other",
+        "status": 200,
+        "bytes": 199744,
+        "fetchedAt": "2026-08-15T20:49:19.500Z"
+      }
+    ],
+    "robotsRespected": true,
+    "warnings": [
+      {
+        "code": "budget-exceeded",
+        "message": "We read 20 pages and stopped. 64 more were found.",
+        "url": null
+      }
+    ],
+    "scraperVersion": "0.1.0"
+  },
+  "foundation": {
+    "overview": {
+      "value": "Service Austin & The Texas Hill Country in water well installation, inspection, & maintenance.",
+      "method": "scraped",
+      "confidence": 0.45,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/"
+      ],
+      "note": "We found 6 different values: service austin & texas hill country in water well installation, inspection and maintenance., do you want to schedule a service call? schedule a service call click here to troubleshoot, do you have no water, or just low water pressure? i have no water. i have some water, but the pressure is low., here is what a pressure tank system looks like., close all discharge valves on your water system after the pressure tank. see if the well system builds normal pressure with the valves closed."
+    },
+    "website": {
+      "value": "https://beecavedrilling.com/",
+      "method": "scraped",
+      "confidence": 0.95,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/staffbios/",
+        "https://www.beecavedrilling.com/testimonials/",
+        "https://www.beecavedrilling.com/quote/",
+        "https://www.beecavedrilling.com/training-videos/",
+        "https://www.beecavedrilling.com/remote-monitoring/",
+        "https://www.beecavedrilling.com/promotions/",
+        "https://www.beecavedrilling.com/callrail/",
+        "https://www.beecavedrilling.com/pumping-systems/",
+        "https://www.beecavedrilling.com/well-inspections/",
+        "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+        "https://www.beecavedrilling.com/drilling/",
+        "https://www.beecavedrilling.com/financing/"
+      ]
+    },
+    "industry": {
+      "value": "Home And Construction",
+      "method": "scraped",
+      "confidence": 0.8,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/staffbios/",
+        "https://www.beecavedrilling.com/testimonials/",
+        "https://www.beecavedrilling.com/quote/",
+        "https://www.beecavedrilling.com/training-videos/",
+        "https://www.beecavedrilling.com/remote-monitoring/",
+        "https://www.beecavedrilling.com/promotions/",
+        "https://www.beecavedrilling.com/callrail/",
+        "https://www.beecavedrilling.com/pumping-systems/",
+        "https://www.beecavedrilling.com/well-inspections/",
+        "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+        "https://www.beecavedrilling.com/drilling/",
+        "https://www.beecavedrilling.com/financing/"
+      ]
+    },
+    "businessModel": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "companyRole": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "yearFounded": {
+      "value": 1980,
+      "method": "scraped",
+      "confidence": 0.45,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/quote/",
+        "https://www.beecavedrilling.com/training-videos/",
+        "https://www.beecavedrilling.com/remote-monitoring/",
+        "https://www.beecavedrilling.com/promotions/",
+        "https://www.beecavedrilling.com/callrail/",
+        "https://www.beecavedrilling.com/pumping-systems/",
+        "https://www.beecavedrilling.com/well-inspections/",
+        "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+        "https://www.beecavedrilling.com/drilling/",
+        "https://www.beecavedrilling.com/financing/",
+        "https://www.beecavedrilling.com/staffbios/",
+        "https://www.beecavedrilling.com/testimonials/"
+      ],
+      "note": "We found 4 different values: 2011, 2012, 2016"
+    },
+    "legalEntityType": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "employeeCount": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "revenue": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "mainAddress": {
+      "value": {
+        "formatted": "185 Angel Fire Rd, Dripping Springs, Texas 78620",
+        "street": "185 Angel Fire Rd",
+        "city": "Dripping Springs",
+        "region": "Texas",
+        "postalCode": "78620",
+        "country": "USA"
+      },
+      "method": "scraped",
+      "confidence": 0.95,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/staffbios/",
+        "https://www.beecavedrilling.com/testimonials/",
+        "https://www.beecavedrilling.com/quote/",
+        "https://www.beecavedrilling.com/training-videos/",
+        "https://www.beecavedrilling.com/remote-monitoring/",
+        "https://www.beecavedrilling.com/promotions/",
+        "https://www.beecavedrilling.com/callrail/",
+        "https://www.beecavedrilling.com/pumping-systems/",
+        "https://www.beecavedrilling.com/well-inspections/",
+        "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+        "https://www.beecavedrilling.com/drilling/",
+        "https://www.beecavedrilling.com/financing/"
+      ]
+    },
+    "otherLocations": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "serviceLocations": {
+      "value": [
+        "Texas Hill Country"
+      ],
+      "method": "scraped",
+      "confidence": 0.5,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/"
+      ]
+    },
+    "altNames": {
+      "value": [
+        "Bee Cave Drilling"
+      ],
+      "method": "scraped",
+      "confidence": 0.5,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/"
+      ]
+    },
+    "phone": {
+      "value": "+1- 512-894-4221",
+      "method": "scraped",
+      "confidence": 0.95,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/staffbios/",
+        "https://www.beecavedrilling.com/testimonials/",
+        "https://www.beecavedrilling.com/quote/",
+        "https://www.beecavedrilling.com/training-videos/",
+        "https://www.beecavedrilling.com/remote-monitoring/",
+        "https://www.beecavedrilling.com/promotions/",
+        "https://www.beecavedrilling.com/callrail/",
+        "https://www.beecavedrilling.com/pumping-systems/",
+        "https://www.beecavedrilling.com/well-inspections/",
+        "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+        "https://www.beecavedrilling.com/drilling/",
+        "https://www.beecavedrilling.com/financing/"
+      ]
+    },
+    "email": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    }
+  },
+  "positioning": {
+    "pitch": {
+      "value": "We offer Well Drilling, Permitting, Well Head Completion Options and Well head location and cementing requirements in Texas Hill Country. This placeholder pitch repeats what the website says; a live model call rewrites it in the company's own voice.",
+      "method": "ai-mock",
+      "confidence": 0.25,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/testimonials/"
+      ],
+      "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+    },
+    "foundingStory": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    }
+  },
+  "market": {
+    "buyers": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "customerNeeds": {
+      "value": "They come for Well Drilling, Permitting, Well Head Completion Options and Well head location and cementing requirements. Placeholder text — a live model call replaces this with a written description.",
+      "method": "ai-mock",
+      "confidence": 0.25,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/testimonials/"
+      ],
+      "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+    },
+    "idealPersona": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "industryGroupings": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "industryOutlook": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "channels": {
+      "value": [
+        "Yelp",
+        "Facebook",
+        "Website",
+        "Phone"
+      ],
+      "method": "derived",
+      "confidence": 0.55,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/testimonials/",
+        "https://www.beecavedrilling.com/quote/",
+        "https://www.beecavedrilling.com/troubleshooting/home/",
+        "https://www.beecavedrilling.com/training-videos/",
+        "https://www.beecavedrilling.com/staffbios/",
+        "https://www.beecavedrilling.com/remote-monitoring/",
+        "https://www.beecavedrilling.com/troubleshooting/mw2/",
+        "https://www.beecavedrilling.com/promotions/",
+        "https://www.beecavedrilling.com/callrail/",
+        "https://www.beecavedrilling.com/pumping-systems/",
+        "https://www.beecavedrilling.com/troubleshooting/mw4/",
+        "https://www.beecavedrilling.com/troubleshooting/mw5/",
+        "https://www.beecavedrilling.com/well-inspections/",
+        "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+        "https://www.beecavedrilling.com/drilling/",
+        "https://www.beecavedrilling.com/troubleshooting/mw6/",
+        "https://www.beecavedrilling.com/troubleshooting/mw7/",
+        "https://www.beecavedrilling.com/financing/"
+      ]
+    },
+    "funnels": {
+      "value": [
+        "Contact form",
+        "Phone call"
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/"
+      ]
+    },
+    "ctas": {
+      "value": [
+        "Request Estimate",
+        "Contact Request",
+        "Submit",
+        "Call Us",
+        "Contact Us For More Info",
+        "Schedule a service call",
+        "Get A Free Estimate",
+        "Request an Estimate",
+        "GET MY FREE QUOTE",
+        "Schedule My Inspection",
+        "CONTACT US WITH YOUR QUESTION",
+        "Talk to a Project Manager",
+        "Get My Payment Options",
+        "Apply Now"
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/troubleshooting/home/",
+        "https://www.beecavedrilling.com/remote-monitoring/",
+        "https://www.beecavedrilling.com/troubleshooting/mw2/",
+        "https://www.beecavedrilling.com/pumping-systems/",
+        "https://www.beecavedrilling.com/well-inspections/",
+        "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+        "https://www.beecavedrilling.com/financing/"
+      ]
+    },
+    "suppliersPartners": {
+      "value": [
+        "Google",
+        "Google Analytics",
+        "Usercentrics",
+        "YouTube",
+        "Nowl.ink"
+      ],
+      "method": "scraped",
+      "confidence": 0.73,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/"
+      ]
+    }
+  },
+  "branding": {
+    "writingStyle": {
+      "value": {
+        "description": "Sentences average 18.09 words (σ 22.31) at a Flesch-Kincaid grade of 9.94. 22% of sentences use \"we\" or \"our\" and 14% address the reader as \"you\". 4% open with an instruction. This description reports the measurements; a live model call turns them into a usable voice guide.",
+        "tone": [
+          "urgent"
+        ],
+        "formality": "neutral",
+        "readerAddress": "third-person",
+        "preferredTerms": [
+          "drilling",
+          "water",
+          "cave",
+          "pump",
+          "pressure",
+          "favorite",
+          "systems",
+          "tank"
+        ],
+        "avoidTerms": [],
+        "ctaStyle": "Calls to action found verbatim: \"Request Estimate\", \"Contact Request\", \"Submit\", \"Call Us\", \"Contact Us For More Info\"."
+      },
+      "method": "ai-mock",
+      "confidence": 0.25,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/testimonials/",
+        "https://www.beecavedrilling.com/quote/",
+        "https://www.beecavedrilling.com/troubleshooting/home/"
+      ],
+      "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+    },
+    "artStyle": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "fonts": {
+      "value": [
+        "DM Serif Text",
+        "ETmodules",
+        "Open Sans",
+        "ETmodules!important",
+        "Poppins",
+        "Lucida",
+        "FontAwesome",
+        "FontAwesome!important",
+        "Baskerville"
+      ],
+      "method": "scraped",
+      "confidence": 0.722,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/troubleshooting/home/",
+        "https://www.beecavedrilling.com/drilling/"
+      ]
+    },
+    "colors": {
+      "value": [
+        {
+          "id": "bee-cave-drilling-0001",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/troubleshooting/home/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/troubleshooting/mw4/",
+            "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "https://www.beecavedrilling.com/troubleshooting/mw7/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "hex": "#ffffff",
+          "role": "background",
+          "frequency": 37
+        },
+        {
+          "id": "bee-cave-drilling-0002",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/troubleshooting/home/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/troubleshooting/mw4/",
+            "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "https://www.beecavedrilling.com/troubleshooting/mw7/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "hex": "#333333",
+          "role": "text",
+          "frequency": 18
+        },
+        {
+          "id": "bee-cave-drilling-0003",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/troubleshooting/home/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/troubleshooting/mw4/",
+            "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "https://www.beecavedrilling.com/troubleshooting/mw7/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "hex": "#000000",
+          "role": "unknown",
+          "frequency": 17
+        },
+        {
+          "id": "bee-cave-drilling-0004",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/troubleshooting/home/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/troubleshooting/mw4/",
+            "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "https://www.beecavedrilling.com/troubleshooting/mw7/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "hex": "#2ea3f2",
+          "role": "primary",
+          "frequency": 14
+        },
+        {
+          "id": "bee-cave-drilling-0005",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/troubleshooting/home/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/troubleshooting/mw4/",
+            "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "https://www.beecavedrilling.com/troubleshooting/mw7/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "hex": "#666666",
+          "role": "unknown",
+          "frequency": 9
+        },
+        {
+          "id": "bee-cave-drilling-0006",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "hex": "#392e4d",
+          "role": "secondary",
+          "frequency": 9
+        },
+        {
+          "id": "bee-cave-drilling-0007",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/troubleshooting/home/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/troubleshooting/mw4/",
+            "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "https://www.beecavedrilling.com/troubleshooting/mw7/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "hex": "#ff6900",
+          "role": "accent",
+          "frequency": 8
+        },
+        {
+          "id": "bee-cave-drilling-0008",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "https://www.beecavedrilling.com/troubleshooting/mw4/",
+            "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "https://www.beecavedrilling.com/troubleshooting/mw7/"
+          ],
+          "hex": "#999999",
+          "role": "border",
+          "frequency": 7
+        },
+        {
+          "id": "bee-cave-drilling-0009",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/troubleshooting/home/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/troubleshooting/mw4/",
+            "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "https://www.beecavedrilling.com/troubleshooting/mw7/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "hex": "#cf2e2e",
+          "role": "unknown",
+          "frequency": 6
+        },
+        {
+          "id": "bee-cave-drilling-0010",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/troubleshooting/home/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/troubleshooting/mw4/",
+            "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "https://www.beecavedrilling.com/troubleshooting/mw7/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "hex": "#fcb900",
+          "role": "unknown",
+          "frequency": 6
+        },
+        {
+          "id": "bee-cave-drilling-0011",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/troubleshooting/home/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/troubleshooting/mw4/",
+            "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "https://www.beecavedrilling.com/troubleshooting/mw7/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "hex": "#0693e3",
+          "role": "unknown",
+          "frequency": 6
+        },
+        {
+          "id": "bee-cave-drilling-0012",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/troubleshooting/home/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/troubleshooting/mw4/",
+            "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "https://www.beecavedrilling.com/troubleshooting/mw7/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "hex": "#9b51e0",
+          "role": "unknown",
+          "frequency": 6
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/staffbios/",
+        "https://www.beecavedrilling.com/troubleshooting/mw2/"
+      ]
+    },
+    "logos": {
+      "value": [
+        {
+          "id": "bee-cave-drilling-0013",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "url": "https://beecavedrilling.com/wp-content/uploads/2021/05/logo.png",
+          "alt": "Bee Cave Drilling",
+          "kind": "logo",
+          "width": 800,
+          "height": 640
+        },
+        {
+          "id": "og-image-home",
+          "method": "scraped",
+          "confidence": 0.4,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/"
+          ],
+          "url": "https://beecavedrilling.com/wp-content/uploads/2021/06/company-photo-2019-1024x576.jpg",
+          "alt": "Home",
+          "kind": "logo",
+          "width": null,
+          "height": null
+        },
+        {
+          "id": "bee-cave-drilling-0014",
+          "method": "scraped",
+          "confidence": 0.75,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/"
+          ],
+          "url": "https://beecavedrilling.com/wp-content/uploads/2021/05/logo-2021-horizontal.png",
+          "alt": "",
+          "kind": "logo",
+          "width": 2500,
+          "height": 785
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/"
+      ],
+      "note": "Social sharing image; may not be the logo"
+    }
+  },
+  "onlinePresence": {
+    "profiles": {
+      "value": [
+        {
+          "id": "bee-cave-drilling-0015",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "platform": "yelp",
+          "url": "https://yelp.com/biz/bee-cave-drilling-dripping-springs-2?osq=bee+cave+drilling",
+          "handle": "bee-cave-drilling-dripping-springs-2"
+        },
+        {
+          "id": "bee-cave-drilling-0016",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/BeeCaveDrilling",
+          "handle": "BeeCaveDrilling"
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.8,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/"
+      ]
+    }
+  },
+  "people": {
+    "value": [
+      {
+        "id": "bee-cave-drilling-0017",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Jim Blair",
+        "title": "President",
+        "role": "executive",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0018",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Christy Cahela",
+        "title": "CHIEF OPERATING OFFICER",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0019",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Melanie Johnson",
+        "title": "Director of Project Administration",
+        "role": "manager",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0020",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Nicole Duran",
+        "title": "Assistant Project Administrator",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0021",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Abby Evans",
+        "title": "Director of Creative Marketing",
+        "role": "manager",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0022",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Greg Svetlik",
+        "title": "Senior Project Manager",
+        "role": "manager",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0023",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Chris Wilson",
+        "title": "Project Manager",
+        "role": "manager",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0024",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Lyle Williams",
+        "title": "Project Manager",
+        "role": "manager",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0025",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Joseph Shafer",
+        "title": "Sales Representative",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0026",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Mike Scott",
+        "title": "Director of Drilling",
+        "role": "manager",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0027",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Austin Cook",
+        "title": "Lead Driller",
+        "role": "manager",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0028",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Kyle Woytasczyk",
+        "title": "Backup Driller",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0029",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Marty Holmes",
+        "title": "Backup Driller",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0030",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Morgan McGovern",
+        "title": "Backup Driller",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0031",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Blake Spillar",
+        "title": "Backup Driller",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0032",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Brent Spillar",
+        "title": "Driller Apprentice",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0033",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Law Wallen",
+        "title": "Driller Apprentice",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0034",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Alex Thompson",
+        "title": "Director of Service",
+        "role": "manager",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0035",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Joseph Gaines",
+        "title": "Service Installer",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0036",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Troy Satterfield",
+        "title": "Service Installer",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0037",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Callen Williams",
+        "title": "Service Installer",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0038",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Zach Hernandez",
+        "title": "Development and Training Coordinator",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0039",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Hunter Comstock",
+        "title": "Technician 2",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0040",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Dante Molina",
+        "title": "Technician 2",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0041",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Tanner Logan",
+        "title": "Diagnostic Technician",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0042",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Ethan Perry",
+        "title": "Diagnostic Technician",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0043",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Keith Leonard",
+        "title": "Technician",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0044",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Anthony Daidone",
+        "title": "Diagnostic Technician",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0045",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Carson Gaines",
+        "title": "Pump Installer",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      },
+      {
+        "id": "bee-cave-drilling-0046",
+        "method": "scraped",
+        "confidence": 0.7,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/staffbios/"
+        ],
+        "name": "Jeremiah Skipper",
+        "title": "Service Apprentice",
+        "role": "staff",
+        "gender": null,
+        "bio": null,
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      }
+    ],
+    "method": "scraped",
+    "confidence": 0.7,
+    "sourceUrls": [
+      "https://www.beecavedrilling.com/staffbios/"
+    ]
+  },
+  "offerings": {
+    "value": [
+      {
+        "id": "bee-cave-drilling-0047",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Well Drilling",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/residential-and-commercial-well-drilling",
+        "sourceCandidateIndexes": [
+          0
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0048",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Permitting",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/permitting",
+        "sourceCandidateIndexes": [
+          1
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0049",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Well Head Completion Options",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/well-head-completion-options",
+        "sourceCandidateIndexes": [
+          2
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0050",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Well head location and cementing requirements",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/well-head-location-and-cementing-requirements",
+        "sourceCandidateIndexes": [
+          3
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0051",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Borehole completion methods & casing options",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/borehole-completion-methods-casing-options",
+        "sourceCandidateIndexes": [
+          4
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0052",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Mud Control & Site Protection",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/mud-control-site-protection",
+        "sourceCandidateIndexes": [
+          5
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0053",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/",
+          "https://www.beecavedrilling.com/pumping-systems/"
+        ],
+        "name": "Pumping Systems",
+        "category": "service",
+        "description": "Proudly Serving The Texas Hill Country",
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/pumping-systems",
+        "sourceCandidateIndexes": [
+          6
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0054",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Standard Pressure Water Well",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/water-well-system",
+        "sourceCandidateIndexes": [
+          7
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0055",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Constant Pressure",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/constant-pressure",
+        "sourceCandidateIndexes": [
+          8
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0056",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Storage Tank Systems",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/storage-tank-systems",
+        "sourceCandidateIndexes": [
+          9
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0057",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Solar Pumping Systems",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/solar-pumping-systems",
+        "sourceCandidateIndexes": [
+          10
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0058",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Well Inspections",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/well-inspections",
+        "sourceCandidateIndexes": [
+          11
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0059",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Well Maintenance Contracts",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/well-maintenance",
+        "sourceCandidateIndexes": [
+          12
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0060",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Water Well Service",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/troubleshooting/home",
+        "sourceCandidateIndexes": [
+          13
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0061",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Public Supply Wells",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/public-supply-wells",
+        "sourceCandidateIndexes": [
+          14
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0062",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/"
+        ],
+        "name": "Remote Monitoring",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": "https://beecavedrilling.com/remote-monitoring",
+        "sourceCandidateIndexes": [
+          15
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0063",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/well-inspections/"
+        ],
+        "name": "Professional Well Inspections",
+        "category": "service",
+        "description": "Proudly Serving The Texas Hill Country",
+        "features": [],
+        "pricing": null,
+        "url": "https://www.beecavedrilling.com/well-inspections/",
+        "sourceCandidateIndexes": [
+          16
+        ]
+      },
+      {
+        "id": "bee-cave-drilling-0064",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/"
+        ],
+        "name": "Residential and Commercial Well Drilling",
+        "category": "service",
+        "description": "Proudly Serving The Texas Hill Country",
+        "features": [],
+        "pricing": null,
+        "url": "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+        "sourceCandidateIndexes": [
+          17
+        ]
+      }
+    ],
+    "method": "ai-mock",
+    "confidence": 0.25,
+    "sourceUrls": [
+      "https://www.beecavedrilling.com/",
+      "https://www.beecavedrilling.com/well-inspections/",
+      "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/"
+    ],
+    "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+  },
+  "proof": {
+    "testimonials": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "aggregateRatings": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "caseStudies": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "certifications": {
+      "value": [
+        {
+          "id": "bee-cave-drilling-0065",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "name": "License 54416",
+          "issuer": null,
+          "identifier": "54416",
+          "validUntil": null,
+          "verifyUrl": null,
+          "kind": "license"
+        },
+        {
+          "id": "bee-cave-drilling-0066",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/staffbios/"
+          ],
+          "name": "License 56008",
+          "issuer": null,
+          "identifier": "56008",
+          "validUntil": null,
+          "verifyUrl": null,
+          "kind": "license"
+        },
+        {
+          "id": "bee-cave-drilling-0067",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/staffbios/"
+          ],
+          "name": "License 59719",
+          "issuer": null,
+          "identifier": "59719",
+          "validUntil": null,
+          "verifyUrl": null,
+          "kind": "license"
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.6,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/staffbios/"
+      ]
+    },
+    "memberships": {
+      "value": [
+        {
+          "id": "bee-cave-drilling-0068",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "name": "National Ground Water Association (NGWA)",
+          "issuer": "NGWA",
+          "identifier": null,
+          "validUntil": null,
+          "verifyUrl": null,
+          "kind": "membership"
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.6,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/financing/"
+      ]
+    },
+    "awards": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "pressMentions": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "trustStats": {
+      "value": [
+        {
+          "id": "bee-cave-drilling-0069",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/",
+            "https://www.beecavedrilling.com/quote/",
+            "https://www.beecavedrilling.com/training-videos/",
+            "https://www.beecavedrilling.com/staffbios/",
+            "https://www.beecavedrilling.com/remote-monitoring/",
+            "https://www.beecavedrilling.com/promotions/",
+            "https://www.beecavedrilling.com/callrail/",
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+            "https://www.beecavedrilling.com/drilling/",
+            "https://www.beecavedrilling.com/financing/"
+          ],
+          "claim": "Since 1980",
+          "value": 1980,
+          "unit": "year",
+          "category": "years-in-business",
+          "asOfDate": null
+        },
+        {
+          "id": "bee-cave-drilling-0070",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/testimonials/"
+          ],
+          "claim": "since 2016",
+          "value": 2016,
+          "unit": "year",
+          "category": "years-in-business",
+          "asOfDate": null
+        },
+        {
+          "id": "bee-cave-drilling-0071",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/staffbios/"
+          ],
+          "claim": "since 2011",
+          "value": 2011,
+          "unit": "year",
+          "category": "years-in-business",
+          "asOfDate": null
+        },
+        {
+          "id": "bee-cave-drilling-0072",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/staffbios/"
+          ],
+          "claim": "since 2012",
+          "value": 2012,
+          "unit": "year",
+          "category": "years-in-business",
+          "asOfDate": null
+        },
+        {
+          "id": "bee-cave-drilling-0073",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/pumping-systems/",
+            "https://www.beecavedrilling.com/well-inspections/",
+            "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/"
+          ],
+          "claim": "45+ Years in Business",
+          "value": 45,
+          "unit": "years",
+          "category": "years-in-business",
+          "asOfDate": null
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.6,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/testimonials/",
+        "https://www.beecavedrilling.com/staffbios/",
+        "https://www.beecavedrilling.com/pumping-systems/"
+      ]
+    },
+    "guarantees": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "clientLogos": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    }
+  },
+  "contentIntelligence": {
+    "themes": {
+      "value": [
+        {
+          "id": "bee-cave-drilling-0074",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ],
+          "label": "Water",
+          "weight": 0.4,
+          "terms": [
+            "water",
+            "pump",
+            "pressure",
+            "favorite",
+            "systems",
+            "tank"
+          ],
+          "exampleUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ]
+        },
+        {
+          "id": "bee-cave-drilling-0075",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ],
+          "label": "Pumping",
+          "weight": 0.13,
+          "terms": [
+            "pumping",
+            "texas",
+            "options",
+            "storage",
+            "guys",
+            "problem"
+          ],
+          "exampleUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ]
+        },
+        {
+          "id": "bee-cave-drilling-0076",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ],
+          "label": "Worked",
+          "weight": 0.1,
+          "terms": [
+            "worked",
+            "estimate",
+            "system",
+            "recommend",
+            "dripping",
+            "springs"
+          ],
+          "exampleUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ]
+        },
+        {
+          "id": "bee-cave-drilling-0077",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ],
+          "label": "Wells",
+          "weight": 0.09,
+          "terms": [
+            "wells",
+            "booster",
+            "project",
+            "ross",
+            "burnet",
+            "restaurant"
+          ],
+          "exampleUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ]
+        },
+        {
+          "id": "bee-cave-drilling-0078",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ],
+          "label": "Ethan",
+          "weight": 0.08,
+          "terms": [
+            "ethan",
+            "hours",
+            "hobbies",
+            "movie",
+            "solar",
+            "repair"
+          ],
+          "exampleUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ]
+        },
+        {
+          "id": "bee-cave-drilling-0079",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ],
+          "label": "Head",
+          "weight": 0.07,
+          "terms": [
+            "head",
+            "completion",
+            "highly",
+            "called",
+            "crew",
+            "kevin"
+          ],
+          "exampleUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ]
+        },
+        {
+          "id": "bee-cave-drilling-0080",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ],
+          "label": "Technician",
+          "weight": 0.06,
+          "terms": [
+            "technician",
+            "again",
+            "around",
+            "interesting",
+            "supply",
+            "financing"
+          ],
+          "exampleUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ]
+        },
+        {
+          "id": "bee-cave-drilling-0081",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ],
+          "label": "Done",
+          "weight": 0.06,
+          "terms": [
+            "done",
+            "facts",
+            "inspections",
+            "monitoring",
+            "went",
+            "many"
+          ],
+          "exampleUrls": [
+            "https://www.beecavedrilling.com/",
+            "https://www.beecavedrilling.com/contact/",
+            "https://www.beecavedrilling.com/testimonials/"
+          ]
+        }
+      ],
+      "method": "derived",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/testimonials/",
+        "https://www.beecavedrilling.com/quote/",
+        "https://www.beecavedrilling.com/troubleshooting/home/",
+        "https://www.beecavedrilling.com/training-videos/",
+        "https://www.beecavedrilling.com/staffbios/",
+        "https://www.beecavedrilling.com/remote-monitoring/",
+        "https://www.beecavedrilling.com/troubleshooting/mw2/",
+        "https://www.beecavedrilling.com/promotions/",
+        "https://www.beecavedrilling.com/callrail/",
+        "https://www.beecavedrilling.com/pumping-systems/",
+        "https://www.beecavedrilling.com/troubleshooting/mw4/",
+        "https://www.beecavedrilling.com/troubleshooting/mw5/",
+        "https://www.beecavedrilling.com/well-inspections/",
+        "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+        "https://www.beecavedrilling.com/drilling/",
+        "https://www.beecavedrilling.com/troubleshooting/mw6/",
+        "https://www.beecavedrilling.com/troubleshooting/mw7/",
+        "https://www.beecavedrilling.com/financing/"
+      ]
+    },
+    "posts": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "taxonomy": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "cadence": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "headlinePatterns": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "faqs": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "glossary": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "seasonalSignals": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "contentGaps": {
+      "value": [
+        {
+          "id": "bee-cave-drilling-0082",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "Permitting",
+          "reason": "Listed as an offering, but the site has no articles at all",
+          "relatedOffering": "bee-cave-drilling-0048"
+        },
+        {
+          "id": "bee-cave-drilling-0083",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "Well Head Completion Options",
+          "reason": "Listed as an offering, but the site has no articles at all",
+          "relatedOffering": "bee-cave-drilling-0049"
+        },
+        {
+          "id": "bee-cave-drilling-0084",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "Well head location and cementing requirements",
+          "reason": "Listed as an offering, but the site has no articles at all",
+          "relatedOffering": "bee-cave-drilling-0050"
+        },
+        {
+          "id": "bee-cave-drilling-0085",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "Borehole completion methods & casing options",
+          "reason": "Listed as an offering, but the site has no articles at all",
+          "relatedOffering": "bee-cave-drilling-0051"
+        },
+        {
+          "id": "bee-cave-drilling-0086",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "Mud Control & Site Protection",
+          "reason": "Listed as an offering, but the site has no articles at all",
+          "relatedOffering": "bee-cave-drilling-0052"
+        },
+        {
+          "id": "bee-cave-drilling-0087",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "Standard Pressure Water Well",
+          "reason": "Listed as an offering, but the site has no articles at all",
+          "relatedOffering": "bee-cave-drilling-0054"
+        },
+        {
+          "id": "bee-cave-drilling-0088",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "Constant Pressure",
+          "reason": "Listed as an offering, but the site has no articles at all",
+          "relatedOffering": "bee-cave-drilling-0055"
+        },
+        {
+          "id": "bee-cave-drilling-0089",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "Storage Tank Systems",
+          "reason": "Listed as an offering, but the site has no articles at all",
+          "relatedOffering": "bee-cave-drilling-0056"
+        },
+        {
+          "id": "bee-cave-drilling-0090",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "Solar Pumping Systems",
+          "reason": "Listed as an offering, but the site has no articles at all",
+          "relatedOffering": "bee-cave-drilling-0057"
+        },
+        {
+          "id": "bee-cave-drilling-0091",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "Well Maintenance Contracts",
+          "reason": "Listed as an offering, but the site has no articles at all",
+          "relatedOffering": "bee-cave-drilling-0059"
+        }
+      ],
+      "method": "derived",
+      "confidence": 0.6,
+      "sourceUrls": [
+        "https://www.beecavedrilling.com/",
+        "https://www.beecavedrilling.com/contact/",
+        "https://www.beecavedrilling.com/testimonials/",
+        "https://www.beecavedrilling.com/quote/",
+        "https://www.beecavedrilling.com/troubleshooting/home/",
+        "https://www.beecavedrilling.com/training-videos/",
+        "https://www.beecavedrilling.com/staffbios/",
+        "https://www.beecavedrilling.com/remote-monitoring/",
+        "https://www.beecavedrilling.com/troubleshooting/mw2/",
+        "https://www.beecavedrilling.com/promotions/",
+        "https://www.beecavedrilling.com/callrail/",
+        "https://www.beecavedrilling.com/pumping-systems/",
+        "https://www.beecavedrilling.com/troubleshooting/mw4/",
+        "https://www.beecavedrilling.com/troubleshooting/mw5/",
+        "https://www.beecavedrilling.com/well-inspections/",
+        "https://www.beecavedrilling.com/residential-and-commercial-well-drilling/",
+        "https://www.beecavedrilling.com/drilling/",
+        "https://www.beecavedrilling.com/troubleshooting/mw6/",
+        "https://www.beecavedrilling.com/troubleshooting/mw7/",
+        "https://www.beecavedrilling.com/financing/"
+      ]
+    }
+  },
+  "quality": {
+    "overallScore": 0.547,
+    "categoryScores": [
+      {
+        "category": "foundation",
+        "score": 0.661,
+        "filledFields": 9,
+        "totalFields": 16,
+        "needsAttention": 2
+      },
+      {
+        "category": "positioning",
+        "score": 0.556,
+        "filledFields": 1,
+        "totalFields": 2,
+        "needsAttention": 1
+      },
+      {
+        "category": "market",
+        "score": 0.536,
+        "filledFields": 5,
+        "totalFields": 9,
+        "needsAttention": 1
+      },
+      {
+        "category": "branding",
+        "score": 0.813,
+        "filledFields": 4,
+        "totalFields": 5,
+        "needsAttention": 2
+      },
+      {
+        "category": "onlinePresence",
+        "score": 1,
+        "filledFields": 1,
+        "totalFields": 1,
+        "needsAttention": 0
+      },
+      {
+        "category": "people",
+        "score": 1,
+        "filledFields": 1,
+        "totalFields": 1,
+        "needsAttention": 0
+      },
+      {
+        "category": "offerings",
+        "score": 1,
+        "filledFields": 1,
+        "totalFields": 1,
+        "needsAttention": 1
+      },
+      {
+        "category": "proof",
+        "score": 0.344,
+        "filledFields": 3,
+        "totalFields": 10,
+        "needsAttention": 0
+      },
+      {
+        "category": "contentIntelligence",
+        "score": 0.261,
+        "filledFields": 2,
+        "totalFields": 9,
+        "needsAttention": 0
+      }
+    ],
+    "missingFields": [
+      "foundation.businessModel",
+      "foundation.companyRole",
+      "foundation.legalEntityType",
+      "foundation.employeeCount",
+      "foundation.revenue",
+      "foundation.otherLocations",
+      "foundation.email",
+      "positioning.foundingStory",
+      "market.buyers",
+      "market.idealPersona",
+      "market.industryGroupings",
+      "market.industryOutlook",
+      "branding.artStyle",
+      "proof.testimonials",
+      "proof.aggregateRatings",
+      "proof.caseStudies",
+      "proof.awards",
+      "proof.pressMentions",
+      "proof.guarantees",
+      "proof.clientLogos",
+      "contentIntelligence.posts",
+      "contentIntelligence.taxonomy",
+      "contentIntelligence.cadence",
+      "contentIntelligence.headlinePatterns",
+      "contentIntelligence.faqs",
+      "contentIntelligence.glossary",
+      "contentIntelligence.seasonalSignals"
+    ],
+    "conflicts": [
+      {
+        "path": "foundation.overview",
+        "label": "overview",
+        "candidates": [
+          {
+            "value": "Service Austin & The Texas Hill Country in water well installation, inspection, & maintenance.",
+            "sourceUrl": "https://www.beecavedrilling.com/",
+            "sourceLabel": "on the home page",
+            "confidence": 0.5
+          },
+          {
+            "value": "Service Austin & Texas Hill Country in water well installation, inspection and maintenance.",
+            "sourceUrl": "https://www.beecavedrilling.com/contact/",
+            "sourceLabel": "on the Contact page",
+            "confidence": 0.35
+          },
+          {
+            "value": "Do you want to schedule a service call? Schedule a service call Click here to troubleshoot",
+            "sourceUrl": "https://www.beecavedrilling.com/troubleshooting/mw2/",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Do you have no water, or just low water pressure? I have no water. I have some water, but the pressure is low.",
+            "sourceUrl": "https://www.beecavedrilling.com/troubleshooting/mw5/",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Here is what a pressure tank system looks like.",
+            "sourceUrl": "https://www.beecavedrilling.com/troubleshooting/mw6/",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Close all discharge valves on your water system after the pressure tank. See if the well system builds normal pressure with the valves closed.",
+            "sourceUrl": "https://www.beecavedrilling.com/troubleshooting/mw7/",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          }
+        ],
+        "resolved": false
+      },
+      {
+        "path": "foundation.yearFounded",
+        "label": "yearFounded",
+        "candidates": [
+          {
+            "value": 1980,
+            "sourceUrl": "https://www.beecavedrilling.com/contact/",
+            "sourceLabel": "on the Contact page",
+            "confidence": 0.55
+          },
+          {
+            "value": 2011,
+            "sourceUrl": "https://www.beecavedrilling.com/staffbios/",
+            "sourceLabel": "on the Team page",
+            "confidence": 0.4
+          },
+          {
+            "value": 2012,
+            "sourceUrl": "https://www.beecavedrilling.com/staffbios/",
+            "sourceLabel": "on the Team page",
+            "confidence": 0.4
+          },
+          {
+            "value": 2016,
+            "sourceUrl": "https://www.beecavedrilling.com/testimonials/",
+            "sourceLabel": "on the Reviews page",
+            "confidence": 0.4
+          }
+        ],
+        "resolved": false
+      }
+    ],
+    "followUpQuestions": [
+      {
+        "id": "q-foundation-businessModel",
+        "question": "Do you mostly serve other businesses, or the general public?",
+        "example": null,
+        "fills": [
+          "foundation.businessModel"
+        ],
+        "priority": 4,
+        "answered": false
+      },
+      {
+        "id": "q-location",
+        "question": "Do you have any other locations?",
+        "example": null,
+        "fills": [
+          "foundation.otherLocations"
+        ],
+        "priority": 4,
+        "answered": false
+      },
+      {
+        "id": "q-proof-guarantees",
+        "question": "Do you offer any guarantees, warranties, or insurance cover?",
+        "example": null,
+        "fills": [
+          "proof.guarantees"
+        ],
+        "priority": 4,
+        "answered": false
+      },
+      {
+        "id": "q-foundation-companyRole",
+        "question": "Which best describes the business?",
+        "example": "Contractor",
+        "fills": [
+          "foundation.companyRole"
+        ],
+        "priority": 3,
+        "answered": false
+      },
+      {
+        "id": "q-contact",
+        "question": "What email should customers use?",
+        "example": null,
+        "fills": [
+          "foundation.email"
+        ],
+        "priority": 3,
+        "answered": false
+      },
+      {
+        "id": "q-foundation-employeeCount",
+        "question": "Roughly how many people work at the business?",
+        "example": "12",
+        "fills": [
+          "foundation.employeeCount"
+        ],
+        "priority": 3,
+        "answered": false
+      }
+    ]
+  }
+}

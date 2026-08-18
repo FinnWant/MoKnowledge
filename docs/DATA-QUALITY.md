@@ -38,16 +38,24 @@ and the tier determines confidence.
 
 **Worked example — `foundation.yearFounded`:**
 
-| Tier | Source | Confidence |
-|---|---|---|
-| 1 | JSON-LD `Organization.foundingDate` | 0.95 |
-| 2 | Regex `(since\|est\.?\|founded in)\s+(19\|20)\d{2}` on about + footer | 0.75 |
-| 3 | "over N years" + scrape date → derived year | 0.45 |
-| 4 | Earliest copyright year in footer (weak floor) | 0.25 |
-| 5 | Ask the customer | — |
+| Tier | Source | Confidence | Where |
+|---|---|---|---|
+| 1 | JSON-LD `Organization.foundingDate` | 0.95 | [`extractors/jsonld.ts:196`](../lib/scraper/extractors/jsonld.ts) |
+| 2 | `since` / `est.` / `established` / `serving … since` / `family-owned since` + year | 0.55 | [`extractors/identity.ts:51`](../lib/scraper/extractors/identity.ts) |
+| 2b | …the same regex, when a page yields **more than one** year | 0.40 | same |
+| 3 | Ask the customer | — | `quality.followUpQuestions` |
 
-Tiers 3 and 4 are labelled `derived` and land in the review UI's attention tier by
-construction, because anything under 0.5 does.
+Tier 2b is the interesting one, and the Bee Cave example shows it firing: four different
+"since" years appear across the site (1980 on the contact page, 2011 and 2012 on the team
+page, 2016 on reviews), only one of which is a founding year. The extractor cannot tell
+which, so it emits all four and lowers its own confidence for saying so. The result sits at
+0.45 — under the 0.5 attention threshold — with the rejected values in `note` and all four
+candidates in `quality.conflicts`.
+
+**The copyright year is deliberately not a tier.** "© 2007-2023" is when the site was
+built, not when the company started ([`identity.ts:13`](../lib/scraper/extractors/identity.ts)).
+It is the kind of plausible-looking value this whole document exists to keep out; the
+copyright line is read only for the registered company name.
 
 **Same shape, other fields:** `mainAddress` (JSON-LD `PostalAddress` → contact-page
 microformat → footer regex → ask); `logos` (JSON-LD `logo` → OpenGraph image → largest
@@ -58,8 +66,11 @@ links → any outbound link to a known social host → ask).
 
 ## 4. Conflicts are surfaced, not silently resolved
 
-The reconciler resolves by source precedence (JSON-LD > meta > semantic DOM > heuristic).
-When two candidates share a tier, it keeps both and flags the field.
+The reconciler resolves by source precedence — the full order is JSON-LD > OpenGraph =
+meta > computed > semantic DOM > heuristic (`METHOD_TIER` in
+[`lib/scraper/evidence.ts`](../lib/scraper/evidence.ts)). A higher tier always wins
+regardless of confidence. When two candidates share a tier, it keeps both and flags the
+field.
 
 The UI then asks — one tap, no typing, highest-precedence candidate pre-selected, and the
 rejected values preserved in the field's `note` rather than discarded. Full interaction
@@ -131,20 +142,32 @@ question the customer abandons has zero value regardless of the field's impact.
   field name.
 - **Always skippable.** Save is never gated on answering.
 
-### Worked example — Account IT
+### Worked example — Account-it Consulting Services
 
-Its reference profile is missing `employeeCount`, `revenue`, `otherLocations`,
-`industryOutlook`, `foundingStory`, and several socials. After filtering and ranking:
+Not hypothetical: this is `quality.followUpQuestions` from
+[`examples/knowledge-base-account-it.json`](../examples/knowledge-base-account-it.json),
+verbatim, in the order the app ranks them.
 
-| # | Question | Fills | Why it ranks here |
+| # | Question | Fills | Priority |
 |---|---|---|---|
-| 1 | "Roughly how many people work at the business?" | `employeeCount` | impact 3, answerCost 1 |
-| 2 | "Which other locations do you serve?" | `otherLocations` | impact 4, answerCost 1 |
-| 3 | "Are you on Instagram or LinkedIn?" | `onlinePresence` | impact 4, answerCost 1 |
-| 4 | "What made you start the business?" | `foundingStory` | impact 4, answerCost 2 |
+| 1 | "Which areas do you serve, and do you have any other locations?" | `serviceLocations` + `otherLocations` | 9.0 |
+| 2 | "Are you a member of any trade or industry associations, and have you won any awards?" | `memberships` + `awards` | 5.0 |
+| 3 | "Do you mostly serve other businesses, or the general public?" | `businessModel` | 4.0 |
+| 4 | "Do you offer any guarantees, warranties, or insurance cover?" | `guarantees` | 4.0 |
+| 5 | "Which best describes the business?" | `companyRole` | 3.0 |
+| 6 | "Roughly how many people work at the business?" | `employeeCount` | 3.0 |
 
-`revenue` (impact 1) and `industryOutlook` (`askable: false` — external market data)
-never appear. Six slots, four questions — the cap is a ceiling, not a quota.
+Three things this shows that the formula alone does not:
+
+- **Grouping does real work.** Questions 1 and 2 each fill two fields, so six questions
+  close eight gaps. Question 1 ranks first because grouping sums the impact of both fields
+  while the customer still answers once.
+- **Cheap beats important.** `employeeCount` (impact 3, answerCost 1) makes the list;
+  `industryOutlook` never does — it is `askable: false`, external market data, and not the
+  customer's to know.
+- **The cap binds.** Account-it has 24 empty fields and gets six questions. The other 18
+  stay visible as "Not found" in the review UI, where they can be filled by anyone who
+  cares to — they are just not worth interrupting someone for.
 
 ---
 

@@ -1,0 +1,2735 @@
+{
+  "id": "example-account-it",
+  "version": 1,
+  "companyName": {
+    "value": "Account-it Consulting Services, LLC",
+    "method": "scraped",
+    "confidence": 0.95,
+    "sourceUrls": [
+      "https://account-it.net/contact",
+      "https://account-it.net/about-us/doug-cohen",
+      "https://account-it.net/",
+      "https://account-it.net/services/payroll",
+      "https://account-it.net/services/accounting-bookkeeping",
+      "https://account-it.net/services/quickbooks",
+      "https://account-it.net/services",
+      "https://account-it.net/services/irs-tax-problems",
+      "https://account-it.net/services/tax-preparation-planning",
+      "https://account-it.net/learning-center",
+      "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+      "https://account-it.net/blog/tax-deductions-for-realtors",
+      "https://account-it.net/blog/tax-deductions-for-clergy",
+      "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+      "https://account-it.net/blog/tax-deductions-for-entertainers",
+      "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+      "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+      "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+      "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+      "https://account-it.net/blog/small-business-guide"
+    ]
+  },
+  "sourceUrl": "https://account-it.net",
+  "createdAt": "2026-08-18T12:00:00.000Z",
+  "updatedAt": "2026-08-18T12:00:00.000Z",
+  "scrape": {
+    "startedAt": "2026-08-15T20:57:49.979Z",
+    "finishedAt": "2026-08-15T20:57:49.979Z",
+    "durationMs": 111806,
+    "pagesDiscovered": 511,
+    "pages": [
+      {
+        "url": "https://account-it.net/",
+        "role": "home",
+        "status": 200,
+        "bytes": 375345,
+        "fetchedAt": "2026-08-15T20:55:58.802Z"
+      },
+      {
+        "url": "https://account-it.net/about-us/doug-cohen",
+        "role": "about",
+        "status": 200,
+        "bytes": 230967,
+        "fetchedAt": "2026-08-15T20:55:59.872Z"
+      },
+      {
+        "url": "https://account-it.net/services/payroll",
+        "role": "services",
+        "status": 200,
+        "bytes": 227959,
+        "fetchedAt": "2026-08-15T20:56:00.804Z"
+      },
+      {
+        "url": "https://account-it.net/services/accounting-bookkeeping",
+        "role": "services",
+        "status": 200,
+        "bytes": 228125,
+        "fetchedAt": "2026-08-15T20:56:01.827Z"
+      },
+      {
+        "url": "https://account-it.net/services/quickbooks",
+        "role": "services",
+        "status": 200,
+        "bytes": 229715,
+        "fetchedAt": "2026-08-15T20:56:02.799Z"
+      },
+      {
+        "url": "https://account-it.net/services",
+        "role": "services",
+        "status": 200,
+        "bytes": 250249,
+        "fetchedAt": "2026-08-15T20:56:03.806Z"
+      },
+      {
+        "url": "https://account-it.net/services/irs-tax-problems",
+        "role": "services",
+        "status": 200,
+        "bytes": 237868,
+        "fetchedAt": "2026-08-15T20:56:04.813Z"
+      },
+      {
+        "url": "https://account-it.net/services/tax-preparation-planning",
+        "role": "services",
+        "status": 200,
+        "bytes": 232481,
+        "fetchedAt": "2026-08-15T20:56:05.793Z"
+      },
+      {
+        "url": "https://account-it.net/contact",
+        "role": "contact",
+        "status": 200,
+        "bytes": 255406,
+        "fetchedAt": "2026-08-15T20:56:06.802Z"
+      },
+      {
+        "url": "https://account-it.net/learning-center",
+        "role": "other",
+        "status": 200,
+        "bytes": 302110,
+        "fetchedAt": "2026-08-15T20:56:07.819Z"
+      },
+      {
+        "url": "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "role": "blog-post",
+        "status": 200,
+        "bytes": 258372,
+        "fetchedAt": "2026-08-15T20:57:44.428Z"
+      },
+      {
+        "url": "https://account-it.net/blog/tax-deductions-for-realtors",
+        "role": "blog-post",
+        "status": 200,
+        "bytes": 257510,
+        "fetchedAt": "2026-08-15T20:57:45.519Z"
+      },
+      {
+        "url": "https://account-it.net/blog/tax-deductions-for-clergy",
+        "role": "blog-post",
+        "status": 200,
+        "bytes": 258022,
+        "fetchedAt": "2026-08-15T20:57:46.413Z"
+      },
+      {
+        "url": "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "role": "blog-post",
+        "status": 200,
+        "bytes": 257491,
+        "fetchedAt": "2026-08-15T20:57:46.479Z"
+      },
+      {
+        "url": "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "role": "blog-post",
+        "status": 200,
+        "bytes": 257841,
+        "fetchedAt": "2026-08-15T20:57:46.520Z"
+      },
+      {
+        "url": "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "role": "blog-post",
+        "status": 200,
+        "bytes": 256788,
+        "fetchedAt": "2026-08-15T20:57:46.539Z"
+      },
+      {
+        "url": "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "role": "blog-post",
+        "status": 200,
+        "bytes": 256349,
+        "fetchedAt": "2026-08-15T20:57:47.032Z"
+      },
+      {
+        "url": "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "role": "blog-post",
+        "status": 200,
+        "bytes": 258728,
+        "fetchedAt": "2026-08-15T20:57:47.965Z"
+      },
+      {
+        "url": "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "role": "blog-post",
+        "status": 200,
+        "bytes": 258293,
+        "fetchedAt": "2026-08-15T20:57:48.978Z"
+      },
+      {
+        "url": "https://account-it.net/blog/small-business-guide",
+        "role": "blog-post",
+        "status": 200,
+        "bytes": 263763,
+        "fetchedAt": "2026-08-15T20:57:49.943Z"
+      }
+    ],
+    "robotsRespected": true,
+    "warnings": [
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/firm-background didn't respond in time.",
+        "url": "https://account-it.net/firm-background"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/thank-you didn't respond in time.",
+        "url": "https://account-it.net/thank-you"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/doug-cohen didn't respond in time.",
+        "url": "https://account-it.net/doug-cohen"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/accounting-bookkeeping didn't respond in time.",
+        "url": "https://account-it.net/accounting-bookkeeping"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/payroll didn't respond in time.",
+        "url": "https://account-it.net/payroll"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/quickbooks didn't respond in time.",
+        "url": "https://account-it.net/quickbooks"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/appointment didn't respond in time.",
+        "url": "https://account-it.net/appointment"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/track-your-refund didn't respond in time.",
+        "url": "https://account-it.net/track-your-refund"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/client-hub didn't respond in time.",
+        "url": "https://account-it.net/client-hub"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/firm-background/referrals didn't respond in time.",
+        "url": "https://account-it.net/firm-background/referrals"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/blog/blog-content didn't respond in time.",
+        "url": "https://account-it.net/blog/blog-content"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/blog/tax-deductions-for-educators didn't respond in time.",
+        "url": "https://account-it.net/blog/tax-deductions-for-educators"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/blog/tax-deductions-for-firefighters didn't respond in time.",
+        "url": "https://account-it.net/blog/tax-deductions-for-firefighters"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/blog/tax-deductions-for-peace-officers didn't respond in time.",
+        "url": "https://account-it.net/blog/tax-deductions-for-peace-officers"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/blog/tax-deductions-for-business-professionals didn't respond in time.",
+        "url": "https://account-it.net/blog/tax-deductions-for-business-professionals"
+      },
+      {
+        "code": "fetch-failed",
+        "message": "https://account-it.net/blog/tax-deductions-for-medical-professionals didn't respond in time.",
+        "url": "https://account-it.net/blog/tax-deductions-for-medical-professionals"
+      },
+      {
+        "code": "budget-exceeded",
+        "message": "We read 20 pages and stopped. 475 more were found.",
+        "url": null
+      }
+    ],
+    "scraperVersion": "0.1.0"
+  },
+  "foundation": {
+    "overview": {
+      "value": "Account-it Consulting Services, LLC will take care of your tax preparation and planning needs so you can focus on life in beautiful Boynton Beach.",
+      "method": "scraped",
+      "confidence": 0.45,
+      "sourceUrls": [
+        "https://account-it.net/"
+      ],
+      "note": "We found 20 different values: account-it consulting services, llc contact information: florida | (954) 592-8630 | dougc@account-it.net., get to know doug cohen, the founder of account-it consulting services, llc, and a cfo and controller for nearly two decades. learn more., at account-it consulting services, llc, we offer payroll services for boynton beach businesses in all industries. contact us at (954) 592-8630 today., account-it consulting services, llc proudly provides accounting and bookkeeping services for business owners in the boynton beach area. we serve all industries., account-it consulting services, llc founder, doug cohen, is a quickbooks certified pro advisor. he looks forward to assisting with all of your qbo needs., based in florida, account-it consulting services, llc provides a range of tax and accounting services for individuals and business owners in all industries., is the irs causing you stress? account-it consulting services, llc offers assistance with a wide variety of irs tax problems. learn how we can help you., florida-based account-it consulting services, llc offers expert tax preparation and planning services for individuals and business owners. learn more., account-it consulting services, llc offers free tax planning, accounting, and small business advice in our learning center. new content is added often., discover top tax deductions for sales representatives. optimize your tax strategy and boost your savings with insights for sales professionals., maximize tax savings with deduction tips for realtors. learn how to reduce your taxable income with strategies for real estate professionals., many members of the clergy are paid a cash âhousing allowance,â which they use to pay the expenses related to their homes (e.g. interest, real property taxe, your auto expenses are based on the number of qualified business miles you drive., educational expenses are deductible under either of two conditions: (1) your employer requires the education in order for you to keep your job or rate of pay; o, expenses incurred when traveling away from âhomeâ overnight for job-related reasons that were not reimbursed or reimbursable by your employer are deductible, if you are a waiter or waitress, the irs requires you to keep a record of your tips., dues paid to professional societies related to your occupation are deductible., record separately items having a useful life of more than one year. normally, the costs of such assets are recovered differently on your tax return than are oth, while your know-how is certain to make an important difference in your businessâ success, youâre no doubt well aware that producing a winning combination fo"
+    },
+    "website": {
+      "value": "https://account-it.net/contact",
+      "method": "scraped",
+      "confidence": 0.45,
+      "sourceUrls": [
+        "https://account-it.net/contact"
+      ],
+      "note": "We found 20 different values: https://account-it.net/doug-cohen, https://account-it.net/, https://account-it.net/payroll, https://account-it.net/accounting-bookkeeping, https://account-it.net/quickbooks, https://account-it.net/services, https://account-it.net/services/irs-tax-problems, https://account-it.net/services/tax-preparation-planning, https://account-it.net/learning-center, https://account-it.net/blog/tax-deductions-for-sales-representatives, https://account-it.net/blog/tax-deductions-for-realtors, https://account-it.net/blog/tax-deductions-for-clergy, https://account-it.net/blog/tax-deductions-for-day-care-providers, https://account-it.net/blog/tax-deductions-for-entertainers, https://account-it.net/blog/tax-deductions-for-overnight-drivers, https://account-it.net/blog/tax-deductions-for-restaurant-service-staff, https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel, https://account-it.net/blog/tax-deductions-for-telecommuting-employees, https://account-it.net/blog/small-business-guide"
+    },
+    "industry": {
+      "value": "Accounting Service",
+      "method": "scraped",
+      "confidence": 0.8,
+      "sourceUrls": [
+        "https://account-it.net/contact",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/",
+        "https://account-it.net/services/payroll",
+        "https://account-it.net/services/accounting-bookkeeping",
+        "https://account-it.net/services/quickbooks",
+        "https://account-it.net/services",
+        "https://account-it.net/services/irs-tax-problems",
+        "https://account-it.net/services/tax-preparation-planning",
+        "https://account-it.net/learning-center",
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    },
+    "businessModel": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "companyRole": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "yearFounded": {
+      "value": 2003,
+      "method": "scraped",
+      "confidence": 0.55,
+      "sourceUrls": [
+        "https://account-it.net/about-us/doug-cohen"
+      ]
+    },
+    "legalEntityType": {
+      "value": "LLC",
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://account-it.net/contact",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/",
+        "https://account-it.net/services/payroll",
+        "https://account-it.net/services/accounting-bookkeeping",
+        "https://account-it.net/services/quickbooks",
+        "https://account-it.net/services",
+        "https://account-it.net/services/irs-tax-problems",
+        "https://account-it.net/services/tax-preparation-planning",
+        "https://account-it.net/learning-center",
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    },
+    "employeeCount": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "revenue": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "mainAddress": {
+      "value": {
+        "formatted": "Boynton Beach, Florida 33437",
+        "street": null,
+        "city": "Boynton Beach",
+        "region": "Florida",
+        "postalCode": "33437",
+        "country": null
+      },
+      "method": "scraped",
+      "confidence": 0.95,
+      "sourceUrls": [
+        "https://account-it.net/contact",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/",
+        "https://account-it.net/services/payroll",
+        "https://account-it.net/services/accounting-bookkeeping",
+        "https://account-it.net/services/quickbooks",
+        "https://account-it.net/services",
+        "https://account-it.net/services/irs-tax-problems",
+        "https://account-it.net/services/tax-preparation-planning",
+        "https://account-it.net/learning-center",
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    },
+    "otherLocations": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "serviceLocations": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "altNames": {
+      "value": [
+        "Account-it Consulting Services, LLC"
+      ],
+      "method": "scraped",
+      "confidence": 0.5,
+      "sourceUrls": [
+        "https://account-it.net/contact"
+      ]
+    },
+    "phone": {
+      "value": "(954) 592-8630",
+      "method": "scraped",
+      "confidence": 0.95,
+      "sourceUrls": [
+        "https://account-it.net/contact",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/",
+        "https://account-it.net/services/payroll",
+        "https://account-it.net/services/accounting-bookkeeping",
+        "https://account-it.net/services/quickbooks",
+        "https://account-it.net/services",
+        "https://account-it.net/services/irs-tax-problems",
+        "https://account-it.net/services/tax-preparation-planning",
+        "https://account-it.net/learning-center",
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    },
+    "email": {
+      "value": "dougc@account-it.net",
+      "method": "scraped",
+      "confidence": 0.95,
+      "sourceUrls": [
+        "https://account-it.net/contact",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/",
+        "https://account-it.net/services/payroll",
+        "https://account-it.net/services/accounting-bookkeeping",
+        "https://account-it.net/services/quickbooks",
+        "https://account-it.net/services",
+        "https://account-it.net/services/irs-tax-problems",
+        "https://account-it.net/services/tax-preparation-planning",
+        "https://account-it.net/learning-center",
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    }
+  },
+  "positioning": {
+    "pitch": {
+      "value": "We offer [state] Payroll Services, Payroll, Accounting & Bookkeeping Services and Small business accounting made easy. This placeholder pitch repeats what the website says; a live model call rewrites it in the company's own voice.",
+      "method": "ai-mock",
+      "confidence": 0.25,
+      "sourceUrls": [
+        "https://account-it.net/",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/services/payroll"
+      ],
+      "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+    },
+    "foundingStory": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    }
+  },
+  "market": {
+    "buyers": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "customerNeeds": {
+      "value": "They come for [state] Payroll Services, Payroll, Accounting & Bookkeeping Services and Small business accounting made easy. Placeholder text — a live model call replaces this with a written description.",
+      "method": "ai-mock",
+      "confidence": 0.25,
+      "sourceUrls": [
+        "https://account-it.net/",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/services/payroll"
+      ],
+      "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+    },
+    "idealPersona": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "industryGroupings": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "industryOutlook": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "channels": {
+      "value": [
+        "Facebook",
+        "LinkedIn",
+        "X (Twitter)",
+        "Pinterest",
+        "Blog / organic search",
+        "Website",
+        "Phone",
+        "Email"
+      ],
+      "method": "derived",
+      "confidence": 0.55,
+      "sourceUrls": [
+        "https://account-it.net/",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/services/payroll",
+        "https://account-it.net/services/accounting-bookkeeping",
+        "https://account-it.net/services/quickbooks",
+        "https://account-it.net/services",
+        "https://account-it.net/services/irs-tax-problems",
+        "https://account-it.net/services/tax-preparation-planning",
+        "https://account-it.net/contact",
+        "https://account-it.net/learning-center",
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    },
+    "funnels": {
+      "value": [
+        "Contact form",
+        "Phone call",
+        "Email"
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://account-it.net/contact"
+      ]
+    },
+    "ctas": {
+      "value": [
+        "Notify me Sending...",
+        "Submit Sending..."
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://account-it.net/",
+        "https://account-it.net/contact"
+      ]
+    },
+    "suppliersPartners": {
+      "value": [
+        "Amazon Web Services",
+        "CountingWorks Pro",
+        "Google",
+        "Google Analytics",
+        "UI Avatars",
+        "UserWay"
+      ],
+      "method": "scraped",
+      "confidence": 0.8,
+      "sourceUrls": [
+        "https://account-it.net/contact",
+        "https://account-it.net/"
+      ]
+    }
+  },
+  "branding": {
+    "writingStyle": {
+      "value": {
+        "description": "Sentences average 21.28 words (σ 13.67) at a Flesch-Kincaid grade of 12.06. 53% of sentences use \"we\" or \"our\" and 60% address the reader as \"you\". 3% open with an instruction. This description reports the measurements; a live model call turns them into a usable voice guide.",
+        "tone": [
+          "technical",
+          "direct",
+          "warm"
+        ],
+        "formality": "neutral",
+        "readerAddress": "mixed",
+        "preferredTerms": [
+          "account",
+          "terms",
+          "countingworks",
+          "stuff",
+          "privacy",
+          "accessibility",
+          "data",
+          "access"
+        ],
+        "avoidTerms": [],
+        "ctaStyle": "Calls to action found verbatim: \"Notify me Sending...\", \"Submit Sending...\"."
+      },
+      "method": "ai-mock",
+      "confidence": 0.25,
+      "sourceUrls": [
+        "https://account-it.net/",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/services/payroll",
+        "https://account-it.net/services/accounting-bookkeeping",
+        "https://account-it.net/services/quickbooks"
+      ],
+      "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+    },
+    "artStyle": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "fonts": {
+      "value": [
+        "Inter",
+        "Abril Fatface",
+        "Bebas Neue",
+        "Fira Sans",
+        "Lato",
+        "Merriweather",
+        "Nunito",
+        "Open Sans",
+        "Oswald",
+        "Raleway",
+        "Roboto Slab",
+        "Roboto",
+        "Source Sans Pro",
+        "Stint Ultra Condensed",
+        "Work Sans",
+        "Zilla Slab",
+        "Caudex",
+        "Amita",
+        "Bad Script",
+        "Contrail One",
+        "Courgette",
+        "DM Serif Display",
+        "Gentium Basic",
+        "Kaisei Tokumin",
+        "Kameron",
+        "Playfair Display",
+        "Poiret One",
+        "Slabo 27px",
+        "Space Mono",
+        "Tinos",
+        "Vidaloka",
+        "Vollkorn",
+        "La Belle Aurore",
+        "Licorice",
+        "Luxurious Script",
+        "Comfortaa",
+        "News Cycle",
+        "Yanone Kaffeesatz",
+        "Mulish",
+        "Noto Serif",
+        "Source Code Pro",
+        "JetBrains Mono"
+      ],
+      "method": "scraped",
+      "confidence": 0.9,
+      "sourceUrls": [
+        "https://account-it.net/contact"
+      ]
+    },
+    "colors": {
+      "value": [
+        {
+          "id": "account-it-0001",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/",
+            "https://account-it.net/about-us/doug-cohen",
+            "https://account-it.net/services/payroll",
+            "https://account-it.net/services/accounting-bookkeeping",
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/services",
+            "https://account-it.net/services/irs-tax-problems",
+            "https://account-it.net/services/tax-preparation-planning",
+            "https://account-it.net/contact",
+            "https://account-it.net/learning-center",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy",
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+            "https://account-it.net/blog/tax-deductions-for-entertainers",
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "hex": "#898989",
+          "role": "border",
+          "frequency": 7
+        },
+        {
+          "id": "account-it-0002",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/",
+            "https://account-it.net/about-us/doug-cohen",
+            "https://account-it.net/services/payroll",
+            "https://account-it.net/services/accounting-bookkeeping",
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/services",
+            "https://account-it.net/services/irs-tax-problems",
+            "https://account-it.net/services/tax-preparation-planning",
+            "https://account-it.net/contact",
+            "https://account-it.net/learning-center",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy",
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+            "https://account-it.net/blog/tax-deductions-for-entertainers",
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "hex": "#1f2937",
+          "role": "primary",
+          "frequency": 7
+        },
+        {
+          "id": "account-it-0003",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/",
+            "https://account-it.net/about-us/doug-cohen",
+            "https://account-it.net/services/payroll",
+            "https://account-it.net/services/accounting-bookkeeping",
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/services",
+            "https://account-it.net/services/irs-tax-problems",
+            "https://account-it.net/services/tax-preparation-planning",
+            "https://account-it.net/contact",
+            "https://account-it.net/learning-center",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy",
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+            "https://account-it.net/blog/tax-deductions-for-entertainers",
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "hex": "#2e2e2e",
+          "role": "unknown",
+          "frequency": 7
+        },
+        {
+          "id": "account-it-0004",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/",
+            "https://account-it.net/about-us/doug-cohen",
+            "https://account-it.net/services/payroll",
+            "https://account-it.net/services/accounting-bookkeeping",
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/services",
+            "https://account-it.net/services/irs-tax-problems",
+            "https://account-it.net/services/tax-preparation-planning",
+            "https://account-it.net/contact",
+            "https://account-it.net/learning-center",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy",
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+            "https://account-it.net/blog/tax-deductions-for-entertainers",
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "hex": "#2299dd",
+          "role": "secondary",
+          "frequency": 1
+        },
+        {
+          "id": "account-it-0005",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/"
+          ],
+          "hex": "#2e3084",
+          "role": "unknown",
+          "frequency": 1
+        },
+        {
+          "id": "account-it-0006",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/"
+          ],
+          "hex": "#00aeef",
+          "role": "accent",
+          "frequency": 1
+        },
+        {
+          "id": "account-it-0007",
+          "method": "scraped",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/",
+            "https://account-it.net/about-us/doug-cohen",
+            "https://account-it.net/services/payroll",
+            "https://account-it.net/services/accounting-bookkeeping",
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/services",
+            "https://account-it.net/services/irs-tax-problems",
+            "https://account-it.net/services/tax-preparation-planning",
+            "https://account-it.net/contact",
+            "https://account-it.net/learning-center",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy",
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+            "https://account-it.net/blog/tax-deductions-for-entertainers",
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "hex": "#000000",
+          "role": "background",
+          "frequency": 1
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://account-it.net/contact",
+        "https://account-it.net/"
+      ]
+    },
+    "logos": {
+      "value": [
+        {
+          "id": "account-it-0008",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://account-it.net/",
+            "https://account-it.net/about-us/doug-cohen",
+            "https://account-it.net/services/payroll",
+            "https://account-it.net/services/accounting-bookkeeping",
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/services",
+            "https://account-it.net/services/irs-tax-problems",
+            "https://account-it.net/services/tax-preparation-planning",
+            "https://account-it.net/contact",
+            "https://account-it.net/learning-center",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy",
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+            "https://account-it.net/blog/tax-deductions-for-entertainers",
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "url": "https://cw3prd.s3.us-west-1.amazonaws.com/2334180/account-logo.png",
+          "alt": "Account-it Consulting Services, LLC",
+          "kind": "logo",
+          "width": null,
+          "height": null
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.95,
+      "sourceUrls": [
+        "https://account-it.net/contact"
+      ],
+      "note": "Social sharing image; may not be the logo"
+    }
+  },
+  "onlinePresence": {
+    "profiles": {
+      "value": [
+        {
+          "id": "account-it-0009",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/",
+            "https://account-it.net/about-us/doug-cohen",
+            "https://account-it.net/services/payroll",
+            "https://account-it.net/services/accounting-bookkeeping",
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/services",
+            "https://account-it.net/services/irs-tax-problems",
+            "https://account-it.net/services/tax-preparation-planning",
+            "https://account-it.net/contact",
+            "https://account-it.net/learning-center",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy",
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+            "https://account-it.net/blog/tax-deductions-for-entertainers",
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/account.itconsulting",
+          "handle": "account.itconsulting"
+        },
+        {
+          "id": "account-it-0010",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/",
+            "https://account-it.net/about-us/doug-cohen",
+            "https://account-it.net/services/payroll",
+            "https://account-it.net/services/accounting-bookkeeping",
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/services",
+            "https://account-it.net/services/irs-tax-problems",
+            "https://account-it.net/services/tax-preparation-planning",
+            "https://account-it.net/contact",
+            "https://account-it.net/learning-center",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy",
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+            "https://account-it.net/blog/tax-deductions-for-entertainers",
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "platform": "linkedin",
+          "url": "https://linkedin.com/in/doug-cohen-9121a86",
+          "handle": "doug-cohen-9121a86"
+        },
+        {
+          "id": "account-it-0011",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/sharer/sharer.php?quote=Tax+Deductions+for+Sales+Representatives&u=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-sales-representatives",
+          "handle": "sharer.php"
+        },
+        {
+          "id": "account-it-0012",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives"
+          ],
+          "platform": "x",
+          "url": "https://twitter.com/intent/tweet?source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-sales-representatives&text=Tax+Deductions+for+Sales+Representatives%3A+https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-sales-representatives",
+          "handle": "tweet"
+        },
+        {
+          "id": "account-it-0013",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives"
+          ],
+          "platform": "linkedin",
+          "url": "http://linkedin.com/shareArticle?mini=true&source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-sales-representatives&title=Tax+Deductions+for+Sales+Representatives&url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-sales-representatives",
+          "handle": "shareArticle"
+        },
+        {
+          "id": "account-it-0014",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives"
+          ],
+          "platform": "pinterest",
+          "url": "http://pinterest.com/pin/create/button?url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-sales-representatives",
+          "handle": "button"
+        },
+        {
+          "id": "account-it-0015",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-realtors"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/sharer/sharer.php?quote=Tax+Deductions+for+Realtors&u=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-realtors",
+          "handle": "sharer.php"
+        },
+        {
+          "id": "account-it-0016",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-realtors"
+          ],
+          "platform": "x",
+          "url": "https://twitter.com/intent/tweet?source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-realtors&text=Tax+Deductions+for+Realtors%3A+https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-realtors",
+          "handle": "tweet"
+        },
+        {
+          "id": "account-it-0017",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-realtors"
+          ],
+          "platform": "linkedin",
+          "url": "http://linkedin.com/shareArticle?mini=true&source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-realtors&title=Tax+Deductions+for+Realtors&url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-realtors",
+          "handle": "shareArticle"
+        },
+        {
+          "id": "account-it-0018",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-realtors"
+          ],
+          "platform": "pinterest",
+          "url": "http://pinterest.com/pin/create/button?url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-realtors",
+          "handle": "button"
+        },
+        {
+          "id": "account-it-0019",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/sharer/sharer.php?quote=Tax+Deductions+for+Clergy&u=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-clergy",
+          "handle": "sharer.php"
+        },
+        {
+          "id": "account-it-0020",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ],
+          "platform": "x",
+          "url": "https://twitter.com/intent/tweet?source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-clergy&text=Tax+Deductions+for+Clergy%3A+https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-clergy",
+          "handle": "tweet"
+        },
+        {
+          "id": "account-it-0021",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ],
+          "platform": "linkedin",
+          "url": "http://linkedin.com/shareArticle?mini=true&source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-clergy&title=Tax+Deductions+for+Clergy&url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-clergy",
+          "handle": "shareArticle"
+        },
+        {
+          "id": "account-it-0022",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ],
+          "platform": "pinterest",
+          "url": "http://pinterest.com/pin/create/button?url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-clergy",
+          "handle": "button"
+        },
+        {
+          "id": "account-it-0023",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/sharer/sharer.php?quote=Tax+Deductions+for+Day+Care+Providers&u=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-day-care-providers",
+          "handle": "sharer.php"
+        },
+        {
+          "id": "account-it-0024",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers"
+          ],
+          "platform": "x",
+          "url": "https://twitter.com/intent/tweet?source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-day-care-providers&text=Tax+Deductions+for+Day+Care+Providers%3A+https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-day-care-providers",
+          "handle": "tweet"
+        },
+        {
+          "id": "account-it-0025",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers"
+          ],
+          "platform": "linkedin",
+          "url": "http://linkedin.com/shareArticle?mini=true&source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-day-care-providers&title=Tax+Deductions+for+Day+Care+Providers&url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-day-care-providers",
+          "handle": "shareArticle"
+        },
+        {
+          "id": "account-it-0026",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers"
+          ],
+          "platform": "pinterest",
+          "url": "http://pinterest.com/pin/create/button?url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-day-care-providers",
+          "handle": "button"
+        },
+        {
+          "id": "account-it-0027",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-entertainers"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/sharer/sharer.php?quote=Tax+Deductions+for+Entertainers&u=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-entertainers",
+          "handle": "sharer.php"
+        },
+        {
+          "id": "account-it-0028",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-entertainers"
+          ],
+          "platform": "x",
+          "url": "https://twitter.com/intent/tweet?source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-entertainers&text=Tax+Deductions+for+Entertainers%3A+https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-entertainers",
+          "handle": "tweet"
+        },
+        {
+          "id": "account-it-0029",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-entertainers"
+          ],
+          "platform": "linkedin",
+          "url": "http://linkedin.com/shareArticle?mini=true&source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-entertainers&title=Tax+Deductions+for+Entertainers&url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-entertainers",
+          "handle": "shareArticle"
+        },
+        {
+          "id": "account-it-0030",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-entertainers"
+          ],
+          "platform": "pinterest",
+          "url": "http://pinterest.com/pin/create/button?url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-entertainers",
+          "handle": "button"
+        },
+        {
+          "id": "account-it-0031",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/sharer/sharer.php?quote=Tax+Deductions+for+Overnight+Drivers&u=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-overnight-drivers",
+          "handle": "sharer.php"
+        },
+        {
+          "id": "account-it-0032",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers"
+          ],
+          "platform": "x",
+          "url": "https://twitter.com/intent/tweet?source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-overnight-drivers&text=Tax+Deductions+for+Overnight+Drivers%3A+https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-overnight-drivers",
+          "handle": "tweet"
+        },
+        {
+          "id": "account-it-0033",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers"
+          ],
+          "platform": "linkedin",
+          "url": "http://linkedin.com/shareArticle?mini=true&source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-overnight-drivers&title=Tax+Deductions+for+Overnight+Drivers&url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-overnight-drivers",
+          "handle": "shareArticle"
+        },
+        {
+          "id": "account-it-0034",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers"
+          ],
+          "platform": "pinterest",
+          "url": "http://pinterest.com/pin/create/button?url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-overnight-drivers",
+          "handle": "button"
+        },
+        {
+          "id": "account-it-0035",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/sharer/sharer.php?quote=Tax+Deductions+for+Restaurant+Service+Staff&u=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-restaurant-service-staff",
+          "handle": "sharer.php"
+        },
+        {
+          "id": "account-it-0036",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff"
+          ],
+          "platform": "x",
+          "url": "https://twitter.com/intent/tweet?source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-restaurant-service-staff&text=Tax+Deductions+for+Restaurant+Service+Staff%3A+https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-restaurant-service-staff",
+          "handle": "tweet"
+        },
+        {
+          "id": "account-it-0037",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff"
+          ],
+          "platform": "linkedin",
+          "url": "http://linkedin.com/shareArticle?mini=true&source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-restaurant-service-staff&title=Tax+Deductions+for+Restaurant+Service+Staff&url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-restaurant-service-staff",
+          "handle": "shareArticle"
+        },
+        {
+          "id": "account-it-0038",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff"
+          ],
+          "platform": "pinterest",
+          "url": "http://pinterest.com/pin/create/button?url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-restaurant-service-staff",
+          "handle": "button"
+        },
+        {
+          "id": "account-it-0039",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/sharer/sharer.php?quote=Tax+Deductions+for+Airline+Flight+Crew+Personnel&u=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-airline-flight-crew-personnel",
+          "handle": "sharer.php"
+        },
+        {
+          "id": "account-it-0040",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel"
+          ],
+          "platform": "x",
+          "url": "https://twitter.com/intent/tweet?source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-airline-flight-crew-personnel&text=Tax+Deductions+for+Airline+Flight+Crew+Personnel+%3A+https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-airline-flight-crew-personnel",
+          "handle": "tweet"
+        },
+        {
+          "id": "account-it-0041",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel"
+          ],
+          "platform": "linkedin",
+          "url": "http://linkedin.com/shareArticle?mini=true&source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-airline-flight-crew-personnel&title=Tax+Deductions+for+Airline+Flight+Crew+Personnel+&url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-airline-flight-crew-personnel",
+          "handle": "shareArticle"
+        },
+        {
+          "id": "account-it-0042",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel"
+          ],
+          "platform": "pinterest",
+          "url": "http://pinterest.com/pin/create/button?url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-airline-flight-crew-personnel",
+          "handle": "button"
+        },
+        {
+          "id": "account-it-0043",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/sharer/sharer.php?quote=Tax+Deductions+for+Telecommuting+Employees&u=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-telecommuting-employees",
+          "handle": "sharer.php"
+        },
+        {
+          "id": "account-it-0044",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees"
+          ],
+          "platform": "x",
+          "url": "https://twitter.com/intent/tweet?source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-telecommuting-employees&text=Tax+Deductions+for+Telecommuting+Employees%3A+https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-telecommuting-employees",
+          "handle": "tweet"
+        },
+        {
+          "id": "account-it-0045",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees"
+          ],
+          "platform": "linkedin",
+          "url": "http://linkedin.com/shareArticle?mini=true&source=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-telecommuting-employees&title=Tax+Deductions+for+Telecommuting+Employees&url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-telecommuting-employees",
+          "handle": "shareArticle"
+        },
+        {
+          "id": "account-it-0046",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees"
+          ],
+          "platform": "pinterest",
+          "url": "http://pinterest.com/pin/create/button?url=https%3A%2F%2Faccount-it.net%2Fblog%2Ftax-deductions-for-telecommuting-employees",
+          "handle": "button"
+        },
+        {
+          "id": "account-it-0047",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "platform": "facebook",
+          "url": "https://facebook.com/sharer/sharer.php?quote=Small+Business+Guide&u=https%3A%2F%2Faccount-it.net%2Fblog%2Fsmall-business-guide",
+          "handle": "sharer.php"
+        },
+        {
+          "id": "account-it-0048",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "platform": "x",
+          "url": "https://twitter.com/intent/tweet?source=https%3A%2F%2Faccount-it.net%2Fblog%2Fsmall-business-guide&text=Small+Business+Guide+%3A+https%3A%2F%2Faccount-it.net%2Fblog%2Fsmall-business-guide",
+          "handle": "tweet"
+        },
+        {
+          "id": "account-it-0049",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "platform": "linkedin",
+          "url": "http://linkedin.com/shareArticle?mini=true&source=https%3A%2F%2Faccount-it.net%2Fblog%2Fsmall-business-guide&title=Small+Business+Guide+&url=https%3A%2F%2Faccount-it.net%2Fblog%2Fsmall-business-guide",
+          "handle": "shareArticle"
+        },
+        {
+          "id": "account-it-0050",
+          "method": "scraped",
+          "confidence": 0.8,
+          "sourceUrls": [
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "platform": "pinterest",
+          "url": "http://pinterest.com/pin/create/button?url=https%3A%2F%2Faccount-it.net%2Fblog%2Fsmall-business-guide",
+          "handle": "button"
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.8,
+      "sourceUrls": [
+        "https://account-it.net/contact",
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    }
+  },
+  "people": {
+    "value": [
+      {
+        "id": "account-it-0051",
+        "method": "scraped",
+        "confidence": 0.6,
+        "sourceUrls": [
+          "https://account-it.net/about-us/doug-cohen"
+        ],
+        "name": "Doug Cohen",
+        "title": "Outside, Independent CPA, CFO, and Controller",
+        "role": "executive",
+        "gender": null,
+        "bio": "I provide part-time or interim financial and accounting services. You can receive the service and support of a highly qualified CFO and Controller only as you need it, without having to pay a full-time salary or benefits. Many companies offer this type of professional service -- but, all too often, professional service companies and larger CPA firms charge exorbitant fees.",
+        "email": null,
+        "phone": null,
+        "imageUrl": null,
+        "profileUrl": null,
+        "linkedin": null
+      }
+    ],
+    "method": "scraped",
+    "confidence": 0.6,
+    "sourceUrls": [
+      "https://account-it.net/about-us/doug-cohen"
+    ]
+  },
+  "offerings": {
+    "value": [
+      {
+        "id": "account-it-0052",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://account-it.net/services/payroll"
+        ],
+        "name": "[state] Payroll Services",
+        "category": "service",
+        "description": "At [companyName], we offer payroll services for Boynton Beach businesses in all industries. Contact us at [phone] today.",
+        "features": [],
+        "pricing": null,
+        "url": "https://account-it.net/payroll",
+        "sourceCandidateIndexes": [
+          0
+        ]
+      },
+      {
+        "id": "account-it-0053",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://account-it.net/services/payroll"
+        ],
+        "name": "Payroll",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": null,
+        "sourceCandidateIndexes": [
+          1
+        ]
+      },
+      {
+        "id": "account-it-0054",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://account-it.net/services/accounting-bookkeeping"
+        ],
+        "name": "Accounting & Bookkeeping Services",
+        "category": "service",
+        "description": "[companyName] proudly provides accounting and bookkeeping services for business owners in the Boynton Beach area. We serve all industries.",
+        "features": [],
+        "pricing": null,
+        "url": "https://account-it.net/accounting-bookkeeping",
+        "sourceCandidateIndexes": [
+          2
+        ]
+      },
+      {
+        "id": "account-it-0055",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://account-it.net/services/accounting-bookkeeping"
+        ],
+        "name": "Small business accounting made easy",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": null,
+        "sourceCandidateIndexes": [
+          3
+        ]
+      },
+      {
+        "id": "account-it-0056",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://account-it.net/services/quickbooks"
+        ],
+        "name": "QuickBooks Services",
+        "category": "service",
+        "description": "[companyName] founder, Doug Cohen, is a QuickBooks Certified Pro Advisor. He looks forward to assisting with all of your QBO needs.",
+        "features": [],
+        "pricing": null,
+        "url": "https://account-it.net/quickbooks",
+        "sourceCandidateIndexes": [
+          4
+        ]
+      },
+      {
+        "id": "account-it-0057",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://account-it.net/services/irs-tax-problems"
+        ],
+        "name": "[state] IRS Tax Problems",
+        "category": "service",
+        "description": "Is the IRS causing you stress? [companyName] offers assistance with a wide variety of IRS tax problems. Learn how we can help you.",
+        "features": [],
+        "pricing": null,
+        "url": "https://account-it.net/services/irs-tax-problems",
+        "sourceCandidateIndexes": [
+          5
+        ]
+      },
+      {
+        "id": "account-it-0058",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://account-it.net/services/irs-tax-problems"
+        ],
+        "name": "IRS Tax Problems",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": null,
+        "sourceCandidateIndexes": [
+          6
+        ]
+      },
+      {
+        "id": "account-it-0059",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://account-it.net/services/tax-preparation-planning"
+        ],
+        "name": "Tax Preparation & Planning Services - [state]",
+        "category": "service",
+        "description": "[state]-based [companyName] offers expert tax preparation and planning services for individuals and business owners. Learn more.",
+        "features": [],
+        "pricing": null,
+        "url": "https://account-it.net/services/tax-preparation-planning",
+        "sourceCandidateIndexes": [
+          7
+        ]
+      },
+      {
+        "id": "account-it-0060",
+        "method": "ai-mock",
+        "confidence": 0.25,
+        "sourceUrls": [
+          "https://account-it.net/services/tax-preparation-planning"
+        ],
+        "name": "Tax Preparation & Planning",
+        "category": "service",
+        "description": null,
+        "features": [],
+        "pricing": null,
+        "url": null,
+        "sourceCandidateIndexes": [
+          8
+        ]
+      }
+    ],
+    "method": "ai-mock",
+    "confidence": 0.25,
+    "sourceUrls": [
+      "https://account-it.net/services/payroll",
+      "https://account-it.net/services/accounting-bookkeeping",
+      "https://account-it.net/services/quickbooks",
+      "https://account-it.net/services/irs-tax-problems",
+      "https://account-it.net/services/tax-preparation-planning"
+    ],
+    "note": "Sample text assembled from scraped facts without a model call. Set ANTHROPIC_API_KEY for live enrichment."
+  },
+  "proof": {
+    "testimonials": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "aggregateRatings": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "caseStudies": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "certifications": {
+      "value": [
+        {
+          "id": "account-it-0061",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://account-it.net/about-us/doug-cohen"
+          ],
+          "name": "Certified Public Accountant (CPA)",
+          "issuer": null,
+          "identifier": null,
+          "validUntil": null,
+          "verifyUrl": null,
+          "kind": "certification"
+        },
+        {
+          "id": "account-it-0062",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://account-it.net/about-us/doug-cohen"
+          ],
+          "name": "QuickBooks Certified ProAdvisor",
+          "issuer": "Intuit",
+          "identifier": null,
+          "validUntil": null,
+          "verifyUrl": null,
+          "kind": "certification"
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.6,
+      "sourceUrls": [
+        "https://account-it.net/about-us/doug-cohen"
+      ]
+    },
+    "memberships": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "awards": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "pressMentions": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "trustStats": {
+      "value": [
+        {
+          "id": "account-it-0063",
+          "method": "scraped",
+          "confidence": 0.6,
+          "sourceUrls": [
+            "https://account-it.net/about-us/doug-cohen"
+          ],
+          "claim": "since 2003",
+          "value": 2003,
+          "unit": "year",
+          "category": "years-in-business",
+          "asOfDate": null
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.6,
+      "sourceUrls": [
+        "https://account-it.net/about-us/doug-cohen"
+      ]
+    },
+    "guarantees": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "clientLogos": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    }
+  },
+  "contentIntelligence": {
+    "themes": {
+      "value": [
+        {
+          "id": "account-it-0064",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors"
+          ],
+          "label": "Expenses",
+          "weight": 0.5,
+          "terms": [
+            "expenses",
+            "deductible",
+            "record",
+            "return",
+            "items",
+            "costs"
+          ],
+          "exampleUrls": [
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors"
+          ]
+        },
+        {
+          "id": "account-it-0065",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ],
+          "label": "Miles",
+          "weight": 0.11,
+          "terms": [
+            "miles",
+            "lodging",
+            "equipment",
+            "line",
+            "calls",
+            "education"
+          ],
+          "exampleUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ]
+        },
+        {
+          "id": "account-it-0066",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/services/irs-tax-problems",
+            "https://account-it.net/services/tax-preparation-planning"
+          ],
+          "label": "Taxes",
+          "weight": 0.1,
+          "terms": [
+            "taxes",
+            "include",
+            "deductions",
+            "income",
+            "know",
+            "advertising"
+          ],
+          "exampleUrls": [
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/services/irs-tax-problems",
+            "https://account-it.net/services/tax-preparation-planning"
+          ]
+        },
+        {
+          "id": "account-it-0067",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors"
+          ],
+          "label": "Receipts",
+          "weight": 0.08,
+          "terms": [
+            "receipts",
+            "generally",
+            "expense",
+            "town",
+            "meals",
+            "travel"
+          ],
+          "exampleUrls": [
+            "https://account-it.net/services/quickbooks",
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors"
+          ]
+        },
+        {
+          "id": "account-it-0068",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ],
+          "label": "Transportation",
+          "weight": 0.06,
+          "terms": [
+            "transportation",
+            "supplies",
+            "cost",
+            "away",
+            "trip",
+            "records"
+          ],
+          "exampleUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ]
+        },
+        {
+          "id": "account-it-0069",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ],
+          "label": "Place",
+          "weight": 0.05,
+          "terms": [
+            "place",
+            "auto",
+            "office",
+            "month",
+            "trips",
+            "document"
+          ],
+          "exampleUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ]
+        },
+        {
+          "id": "account-it-0070",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ],
+          "label": "Separately",
+          "weight": 0.05,
+          "terms": [
+            "separately",
+            "dues",
+            "telephone",
+            "ordinary",
+            "latest",
+            "form"
+          ],
+          "exampleUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "https://account-it.net/blog/tax-deductions-for-realtors",
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ]
+        },
+        {
+          "id": "account-it-0071",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [
+            "https://account-it.net/",
+            "https://account-it.net/contact",
+            "https://account-it.net/learning-center"
+          ],
+          "label": "Confirm",
+          "weight": 0.04,
+          "terms": [
+            "confirm",
+            "inquiry",
+            "solicitation",
+            "acknowledge",
+            "creation",
+            "reimbursable"
+          ],
+          "exampleUrls": [
+            "https://account-it.net/",
+            "https://account-it.net/contact",
+            "https://account-it.net/learning-center"
+          ]
+        }
+      ],
+      "method": "derived",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://account-it.net/",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/services/payroll",
+        "https://account-it.net/services/accounting-bookkeeping",
+        "https://account-it.net/services/quickbooks",
+        "https://account-it.net/services",
+        "https://account-it.net/services/irs-tax-problems",
+        "https://account-it.net/services/tax-preparation-planning",
+        "https://account-it.net/contact",
+        "https://account-it.net/learning-center",
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    },
+    "posts": {
+      "value": [
+        {
+          "id": "account-it-0072",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-sales-representatives"
+          ],
+          "title": "Tax Deductions for Sales Representatives",
+          "url": "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+          "publishedAt": "2018-03-10T18:36:00+00:00",
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "account-it-0073",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-realtors"
+          ],
+          "title": "Tax Deductions for Realtors",
+          "url": "https://account-it.net/blog/tax-deductions-for-realtors",
+          "publishedAt": "2018-02-28T18:36:00+00:00",
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "account-it-0074",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-clergy"
+          ],
+          "title": "Tax Deductions for Clergy",
+          "url": "https://account-it.net/blog/tax-deductions-for-clergy",
+          "publishedAt": "2018-03-20T18:36:21+00:00",
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "account-it-0075",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-day-care-providers"
+          ],
+          "title": "Tax Deductions for Day Care Providers",
+          "url": "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+          "publishedAt": "2018-03-30T18:36:22+00:00",
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "account-it-0076",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-entertainers"
+          ],
+          "title": "Tax Deductions for Entertainers",
+          "url": "https://account-it.net/blog/tax-deductions-for-entertainers",
+          "publishedAt": "2018-04-10T18:36:24+00:00",
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "account-it-0077",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-overnight-drivers"
+          ],
+          "title": "Tax Deductions for Overnight Drivers",
+          "url": "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+          "publishedAt": "2018-03-15T18:36:23+00:00",
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "account-it-0078",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff"
+          ],
+          "title": "Tax Deductions for Restaurant Service Staff",
+          "url": "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+          "publishedAt": "2018-04-20T18:36:24+00:00",
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "account-it-0079",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel"
+          ],
+          "title": "Tax Deductions for Airline Flight Crew Personnel",
+          "url": "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+          "publishedAt": "2018-04-30T18:36:25+00:00",
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "account-it-0080",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://account-it.net/blog/tax-deductions-for-telecommuting-employees"
+          ],
+          "title": "Tax Deductions for Telecommuting Employees",
+          "url": "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+          "publishedAt": "2018-05-14T18:36:26+00:00",
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        },
+        {
+          "id": "account-it-0081",
+          "method": "scraped",
+          "confidence": 0.95,
+          "sourceUrls": [
+            "https://account-it.net/blog/small-business-guide"
+          ],
+          "title": "Small Business Guide",
+          "url": "https://account-it.net/blog/small-business-guide",
+          "publishedAt": "2018-03-05T18:36:26+00:00",
+          "author": null,
+          "category": null,
+          "excerpt": null,
+          "wordCount": null,
+          "headings": []
+        }
+      ],
+      "method": "scraped",
+      "confidence": 0.95,
+      "sourceUrls": [
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    },
+    "taxonomy": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "cadence": {
+      "value": {
+        "postsPerMonth": 4.06,
+        "firstPublished": "2018-02-28",
+        "lastPublished": "2018-05-14",
+        "daysSinceLast": 3017,
+        "isStale": true
+      },
+      "method": "derived",
+      "confidence": 0.75,
+      "sourceUrls": [
+        "https://account-it.net/",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/services/payroll",
+        "https://account-it.net/services/accounting-bookkeeping",
+        "https://account-it.net/services/quickbooks",
+        "https://account-it.net/services",
+        "https://account-it.net/services/irs-tax-problems",
+        "https://account-it.net/services/tax-preparation-planning",
+        "https://account-it.net/contact",
+        "https://account-it.net/learning-center",
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    },
+    "headlinePatterns": {
+      "value": [
+        {
+          "id": "account-it-0082",
+          "method": "derived",
+          "confidence": 0.7,
+          "sourceUrls": [],
+          "pattern": "other",
+          "count": 10,
+          "examples": [
+            "Tax Deductions for Sales Representatives",
+            "Tax Deductions for Realtors",
+            "Tax Deductions for Clergy"
+          ]
+        }
+      ],
+      "method": "derived",
+      "confidence": 0.7,
+      "sourceUrls": [
+        "https://account-it.net/",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/services/payroll",
+        "https://account-it.net/services/accounting-bookkeeping",
+        "https://account-it.net/services/quickbooks",
+        "https://account-it.net/services",
+        "https://account-it.net/services/irs-tax-problems",
+        "https://account-it.net/services/tax-preparation-planning",
+        "https://account-it.net/contact",
+        "https://account-it.net/learning-center",
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    },
+    "faqs": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "glossary": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "seasonalSignals": {
+      "value": null,
+      "method": "not-found",
+      "confidence": 0,
+      "sourceUrls": []
+    },
+    "contentGaps": {
+      "value": [
+        {
+          "id": "account-it-0083",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "[state] Payroll Services",
+          "reason": "Listed as an offering but has no dedicated page or article",
+          "relatedOffering": "account-it-0052"
+        },
+        {
+          "id": "account-it-0084",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "[state] IRS Tax Problems",
+          "reason": "Listed as an offering but has no dedicated page or article",
+          "relatedOffering": "account-it-0057"
+        },
+        {
+          "id": "account-it-0085",
+          "method": "derived",
+          "confidence": 0.6,
+          "sourceUrls": [],
+          "topic": "Tax Preparation & Planning Services - [state]",
+          "reason": "Listed as an offering but has no dedicated page or article",
+          "relatedOffering": "account-it-0059"
+        }
+      ],
+      "method": "derived",
+      "confidence": 0.6,
+      "sourceUrls": [
+        "https://account-it.net/",
+        "https://account-it.net/about-us/doug-cohen",
+        "https://account-it.net/services/payroll",
+        "https://account-it.net/services/accounting-bookkeeping",
+        "https://account-it.net/services/quickbooks",
+        "https://account-it.net/services",
+        "https://account-it.net/services/irs-tax-problems",
+        "https://account-it.net/services/tax-preparation-planning",
+        "https://account-it.net/contact",
+        "https://account-it.net/learning-center",
+        "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+        "https://account-it.net/blog/tax-deductions-for-realtors",
+        "https://account-it.net/blog/tax-deductions-for-clergy",
+        "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+        "https://account-it.net/blog/tax-deductions-for-entertainers",
+        "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+        "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+        "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+        "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+        "https://account-it.net/blog/small-business-guide"
+      ]
+    }
+  },
+  "quality": {
+    "overallScore": 0.523,
+    "categoryScores": [
+      {
+        "category": "foundation",
+        "score": 0.661,
+        "filledFields": 10,
+        "totalFields": 16,
+        "needsAttention": 2
+      },
+      {
+        "category": "positioning",
+        "score": 0.556,
+        "filledFields": 1,
+        "totalFields": 2,
+        "needsAttention": 1
+      },
+      {
+        "category": "market",
+        "score": 0.536,
+        "filledFields": 5,
+        "totalFields": 9,
+        "needsAttention": 1
+      },
+      {
+        "category": "branding",
+        "score": 0.813,
+        "filledFields": 4,
+        "totalFields": 5,
+        "needsAttention": 2
+      },
+      {
+        "category": "onlinePresence",
+        "score": 1,
+        "filledFields": 1,
+        "totalFields": 1,
+        "needsAttention": 0
+      },
+      {
+        "category": "people",
+        "score": 1,
+        "filledFields": 1,
+        "totalFields": 1,
+        "needsAttention": 0
+      },
+      {
+        "category": "offerings",
+        "score": 1,
+        "filledFields": 1,
+        "totalFields": 1,
+        "needsAttention": 1
+      },
+      {
+        "category": "proof",
+        "score": 0.25,
+        "filledFields": 2,
+        "totalFields": 10,
+        "needsAttention": 0
+      },
+      {
+        "category": "contentIntelligence",
+        "score": 0.565,
+        "filledFields": 5,
+        "totalFields": 9,
+        "needsAttention": 0
+      }
+    ],
+    "missingFields": [
+      "foundation.businessModel",
+      "foundation.companyRole",
+      "foundation.employeeCount",
+      "foundation.revenue",
+      "foundation.otherLocations",
+      "foundation.serviceLocations",
+      "positioning.foundingStory",
+      "market.buyers",
+      "market.idealPersona",
+      "market.industryGroupings",
+      "market.industryOutlook",
+      "branding.artStyle",
+      "proof.testimonials",
+      "proof.aggregateRatings",
+      "proof.caseStudies",
+      "proof.memberships",
+      "proof.awards",
+      "proof.pressMentions",
+      "proof.guarantees",
+      "proof.clientLogos",
+      "contentIntelligence.taxonomy",
+      "contentIntelligence.faqs",
+      "contentIntelligence.glossary",
+      "contentIntelligence.seasonalSignals"
+    ],
+    "conflicts": [
+      {
+        "path": "foundation.website",
+        "label": "website",
+        "candidates": [
+          {
+            "value": "https://account-it.net/contact",
+            "sourceUrl": "https://account-it.net/contact",
+            "sourceLabel": "on the Contact page",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/doug-cohen",
+            "sourceUrl": "https://account-it.net/about-us/doug-cohen",
+            "sourceLabel": "on the About page",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/",
+            "sourceUrl": "https://account-it.net/",
+            "sourceLabel": "on the home page",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/payroll",
+            "sourceUrl": "https://account-it.net/services/payroll",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/accounting-bookkeeping",
+            "sourceUrl": "https://account-it.net/services/accounting-bookkeeping",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/quickbooks",
+            "sourceUrl": "https://account-it.net/services/quickbooks",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/services",
+            "sourceUrl": "https://account-it.net/services",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/services/irs-tax-problems",
+            "sourceUrl": "https://account-it.net/services/irs-tax-problems",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/services/tax-preparation-planning",
+            "sourceUrl": "https://account-it.net/services/tax-preparation-planning",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/learning-center",
+            "sourceUrl": "https://account-it.net/learning-center",
+            "sourceLabel": "on the website",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/blog/tax-deductions-for-realtors",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-realtors",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/blog/tax-deductions-for-clergy",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-clergy",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/blog/tax-deductions-for-entertainers",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-entertainers",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.95
+          },
+          {
+            "value": "https://account-it.net/blog/small-business-guide",
+            "sourceUrl": "https://account-it.net/blog/small-business-guide",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.95
+          }
+        ],
+        "resolved": false
+      },
+      {
+        "path": "foundation.overview",
+        "label": "overview",
+        "candidates": [
+          {
+            "value": "Account-it Consulting Services, LLC will take care of your tax preparation and planning needs so you can focus on life in beautiful Boynton Beach.",
+            "sourceUrl": "https://account-it.net/",
+            "sourceLabel": "on the home page",
+            "confidence": 0.5
+          },
+          {
+            "value": "Account-it Consulting Services, LLC contact information: Florida | (954) 592-8630 | dougc@account-it.net.",
+            "sourceUrl": "https://account-it.net/contact",
+            "sourceLabel": "on the Contact page",
+            "confidence": 0.35
+          },
+          {
+            "value": "Get to know Doug Cohen, the founder of Account-it Consulting Services, LLC, and a CFO and Controller for nearly two decades. Learn more.",
+            "sourceUrl": "https://account-it.net/about-us/doug-cohen",
+            "sourceLabel": "on the About page",
+            "confidence": 0.35
+          },
+          {
+            "value": "At Account-it Consulting Services, LLC, we offer payroll services for Boynton Beach businesses in all industries. Contact us at (954) 592-8630 today.",
+            "sourceUrl": "https://account-it.net/services/payroll",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.35
+          },
+          {
+            "value": "Account-it Consulting Services, LLC proudly provides accounting and bookkeeping services for business owners in the Boynton Beach area. We serve all industries.",
+            "sourceUrl": "https://account-it.net/services/accounting-bookkeeping",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.35
+          },
+          {
+            "value": "Account-it Consulting Services, LLC founder, Doug Cohen, is a QuickBooks Certified Pro Advisor. He looks forward to assisting with all of your QBO needs.",
+            "sourceUrl": "https://account-it.net/services/quickbooks",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.35
+          },
+          {
+            "value": "Based in Florida, Account-it Consulting Services, LLC provides a range of tax and accounting services for individuals and business owners in all industries.",
+            "sourceUrl": "https://account-it.net/services",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.35
+          },
+          {
+            "value": "Is the IRS causing you stress? Account-it Consulting Services, LLC offers assistance with a wide variety of IRS tax problems. Learn how we can help you.",
+            "sourceUrl": "https://account-it.net/services/irs-tax-problems",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.35
+          },
+          {
+            "value": "Florida-based Account-it Consulting Services, LLC offers expert tax preparation and planning services for individuals and business owners. Learn more.",
+            "sourceUrl": "https://account-it.net/services/tax-preparation-planning",
+            "sourceLabel": "on the Services page",
+            "confidence": 0.35
+          },
+          {
+            "value": "Account-it Consulting Services, LLC offers free tax planning, accounting, and small business advice in our learning center. New content is added often.",
+            "sourceUrl": "https://account-it.net/learning-center",
+            "sourceLabel": "on the website",
+            "confidence": 0.35
+          },
+          {
+            "value": "Discover top tax deductions for sales representatives. Optimize your tax strategy and boost your savings with insights for sales professionals.",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-sales-representatives",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.35
+          },
+          {
+            "value": "Maximize tax savings with deduction tips for realtors. Learn how to reduce your taxable income with strategies for real estate professionals.",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-realtors",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.35
+          },
+          {
+            "value": "Many members of the clergy are paid a cash âhousing allowance,â which they use to pay the expenses related to their homes (e.g. interest, real property taxe",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-clergy",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.35
+          },
+          {
+            "value": "Your auto expenses are based on the number of qualified business miles you drive.",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-day-care-providers",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.35
+          },
+          {
+            "value": "Educational expenses are deductible under either of two conditions: (1) your employer requires the education in order for you to keep your job or rate of pay; o",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-entertainers",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.35
+          },
+          {
+            "value": "Expenses incurred when traveling away from âhomeâ overnight for job-related reasons that were not reimbursed or reimbursable by your employer are deductible",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-overnight-drivers",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.35
+          },
+          {
+            "value": "If you are a waiter or waitress, the IRS requires you to keep a record of your tips.",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-restaurant-service-staff",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.35
+          },
+          {
+            "value": "Dues paid to professional societies related to your occupation are deductible.",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-airline-flight-crew-personnel",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.35
+          },
+          {
+            "value": "Record separately items having a useful life of more than one year. Normally, the costs of such assets are recovered differently on your tax return than are oth",
+            "sourceUrl": "https://account-it.net/blog/tax-deductions-for-telecommuting-employees",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.35
+          },
+          {
+            "value": "While your know-how is certain to make an important difference in your businessâ success, youâre no doubt well aware that producing a winning combination fo",
+            "sourceUrl": "https://account-it.net/blog/small-business-guide",
+            "sourceLabel": "in a blog post",
+            "confidence": 0.35
+          }
+        ],
+        "resolved": false
+      }
+    ],
+    "followUpQuestions": [
+      {
+        "id": "q-location",
+        "question": "Which areas do you serve, and do you have any other locations?",
+        "example": "Austin, Bee Cave, Lakeway",
+        "fills": [
+          "foundation.serviceLocations",
+          "foundation.otherLocations"
+        ],
+        "priority": 9,
+        "answered": false
+      },
+      {
+        "id": "q-credentials",
+        "question": "Are you a member of any trade or industry associations, and have you won any awards?",
+        "example": null,
+        "fills": [
+          "proof.memberships",
+          "proof.awards"
+        ],
+        "priority": 5,
+        "answered": false
+      },
+      {
+        "id": "q-foundation-businessModel",
+        "question": "Do you mostly serve other businesses, or the general public?",
+        "example": null,
+        "fills": [
+          "foundation.businessModel"
+        ],
+        "priority": 4,
+        "answered": false
+      },
+      {
+        "id": "q-proof-guarantees",
+        "question": "Do you offer any guarantees, warranties, or insurance cover?",
+        "example": null,
+        "fills": [
+          "proof.guarantees"
+        ],
+        "priority": 4,
+        "answered": false
+      },
+      {
+        "id": "q-foundation-companyRole",
+        "question": "Which best describes the business?",
+        "example": "Contractor",
+        "fills": [
+          "foundation.companyRole"
+        ],
+        "priority": 3,
+        "answered": false
+      },
+      {
+        "id": "q-foundation-employeeCount",
+        "question": "Roughly how many people work at the business?",
+        "example": "12",
+        "fills": [
+          "foundation.employeeCount"
+        ],
+        "priority": 3,
+        "answered": false
+      }
+    ]
+  }
+}
