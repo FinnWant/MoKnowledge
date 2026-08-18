@@ -73,6 +73,21 @@ export const companyProfileResponseSchema = z.object({
 
 export type CompanyProfileResponse = z.infer<typeof companyProfileResponseSchema>;
 
+/**
+ * A controlled vocabulary whose value may also be null.
+ *
+ * Deliberately carries no `type` alongside `enum`. Structured outputs reject a
+ * nullable type union paired with an enum — `{type: ["string","null"], enum: [...]}`
+ * returns 400 `Enum value 'manufacturer' does not match declared type
+ * '['string', 'null']'` — and it does so even when `null` is one of the enum
+ * values. The enum alone carries both the vocabulary and the nullability, and the
+ * nullability is the part that has to survive: `null` is the answer we want when
+ * the site does not say, not a value to guess at.
+ */
+function nullableEnum(options: readonly string[]): Record<string, unknown> {
+  return { enum: [...options, null] };
+}
+
 const FIELD_DEF = {
   type: "object",
   additionalProperties: false,
@@ -120,10 +135,7 @@ export const COMPANY_PROFILE_JSON_SCHEMA: Record<string, unknown> = {
       additionalProperties: false,
       required: ["value", "confidence", "sourceUrls"],
       properties: {
-        value: {
-          type: ["string", "null"],
-          enum: [...companyRoleSchema.options, null],
-        },
+        value: nullableEnum(companyRoleSchema.options),
         confidence: { type: "number" },
         sourceUrls: { type: "array", items: { type: "string" } },
       },
@@ -133,10 +145,7 @@ export const COMPANY_PROFILE_JSON_SCHEMA: Record<string, unknown> = {
       additionalProperties: false,
       required: ["value", "confidence", "sourceUrls"],
       properties: {
-        value: {
-          type: ["string", "null"],
-          enum: [...businessModelSchema.options, null],
-        },
+        value: nullableEnum(businessModelSchema.options),
         confidence: { type: "number" },
         sourceUrls: { type: "array", items: { type: "string" } },
       },

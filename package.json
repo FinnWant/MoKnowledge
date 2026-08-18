@@ -11,7 +11,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "snapshot": "tsx scripts/snapshot.ts",
-    "validate": "tsx scripts/validate.ts"
+    "validate": "tsx scripts/validate.ts",
+    "ai:check": "tsx scripts/check-ai.ts",
+    "examples": "tsx scripts/build-examples.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.117.1",
