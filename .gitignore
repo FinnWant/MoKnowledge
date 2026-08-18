@@ -47,3 +47,6 @@ next-env.d.ts
 
 # Local env
 .env*.local
+
+# Personal interview notes — not part of the submission
+CHEATSHEET.md
