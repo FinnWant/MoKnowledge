@@ -1,7 +1,7 @@
 # Edit UX Design
 
 How a user reviews, edits, and enhances a scraped knowledge base before saving (R4).
-Companion to [`../ROADMAP.md`](../ROADMAP.md) phases P4–P5.
+Companion to [`../extra/ROADMAP.md`](../extra/ROADMAP.md) phases P4–P5.
 
 ---
 

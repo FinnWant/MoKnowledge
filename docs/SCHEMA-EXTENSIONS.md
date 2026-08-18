@@ -2,7 +2,7 @@
 
 Design detail for the two headline beyond-baseline categories. A third, `quality`
 (completeness scoring + generated follow-up questions), is specified in
-[`../ROADMAP.md`](../ROADMAP.md) §6 as part of the data-quality strategy.
+[`../extra/ROADMAP.md`](../extra/ROADMAP.md) §6 as part of the data-quality strategy.
 
 **Beyond-baseline scope is these three and no more.** `voiceProfile`, `messaging`,
 `conversionKit`, `compliance`, `seo`, `competitors`, and `mediaAssets` were designed and

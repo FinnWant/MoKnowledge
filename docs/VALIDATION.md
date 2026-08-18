@@ -4,7 +4,7 @@ We have something most scraper projects never get — **eight real websites pair
 output the grader's own system produced for them**. Using them as a golden set turns
 "our scraper seems good" into a measured claim, and it's a strong README/answers point.
 
-Companion to [`../ROADMAP.md`](../ROADMAP.md) §9 (phases P2–P3).
+Companion to [`../extra/ROADMAP.md`](../extra/ROADMAP.md) §9 (phases P2–P3).
 
 ---
 

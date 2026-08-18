@@ -38,9 +38,9 @@ Nothing ships until this table is fully green. **All 28 are satisfied as of P9.*
 | R21 | 2–3 example LLM prompts | `prompts/` directory, real files | P7 |
 | R22 | Data quality / incomplete-data approach documented | `docs/DATA-QUALITY.md` | P7 |
 | R23 | Knowledge enrichment ideas documented | `docs/ENRICHMENT.md` | P7 |
-| R24 | Answers to 5 required questions | [`ANSWERS.md`](ANSWERS.md) | P9 ✅ |
-| R25 | README (7 required sub-sections) | [`README.md`](README.md) | P9 ✅ |
-| R26 | Screenshots of app in action | [`docs/screenshots/`](docs/screenshots/) | P9 ✅ |
+| R24 | Answers to 5 required questions | [`ANSWERS.md`](../ANSWERS.md) | P9 ✅ |
+| R25 | README (7 required sub-sections) | [`README.md`](../README.md) | P9 ✅ |
+| R26 | Screenshots of app in action | [`docs/screenshots/`](../docs/screenshots/) | P9 ✅ |
 | R27 | **Bonus:** Supabase schema, RLS, multi-company, versioning | `supabase/schema.sql` + `docs/DATABASE.md` | P7 |
 | R28 | UI visually matches MoFlo platform | Dark theme, `#2663eb` accent (§3.4) | P1, P4 |
 
@@ -272,7 +272,7 @@ type Sourced<T> = {
 
 **Beyond baseline — each justified by which MoFlo app it improves:**
 
-**Prioritized** (full design in [`docs/SCHEMA-EXTENSIONS.md`](docs/SCHEMA-EXTENSIONS.md)):
+**Prioritized** (full design in [`docs/SCHEMA-EXTENSIONS.md`](../docs/SCHEMA-EXTENSIONS.md)):
 
 | Extension | Contents | Serves |
 |---|---|---|
@@ -302,11 +302,11 @@ was designed — nothing was dropped:
 
 | Refinement | Why |
 |---|---|
-| Records carry `RecordProvenance` (`id`, `method`, `confidence`, `sourceUrls`) instead of wrapping each sub-field in `Sourced<T>` | The record card in [`docs/EDIT-UX.md`](docs/EDIT-UX.md) §4 is the unit a reviewer accepts, edits, or removes — one badge and one Revert per card, not per sub-field. The surrounding collection stays `Sourced<T[]>`, which is what carries "Birdeye widget detected; content is JS-rendered" |
+| Records carry `RecordProvenance` (`id`, `method`, `confidence`, `sourceUrls`) instead of wrapping each sub-field in `Sourced<T>` | The record card in [`docs/EDIT-UX.md`](../docs/EDIT-UX.md) §4 is the unit a reviewer accepts, edits, or removes — one badge and one Revert per card, not per sub-field. The surrounding collection stays `Sourced<T[]>`, which is what carries "Birdeye widget detected; content is JS-rendered" |
 | `onlinePresence` is `profiles: Sourced<SocialProfile[]>` rather than `linkedin`/`facebook`/… | A record with a `platform` enum handles the two Facebook pages and the Yelp listing that fixed fields cannot, and maps directly onto the `social_profiles` child table in the Supabase design (R20) |
 | `mainAddress` is a structured `Address` with a `formatted` line | JSON-LD `PostalAddress` is the tier-1 source; discarding its structure would lose data the database design needs. The `formatted` line is what the text editor edits, so the UI is unchanged |
-| `branding.writingStyle` is structured, not prose | Matches the output contract of [`prompts/03-writing-style.md`](prompts/03-writing-style.md). `tone` as an enumerated multi-select is what lets MoSocial/MoMail/MoBlogs condition on voice programmatically — the reference profiles' free-text Writing Style can be read but not used |
-| `foundation.phone` and `foundation.email` added | Contact details are extracted anyway, and `phone` is the worked conflict example in [`docs/DATA-QUALITY.md`](docs/DATA-QUALITY.md) §4; they had nowhere to live |
+| `branding.writingStyle` is structured, not prose | Matches the output contract of [`prompts/03-writing-style.md`](../prompts/03-writing-style.md). `tone` as an enumerated multi-select is what lets MoSocial/MoMail/MoBlogs condition on voice programmatically — the reference profiles' free-text Writing Style can be read but not used |
+| `foundation.phone` and `foundation.email` added | Contact details are extracted anyway, and `phone` is the worked conflict example in [`docs/DATA-QUALITY.md`](../docs/DATA-QUALITY.md) §4; they had nowhere to live |
 | `proof.certifications` / `memberships` / `awards` stay separate arrays | Prompt 04 returns one `credentials[]` with a `kind` discriminator; `lib/ai/` routes by `kind` on the way in. Separate arrays keep the UI sections and database tables clean |
 
 Alongside the schema, `lib/schema/field-meta.ts` holds the static per-field registry —
@@ -414,7 +414,7 @@ a partial result rather than a dead end.
 
 ## 6. Data Quality Strategy (R22)
 
-Full design in [`docs/DATA-QUALITY.md`](docs/DATA-QUALITY.md). Summary:
+Full design in [`docs/DATA-QUALITY.md`](../docs/DATA-QUALITY.md). Summary:
 
 1. **Never fabricate.** A missing field is `{ value: null, method: 'not-found' }`, rendered as
    an explicit "Not found" chip — not an empty string, not an invented plausible value.
@@ -438,7 +438,7 @@ and additionally execute those prompts for real when `ANTHROPIC_API_KEY` is pres
 default clone-and-run path needs no key, but the prompts are demonstrably functional rather
 than hypothetical. Minimum three, each demonstrating a different technique:
 
-**Written — see [`prompts/`](prompts/) (4 files + conventions README):**
+**Written — see [`prompts/`](../prompts/) (4 files + conventions README):**
 
 1. `prompts/01-company-profile.md` — batched generation under hard grounding constraints.
    Six prose fields in one call; `null` framed as a preferred outcome over a plausible guess.
@@ -492,8 +492,8 @@ Each phase ends with a working, committable state.
 | **P2 — Crawler + golden set** | robots, sitemap, discovery, classifier, budgeted concurrent fetcher, typed errors, `scripts/snapshot.ts`, HTML fixtures + transcribed golden JSON for all 8 reference sites | Crawler snapshots all 8 golden sites and reports classified pages; fixtures committed so tests never hit the network |
 | **P3 — Extractors + reconciler + analyzers** ✅ | All extractors, vendor table, voice/palette/theme analyzers, evidence reconciliation, AI layer (mock + optional live client), `scripts/validate.ts` scoring harness | Unit tests on fixtures green; all 8 golden sites produce schema-valid KBs; `npm run validate` prints per-field recall vs. the reference; enrichment works with and without an API key |
 | **P4 — Scrape page** ✅ | `/knowledge`: URL form + validation, streaming `POST /api/scrape`, NDJSON progress UI, category display, provenance + attention badges, completeness rail, JSON download — what building it changed is in §3.5 | Paste a URL → live progress → structured result; bad URLs and dead sites fail gracefully. Route tested end-to-end over a stubbed site; display presenters tested against a real fixture scrape |
-| **P5 — Edit + save** ✅ | Draft context + reducer, 8 field editors, attention triage tier, conflict resolution, gap-question form, add/remove/reorder records, localStorage autosave, unsaved-changes guard, JSON preview, `StorageAdapter` + versioned local JSON store, save/read/delete routes — design and outcomes in [`docs/EDIT-UX.md`](docs/EDIT-UX.md) | Save with zero edits produces a schema-valid KB; an edit shows `You edited`; `Accept all safe` clears uncontested items; every save writes a new immutable version. `Regenerate` (EDIT-UX §7, third enhance affordance) deferred — it needs an enrichment endpoint |
-| **P6 — View/manage** ✅ | `/knowledge/view` card + table + detail modes, search, filters, edit, delete w/ undo, export, duplicate as template, version history + diff, re-scrape with per-field accept — design in [`docs/VIEW-PAGE.md`](docs/VIEW-PAGE.md), what building it changed in §3.6 | Full CRUD round-trip verified end to end; all three view modes usable at 375px. Library rules and the diff engine unit-tested against real scrapes |
+| **P5 — Edit + save** ✅ | Draft context + reducer, 8 field editors, attention triage tier, conflict resolution, gap-question form, add/remove/reorder records, localStorage autosave, unsaved-changes guard, JSON preview, `StorageAdapter` + versioned local JSON store, save/read/delete routes — design and outcomes in [`docs/EDIT-UX.md`](../docs/EDIT-UX.md) | Save with zero edits produces a schema-valid KB; an edit shows `You edited`; `Accept all safe` clears uncontested items; every save writes a new immutable version. `Regenerate` (EDIT-UX §7, third enhance affordance) deferred — it needs an enrichment endpoint |
+| **P6 — View/manage** ✅ | `/knowledge/view` card + table + detail modes, search, filters, edit, delete w/ undo, export, duplicate as template, version history + diff, re-scrape with per-field accept — design in [`docs/VIEW-PAGE.md`](../docs/VIEW-PAGE.md), what building it changed in §3.6 | Full CRUD round-trip verified end to end; all three view modes usable at 375px. Library rules and the diff engine unit-tested against real scrapes |
 | **P7 — Docs + artifacts** ✅ | `examples/*.json` generated by `npm run examples` from the committed fixtures and schema-validated on every build, `docs/DATABASE.md`, `docs/ENRICHMENT.md`, `supabase/schema.sql` (93 statements, parse-checked against the real PostgreSQL grammar), `docs/DATA-QUALITY.md` audited against shipped code, `prompts/` | Every graded artifact exists and is accurate to shipped code; `npm run examples -- --check` fails if an example drifts |
 | **P8 — Hardening** ✅ | `error.tsx` / `global-error.tsx` / `not-found.tsx` (none existed), SSRF guard on every fetched URL, keyboard focus ring restored across all form controls, horizontal-overflow fix in 14 responsive grids, accessible names on media links, model-call timeout sized against the route budget — findings in §9.1 | Adversarial URL list all handled; keyboard-only pass; no console errors — all three verified in a browser against a production build |
 | **P9 — Submission** ✅ | `README.md` rewritten around the 7 required sub-sections, `ANSWERS.md` (5 questions), 11 screenshots in `docs/screenshots/` captured from a production build, `examples/` (P7) | Traceability table (§1) fully green. Fresh `git clone && npm i && npm run dev` verified in a scratch clone: all routes serve, no key or config needed, 0 page errors on an empty store |
@@ -530,8 +530,8 @@ carried a label. The focus ring was the one hole, and it was invisible from the 
 | JS-rendered sites | Detect and report, no headless browser | `cheerio` only. SPA/empty-DOM detection returns partial results plus an honest message; documented as a known limitation in the README |
 | AI enrichment | **Mock by default, live Anthropic call when `ANTHROPIC_API_KEY` is set** (§10.1 — briefly moved to NVIDIA and back) | Prompts in `/prompts` are executable, not theoretical. Must degrade cleanly to mock with no key, and label output `AI (live)` vs `AI (mock)` distinctly |
 | Testing | Vitest unit tests on saved HTML fixtures | Covers extractors, reconciler, analyzers. No E2E layer |
-| Beyond-baseline scope | Exactly three: `proof`, `contentIntelligence`, `quality` (§4.2, [`docs/SCHEMA-EXTENSIONS.md`](docs/SCHEMA-EXTENSIONS.md)) | Seven other proposed extensions cut; they become the substance of Answer #4 |
-| Test corpus | The 8 companies from the reference PDF ([`docs/VALIDATION.md`](docs/VALIDATION.md)) | Enables measured accuracy claims by cross-referencing our output against MoFlo's own. **7 of 8 captured** — `jdinsassociates.com` went offline between the reference date and ours |
+| Beyond-baseline scope | Exactly three: `proof`, `contentIntelligence`, `quality` (§4.2, [`docs/SCHEMA-EXTENSIONS.md`](../docs/SCHEMA-EXTENSIONS.md)) | Seven other proposed extensions cut; they become the substance of Answer #4 |
+| Test corpus | The 8 companies from the reference PDF ([`docs/VALIDATION.md`](../docs/VALIDATION.md)) | Enables measured accuracy claims by cross-referencing our output against MoFlo's own. **7 of 8 captured** — `jdinsassociates.com` went offline between the reference date and ours |
 
 ### Follow-on work created by the live-LLM decision
 
@@ -610,7 +610,7 @@ surfaced two defects that no amount of re-reading would have:
 | `04-proof-extraction` | live, 3 fields filled |
 
 Completeness on that fixture goes **0.55 → 0.74** between the mock and live paths — which
-is the group (a) prediction in [`docs/ENRICHMENT.md`](docs/ENRICHMENT.md) §1 coming true:
+is the group (a) prediction in [`docs/ENRICHMENT.md`](../docs/ENRICHMENT.md) §1 coming true:
 those fields were never enrichment gaps, only mock-mode artifacts. Four sequential calls
 take ~42s, which sits inside the scrape route's budget but is the number to watch if a
 fifth prompt is ever added.

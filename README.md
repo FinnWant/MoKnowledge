@@ -261,7 +261,7 @@ Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · React 19 · zod · c
 | Document | Contents |
 |---|---|
 | [`ANSWERS.md`](ANSWERS.md) | The five required questions |
-| [`ROADMAP.md`](ROADMAP.md) | Requirements traceability, architecture, decisions, phase plan |
+| [`extra/ROADMAP.md`](extra/ROADMAP.md) | Requirements traceability, architecture, decisions, phase plan |
 | [`docs/SCHEMA-EXTENSIONS.md`](docs/SCHEMA-EXTENSIONS.md) | The beyond-baseline categories and why they exist |
 | [`docs/DATA-QUALITY.md`](docs/DATA-QUALITY.md) | Incomplete data; turning gaps into questions |
 | [`docs/ENRICHMENT.md`](docs/ENRICHMENT.md) | Where the knowledge gaps are, and how to close them |
