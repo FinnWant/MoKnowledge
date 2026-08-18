@@ -174,7 +174,7 @@ export default function KitPage() {
       </Section>
 
       <Section title="Inputs">
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Input
             label="Website"
             placeholder="beecavedrilling.com"
@@ -227,7 +227,7 @@ export default function KitPage() {
       </Section>
 
       <Section title="Cards">
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Card>
             <CardHeader
               title="Ethan"
@@ -281,7 +281,7 @@ export default function KitPage() {
             }
             defaultOpen
           >
-            <dl className="grid gap-3 sm:grid-cols-2">
+            <dl className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
                 <dt className="text-xs text-ink-subtle">Industry</dt>
                 <dd className="text-sm text-ink">Water well drilling</dd>
@@ -308,7 +308,7 @@ export default function KitPage() {
         title="Completeness meter"
         note="The only number shown to the user, because it is impact-weighted and therefore means something. Per-field confidence is never surfaced numerically."
       >
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <Meter label="Overall" value={0.72} />
           <Meter label="Branding" value={0.45} />
           <Meter label="Proof" value={0.15} />
@@ -316,7 +316,7 @@ export default function KitPage() {
       </Section>
 
       <Section title="Loading and empty states">
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Card>
             <CardBody className="flex flex-col gap-4 pt-4">
               <Skeleton className="h-4 w-1/3" />

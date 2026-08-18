@@ -104,21 +104,30 @@ describe("blockedAddress", () => {
   });
 });
 
+/**
+ * These three resolve for real, which is the point — the mechanism under test
+ * *is* DNS resolution, and stubbing it would leave the interesting half
+ * unexercised. The cost is that they are the only tests here that depend on the
+ * network, so they get a generous timeout and a retry: on a loaded machine the
+ * default 5s budget is enough to fail one of them while nothing is actually
+ * wrong. A resolver that is genuinely unreachable still passes, because
+ * `blockedHost` allows a name it cannot resolve.
+ */
 describe("blockedHost", () => {
-  it("blocks a public name that resolves to a private address", async () => {
+  it("blocks a public name that resolves to a private address", { timeout: 30_000, retry: 2 }, async () => {
     // nip.io answers every `<ip>.nip.io` with that ip. It is the standard way
     // past a guard that only inspects the hostname text, and the reason this
     // function resolves rather than pattern-matches.
     expect(await blockedHost("127.0.0.1.nip.io")).toMatch(/loopback/);
-  }, 15_000);
+  });
 
-  it("allows a name that resolves publicly", async () => {
+  it("allows a name that resolves publicly", { timeout: 30_000, retry: 2 }, async () => {
     expect(await blockedHost("example.com")).toBeNull();
-  }, 15_000);
+  });
 
-  it("allows a name that cannot be resolved at all", async () => {
+  it("allows a name that cannot be resolved at all", { timeout: 30_000, retry: 2 }, async () => {
     // Failing closed here would block every scrape on a machine with no DNS,
     // including the offline test run — and `fetch` is about to fail anyway.
     expect(await blockedHost("no-such-host-4bf19a2c.invalid")).toBeNull();
-  }, 15_000);
+  });
 });

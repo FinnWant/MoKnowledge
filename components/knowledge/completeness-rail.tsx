@@ -15,6 +15,23 @@ import {
  * markup serves both layouts from docs/EDIT-UX.md §9 — a sticky rail from 1024px
  * up, a horizontally scrolling row of the same items below it.
  */
+/**
+ * The layout class for a page that puts `CompletenessRail` beside its content.
+ *
+ * `grid-cols-1` is load-bearing below `lg`, not decoration. With no explicit
+ * track the single column is implicit and sized to max-content, and a grid item
+ * defaults to `min-width: auto` — so the `whitespace-nowrap` chips in the row
+ * below made the column 1195px wide inside a 375px viewport and scrolled the
+ * whole page sideways, instead of scrolling the chip row as intended. Spelling
+ * the track as `repeat(1, minmax(0, 1fr))` lets the column shrink and hands the
+ * overflow back to `overflow-x-auto`.
+ *
+ * Exported so the constraint lives next to the markup that causes it: a page
+ * that lays the rail out by hand will reintroduce the bug.
+ */
+export const RAIL_GRID =
+  "grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]";
+
 export function CompletenessRail({ quality }: { quality: Quality }) {
   const scores = new Map(
     quality.categoryScores.map((score) => [score.category as CategoryId, score]),

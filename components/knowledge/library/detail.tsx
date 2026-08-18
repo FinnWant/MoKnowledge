@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { Badge, Button, Card, Skeleton } from "@/components/ui";
 import { CategorySection } from "../category-section";
-import { CompletenessRail } from "../completeness-rail";
+import { CompletenessRail, RAIL_GRID } from "../completeness-rail";
 import { KnowledgeEditor } from "../knowledge-editor";
 import { CompletenessRing } from "./completeness-ring";
 import { DiffPanel } from "./diff-panel";
@@ -278,7 +278,7 @@ export function KnowledgeDetail({ id }: { id: string }) {
           }}
         />
       ) : (
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]">
+        <div className={RAIL_GRID}>
           <div className="flex flex-col gap-4">
             <CompletenessRail quality={shown.quality} />
             <VersionRail
@@ -360,7 +360,7 @@ function DetailSkeleton() {
           <Skeleton className="h-3 w-64" />
         </div>
       </Card>
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]">
+      <div className={RAIL_GRID}>
         <Skeleton className="h-40" />
         <div className="flex flex-col gap-3">
           {[0, 1, 2].map((key) => (

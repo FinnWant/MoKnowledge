@@ -378,7 +378,7 @@ export function Library() {
           onClear={() => setFilters(NO_FILTERS)}
         />
       ) : mode === "card" ? (
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {visible.map((summary) => (
             <KbCard key={summary.id} summary={summary} actions={actions} now={now} />
           ))}
@@ -507,7 +507,7 @@ function LibraryEmpty({
 
 function LoadingGrid() {
   return (
-    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
       {[0, 1, 2].map((key) => (
         <Card key={key} className="flex flex-col gap-3 p-4">
           <Skeleton className="h-11 w-11 rounded-full" />

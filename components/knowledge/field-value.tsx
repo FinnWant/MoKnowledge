@@ -82,7 +82,7 @@ export function FieldValue({
       const rows = presentComposite(meta.path, value);
       if (rows.length === 0) return null;
       return (
-        <dl className="grid gap-x-4 gap-y-1 sm:grid-cols-[minmax(0,12rem)_1fr]">
+        <dl className="grid grid-cols-1 gap-x-4 gap-y-1 sm:grid-cols-[minmax(0,12rem)_1fr]">
           {rows.map((row) => (
             <div key={row.label} className="contents">
               <dt className="text-xs text-ink-subtle">{row.label}</dt>
@@ -138,16 +138,29 @@ function MediaRow({ items }: { items: ReturnType<typeof presentMedia> }) {
     <ul className="flex flex-wrap gap-2">
       {items.map((item) => (
         <li key={item.id} className="flex flex-col items-center gap-1">
+          {/*
+            The link carries the name and the image is marked decorative, rather
+            than the other way around: a linked image needs one accessible name,
+            and putting it on the link is what lets it say where the link goes.
+
+            `alt` was `item.alt ?? "Logo"`, and `??` only replaces null and
+            undefined — an extractor that found an `alt=""` yielded an empty
+            string, which passed straight through and marked the image
+            decorative. The link then had no accessible name at all and a screen
+            reader announced a bare "link" (WCAG 2.4.4). Six of them on one
+            knowledge base.
+          */}
           <a
             href={item.url}
             target="_blank"
             rel="noreferrer noopener"
+            aria-label={`${item.alt?.trim() || "Image"} — opens in a new tab`}
             className="flex h-14 w-28 items-center justify-center rounded-md border border-border bg-white p-2"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={item.url}
-              alt={item.alt ?? "Logo"}
+              alt=""
               loading="lazy"
               className="max-h-full max-w-full object-contain"
             />

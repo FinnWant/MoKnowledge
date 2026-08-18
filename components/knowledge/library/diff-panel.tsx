@@ -148,7 +148,7 @@ function ChangeRow({
             ))}
           </ul>
         ) : (
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <Side label={beforeLabel} lines={change.before} tone="before" />
             <Side label={afterLabel} lines={change.after} tone="after" />
           </div>

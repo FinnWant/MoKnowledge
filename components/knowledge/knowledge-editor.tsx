@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Badge, Button, Card } from "@/components/ui";
 import { AttentionTier } from "./attention-tier";
 import { CategorySection } from "./category-section";
-import { CompletenessRail } from "./completeness-rail";
+import { CompletenessRail, RAIL_GRID } from "./completeness-rail";
 import { GapQuestions } from "./gap-questions";
 import { SaveBar } from "./save-bar";
 import {
@@ -117,7 +117,7 @@ function EditorBody({
 
       <AttentionTier />
 
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]">
+      <div className={RAIL_GRID}>
         <CompletenessRail quality={kb.quality} />
 
         <div className="flex min-w-0 flex-col gap-3">
