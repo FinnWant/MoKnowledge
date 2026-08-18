@@ -3,7 +3,12 @@ import { capturedSlugs, loadPageByRole, loadSite } from "../fixtures/load";
 import type { PageInput, SiteContext } from "@/lib/scraper/evidence";
 import { extractJsonLd, parseJsonLd } from "@/lib/scraper/extractors/jsonld";
 import { extractMetadata, nameFromTitle } from "@/lib/scraper/extractors/metadata";
-import { extractContact, normalizePhone, parseUsAddress } from "@/lib/scraper/extractors/contact";
+import {
+  extractContact,
+  normalizePhone,
+  parseUsAddress,
+  visibleText,
+} from "@/lib/scraper/extractors/contact";
 import {
   collectCustomProperties,
   extractColors,
@@ -135,6 +140,21 @@ describe("contact", () => {
       postalCode: "78701",
     });
   });
+
+  it("puts a space where the markup put an element boundary", () => {
+    // `.text()` fuses the last word of one block to the first of the next, which
+    // breaks every `\b`-anchored regex downstream.
+    const text = visibleText(
+      cheerio.load(`<p>All Rights Reserved</p><a href="/privacy">Privacy Policy</a>`),
+    );
+    expect(text).toBe("All Rights Reserved Privacy Policy");
+  });
+
+  it("does not invent a space inside a word", () => {
+    expect(visibleText(cheerio.load(`<p><b>Bee</b>Cave Drilling</p>`))).toBe(
+      "BeeCave Drilling",
+    );
+  });
 });
 
 /* ---------------------------------------------------------------- assets */
@@ -166,14 +186,29 @@ describe("vendors", () => {
     const html = `
       <script src="https://www.googletagmanager.com/gtag/js"></script>
       <script src="https://cdn.userway.org/widget.js"></script>
+      <script src="https://assets.smallvendor.io/widget.js"></script>
       <img src="https://example.com/logo.png">
       <a href="https://www.facebook.com/example">Facebook</a>`;
 
     const hits = detectVendorHits(html, "example.com");
     expect(hits.known).toContain("Google Analytics");
-    expect(hits.unknown).toContain("Userway.org");
+    expect(hits.known).toContain("UserWay");
+    expect(hits.unknown).toContain("Smallvendor.io");
     // Own assets and social profiles are not suppliers.
     expect([...hits.known, ...hits.unknown].join(" ")).not.toMatch(/example\.com|facebook/i);
+  });
+
+  it("drops boilerplate spec hosts and machine-generated ones", () => {
+    // `gmpg.org` is a 2003 XFN spec URL that WordPress puts in every page's
+    // `<link rel="profile">`; it was reported as a supplier on every profile.
+    const html = `
+      <link rel="profile" href="http://gmpg.org/xfn/11">
+      <script src="https://ksrndkehqnwntyxlhgto.com/t.js"></script>
+      <script src="https://plausible.io/js/script.js"></script>`;
+
+    const hits = detectVendorHits(html, "example.com");
+    expect(hits.known).toEqual(["Plausible"]);
+    expect(hits.unknown).toEqual([]);
   });
 });
 
@@ -257,7 +292,10 @@ describe("offerings", () => {
 /* ---------------------------------------------------------------- people */
 
 describe("people", () => {
-  it("only runs on team and about pages", () => {
+  const names = (claims: ReturnType<typeof extractPeople>) =>
+    claims.map((claim) => (claim.value as { name: string }).name);
+
+  it("only runs card and heading detection on team and about pages", () => {
     const html = `<div class="team-member"><h3>Jim Blair</h3><p class="title">Owner</p></div>`;
     expect(extractPeople(page(html, "blog-post"), SITE)).toHaveLength(0);
     expect(extractPeople(page(html, "team"), SITE)).toHaveLength(1);
@@ -266,6 +304,59 @@ describe("people", () => {
   it("requires a title or a bio before believing a heading is a person", () => {
     const html = `<div class="team-member"><h3>Our Values</h3></div>`;
     expect(extractPeople(page(html, "team"), SITE)).toHaveLength(0);
+  });
+
+  it("reads a heading followed by a job title, with no person markup at all", () => {
+    // moflo.ai's team section: name and role in unrelated containers, no class
+    // that says "person" anywhere. Only the sequence identifies them.
+    const html = `
+      <div><div><h2>TRISTAN</h2></div></div>
+      <div><p>President &amp; Co-Founder</p></div>
+      <div><p>Las Vegas, NV</p></div>
+      <div><div><h2>CANDY</h2></div></div>
+      <div><p>Administration</p></div>`;
+
+    expect(names(extractPeople(page(html, "about"), SITE))).toEqual(["TRISTAN", "CANDY"]);
+  });
+
+  it("reads a page that is about one person, confirmed by its URL", () => {
+    const html = `<h1>Kelly Jones</h1><p>Founding Partner</p>
+      <p>kelly@example.com</p><p>Kelly has sold homes across the valley for two decades.</p>`;
+    const claims = extractPeople(
+      { url: "https://example.com/kelly-jones", role: "other", html },
+      SITE,
+    );
+
+    expect(names(claims)).toEqual(["Kelly Jones"]);
+    expect((claims[0].value as { title: string }).title).toBe("Founding Partner");
+  });
+
+  it("does not read a product page as a person because its slug has two words", () => {
+    const html = `<h1>Pumping Systems</h1><p>Our pumping systems service every kind of well.</p>`;
+    expect(
+      extractPeople({ url: "https://example.com/pumping-systems", role: "other", html }, SITE),
+    ).toHaveLength(0);
+  });
+
+  it("ignores a blog byline", () => {
+    const html = `<div class="post-author"><h3>Aidan Bradshaw</h3><p>Marketing Lead</p></div>`;
+    expect(extractPeople(page(html, "about"), SITE)).toHaveLength(0);
+  });
+
+  it("is not fooled by a page-builder wrapper that has 'post' in its class", () => {
+    // Divi wraps every page's body in `et-l--post`. A substring match on "post"
+    // discarded all 108 person cards on a real staff page.
+    const html = `<div class="et-l et-l--post"><div class="et_pb_team_member">
+      <h4>Jim Blair</h4><p class="et_pb_member_position">President</p></div></div>`;
+    expect(names(extractPeople(page(html, "team"), SITE))).toEqual(["Jim Blair"]);
+  });
+
+  it("keeps the heading when a breadcrumb repeats the name just above it", () => {
+    const html = `<span class="breadcrumb_last">Kamran Zand</span>
+      <h1>Kamran Zand</h1><p>Broker/Founder/Owner</p>`;
+    expect(
+      names(extractPeople({ url: "https://example.com/team/kamran-zand", role: "team", html }, SITE)),
+    ).toEqual(["Kamran Zand"]);
   });
 });
 
@@ -320,6 +411,20 @@ describe("identity", () => {
       SITE,
     );
     expect(claims.find((claim) => claim.path === "foundation.yearFounded")).toBeUndefined();
+    expect(claims.find((claim) => claim.path === "foundation.altNames")?.value).toBe(
+      "Bee Cave Drilling",
+    );
+  });
+
+  it("drops the rest of the footer menu from the legal name", () => {
+    // Flattened markup puts the whole footer on one line. Before the fix this
+    // produced "Bee Cave Drilling, All Rights ReservedPrivacy Policy".
+    const claims = extractIdentity(
+      page(
+        `<footer><p>© 2024 Bee Cave Drilling, All Rights Reserved</p><a href="/privacy">Privacy Policy</a><a href="/terms">Terms</a></footer>`,
+      ),
+      SITE,
+    );
     expect(claims.find((claim) => claim.path === "foundation.altNames")?.value).toBe(
       "Bee Cave Drilling",
     );

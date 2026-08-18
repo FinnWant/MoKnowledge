@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 import { evidence, type Evidence, type PageInput, type SiteContext } from "../evidence";
-import { visibleText } from "./contact";
+import { readableText, visibleText } from "./contact";
 
 /**
  * Founding year, legal name, and entity type from the copy that carries them.
@@ -25,6 +25,15 @@ const COPYRIGHT_LINE = /(?:©|\(c\)|copyright)([^|\n]{3,120})/i;
 /** Everything a copyright line carries that is not the company's name. */
 const COPYRIGHT_NOISE =
   /\ball\s+rights\s+reserved\b.*$|\bcopyright\b|©|\(c\)|(?:18|19|20)\d{2}(?:\s*[-–—]\s*(?:18|19|20)\d{2})?/gi;
+
+/**
+ * The rest of the footer, which sits on the same line as the copyright notice
+ * once the markup is flattened. Cutting at the first of these keeps the name and
+ * drops the menu: "Bee Cave Drilling · Privacy Policy · Site by Acme" → "Bee
+ * Cave Drilling".
+ */
+const FOOTER_TAIL =
+  /\b(privacy(?:\s+policy)?|terms(?:\s+(?:of\s+)?(?:use|service|and\s+conditions))?|cookie\s+policy|sitemap|accessibility|disclaimer|all\s+rights|web(?:site)?\s+(?:design|development|by)|designed?\s+by|developed\s+by|powered\s+by|built\s+by|marketing\s+by)\b[\s\S]*$/i;
 
 /** Legal suffixes, as written. */
 const ENTITY_SUFFIX =
@@ -57,11 +66,15 @@ export function extractIdentity(page: PageInput, site: SiteContext): Evidence[] 
 
   // The copyright line is where a company writes its registered name, which is
   // usually not the name in the logo: "Account-it Consulting Services, LLC".
-  const footer = $("footer").text() || text.slice(-1200);
+  // `readableText`, not `.text()`: the footer is where element boundaries fuse
+  // words most often, and "Bee Cave Drilling, All Rights ReservedPrivacy Policy"
+  // is what a company's registered name looked like before this.
+  const footer = readableText($("footer")) || text.slice(-1200);
   const line = footer.replace(/\s+/g, " ").match(COPYRIGHT_LINE)?.[1] ?? null;
   const legalName = line
     ? line
         .replace(COPYRIGHT_NOISE, " ")
+        .replace(FOOTER_TAIL, " ")
         .replace(/\s+/g, " ")
         .replace(/^[\s,.|·©-]+|[\s,.|·©-]+$/g, "")
         .trim()

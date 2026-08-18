@@ -37,9 +37,15 @@ const SERVING_SENTENCE =
 const MAX_LOCATION_LENGTH = 60;
 const MAX_LOCATIONS = 40;
 
-/** Words that mark a matched phrase as prose rather than a place. */
+/**
+ * Words that mark a matched phrase as prose rather than a place.
+ *
+ * The trade names are there because a company named after the region it serves
+ * is normal — "Texas Hill Country Pumping" is a sister brand of Bee Cave
+ * Drilling, and it sat in the service-area list looking exactly like a place.
+ */
 const NOT_A_PLACE =
-  /\b(customer|client|business|home|owner|need|since|year|community|team|company|service|quality|water|well|call|contact|free|estimate|and more|others)\b/i;
+  /\b(customer|client|business|home|owner|need|since|year|community|team|company|service|quality|water|well|call|contact|free|estimate|and more|others|pumping|drilling|plumbing|roofing|hvac|electric(?:al)?|landscaping|cleaning|repair|inspections?|monitoring|realty|group|associates|insurance|agency|solutions)\b/i;
 
 /**
  * Audiences, not places. "Serving SMBs" and "serving homeowners" match the same

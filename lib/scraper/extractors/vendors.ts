@@ -37,7 +37,7 @@ export type VendorSignature = {
 
 export const VENDOR_SIGNATURES: readonly VendorSignature[] = [
   { name: "Google Analytics", hosts: /google-analytics\.com|googletagmanager\.com/, category: "analytics" },
-  { name: "Google", hosts: /(^|\.)(google|gstatic|googleapis)\.com$/, category: "other" },
+  { name: "Google", hosts: /(^|\.)(google|gstatic|googleapis|googleusercontent)\.com$/, category: "other" },
   { name: "Google Ads", hosts: /googleadservices\.com|doubleclick\.net/, category: "marketing" },
   { name: "Plausible", hosts: /plausible\.io/, category: "analytics" },
   { name: "Fathom", hosts: /usefathom\.com/, category: "analytics" },
@@ -94,6 +94,17 @@ export const VENDOR_SIGNATURES: readonly VendorSignature[] = [
   { name: "Shopify", hosts: /shopify(cdn|cloud)?\.com/, category: "hosting" },
   { name: "Webflow", hosts: /webflow\.(com|io)/, category: "hosting" },
   { name: "HighLevel", hosts: /gohighlevel\.com|leadconnectorhq\.com/, category: "crm" },
+  // Added after reading what the golden sites actually load: each of these was
+  // reported as an unrecognised host by its own domain before it had a name.
+  { name: "Usercentrics", hosts: /usercentrics\.(eu|com)/, category: "other" },
+  { name: "UserWay", hosts: /userway\.org/, category: "other" },
+  { name: "jsDelivr", hosts: /jsdelivr\.net/, category: "cdn" },
+  { name: "unpkg", hosts: /unpkg\.com/, category: "cdn" },
+  { name: "LiveChat", hosts: /livechatinc\.com/, category: "chat" },
+  { name: "Popupsmart", hosts: /popupsmart\.com/, category: "marketing" },
+  { name: "Diverse Solutions", hosts: /diversesolutions\.com/, category: "listings" },
+  { name: "CountingWorks Pro", hosts: /countingworkspro\.com/, category: "hosting" },
+  { name: "UI Avatars", hosts: /ui-avatars\.com/, category: "other" },
 ] as const;
 
 /** Attributes that point at a host we might be loading a third party from. */
@@ -105,7 +116,28 @@ const ASSET_SELECTORS = "script[src], iframe[src], link[href], img[src]";
  * the business buys from.
  */
 const NOT_A_SUPPLIER =
-  /(^|\.)(facebook|instagram|twitter|x|linkedin|youtube|tiktok|pinterest|reddit|yelp|w3\.org|schema\.org|gmpg\.org|example)\.(com|org|net)$/;
+  /(^|\.)(facebook|instagram|twitter|x|linkedin|youtube|tiktok|pinterest|reddit|yelp|example)\.(com|org|net)$/;
+
+/**
+ * Specification and boilerplate hosts. They were meant to be in the list above
+ * and never matched anything: the pattern required a `.com|.org|.net` suffix
+ * *after* the alternation, so `w3.org` only matched `w3.org.org`. Every profile
+ * carried `Gmpg.org` — a 2003 XFN spec URL in a WordPress `<link rel="profile">`
+ * — as a supplier.
+ */
+const NOT_A_HOST_WORTH_REPORTING = /(^|\.)(w3|schema|gmpg|purl|xmlns|dublincore)\.org$/;
+
+/**
+ * Machine-generated hostnames: `ksrndkehqnwntyxlhgto.com`, which a real Bee Cave
+ * scrape reported as a supplier. A brand name has vowels; a random string that
+ * long does not. Applied only to unrecognised hosts, so a signature match always
+ * wins.
+ */
+function looksMachineGenerated(label: string): boolean {
+  if (label.length < 8) return false;
+  const vowels = label.replace(/[^aeiouy]/g, "").length;
+  return vowels / label.length < 0.25;
+}
 
 /** Known-signature hits and unrecognised third-party hosts, kept apart. */
 export type VendorHits = { known: string[]; unknown: string[] };
@@ -142,7 +174,11 @@ export function detectVendorHits(html: string, ownDomain: string): VendorHits {
     // IT lists `Wufoo.com` and `DialogTech`, which are exactly this case. An
     // unrecognised third-party host is reported under its own domain rather than
     // dropped, because "we found a vendor we can't name" is still a finding.
-    if (matched.length === 0 && !NOT_A_SUPPLIER.test(hostname)) {
+    if (
+      matched.length === 0 &&
+      !NOT_A_SUPPLIER.test(hostname) &&
+      !NOT_A_HOST_WORTH_REPORTING.test(hostname)
+    ) {
       unknownHosts.add(hostname);
     }
   });
@@ -161,6 +197,7 @@ function unknownVendorNames(hosts: Set<string>): string[] {
     const parts = host.replace(/^www\./, "").split(".");
     const domain = parts.slice(-2).join(".");
     if (domain.length < 5) continue;
+    if (looksMachineGenerated(parts.at(-2) ?? "")) continue;
     names.add(domain.charAt(0).toUpperCase() + domain.slice(1));
   }
 

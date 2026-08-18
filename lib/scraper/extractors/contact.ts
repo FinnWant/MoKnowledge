@@ -1,4 +1,5 @@
 import * as cheerio from "cheerio";
+import type { AnyNode } from "domhandler";
 import { evidence, type Evidence, type PageInput, type SiteContext } from "../evidence";
 import { toSocialProfile } from "./jsonld";
 
@@ -177,9 +178,45 @@ export function parseUsAddress(formatted: string) {
   };
 }
 
-/** Page text with script, style, and nav chrome removed. */
+/**
+ * Elements whose edges are word boundaries when the page is read aloud.
+ *
+ * Inline formatting (`b`, `em`, `span`) is deliberately absent: those sit
+ * *inside* a word often enough — `<b>Bee</b>Cave` — that separating them would
+ * invent spaces that aren't there.
+ */
+const TEXT_BOUNDARY = [
+  "address", "article", "aside", "blockquote", "br", "button", "dd", "div",
+  "dl", "dt", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2",
+  "h3", "h4", "h5", "h6", "header", "hr", "label", "li", "main", "nav", "ol",
+  "option", "p", "pre", "section", "table", "td", "tfoot", "th", "thead", "tr",
+  "ul", "a",
+].join(", ");
+
+/**
+ * Page text with script, style, and nav chrome removed.
+ *
+ * `.text()` concatenates the DOM's text nodes with nothing between them, so a
+ * footer reading `…All Rights Reserved</p><a>Privacy Policy</a>` came out as
+ * "All Rights ReservedPrivacy Policy" — which is how a company's registered name
+ * ended up with a menu item welded to the end of it, and how any regex anchored
+ * on `\b` silently stops matching. Every consumer of this function was reading
+ * text with words fused across element boundaries; inserting the boundary here
+ * fixes all of them at once.
+ */
 export function visibleText($: cheerio.CheerioAPI): string {
-  const clone = $.root().clone();
+  return readableText($.root());
+}
+
+/**
+ * The same treatment for one part of a page — a footer, a card, a section.
+ *
+ * Anything reading `.text()` off a selection has the fusing problem too, so
+ * callers take this instead.
+ */
+export function readableText(node: cheerio.Cheerio<AnyNode>): string {
+  const clone = node.clone();
   clone.find("script, style, noscript, template, svg").remove();
+  clone.find(TEXT_BOUNDARY).before(" ").after(" ");
   return clone.text().replace(/\s+/g, " ").trim();
 }

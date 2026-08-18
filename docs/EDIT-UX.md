@@ -288,13 +288,25 @@ inputs rather than beside them.
 
 ---
 
-## 11. Open questions for implementation
+## 11. Open questions, answered by building it (P5)
 
-1. **Should `Regenerate` be available without an API key?** It would return mock text, which is
-   arguably confusing. Leaning toward: show the control, label the result `AI sample`, and note
-   the key requirement in a tooltip.
-2. **Undo depth.** Per-field revert plus delete-undo covers v1; a global `Cmd+Z` stack is a
-   stretch item.
-3. **Does the attention tier re-sort live as items are accepted?** Re-sorting mid-review moves
-   things under the cursor. Leaning toward: accepted items collapse in place with a brief
-   confirmation, and the list compacts only on a manual `Clear accepted`.
+1. **Should `Regenerate` be available without an API key?** Not settled, because the control
+   is not built. Two of the three "enhance" affordances ship — adding records, and answering
+   the gap questions — and re-running one prompt for one field needs an enrichment endpoint
+   that P5's deliverable list doesn't include. It stays on the list for a later phase.
+2. **Undo depth.** As planned: per-field `Undo` restores from `original`, and a delete drops an
+   undo toast for eight seconds. No global `Cmd+Z` stack.
+3. **Does the attention tier re-sort live as items are accepted?** It compacts: an accepted item
+   leaves the list immediately, the heading count updates, and a visually-hidden live region
+   announces the new count. The planned collapse-in-place was cut — a confirmation that lingers
+   in a list you are working down is a second thing to dismiss, and the count already says what
+   happened. Conflicts sort above uncertain values, then by field impact.
+
+### What building it changed
+
+| Found | Fix |
+|---|---|
+| **`Accept all safe` had nothing to accept on a real scrape.** "Uncontested" was implemented as "no note", but the reconciler writes notes for two different things: a genuine disagreement, which always comes with a conflict record, and a caveat about one value ("social sharing image; may not be the logo") | Safe means *no unresolved conflict*. Bee Cave's three attention items go from zero acceptable to two |
+| **`Add a products & service`, `Add a award`, `Add to press coverage`.** Turning a plural field label into a singular noun mechanically produces labels no customer should read | Each collection names itself: `Add a product or service`, `Add an award`, `Add a press mention` |
+| **A gap could be seen but not filled.** The category view returned missing fields as metadata only, which is all a read-only page needs and half of what an editor needs | Missing fields carry their `Sourced` envelope too, so every gap is an `Add` in place, right under the category it belongs to |
+| **The App Router has no route-change hook to guard.** `beforeunload` covers the tab closing and nothing else | A capturing click listener on links that leave the page, ignoring jump links and new-tab clicks — a guard that fired on the completeness rail would be worse than no guard |

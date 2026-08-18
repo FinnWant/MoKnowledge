@@ -5,6 +5,7 @@ export { Card, CardBody, CardFooter, CardHeader } from "./card";
 export { Chip, ChipList } from "./chip";
 export { EmptyState } from "./empty-state";
 export { Input, Select, Textarea } from "./field";
+export { Menu } from "./menu";
 export { Meter } from "./meter";
 export { Skeleton, SkeletonField } from "./skeleton";
 
@@ -14,4 +15,5 @@ export type { ButtonProps, ButtonSize, ButtonVariant } from "./button";
 export type { CardProps } from "./card";
 export type { ChipProps } from "./chip";
 export type { EmptyStateProps } from "./empty-state";
+export type { MenuItem, MenuProps } from "./menu";
 export type { MeterProps } from "./meter";

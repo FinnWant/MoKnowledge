@@ -156,8 +156,10 @@ export function extractJsonLd(page: PageInput, site: SiteContext): Evidence[] {
   const business = graph.nodes.find(isBusiness);
   if (business) extractBusiness(business, graph, add, site);
 
+  const bylines = articleAuthorIds(graph);
+
   for (const node of graph.nodes) {
-    if (hasType(node, "Person")) extractPerson(node, graph, add);
+    if (hasType(node, "Person")) extractPerson(node, graph, add, bylines);
     if (hasType(node, "Product", "Service", "Offer")) extractOffering(node, graph, add);
     if (hasType(node, "Review")) extractReview(node, graph, add);
     if (hasType(node, "AggregateRating")) extractRating(node, graph, add, page.url);
@@ -359,13 +361,46 @@ export function toSocialProfile(href: string, site: SiteContext) {
   };
 }
 
-function extractPerson(node: Node, graph: JsonLdGraph, add: Add): void {
+/**
+ * `@id`s the graph names as the author of an article.
+ *
+ * WordPress gives every blog author a full `Person` node with a Gravatar and a
+ * biography, which is indistinguishable from a staff profile until you notice
+ * what points at it. A real scrape of Planet Orange listed the writer of "Pests
+ * in My House? Not on My Watch!" as one of the company's key people.
+ */
+function articleAuthorIds(graph: JsonLdGraph): Set<string> {
+  const ids = new Set<string>();
+
+  for (const node of graph.nodes) {
+    if (!hasType(node, "BlogPosting", "Article", "NewsArticle", "WebPage")) continue;
+    for (const reference of arr(node.author)) {
+      const id = str((reference as Node)?.["@id"]);
+      if (id) ids.add(id);
+    }
+  }
+
+  return ids;
+}
+
+function extractPerson(
+  node: Node,
+  graph: JsonLdGraph,
+  add: Add,
+  bylines: Set<string> = new Set(),
+): void {
   const name = str(node.name);
   // Review authors come through as Person nodes too. They're real people worth
   // keeping, but they belong to the testimonial, not to the company's staff —
   // the review extractor links them, so skip the bare ones here.
   if (!name || name.length > 60) return;
   if (!node.jobTitle && !node.description && !node.worksFor && !node.image) return;
+
+  const id = str(node["@id"]);
+  if (id && bylines.has(id)) return;
+  // The author archive is the other tell: `/author/aidan/` is a byline page,
+  // never a staff profile.
+  if (/\/author\//i.test(str(node.url) ?? "")) return;
   // WordPress emits its post authors as `Person`, so the graph is full of login
   // handles — `webdev@drivinglocalleads.com`, `christy23424232hey`. A CMS
   // account is not a member of staff, and publishing one as a "key person"

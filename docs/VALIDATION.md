@@ -70,18 +70,23 @@ Fields are scored by class, because exact-match is meaningless for AI-generated 
 plus a net-new count. Recall matters more than precision here — extracting *more* than the
 reference is the goal, so precision penalties only apply to values that are actually wrong.
 
-### 3.1 Results as of P3 (extraction only, 7 sites, 457 reference values)
+### 3.1 Results as of P4 (extraction only, 7 sites, 457 reference values)
 
 `npm run validate` runs the deterministic half of the pipeline — no API key, no model call —
-so the number is reproducible on a fresh clone. Overall recall is **23%** (104 of 457), and the shape of
+so the number is reproducible on a fresh clone. Overall recall is **26%** (120 of 457), and the shape of
 the table matters more than the headline:
 
 | Band | Fields | Reading |
 |---|---|---|
 | 80–100% | website, socials, main address | Structured markup does the work; JSON-LD and OpenGraph are near-universal |
-| 40–70% | year founded, legal entity, channels, fonts, colors, CTAs | Heuristics over copy — real recall, real misses |
-| 10–35% | offerings, people, alt names, suppliers, funnels | Partial by nature: we find what a page states and miss what a reader infers |
+| 40–70% | people, year founded, legal entity, channels, fonts, colors, CTAs | Heuristics over copy — real recall, real misses |
+| 10–35% | offerings, alt names, suppliers, funnels | Partial by nature: we find what a page states and miss what a reader infers |
 | 0–15% (flagged) | industry, company role, buyers, service locations | **Filled by enrichment, which this harness deliberately does not run** |
+
+`people` was in the third band at 16% until P4. Rendering a knowledge base on a page is a
+different test from scoring one in a table, and it showed that the extractor read only the
+one DOM shape the densest site happened to use — see ROADMAP §5.4d for the five defects
+that came out of building the UI.
 
 Two structural caveats, both visible in the report itself:
 

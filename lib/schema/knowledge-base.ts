@@ -349,7 +349,16 @@ export const knowledgeBaseSchema = z.object({
 
 export type KnowledgeBase = z.infer<typeof knowledgeBaseSchema>;
 
-/** The trimmed shape `/knowledge/view` lists, so the list route never ships full KBs. */
+/**
+ * The trimmed shape `/knowledge/view` lists, so the list route never ships full
+ * knowledge bases to render a grid of cards (docs/VIEW-PAGE.md §Data loading).
+ *
+ * Two fields exist purely to keep that promise. `location` is on the card and in
+ * the table, and digging it out of `foundation.mainAddress` would mean shipping
+ * the foundation category. `keywords` is what makes search match the things a
+ * person actually recalls — an offering name, somebody on the team — without
+ * shipping fourteen offerings per record to search them.
+ */
 export const knowledgeBaseSummarySchema = z.object({
   id: z.string(),
   version: z.number().int().min(1),
@@ -357,10 +366,18 @@ export const knowledgeBaseSummarySchema = z.object({
   sourceUrl: urlSchema,
   industry: z.string().nullable(),
   logoUrl: urlSchema.nullable(),
+  /** "Dripping Springs, TX" — the line under the company name on a card. */
+  location: z.string().nullable(),
   completeness: z.number().min(0).max(1),
   peopleCount: z.number().int().nonnegative(),
   offeringsCount: z.number().int().nonnegative(),
-  needsReviewCount: z.number().int().nonnegative(),
+  testimonialsCount: z.number().int().nonnegative(),
+  /** Fields still in the attention tier — the card's "needs review" line. */
+  attentionCount: z.number().int().nonnegative(),
+  /** Unresolved conflicts. A subset of `attentionCount`, filtered separately. */
+  conflictCount: z.number().int().nonnegative(),
+  /** Extra search terms: alt names, areas served, offering and people names. */
+  keywords: z.array(z.string()),
   createdAt: timestampSchema,
   updatedAt: timestampSchema,
 });
