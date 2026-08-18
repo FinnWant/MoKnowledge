@@ -100,6 +100,35 @@ describe("websiteInputSchema", () => {
       expect(websiteInputSchema.safeParse(input).success).toBe(false);
     },
   );
+
+  it.each(["mailto:sales@acme.com", "ftp://example.com", "file:///etc/passwd", "javascript:alert(1)"])(
+    "rejects the non-http scheme %s rather than repairing it",
+    (input) => {
+      const result = websiteInputSchema.safeParse(input);
+      expect(result.success).toBe(false);
+      // Specifically not "that doesn't look like an address": it looks like a
+      // perfectly good address, just not one we can fetch. `mailto:` is the
+      // case that matters — prepending `https://` to it parses, with the
+      // mailbox as userinfo and the mail domain as the host.
+      if (!result.success) {
+        expect(result.error.issues[0]?.message).toMatch(/http and https/);
+      }
+    },
+  );
+
+  it.each(["https://example..com", "https://example.com.", `https://${"b".repeat(64)}.com`])(
+    "rejects the unresolvable hostname %s",
+    (input) => {
+      expect(websiteInputSchema.safeParse(input).success).toBe(false);
+    },
+  );
+
+  it("accepts an address that is valid but unreachable — that is the guard's job", () => {
+    // Syntax and reachability are separate questions with separate messages.
+    // 169.254.169.254 is a well-formed address; lib/scraper/ssrf.ts is what
+    // refuses to fetch it, and it says why.
+    expect(websiteInputSchema.safeParse("http://169.254.169.254/").success).toBe(true);
+  });
 });
 
 describe("field metadata registry", () => {

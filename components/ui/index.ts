@@ -1,9 +1,10 @@
 export { Accordion } from "./accordion";
 export { Badge } from "./badge";
-export { Button } from "./button";
+export { Button, buttonClasses } from "./button";
 export { Card, CardBody, CardFooter, CardHeader } from "./card";
 export { Chip, ChipList } from "./chip";
 export { EmptyState } from "./empty-state";
+export { ErrorState } from "./error-state";
 export { Input, Select, Textarea } from "./field";
 export { Menu } from "./menu";
 export { Meter } from "./meter";
@@ -15,5 +16,6 @@ export type { ButtonProps, ButtonSize, ButtonVariant } from "./button";
 export type { CardProps } from "./card";
 export type { ChipProps } from "./chip";
 export type { EmptyStateProps } from "./empty-state";
+export type { ErrorStateProps } from "./error-state";
 export type { MenuItem, MenuProps } from "./menu";
 export type { MeterProps } from "./meter";

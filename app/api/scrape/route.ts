@@ -3,6 +3,7 @@ import { websiteInputSchema } from "@/lib/schema";
 import { crawlSite } from "@/lib/scraper/crawler";
 import { encodeEvent, failureFor, type ScrapeEvent } from "@/lib/scraper/events";
 import { buildKnowledgeBase, enrichKnowledgeBase } from "@/lib/scraper/pipeline";
+import { blockedHost, blockedHostMessage } from "@/lib/scraper/ssrf";
 
 /**
  * `POST /api/scrape` — one request, streamed NDJSON progress, knowledge base last.
@@ -33,6 +34,15 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const { url } = parsed.data;
+
+  // Refused here rather than mid-stream: a blocked address is a rejected
+  // request, not a scrape that failed. The fetcher checks every URL it is
+  // given (lib/scraper/ssrf.ts) and would stop this anyway — but that path
+  // opens a stream, reports a crawl starting, and then fails it, which reads
+  // like our problem instead of a bad address.
+  const host = hostnameOf(url);
+  const blocked = await blockedHost(host);
+  if (blocked) return badRequest(blockedHostMessage(host, blocked));
 
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
@@ -141,4 +151,12 @@ function isAbort(error: unknown): boolean {
 
 function badRequest(message: string): Response {
   return Response.json({ error: message }, { status: 400 });
+}
+
+function hostnameOf(url: string): string {
+  try {
+    return new URL(/^https?:\/\//i.test(url) ? url : `https://${url}`).hostname;
+  } catch {
+    return url;
+  }
 }

@@ -27,6 +27,29 @@ const SIZES: Record<ButtonSize, string> = {
   lg: "h-12 px-6 text-base gap-2",
 };
 
+/**
+ * The button's visual classes, without the button.
+ *
+ * `Button` renders a real `<button>`, which is correct — it is what screen
+ * readers and keyboards expect for an action. A navigation that merely looks
+ * like a button must still be an `<a>`, so it needs the classes without the
+ * element. Exported rather than duplicated at each call site so the two cannot
+ * drift apart.
+ */
+export function buttonClasses(
+  variant: ButtonVariant = "secondary",
+  size: ButtonSize = "md",
+  className?: string,
+): string {
+  return cn(
+    "inline-flex items-center justify-center rounded-lg font-medium",
+    "transition-colors disabled:cursor-not-allowed disabled:opacity-50",
+    VARIANTS[variant],
+    SIZES[size],
+    className,
+  );
+}
+
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -52,13 +75,7 @@ export function Button({
       {...props}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
-      className={cn(
-        "inline-flex items-center justify-center rounded-lg font-medium",
-        "transition-colors disabled:cursor-not-allowed disabled:opacity-50",
-        VARIANTS[variant],
-        SIZES[size],
-        className,
-      )}
+      className={buttonClasses(variant, size, className)}
     >
       {loading ? (
         <span

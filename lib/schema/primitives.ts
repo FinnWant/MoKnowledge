@@ -18,10 +18,26 @@ export const websiteInputSchema = z
   .trim()
   .min(1, "Enter a website address")
   .refine((raw) => {
+    // A scheme we can't fetch is not a typo to be repaired by prepending
+    // `https://`. Without this, `mailto:sales@acme.com` becomes
+    // `https://mailto:sales@acme.com`, which parses with `mailto:sales` as
+    // userinfo and `acme.com` as the host — so pasting an email link would
+    // quietly scrape a site the user never asked for. `normalizeUrl` has always
+    // rejected these; this is the same rule at the front door.
+    const scheme = raw.match(/^([a-z][a-z0-9+.-]*):/i);
+    return scheme === null || /^https?$/i.test(scheme[1]);
+  }, "We can only read http and https addresses")
+  .refine((raw) => {
     const withProtocol = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
     try {
       const url = new URL(withProtocol);
-      return url.hostname.includes(".") && !url.hostname.endsWith(".");
+      const host = url.hostname;
+      // Rules a real hostname obeys: at least one dot, no empty label, and
+      // within the DNS length limits. `example..com` and a 300-character label
+      // both parse as URLs and neither can ever resolve.
+      if (host.length === 0 || host.length > 253) return false;
+      if (!host.includes(".") || host.endsWith(".")) return false;
+      return host.split(".").every((label) => label.length > 0 && label.length <= 63);
     } catch {
       return false;
     }

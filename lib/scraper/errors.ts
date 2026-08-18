@@ -30,7 +30,8 @@ export type ScrapeErrorKind =
   | "offsite-redirect"
   | "bot-challenge"
   | "network"
-  | "invalid-url";
+  | "invalid-url"
+  | "blocked-address";
 
 export type ScrapeError = {
   kind: ScrapeErrorKind;
@@ -68,6 +69,11 @@ const WARNING_FOR_KIND: Record<ScrapeErrorKind, WarningCode> = {
   "bot-challenge": "bot-challenge",
   network: "fetch-failed",
   "invalid-url": "fetch-failed",
+  // No warning code of its own: `warningCodeSchema` is part of the saved
+  // document, and a knowledge base is never produced from a blocked address —
+  // the scrape is refused before it starts. This mapping only exists for a link
+  // discovered mid-crawl, where it is one skipped page like any other.
+  "blocked-address": "fetch-failed",
 };
 
 /**

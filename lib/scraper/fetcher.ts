@@ -1,4 +1,5 @@
 import { err, ok, scrapeError, type Result, type ScrapeError } from "./errors";
+import { blockedHost, blockedHostMessage } from "./ssrf";
 import { isSameSite } from "@/lib/utils/url";
 
 /**
@@ -53,6 +54,15 @@ export async function fetchPage(
     signal,
   } = options;
 
+  // Before anything is sent. A link discovered in a nav can point at an
+  // internal address just as easily as a pasted one can (lib/scraper/ssrf.ts).
+  const blocked = await blockedHost(hostnameOf(url));
+  if (blocked) {
+    return err(
+      scrapeError("blocked-address", url, blockedHostMessage(hostnameOf(url), blocked)),
+    );
+  }
+
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   const onExternalAbort = () => controller.abort();
@@ -73,6 +83,22 @@ export async function fetchPage(
     // Falling back to the requested URL matters: an empty string fails the
     // same-site check, which would report every page as an offsite redirect.
     const finalUrl = response.url || url;
+
+    // `redirect: "follow"` hides the intermediate hops, so the destination is
+    // the one hop we can still inspect. The same-site rule below is what keeps
+    // a redirect from wandering off the origin domain in the first place; this
+    // catches the case where the origin's own DNS points somewhere internal.
+    const finalBlocked =
+      finalUrl === url ? null : await blockedHost(hostnameOf(finalUrl));
+    if (finalBlocked) {
+      return err(
+        scrapeError(
+          "blocked-address",
+          url,
+          blockedHostMessage(hostnameOf(finalUrl), finalBlocked),
+        ),
+      );
+    }
 
     if (originUrl && !isSameSite(finalUrl, originUrl)) {
       return err(
@@ -237,5 +263,14 @@ export class HostRateLimiter {
     this.nextAvailableAt = readyAt + this.minIntervalMs;
     const delay = readyAt - now;
     if (delay > 0) await new Promise((resolve) => setTimeout(resolve, delay));
+  }
+}
+
+/** The hostname, or the whole string when it will not parse as a URL. */
+function hostnameOf(url: string): string {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url;
   }
 }

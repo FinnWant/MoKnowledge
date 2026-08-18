@@ -96,6 +96,26 @@ describe("POST /api/scrape", () => {
     });
   });
 
+  it("refuses an internal address before it opens a stream", async () => {
+    // The adversarial case (P8): a well-formed URL, dots and all, pointing at
+    // the cloud metadata endpoint. It has to be a 400 with an explanation, not
+    // a stream that reports a crawl starting and then fails.
+    const response = await POST(request({ url: "http://169.254.169.254/latest/meta-data/" }));
+
+    expect(response.status).toBe(400);
+    expect(response.headers.get("content-type")).toContain("application/json");
+    const body = (await response.json()) as { error: string };
+    expect(body.error).toMatch(/link-local/);
+    expect(body.error).toMatch(/public internet/);
+  });
+
+  it("refuses loopback and private addresses the same way", async () => {
+    for (const url of ["http://127.0.0.1:3000/", "http://10.0.0.5/", "http://[::1]/"]) {
+      const response = await POST(request({ url }));
+      expect(response.status, url).toBe(400);
+    }
+  });
+
   it("rejects a body with no url at all", async () => {
     const response = await POST(request({}));
     expect(response.status).toBe(400);
