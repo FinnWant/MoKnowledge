@@ -38,6 +38,7 @@ fails, and the UI distinguishes `AI draft` from `AI sample` either way.
 | `ANTHROPIC_API_KEY` | — | Enables live enrichment. A standard API key from [console.anthropic.com](https://console.anthropic.com) |
 | `ANTHROPIC_MODEL` | `claude-opus-5` | Any model on the account. Ids with a date suffix (`claude-haiku-4-5-20251001`) are fine |
 | `ANTHROPIC_MAX_TOKENS` | `16000` | Raise if the enrichment report says `truncated` |
+| `ANTHROPIC_TIMEOUT_MS` | `30000` | Per-call ceiling. Four prompts at one retry each fit inside the scrape route's 300s budget; raise it for a slower model and watch that arithmetic |
 
 The request adapts to the model: adaptive thinking and `output_config.effort` are sent
 only on 4.6-generation models and later, because earlier ones reject both with a 400

@@ -18,6 +18,24 @@ import { loadSystemPrompt, PROMPT_EFFORT, type PromptId } from "./prompts";
 export const DEFAULT_MODEL = "claude-opus-5";
 export const DEFAULT_MAX_TOKENS = 16_000;
 
+/**
+ * Per-call ceiling, sized against the scrape route's budget rather than picked.
+ *
+ * `app/api/scrape/route.ts` allows 300s for the whole request and a crawl
+ * spends roughly 25 of them, so enrichment has ~275s for four sequential
+ * prompts. At one retry each that is 4 x 2 x 30s = 240s, which fits. Measured
+ * cost of all four on Haiku 4.5 is 30-41s total, so 30s per call is three to
+ * four times the observed worst case.
+ *
+ * Getting this wrong is not a slow scrape, it is no scrape: the SDK defaults to
+ * a 10-minute timeout and two retries, which lets one hung call exceed the
+ * route's own limit and kill the request — losing the crawled knowledge base
+ * along with it. A timeout here is just another failure reason, and enrichment
+ * degrades to the labelled mock with the pages already read intact.
+ */
+export const DEFAULT_TIMEOUT_MS = 30_000;
+export const MAX_RETRIES = 1;
+
 export function hasApiKey(): boolean {
   return Boolean(process.env.ANTHROPIC_API_KEY);
 }
@@ -29,6 +47,11 @@ export function model(): string {
 function maxTokens(): number {
   const configured = Number(process.env.ANTHROPIC_MAX_TOKENS);
   return Number.isFinite(configured) && configured > 0 ? configured : DEFAULT_MAX_TOKENS;
+}
+
+function timeoutMs(): number {
+  const configured = Number(process.env.ANTHROPIC_TIMEOUT_MS);
+  return Number.isFinite(configured) && configured > 0 ? configured : DEFAULT_TIMEOUT_MS;
 }
 
 /**
@@ -88,7 +111,7 @@ export async function runPrompt<T>(run: PromptRun<T>): Promise<PromptOutcome<T>>
     return { ok: false, reason: "sdk-not-installed" };
   }
 
-  const client = new Anthropic();
+  const client = new Anthropic({ timeout: timeoutMs(), maxRetries: MAX_RETRIES });
   const system = loadSystemPrompt(run.promptId);
   const reasoning = supportsReasoningControls();
 
@@ -147,6 +170,17 @@ function describeError(error: unknown): string {
   if (error instanceof SyntaxError) return "invalid-json";
 
   const candidate = error as { status?: number; name?: string; message?: string };
+
+  // Matched on the constructor rather than `name`, and not with `instanceof`,
+  // for two different reasons. `instanceof` is out because this file must still
+  // compile and run without the optional dependency loaded. `.name` is out
+  // because the SDK leaves it as the inherited "Error" — only
+  // `constructor.name` carries `APIConnectionTimeoutError`, which is worth
+  // stating because reading the class declaration suggests otherwise.
+  const constructorName = (error as object)?.constructor?.name;
+  if (constructorName === "APIConnectionTimeoutError") return "timeout";
+  if (constructorName === "APIConnectionError") return "network-error";
+
   if (typeof candidate.status === "number") {
     // Named rather than typed against the SDK's error classes so this file
     // still compiles when the optional dependency isn't installed.

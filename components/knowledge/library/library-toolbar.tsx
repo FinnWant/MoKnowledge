@@ -128,7 +128,8 @@ function SearchBox({
         className={cn(
           "h-8 w-full rounded-lg border border-border bg-surface-sunken pr-8 pl-9",
           "text-sm text-ink placeholder:text-ink-subtle",
-          "transition-colors hover:border-border-strong focus:border-link focus:outline-none",
+          // No focus outline-reset here — see the note in components/ui/field.tsx.
+          "transition-colors hover:border-border-strong focus:border-link",
         )}
       />
       {text.length > 0 ? (
@@ -181,7 +182,8 @@ function SortSelect({
         }}
         className={cn(
           "h-8 rounded-lg border border-border bg-surface-raised px-2 text-sm text-ink",
-          "transition-colors hover:border-border-strong focus:border-link focus:outline-none",
+          // No focus outline-reset here — see the note in components/ui/field.tsx.
+          "transition-colors hover:border-border-strong focus:border-link",
         )}
       >
         {SORT_OPTIONS.map((option) => (

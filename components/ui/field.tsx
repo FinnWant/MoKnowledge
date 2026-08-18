@@ -13,7 +13,16 @@ const CONTROL = cn(
   "w-full rounded-lg border border-border bg-surface-sunken px-3 py-2",
   "text-sm text-ink placeholder:text-ink-subtle",
   "transition-colors hover:border-border-strong",
-  "focus:border-link focus:outline-none",
+  // `focus:border-link` only. Tailwind's focus outline-reset utility must never
+  // be added here: it compiles to a `:focus` rule at specificity (0,2,0), which
+  // beats the `:focus-visible` ring in globals.css at (0,1,0) and silently
+  // removes the keyboard focus indicator from every input, select and textarea
+  // in the app. A 1px border colour shift is not a substitute (WCAG 2.4.7).
+  // Because the global rule is `:focus-visible`, a mouse click still gets only
+  // the border and the ring stays keyboard-only. Guarded by
+  // tests/ui/focus-visible.test.ts. (Naming the class here would be enough for
+  // Tailwind's scanner to emit the dead rule into the bundle.)
+  "focus:border-link",
   "disabled:cursor-not-allowed disabled:opacity-50",
   "aria-[invalid=true]:border-danger",
 );

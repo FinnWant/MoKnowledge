@@ -2,6 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 import {
   DEFAULT_MODEL,
+  DEFAULT_TIMEOUT_MS,
+  MAX_RETRIES,
   runPrompt,
   supportsReasoningControls,
 } from "@/lib/ai/client";
@@ -19,15 +21,27 @@ import { COMPANY_PROFILE_JSON_SCHEMA } from "@/lib/ai/schemas";
  */
 
 const create = vi.fn();
+/** Client options, so the timeout and retry budget can be asserted. */
+const constructed: unknown[] = [];
 
-vi.mock("@anthropic-ai/sdk", () => ({
-  default: class {
-    messages = { create };
-  },
-}));
+vi.mock("@anthropic-ai/sdk", async (importOriginal) => {
+  // The error classes are real: `describeError` matches on constructor name, so
+  // a stubbed stand-in would prove nothing about the code that runs.
+  const actual = await importOriginal<typeof import("@anthropic-ai/sdk")>();
+  return {
+    ...actual,
+    default: class {
+      messages = { create };
+      constructor(options?: unknown) {
+        constructed.push(options);
+      }
+    },
+  };
+});
 
 beforeEach(() => {
   create.mockReset();
+  constructed.length = 0;
 });
 
 afterEach(() => {
@@ -161,6 +175,35 @@ describe("runPrompt", () => {
       create.mockRejectedValueOnce(Object.assign(new Error("nope"), { status }));
       expect(await runPrompt(run), String(status)).toEqual({ ok: false, reason });
     }
+  });
+
+  it("names a timeout and a connection failure from the SDK's own error types", async () => {
+    vi.stubEnv("ANTHROPIC_API_KEY", "key");
+    const sdk = await import("@anthropic-ai/sdk");
+
+    // These carry `name: "Error"` — only the constructor identifies them, which
+    // is exactly the trap `describeError` is written around.
+    create.mockRejectedValueOnce(
+      new sdk.APIConnectionTimeoutError({ message: "Request timed out." }),
+    );
+    expect(await runPrompt(run)).toEqual({ ok: false, reason: "timeout" });
+
+    create.mockRejectedValueOnce(
+      new sdk.APIConnectionError({ message: "Connection error." }),
+    );
+    expect(await runPrompt(run)).toEqual({ ok: false, reason: "network-error" });
+  });
+
+  it("bounds the call so one hang cannot eat the scrape route's budget", async () => {
+    vi.stubEnv("ANTHROPIC_API_KEY", "key");
+    create.mockResolvedValue(reply(good));
+
+    await runPrompt(run);
+
+    // The SDK defaults to 10 minutes and two retries; the route only has 300s
+    // for the whole scrape, enrichment included.
+    expect(constructed[0]).toEqual({ timeout: DEFAULT_TIMEOUT_MS, maxRetries: MAX_RETRIES });
+    expect(DEFAULT_TIMEOUT_MS * (MAX_RETRIES + 1) * 4).toBeLessThan(275_000);
   });
 
   it("rejects a truncated response rather than storing half a profile", async () => {
