@@ -1,209 +1,65 @@
-# Answers to the required questions
-
----
-
 ## 1. What approach did you take to scraping and structuring the knowledge base data?
 
-**Extractors propose, a reconciler decides.**
+Extractors don't write final answers. Each one proposes evidence, and a separate reconciler decides what actually gets kept.
 
-The obvious design is a function per field that reads the page and returns a value. It breaks
-on the second page, because the home page and the contact page disagree about the phone
-number and whichever extractor ran last wins.
+I tried the more obvious approach first, one function per field, reading a page and returning a value, and it fell apart quickly. The home page and the contact page often disagree about something as basic as a phone number, and whichever extractor happened to run last would just overwrite the other's answer with no record that they'd conflicted at all.
 
-So no extractor writes a field. Each of the eleven returns `Evidence[]` — a claim, the path it
-belongs to, the method that produced it (`json-ld`, `opengraph`, `meta`, `dom`, `heuristic`,
-`computed`), the page it came from and that page's role. Every extractor runs over every page,
-and a separate reconciler settles the resulting pile by source precedence, then by page role
-(a phone number on the contact page outranks the same number in a blog footer), then by
-agreement across pages. Disagreements survive as `quality.conflicts` with every candidate and
-its origin, so the UI can ask rather than guess.
+So I changed the model. None of the eleven extractors write to a field directly. Each one returns a list of evidence: a claim, the field it belongs to, how it was found (structured data, Open Graph tags, meta tags, the raw DOM, a heuristic, or a computed value), and which page it came from. Every extractor runs against every page. A reconciler then works through all of that evidence, sorting first by source reliability, then by the type of page it came from (a phone number on the contact page outranks the same number showing up in a blog footer), then by how often the same value repeats across pages. When two answers genuinely disagree, that isn't hidden. It gets recorded as a conflict, with both candidates and where each came from, so the review screen can ask a person instead of guessing.
 
-**Every value carries where it came from.** Each scalar is a `Sourced<T>`: `value`, `method`,
-`confidence`, `sourceUrls`, optional `note`. Collections are `Sourced<T[]>` whose items carry
-their own `RecordProvenance`, because a person is accepted or rejected as a whole card, not
-field by field. That one envelope pays for four features that would otherwise need separate
-machinery: provenance badges, confidence-driven review triage, per-field revert, and honest
-labelling of AI-generated text.
+Every value also carries its own history. A single field is stored as an object with the value itself, the method used to find it, a confidence score, the source URLs, and an optional note. Lists work the same way, except each item in the list carries its own record of where it came from, since something like a person's profile gets accepted or rejected as a whole card rather than field by field. That one design decision ends up covering a lot of ground on its own. It's what lets the review screen show where a value came from, prioritize low-confidence records for review, let a user revert a single field, and be honest about which text was written by a model.
 
-**`null` is a first-class answer.** Roughly half of a typical scrape is
-`{value: null, method: "not-found", confidence: 0}`. Across the eight reference profiles
-`yearFounded` appears three times and `revenue` once — a system that treats sparsity as
-failure either looks broken or starts inventing. Extractors return `null` rather than `""`,
-and the review UI renders an explicit "Not found".
+A missing value counts as a real answer, not a failure. Roughly half of what a typical scrape produces gets marked "not found" with zero confidence. Across the eight reference companies we tested against, "year founded" only showed up for three of them, and "revenue" for just one. A system that can't handle that gracefully either looks broken or starts making things up. Extractors return null instead of an empty string, and the review screen just says "Not found" plainly.
 
-**Crawling is budgeted and polite.** robots.txt is honoured, sitemap.xml is read first because
-it is the site's own opinion of what matters, URLs are classified by role, and the crawl stops
-at 20 pages. Normalization matters more than it sounds: without it a 20-page budget is spent
-on `/about`, `/about/`, `/About/`, and `/about?utm_source=google`. One real site emitted
-`?et_blog=` on every archive link and cost three budget slots before empty-valued query
-parameters were stripped.
+The crawler is deliberately conservative. It respects robots.txt, reads the sitemap first since that's the site telling you what it thinks matters, sorts pages by type, and stops after 20 pages. Normalizing URLs turned out to matter more than I expected. Without it, that 20-page budget gets burned on duplicate versions of the same page: with or without a trailing slash, different capitalization, tracking parameters tacked on. One site we tested was appending a blank query parameter to every archive link, which alone used up three of the twenty pages before we started stripping empty parameters.
 
-**The structure is one zod schema.** `lib/schema/knowledge-base.ts` is the single source of
-truth; every type is inferred from it, so runtime validation and compile-time types cannot
-drift. A parallel registry (`field-meta.ts`) carries what the schema deliberately does not —
-each field's `impact` (1–5), whether the customer plausibly knows the answer, and the
-plain-language question to ask if not. That registry is what turns a schema into a product:
-it drives the impact-weighted completeness score and the ranked follow-up questions.
+The structure of the data lives in a single schema file, and every TypeScript type is generated from it, so the runtime checks and the compile-time types can't drift apart from each other. A second file sits alongside it and tracks things the schema itself doesn't need to know: how important each field is on a 1 to 5 scale, whether a typical customer would even know the answer, and what plain-language question to ask if the field comes back empty. That second file is what makes the schema useful as a product feature. It drives the completeness score and decides which follow-up questions get asked first.
 
-**It is measured, not asserted.** `npm run validate` scores extraction against the reference
-profiles from `Knowledge_Outputs.pdf`, transcribed as golden JSON, running entirely off
-committed HTML fixtures. Current per-field recall: `website` 100%, `socials` 86%,
-`mainAddress` 80%, `people` 68%, `yearFounded` 67%, `offerings` 24%; 26% overall across seven
-sites. That number needs its caveat: it measures *agreement with a peer system*, not truth. In
-most fields we extract considerably more than the reference does — 102 offerings against its
-84, 58 people against 31, 63 social profiles against 14 — and producing something the
-reference lacks cannot raise the score. Several reference values are also defects we
-deliberately disagree with. It is a regression detector, not a grade.
+None of this is just asserted to work. It's checked. A validation script scores the extraction against reference data pulled from the original PDF and transcribed into a golden JSON file, running entirely against saved HTML so results are repeatable. Current recall by field: website 100%, socials 86%, main address 80%, people 68%, year founded 67%, offerings 24%, and 26% overall across the seven test sites. That number needs a caveat. It measures agreement with someone else's reference answers, not correctness. In most categories we're actually pulling in more information than the reference did (102 offerings versus their 84, 58 people versus 31, 63 social profiles versus 14), and none of that extra, accurate information raises the score, since the metric only rewards matching what's already there. Some of the reference values are also just wrong, and we disagree with them on purpose. So this is a regression check, not a grade.
 
 ---
 
 ## 2. What information beyond our current baseline did you choose to include, and why?
 
-Three categories, and the case for them is not hypothetical — it is visible in MoFlo's own
-reference outputs, where these signals are **already being extracted and then squeezed into
-fields that don't fit**, losing the useful part.
+I added three new categories:
 
-| In the reference output | Where it landed | What was lost |
-|---|---|---|
-| "He is a CPA, a member of the AICPA, and a QuickBooks Certified ProAdvisor" | a person's bio prose | credentials, unqueryable and unreusable as trust claims |
-| "Press features in Las Vegas Review Journal, Mansion Global" | **Funnels** | press coverage modelled as a marketing funnel |
-| "over 14 years", "over a billion dollars in brokerage sales" | pitch prose | reusable proof metrics |
-| Bee Cave Drilling: 7 of 8 `Key People` | `Key People` | every one is testimonial-derived, and the source quotes were discarded |
-| "well-structured with FAQs, testimonials, and clear service descriptions" | writing-style prose | the FAQ pairs themselves |
+Proof covers testimonials (with the author, platform, and links back to the people or services they mention), aggregate ratings, case studies, certifications, memberships, awards, press mentions, stats, guarantees, and client logos. The goal is a bounded, verified set of claims, so when content gets generated later it can cite "40+ years in business" because a page actually said that, and it can never invent a credential from nothing. This is enforced in code, not just by convention. Every quote that gets extracted has to be a verbatim match to the source text, or it gets dropped.
 
-**`proof`** — testimonials with author, platform and links back to the people and offerings
-they mention; aggregate ratings; case studies; certifications; memberships; awards; press
-mentions; trust stats; guarantees; client logos. The point is a *bounded set of verified
-claims*: content generation can cite "40+ years" because a page said so, and can never invent
-a credential. Prompt 04 enforces this in code — every extracted quote must be a verbatim
-substring of the source text, and anything that isn't is dropped.
+Content intelligence covers themes, posts, categories, how often the company publishes and whether it's gone quiet, common headline patterns, FAQ pairs, a glossary of terms specific to that business, seasonal patterns, and gaps in what's been written about. A blog-writing tool that doesn't know what a company has already covered is just going to repeat itself.
 
-**`contentIntelligence`** — themes, posts, taxonomy, publishing cadence and staleness,
-headline patterns, FAQ pairs, a glossary of the company's own domain terms, seasonal signals,
-and content gaps. A blog generator that doesn't know what a company has already written will
-write it again.
+Quality covers completeness by category, a list of what's missing, unresolved conflicts, and up to six ranked follow-up questions. This one probably lines up best with what MoFlo is trying to do for its customers. Instead of showing an empty box labeled "year founded," the product can just ask "What year did you start?" and rank that question against every other gap using impact, how likely the customer is to actually know the answer, and how much effort it takes to answer. That last part matters. A question the customer skips isn't worth anything, no matter how important the field is.
 
-**`quality`** — per-category completeness, the missing-field list, unresolved conflicts, and up
-to six ranked follow-up questions. This is the one that best fits MoFlo's stated thesis of
-doing as much for the customer as possible: rather than an empty box labelled `yearFounded`,
-the app asks "What year did you start?" and ranks it against every other gap by
-`(impact × substitutability) / answerCost`. Dividing by answer cost is the load-bearing
-choice — a question the customer abandons is worth nothing regardless of the field's impact.
-
-Scope was deliberately capped at three. `voiceProfile`, `messaging`, `conversionKit`,
-`compliance`, `seo`, `competitors`, and `mediaAssets` were designed and cut, to buy scraping
-depth and UI polish instead. They are the backlog in question 4.
+I capped it at three new categories on purpose. Voice profile, messaging, a conversion kit, compliance, SEO, competitors, and media assets were all designed but cut, so I could put more time into scraping depth and polishing the review interface instead. Those are the backlog items in question 4.
 
 ---
 
 ## 3. How would your knowledge base design improve the outputs of MoSocial, MoMail, and MoBlogs specifically?
 
-The general answer — "better input, better output" — is true and useless. The specific answer
-is that each app fails in a particular way without a particular field.
+MoSocial. Social copy tends to fail by sounding generic, like it could have been written for any company. The writing-style field is grounded in metrics calculated directly from the text itself (sentence length, reading level, how often passive voice shows up, how often the company refers to itself as "we"), so any description of the brand's tone has to match what's actually on the page rather than being guessed by a model. The proof category gives quotable, attributed testimonials instead of vague paraphrasing. Headline patterns and calls-to-action pulled from the company's own content give it something closer to its real voice instead of stock marketing language, and seasonal signals tell the tool when to post about what.
 
-**MoSocial.** Social copy fails by sounding like nobody. `branding.writingStyle` is grounded in
-metrics computed deterministically in TypeScript — sentence length, reading grade, passive
-ratio, first-person-plural frequency — before a model is allowed to describe the voice, so a
-tone claim cannot contradict the measured text. `proof.testimonials` supplies quotable social
-proof with attribution rather than paraphrase. `contentIntelligence.headlinePatterns` and
-`ctas` give the company's own hook and conversion language instead of generic marketing voice.
-`seasonalSignals` says when to post about what.
+MoMail. Email tends to fail by talking to the wrong person about the wrong problem. Buyer segments, ideal customer profiles, and customer needs are exactly what an outbound sequence needs to get that right. Pricing is stored exactly as published, "starting at $250," qualifier and all, because that qualifier is often the part a salesperson actually needs, and a cleaned-up number would lose it. Guarantees and trust stats give the email something to lean on, and FAQs double as pre-written objection handling in the company's own words.
 
-**MoMail.** Email fails by addressing the wrong person about the wrong problem.
-`market.buyers`, `idealPersona` and `customerNeeds` are exactly the segmentation an outbound
-sequence needs. `offerings[].pricing` is stored **verbatim as published** — "starting at
-$250", qualifier included — because the qualifier is the part a salesperson needs and a parsed
-number would lose it. `proof.guarantees` and `trustStats` are the trust block. `faqs` are
-pre-written objection handling, in the company's own words.
-
-**MoBlogs.** Long-form fails by repeating what the site already says and by getting the
-vocabulary wrong. `contentIntelligence.themes`, `posts` and `taxonomy` say what has been
-covered; `contentGaps` says what hasn't; `cadence` says how often they publish and whether
-they've gone quiet. The `glossary` of the company's own domain terms is the difference between
-"water well maintenance" and the term this business actually uses. `caseStudies` and
-`testimonials` linked to specific `offerings` turn a generic article into one with evidence.
-
-**Across all three**, two structural properties matter more than any single field:
-
-1. **Provenance on every value.** An app can be told to use only `scraped` and `user-edited`
-   fields for factual claims, and treat `ai-mock` or low-confidence values as drafting hints.
-   The knowledge base makes that policy expressible instead of leaving it to hope.
-2. **Controlled vocabularies.** `offering.category` is an enum. The reference outputs use free
-   text — `Service`, `Business Services`, `System Installation`, and `Financial Service` all
-   appear in one document — which makes the field useless for the filtering and templating
-   that content generation depends on.
+MoBlogs. Long-form content tends to fail in two ways: repeating what the company has already published, and using the wrong vocabulary for the industry. Themes, posts, and categories show what's already been covered; content gaps show what hasn't. Publishing cadence shows how often (or rarely) the company writes, and the glossary captures the specific terms the business actually uses, the difference between "water well maintenance" and whatever term this particular company uses for it. Case studies and testimonials linked back to specific services turn a generic article into one that actually has evidence behind it.
 
 ---
 
 ## 4. What would you improve or change about MoKnowledge if you had more time?
 
-**A real browser for JS-rendered sites.** The single biggest extraction gap. The scraper is
-`cheerio` over fetched HTML, so a React site that renders client-side yields metadata and
-little else. It is detected and reported honestly rather than failing silently, but a headless
-browser for the subset of sites that need one would move recall more than any other change.
+The single biggest gap is that the scraper can't handle JavaScript-rendered sites. It's built on cheerio reading fetched HTML, so a site built in React that renders on the client side gives back almost nothing but metadata. The tool detects this and reports it honestly rather than failing silently, but adding a headless browser for the subset of sites that need it would improve extraction more than any other single change I could make.
 
-**The seven cut categories.** `voiceProfile` (the measured metrics as a first-class field
-rather than a prompt input), `messaging`, `conversionKit`, `compliance`, `seo`, `competitors`,
-`mediaAssets`. `competitors` is the most valuable and the most dangerous — it needs sources
-beyond the company's own site, and every one of them carries a labelling obligation.
+Second, the seven categories I designed but didn't build: a proper voice profile (treating the measured writing metrics as a real field instead of just an input to a prompt), messaging, a conversion kit, compliance, SEO, competitors, and media assets. Competitors is probably the most valuable of these and also the trickiest, since it requires pulling in information from outside the company's own site, and every piece of that needs to be clearly labeled as coming from somewhere else.
 
-**Finish the third enhance affordance.** Adding records and answering gap questions both ship;
-`Regenerate` on an AI field, with an optional steer ("warmer", "shorter"), does not. It needs a
-per-field enrichment endpoint that the phase it belonged to didn't include. Now that live
-enrichment works end to end, this is a small piece of work with a good return.
+Third, there's a feature I started but didn't finish: letting a user regenerate a single AI-written field with an optional nudge, like "make this warmer" or "make this shorter." Adding new records and answering the follow-up questions both already work end to end. Regenerating a field doesn't yet, mainly because it needs its own small enrichment endpoint that didn't fit into the phase it belonged to. Now that live enrichment is working elsewhere in the system, this would be a relatively small addition with a solid payoff.
 
-**Enrichment tiers 3 and 4** (`docs/ENRICHMENT.md`). PDFs and images we already download but
-don't mine — line cards and spec sheets are frequently the only place pricing and
-certifications are written down, and awards are almost always images. Then third-party sources
-for the fields marked `askable: false`: Google Places for `aggregateRatings`, state registries
-for `yearFounded`. Both need a new `external` provenance method first, because the rule that
-anything not from the customer's own site is labelled with its origin is not negotiable.
-
-**Close the SSRF redirect gap.** Every URL is checked before it is fetched, and the final URL
-after redirects is checked too, but `redirect: "follow"` hides the intermediate hops. Following
-redirects manually and checking each would close it.
-
-**Evaluation rather than recall.** The current score measures agreement with a peer system.
-What it should measure is whether a knowledge base actually produces better content — generate
-a post from a knowledge base with and without `proof`, and score the output. That is the
-metric the product is really optimising.
+Finally, the evaluation approach itself should change. Right now the score just measures agreement with someone else's reference data. What it should measure is whether the knowledge base actually leads to better content: generate a blog post from a knowledge base with the proof category included and without it, and score the difference. That's closer to the thing the product is actually trying to optimize for.
 
 ---
 
 ## 5. What was the most challenging part of this assignment?
 
-Not the scraping. **Deciding what to do when the evidence disagrees with itself** — and then
-discovering how much of that judgement is invisible until you run the thing.
+The hard part wasn't the scraping itself. It was figuring out what to do when the evidence contradicts itself, and then realizing how much of that judgment call stays invisible until you actually run the system and watch it work.
 
-The reconciler is the piece I rewrote most. Bee Cave Drilling is the case that shaped it: four
-"since YYYY" phrases across the site — 1980 on the contact page, 2011 and 2012 on the team
-page, 2016 on the reviews page. Only the first is a founding year; the rest are staff tenure
-and review dates. No amount of regex distinguishes them. The resolution was to stop trying: the
-extractor emits all four, halves its own confidence for being unsure, and the disagreement
-surfaces as a conflict the user settles in one click with each candidate's source page shown.
-"Ask a human, cheaply" turned out to be a better answer than any heuristic, and it fits MoFlo's
-non-technical customers better too — one tap, no typing.
+The reconciler is the piece I rewrote the most, and one company in particular is what forced that rewrite. Their site had four different "since [year]" phrases scattered across it: 1980 on the contact page, 2011 and 2012 on the team page, 2016 on the reviews page. Only the first one is actually the founding year; the rest are how long staff members had worked there, or dates on customer reviews. No amount of pattern-matching can reliably tell those apart. So instead of trying to be clever about it, the extractor just returns all four candidates, lowers its own confidence to reflect the uncertainty, and lets the disagreement show up as something the user resolves with one tap, seeing exactly which page each candidate came from. That turned out to work better than any heuristic I tried, and it fits how MoFlo's customers actually work. They'd rather tap once than type an explanation.
 
-The harder lesson was how many real defects were invisible to reading. Three separate phases
-each found bugs that no amount of code review would have surfaced:
+Running the model against the live API turned up two dead code paths that had never actually been executed. The client was sending two parameters that the configured model rejects outright, which would have silently failed every request and fallen back to a mock response without any error showing up. Separately, a nullable field in the schema broke one of the API calls entirely, in a way that wasn't obvious from the schema definition itself. It took an actual failed request to find it.
 
-- **Rendering the output found extraction bugs.** Extraction defects don't look like defects in
-  a JSON blob; they look like defects on a page. Several extractors were only fixed once the UI
-  displayed them.
-- **Running the model found two dead code paths.** The Anthropic client had never been executed
-  against the API. It sent `thinking: {type: "adaptive"}` and `output_config.effort`
-  unconditionally — both 400 on the configured model, which would have made every prompt fail
-  and silently fall back to mock. And a nullable enum was rejected outright: `{type: ["string",
-  "null"], enum: [..., null]}` returns *"Enum value 'manufacturer' does not match declared
-  type"* even with `null` in the enum. That one broke the prompt that fills ten fields.
-- **Opening a browser found four more.** Tailwind's focus outline-reset in the shared control
-  base compiles to a `:focus` rule at specificity (0,2,0), which beats the global
-  `:focus-visible` ring at (0,1,0) — so every input, select and textarea in the app had no
-  visible keyboard focus, and nothing in the component source says so. A grid with no explicit
-  base track scrolled two pages sideways on mobile. And `alt={item.alt ?? "Logo"}` left six
-  links with no accessible name, because `??` does not replace `""`.
-
-None of those fail a type check. None fail a unit test. Every one of them is the kind of thing
-that only appears when the thing actually runs — which is why the last three phases were
-mostly about running it, and why the validation harness, the live check script and the
-byte-stable example generator exist at all.
+None of those problems would fail a type check or a unit test. That's exactly why the later phases of this project were mostly about running the thing repeatedly, through a validation script, a live check, and a generator that produces consistent example output, rather than just reading through the code and assuming it worked.
