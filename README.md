@@ -55,8 +55,11 @@ That's it — **no API keys and no external services are required.** Node 20+.
 | `npm run examples` | Rebuild [`examples/`](examples/) (`-- --check` to verify they are current) |
 | `npm run snapshot` | Re-capture the HTML fixtures (rarely needed — see below) |
 | `npm run ai:check` | One live enrichment call, to verify an API key works |
-| `npm run db:check` | Verify a Supabase database behaves as documented (optional — see below) |
+| `npm run db:migrate` | Apply the Supabase schema and any migrations since (optional — see below) |
+| `npm run db:check` | Verify the database behaves as documented |
 | `npm run db:parity` | Verify every knowledge base field has a column in `supabase/schema.sql` |
+| `npm run db:perf` | Verify the indexes are applicable at a realistic size |
+| `npm run db:rebuild` | Rebuild the normalized tables from the stored documents |
 
 ### Optional: live AI enrichment
 
@@ -86,7 +89,8 @@ The app ships on `LocalJsonAdapter` — that is what "no external services are r
 above means, and it stays the default. [`supabase/schema.sql`](supabase/schema.sql) is the
 production design behind the same `StorageAdapter` seam, and the answer to the assignment's
 bonus challenge: 43 tables, 25 enum types, 85 RLS policies, multi-company and versioned.
-It has been applied to a live Supabase project and verified there.
+It has been applied to a live Supabase project and verified there, and
+[`SupabaseAdapter`](lib/storage/supabase/adapter.ts) runs the app on it when configured.
 
 Every one of the nine knowledge base categories has real tables with real column types —
 nothing that the knowledge base standard names is stored only as jsonb. That is enforced
@@ -96,22 +100,30 @@ if any field has no column, and `npm run db:check` loads all three committed
 
 | Variable | Purpose |
 |---|---|
-| `SUPABASE_DB_URL` | Session-pooler connection string. Used only by `db:check` and `db:parity` |
-| `SUPABASE_DB_URL_DIRECT` | The direct endpoint. Nothing reads it today — it is IPv6-only without the IPv4 add-on |
+| `SUPABASE_DB_URL` | Pooler connection string. Either port works — 6543 for the app, 5432 for migrations |
+| `SUPABASE_ORG_ID` | Which organization to read and write. Required *with* the URL to switch the app over |
+| `SUPABASE_POOL_MAX` | Connections per process (default 4) |
+| `SUPABASE_DB_URL_DIRECT` | The direct endpoint. Nothing reads it — IPv6-only without the IPv4 add-on |
 
 ```bash
-psql "$SUPABASE_DB_URL" -f supabase/schema.sql
+npm run db:migrate  # apply the schema
 npm run db:parity   # 252 checks: every field has a typed column
-npm run db:check    # 53 checks: append-only, RLS, signup, cascades, concurrency, real data
+npm run db:check    # 68 checks: append-only, RLS, signup, cascades, adapter round trip
+npm run db:perf     #   9 checks: every design-critical query has an applicable index
 ```
 
-Both write inside a transaction they roll back, so they leave the database as they found
-it. They exist for the same reason `ai:check` does: the guarantees here — append-only
-versions, tenant isolation, a lock around concurrent saves — are the kind that look fine
-when you read them and are worth executing. Between them they found four real defects in
-a schema that had been reviewed and looked right, including an enum missing three of its
-eight values and a primary key that would have broken versioning on the second save.
-[`docs/DATABASE.md`](docs/DATABASE.md) §2, §3 and §8 describe them.
+**Setting `SUPABASE_DB_URL` alone does not switch the app over.** Both it and
+`SUPABASE_ORG_ID` are required, because a URL says where the database is but not which
+tenant to write into — and guessing that is how one customer's records end up filed under
+another's. Half-configured falls back to the local store and says so.
+
+They write inside transactions they roll back, so they leave the database as they found it.
+They exist for the same reason `ai:check` does: the guarantees here — append-only versions,
+tenant isolation, a lock around concurrent saves — are the kind that look fine when you read
+them and are worth executing. Between them they found five real defects in a schema that had
+been reviewed and looked right, including an enum missing three of its eight values and a
+primary key that would have broken versioning on the second save.
+[`docs/DATABASE.md`](docs/DATABASE.md) §2, §3, §7 and §8 describe them.
 
 ---
 

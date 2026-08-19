@@ -352,28 +352,89 @@ plpgsql, because two copies of public-suffix rules is how the two drift.
   evidence for "this site blocks us", and it is what a retry consults before hitting the
   site again.
 
-## 7. What porting the adapter takes
+## 7. The adapter
 
-`LocalJsonAdapter` is ~200 lines. A `SupabaseAdapter` implementing the same interface is
-roughly:
+`SupabaseAdapter` ([`lib/storage/supabase/adapter.ts`](../lib/storage/supabase/adapter.ts))
+implements the same five methods as `LocalJsonAdapter`, and the app above the seam does not
+know which one it has.
 
-| Method | Supabase equivalent |
+| Method | What it does |
 |---|---|
-| `list()` | `select * from knowledge_base_summaries` — all 16 summary fields, no document parsed |
-| `get(id, version?)` | one row from `knowledge_base_versions`, `document` returned as-is |
-| `save(kb)` | `resolve_company()`, `next_version_no()`, insert the version, insert the projections, move `current_version_id` — one transaction |
+| `list()` | `select … from knowledge_base_summaries` — all 16 summary fields, no document parsed |
+| `get(id, version?)` | one row, `document` returned as-is |
+| `save(kb)` | `resolve_company()`, `next_version_no()`, insert the version, project it, move `current_version_id` — one transaction |
 | `remove(id)` | delete the `knowledge_bases` row; cascades handle the rest |
-| `versions(id)` | `select version_no, created_at, rescraped ...` |
+| `versions(id)` | `version_no`, `document_updated_at`, `rescraped` |
 
-The app above the seam does not change, because `save` already returns the knowledge base
-as stored and callers already treat the returned copy as authoritative.
+It is about 300 lines, and the reason it is not larger is §3: because `document` is the
+source of truth, `get()` has nothing to reassemble. There is no mapping from forty tables
+back into a `KnowledgeBase` anywhere in this codebase, and there does not need to be.
 
-The projection half of `save()` already exists, as
-[`scripts/project-knowledge-base.ts`](../scripts/project-knowledge-base.ts): it maps a
-`KnowledgeBase` into all forty tables and is what `npm run db:check` uses to load the
-committed examples. It lives in `scripts/` rather than `lib/` deliberately — the shipped
-app runs on `LocalJsonAdapter`, and half an adapter in `lib/` with no caller is a thing to
-maintain for nothing. When the adapter is written, that is the file it starts from.
+**Which adapter runs is decided in one place**
+([`lib/storage/index.ts`](../lib/storage/index.ts)) by whether `SUPABASE_DB_URL` *and*
+`SUPABASE_ORG_ID` are both set. Both, deliberately: a URL says where the database is but
+not which tenant to write into, and defaulting that — to "the only organization", say —
+is a guess that silently files one customer's knowledge bases under another's account the
+day there are two. Half-configured falls back to local and says why.
+
+### Three things worth knowing about `save()`
+
+**The order is chosen so a crash is a no-op.** The version row and all its projections land
+before `current_version_id` moves. An interrupted save leaves an unreferenced version,
+which is invisible and harmless; the reverse would leave the library pointing at a
+half-written one.
+
+**`rescraped` is derived, not declared.** Editing keeps the crawl a knowledge base was
+built from, so a version whose `scrape.startedAt` differs from its predecessor's is exactly
+a re-scraped one — the same rule `LocalJsonAdapter.versions()` applies at read time.
+Computing it at write time makes it a column the library can filter on.
+
+**Reads are transactions too.** That is what makes `set local role authenticated` safe:
+the role and JWT claim unwind on commit, so a pooled connection is never handed to the next
+caller still wearing the last caller's identity.
+
+### RLS, and why the adapter does not rely on it
+
+The connection string is the `postgres` role, which has `BYPASSRLS`. Connect with it and all
+85 policies stop applying. `withTenant`
+([`lib/storage/supabase/tenant.ts`](../lib/storage/supabase/tenant.ts)) therefore drops to
+`authenticated` with the user's id as the JWT subject whenever a session exists — and every
+query in the adapter *also* carries an explicit `where organization_id = $1`.
+
+Both belts are worn on purpose. Before there is a login there is no uid to assume, so the
+explicit scoping is the only thing standing between tenants; after there is one, RLS
+catches anything a future query forgets. `npm run db:check` runs a second adapter pointed at
+a different tenant and asserts it can neither read nor delete the first one's knowledge
+base.
+
+### Rebuilding the projections
+
+[`rebuildProjections()`](../lib/storage/supabase/rebuild.ts) deletes a version's projection
+rows and replays `projectKnowledgeBase` against the stored document. This is what makes §3's
+claim an operation rather than an assertion, and it is what a projection schema change
+costs:
+
+```bash
+npm run db:rebuild -- --all          # or --kb <id>, or --version <uuid>
+```
+
+Add a column to `offerings`, replay, and it populates from data that was already stored.
+Nothing is lost because nothing was ever *only* in a projection.
+
+### `scrape_jobs`, which the adapter does not write
+
+One row per crawl attempt, written by the scrape route rather than by `save()`, because a
+job exists before a version does and frequently instead of one — a blocked or empty crawl
+produces no knowledge base at all, and that row is the evidence for "this site blocks us".
+
+Every function in [`jobs.ts`](../lib/storage/supabase/jobs.ts) is a no-op when Supabase is
+not configured, and none of them can fail a scrape: telemetry that takes down the thing it
+observes is worse than no telemetry. `knowledge_base_id` and `version_id` are left null —
+filling them would mean threading a job id from the scrape stream through the draft the
+user edits into the save request, which is a change to the API contract for a link nothing
+currently asks for.
+
+---
 
 ---
 
@@ -385,20 +446,64 @@ SUPABASE_DB_URL=postgresql://postgres.<ref>:<password>@aws-0-<region>.pooler.sup
 ```
 
 ```bash
-psql "$SUPABASE_DB_URL" -f supabase/schema.sql   # 42 tables, 83 policies, 25 enums
-npm run db:parity                                 # does every field have a column?
-npm run db:check                                  # does the database behave as described?  (53 checks)
+npm run db:migrate                # apply the schema, then everything since
+npm run db:parity                 # does every field have a column?        (252 checks)
+npm run db:check                  # does it behave as described?            (68 checks)
+npm run db:perf                   # are the indexes applicable?              (9 checks)
 ```
+
+`db:migrate` is the entry point rather than `psql -f`. `supabase/schema.sql` is migration
+**0001_baseline**, and from that point it is frozen: the runner records a checksum and
+refuses to run if an applied migration has changed. Changes after the baseline are new
+files in [`supabase/migrations/`](../supabase/migrations/README.md), each applied in its own
+transaction under an advisory lock so two deploys landing together cannot both apply the
+same one.
+
+The ledger lives in a `migrations` schema rather than `public` — found by the schema
+asserting on itself, since `public` is where the RLS loop enables row security on
+everything it finds and then fails on any table without a policy. It is also where
+PostgREST looks, and a migration ledger is not something a client key should enumerate.
 
 **Use the session pooler host, not the direct one.** Supabase's direct endpoint
 (`db.<ref>.supabase.co`) resolves to an IPv6 address only, unless the project has the
 IPv4 add-on; on an IPv4-only network it fails with `ECONNREFUSED` before it ever reaches
-Postgres. The pooler on port 5432 is session mode, which is what DDL and the
-transaction-per-save in `save()` need — port 6543 is transaction mode and will not hold a
-session across statements.
+Postgres.
+
+**Either pooler port works for the app.** An earlier version of this document claimed the
+transaction pooler on 6543 could not hold `next_version_no`'s row lock across statements.
+That is wrong, and testing it says so: transaction mode pins a server connection for the
+duration of a transaction, so `set local`, `select … for update` and named prepared
+statements all behave. Every adapter operation is wrapped in a single transaction
+(`withTenant`), which is exactly the shape transaction mode is built for — two connections
+through 6543 serialise on the lock and receive v2 then v3, the same as through 5432.
+
+Prefer **6543 for the deployed app** (many short-lived serverless connections) and **5432
+for migrations and `psql`**, where session-level state and DDL are more comfortable.
 
 `SUPABASE_DB_URL_DIRECT` is kept in `.env.local` for the case where the add-on is enabled
 or migrations run from a machine with IPv6; nothing reads it today.
+
+### What `npm run db:perf` is for
+
+The other checks run against three documents, where PostgreSQL sequentially scans
+everything regardless because the tables fit in a page. That says nothing about the shape of
+the plan, which is the whole reason the projection tables exist.
+
+[`scripts/check-db-performance.ts`](../scripts/check-db-performance.ts) seeds the R27 case —
+forty companies, three versions each, across two tenants — and asserts on plans rather than
+timings. Timings on a shared pooler tell you about the neighbours.
+
+It asserts that each design-critical query has an **applicable** index, by disabling
+`enable_seqscan` and requiring the expected index by name. It deliberately does *not* assert
+that the planner picks it unaided: at any size a test can seed, a sequential scan is often
+the right plan, and asserting otherwise just asserts that the fixture is large. Whether the
+index was chosen naturally is reported alongside, as context.
+
+Writing it turned up nothing wrong with the schema and two things wrong with the fixture,
+which is its own kind of finding: every example classifies its offerings as `service`, and
+every seeded row shared a keyword, so neither predicate was selective enough for the
+composite and GIN indexes to be reachable. A fixture that cannot distinguish a good index
+from a bad one cannot test either.
 
 ### What `npm run db:parity` is for
 
@@ -430,6 +535,9 @@ so a green run leaves the database exactly as it found it.
 | An admin cannot mint an owner, an owner can | §4 — the escalation path through membership |
 | `resolve_company` under two concurrent callers yields one company | §5 — the save-time race |
 | The summaries view supplies all 16 `KnowledgeBaseSummary` fields | §7 — otherwise `list()` costs a document fetch per card |
+| A real example survives `save()` → `get()` unchanged, twice, keeping `createdAt` | §7 — the adapter's contract with the app |
+| A second tenant's adapter can neither read nor delete the first's knowledge base | §7 — the isolation the explicit scoping exists for |
+| `rebuildProjections` reproduces exactly the rows it deleted | §3 — projections are a cache, demonstrated rather than argued |
 
 The last two are the ones that matter most for the bonus challenge. Structural parity says
 every field *has* somewhere to live; loading three real knowledge bases — 30 people, 18

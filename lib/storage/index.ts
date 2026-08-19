@@ -2,15 +2,40 @@ import { LocalJsonAdapter } from "./local-json";
 import type { StorageAdapter } from "./types";
 
 /**
- * The adapter the app uses.
+ * The adapter the app uses, chosen here and nowhere else.
  *
- * One module-level instance, chosen here and nowhere else — swapping in the
- * Supabase adapter documented in `docs/DATABASE.md` is a one-line change on the
- * next line, and no route or component has to know it happened.
+ * `LocalJsonAdapter` is the default and stays the default: a fresh clone runs
+ * with no credentials and no services, which is the promise the README makes.
+ * Supabase is opt-in, and opting in is setting two environment variables —
+ * no route, component or test above this line changes either way.
  *
- * Server-only: it touches the filesystem.
+ * Both variables are required together on purpose. `SUPABASE_DB_URL` alone says
+ * where the database is but not which tenant to write to, and defaulting that
+ * (to "the only organization", say) would be a guess that silently writes one
+ * customer's knowledge bases into another's account the day there are two.
+ *
+ * Server-only: one touches the filesystem, the other holds a connection pool.
  */
-export const storage: StorageAdapter = new LocalJsonAdapter();
+
+function selectAdapter(): StorageAdapter {
+  const configured = Boolean(process.env.SUPABASE_DB_URL && process.env.SUPABASE_ORG_ID);
+  if (!configured) {
+    if (process.env.SUPABASE_DB_URL && !process.env.SUPABASE_ORG_ID) {
+      console.warn(
+        "[storage] SUPABASE_DB_URL is set but SUPABASE_ORG_ID is not — " +
+          "falling back to the local JSON store. Set both to use Supabase.",
+      );
+    }
+    return new LocalJsonAdapter();
+  }
+
+  // Required lazily so a local-only run never loads `pg` or builds a pool.
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { SupabaseAdapter } = require("./supabase/adapter") as typeof import("./supabase/adapter");
+  return new SupabaseAdapter();
+}
+
+export const storage: StorageAdapter = selectAdapter();
 
 export { LocalJsonAdapter } from "./local-json";
 export { toSummary } from "./types";

@@ -37,8 +37,33 @@
 -- Requires PostgreSQL 15 or later (for `security_invoker` views) and the `auth`
 -- schema Supabase provides.
 
-create extension if not exists "pgcrypto";   -- gen_random_uuid()
-create extension if not exists "pg_trgm";    -- fuzzy company and record search
+-- Supabase provisions an `extensions` schema and puts its own extensions there;
+-- installing into `public` mixes ~30 pg_trgm functions in with the application's
+-- tables and is what the platform's own linter flags. `extensions` is on the
+-- default search_path, so `gin_trgm_ops` below still resolves unqualified.
+create schema if not exists extensions;
+
+-- `create extension if not exists ... with schema` does NOT relocate an
+-- extension that is already installed somewhere else — it is a no-op, and the
+-- `with schema` is silently ignored. Supabase projects frequently have these
+-- already present in `public`, which is the case this handles: relocate first,
+-- then create if genuinely absent.
+do $$
+declare ext text;
+begin
+  foreach ext in array array['pgcrypto', 'pg_trgm'] loop
+    if exists (
+      select 1 from pg_extension e
+      join pg_namespace n on n.oid = e.extnamespace
+      where e.extname = ext and n.nspname <> 'extensions'
+    ) then
+      execute format('alter extension %I set schema extensions', ext);
+    end if;
+  end loop;
+end $$;
+
+create extension if not exists "pgcrypto" with schema extensions;  -- gen_random_uuid()
+create extension if not exists "pg_trgm"  with schema extensions;  -- fuzzy search
 
 -- ============================================================================
 -- §1  ENUM TYPES
@@ -1634,8 +1659,13 @@ create view knowledge_base_summaries as
     (select count(*) from people p       where p.version_id = v.id) as people_count,
     (select count(*) from offerings o    where o.version_id = v.id) as offerings_count,
     (select count(*) from testimonials t where t.version_id = v.id) as testimonials_count,
-    kb.created_at,
-    kb.updated_at
+    -- The document's timestamps, not the row's. `KnowledgeBaseSummary.updatedAt`
+    -- is what the library sorts by and what the card shows, and it means "when
+    -- was this knowledge base last saved" — which is a fact about the document.
+    -- The row timestamps are the fallback for a knowledge base with no version
+    -- yet, and stay available on `knowledge_bases` for operational questions.
+    coalesce(v.document_created_at, kb.created_at) as created_at,
+    coalesce(v.document_updated_at, kb.updated_at) as updated_at
   from knowledge_bases kb
   join companies c on c.id = kb.company_id
   left join knowledge_base_versions v on v.id = kb.current_version_id

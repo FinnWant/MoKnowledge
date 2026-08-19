@@ -1,4 +1,4 @@
-import type { Client } from "pg";
+import type { ClientBase } from "pg";
 
 import { FIELD_META, type KnowledgeBase, type Sourced } from "@/lib/schema";
 import { getPath } from "@/lib/utils/path";
@@ -6,19 +6,22 @@ import { getPath } from "@/lib/utils/path";
 /**
  * Projects one KnowledgeBase document into the normalized tables.
  *
- * This is the write half of what a `SupabaseAdapter.save()` would do, extracted
- * so `npm run db:check` can prove the schema holds a REAL knowledge base rather
- * than a hand-written fixture shaped to fit it. Structural parity
- * (`npm run db:parity`) says every field has a column; this says the actual
- * scraped values go into those columns without tripping a type, an enum, or a
- * check constraint.
+ * The write half of `SupabaseAdapter.save()`, kept separate from it because it
+ * has a second caller: `rebuildProjections()` replays it from a stored
+ * document. That is not a convenience — it is what makes the claim in
+ * docs/DATABASE.md §3 true. Projections are a cache precisely because this
+ * function can be re-run against `knowledge_base_versions.document` to
+ * reproduce every row, which is what turns a projection schema change into an
+ * ALTER plus a replay rather than a data migration.
  *
- * It is deliberately in scripts/ rather than lib/: the shipped app runs on
- * LocalJsonAdapter, and half an adapter in lib/ would be a thing to maintain
- * with no caller. When the adapter is written, this is the part it starts from.
+ * `npm run db:check` also runs it over the committed examples, so the schema is
+ * tested against knowledge bases the scraper really produced rather than
+ * fixtures shaped to fit it.
  */
 
-type Ctx = { client: Client; org: string; versionId: string };
+export type ProjectionContext = { client: ClientBase; org: string; versionId: string };
+
+type Ctx = ProjectionContext;
 
 /** `Sourced<T>` value, or null. */
 function val<T>(field: { value: T | null } | undefined): T | null {

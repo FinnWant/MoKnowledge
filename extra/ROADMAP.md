@@ -487,8 +487,9 @@ rebuilt from.
 
 Verified by two scripts. `npm run db:parity` (252 checks) walks the zod schema and fails
 if any of the 231 field paths lacks a column, comparing every enum value by value through
-the column's own type. `npm run db:check` (53 checks) exercises behaviour and loads all
-three committed `examples/*.json` into the schema.
+the column's own type. `npm run db:check` (68 checks) exercises behaviour, loads all three
+committed `examples/*.json` into the schema, and round-trips a real knowledge base through
+the adapter. `npm run db:perf` (9 checks) asserts on query plans at a realistic size.
 
 Tenancy is now bootstrapped rather than assumed: a `security definer` trigger on
 `auth.users` either joins the tenant that invited the address or creates one the user
@@ -496,6 +497,16 @@ owns, invitations are a table (not client metadata, which is forgeable), and onl
 may grant `owner`. `resolve_company()` gives `save()` an atomic find-or-create, and the
 summaries view supplies all sixteen `KnowledgeBaseSummary` fields so `list()` never parses
 a document.
+
+`SupabaseAdapter` (`lib/storage/supabase/`) implements the same five methods as
+`LocalJsonAdapter` and is selected only when `SUPABASE_DB_URL` and `SUPABASE_ORG_ID` are
+both set, so a fresh clone still runs with no credentials. Around it: a shared pool sized
+for serverless, a `withTenant` transaction wrapper that drops to the `authenticated` role
+so RLS applies rather than being bypassed by the `postgres` role's BYPASSRLS, a migration
+runner with checksummed history (`supabase/schema.sql` is migration 0001), a projection
+rebuild that replays the normalized tables from the stored documents, and `scrape_jobs`
+written by the scrape route — including for crawls that produce nothing, which is the row
+worth keeping. `npm run db:perf` seeds the forty-company case and asserts on query plans.
 
 Executing the schema found four defects that reviewing it had not:
 

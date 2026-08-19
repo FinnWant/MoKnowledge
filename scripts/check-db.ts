@@ -4,7 +4,10 @@ import path from "node:path";
 import { Client } from "pg";
 
 import { loadEnv } from "./env";
-import { projectKnowledgeBase } from "./project-knowledge-base";
+import { SupabaseAdapter } from "@/lib/storage/supabase/adapter";
+import { closePool } from "@/lib/storage/supabase/pool";
+import { projectKnowledgeBase } from "@/lib/storage/supabase/project";
+import { rebuildProjections } from "@/lib/storage/supabase/rebuild";
 
 /**
  * `npm run db:check` — does the schema in `supabase/schema.sql` actually behave
@@ -696,7 +699,219 @@ async function main(): Promise<void> {
   await tenancyBootstrap();
   await companyResolution();
   await loadRealExamples();
+  await adapterRoundTrip();
+  await closePool();
   report();
+}
+
+/**
+ * The adapter, through its own five methods, against a real example document.
+ *
+ * Everything above this tests the schema. This tests the thing that will
+ * actually talk to it, and it tests it the way the app does — no hand-written
+ * SQL, no fixtures shaped to fit: `save()` a knowledge base the scraper
+ * produced, then read it back and check it is the same knowledge base.
+ */
+async function adapterRoundTrip(): Promise<void> {
+  console.log("\nSupabaseAdapter round trip");
+
+  const client = connect();
+  await client.connect();
+  const org = randomUUID();
+  const otherOrg = randomUUID();
+  const user = randomUUID();
+
+  try {
+    await client.query(`insert into auth.users (id, email) values ($1, 'adapter@check.invalid')`, [
+      user,
+    ]);
+    await client.query(
+      `insert into organizations (id, name, slug) values ($1, 'Adapter', $2), ($3, 'Adapter Other', $4)`,
+      [org, `adapter-${org.slice(0, 8)}`, otherOrg, `adapter-other-${otherOrg.slice(0, 8)}`],
+    );
+    await client.query(
+      `insert into organization_members (organization_id, user_id, role) values ($1, $2, 'editor')`,
+      [org, user],
+    );
+
+    const adapter = new SupabaseAdapter(() => ({ organizationId: org, userId: null }));
+    const intruder = new SupabaseAdapter(() => ({ organizationId: otherOrg, userId: null }));
+
+    const dir = path.join(process.cwd(), "examples");
+    const file = readdirSync(dir).filter((f) => f.endsWith(".json"))[0];
+    const original = JSON.parse(readFileSync(path.join(dir, file), "utf8"));
+
+    // ------------------------------------------------------------- save
+    const first = await adapter.save(original);
+    record(
+      "save() writes v1 and returns the knowledge base as stored",
+      first.version === 1 && first.id === original.id,
+      `v${first.version} of ${first.id}`,
+    );
+
+    // ------------------------------------------------------------- get
+    const fetched = await adapter.get(original.id);
+    record(
+      "get() returns the same document that went in",
+      fetched !== null && JSON.stringify(fetched) === JSON.stringify(first),
+      fetched ? "identical" : "null",
+    );
+
+    // The projections were written in the same transaction as the version.
+    const projected = await client.query<{ n: number }>(
+      `select count(*)::int as n from offerings o
+       join knowledge_base_versions v on v.id = o.version_id
+       where v.knowledge_base_id = $1`,
+      [original.id],
+    );
+    record(
+      "save() projected the normalized tables too",
+      projected.rows[0].n > 0,
+      `${projected.rows[0].n} offerings`,
+    );
+
+    // ------------------------------------------------------- save again
+    const edited = {
+      ...first,
+      companyName: { ...first.companyName, value: "Edited Name", method: "user-edited" as const },
+    };
+    const second = await adapter.save(edited);
+    record(
+      "a second save writes v2 and preserves createdAt",
+      second.version === 2 &&
+        second.createdAt === first.createdAt &&
+        second.updatedAt !== first.updatedAt,
+      `v${second.version}, createdAt ${second.createdAt === first.createdAt ? "kept" : "CHANGED"}`,
+    );
+
+    const v1 = await adapter.get(original.id, 1);
+    record(
+      "the earlier version is still readable",
+      v1?.companyName.value === first.companyName.value && v1?.version === 1,
+      `v1 companyName = ${v1?.companyName.value}`,
+    );
+
+    // ---------------------------------------------------------- versions
+    const versions = await adapter.versions(original.id);
+    record(
+      "versions() lists newest first",
+      versions.length === 2 && versions[0].version === 2 && versions[1].version === 1,
+      versions.map((v) => `v${v.version}`).join(", "),
+    );
+    record(
+      "an edit is not marked as a re-scrape",
+      versions[0].rescraped === undefined,
+      versions[0].rescraped ? "flagged rescraped" : "not flagged",
+    );
+
+    // A version whose crawl differs from its predecessor's is a re-scrape —
+    // derived the same way LocalJsonAdapter derives it, rather than declared.
+    const recrawled = {
+      ...second,
+      scrape: { ...second.scrape, startedAt: new Date(Date.now() + 1000).toISOString() },
+    };
+    await adapter.save(recrawled);
+    const afterRescrape = await adapter.versions(original.id);
+    record(
+      "a version built from a new crawl is marked as a re-scrape",
+      afterRescrape[0].rescraped === true,
+      `v${afterRescrape[0].version} rescraped=${afterRescrape[0].rescraped}`,
+    );
+
+    // -------------------------------------------------------------- list
+    const listed = await adapter.list();
+    const summary = listed.find((s) => s.id === original.id);
+    record(
+      "list() returns a valid summary without reading a document",
+      listed.length === 1 && summary?.companyName === "Edited Name",
+      `${listed.length} row(s), companyName=${summary?.companyName}`,
+    );
+    record(
+      "the summary carries the fields the card needs",
+      summary !== undefined &&
+        typeof summary.completeness === "number" &&
+        Array.isArray(summary.keywords) &&
+        summary.offeringsCount > 0,
+      `completeness=${summary?.completeness} offerings=${summary?.offeringsCount}`,
+    );
+
+    // ------------------------------------------------------ isolation
+    const seenByOther = await intruder.get(original.id);
+    const listedByOther = await intruder.list();
+    record(
+      "another tenant's adapter cannot read it",
+      seenByOther === null && listedByOther.length === 0,
+      `get=${seenByOther === null ? "null" : "LEAKED"} list=${listedByOther.length}`,
+    );
+    const removedByOther = await intruder.remove(original.id);
+    record(
+      "another tenant's adapter cannot delete it",
+      removedByOther === false && (await adapter.get(original.id)) !== null,
+      removedByOther ? "DELETED" : "refused",
+    );
+
+    // -------------------------------------------------------- rebuild
+    const versionRow = await client.query<{ id: string }>(
+      `select v.id from knowledge_base_versions v
+       where v.knowledge_base_id = $1 order by version_no desc limit 1`,
+      [original.id],
+    );
+    const before = await countProjection(client, versionRow.rows[0].id);
+    await client.query("begin");
+    const rebuilt = await rebuildProjections(client, versionRow.rows[0].id);
+    await client.query("commit");
+    const after = await countProjection(client, versionRow.rows[0].id);
+    record(
+      "rebuildProjections reproduces the projections from the document",
+      before === after && rebuilt.rows === after && rebuilt.removed === before,
+      `${before} rows before, ${after} after`,
+    );
+
+    // ------------------------------------------------------------ remove
+    const removed = await adapter.remove(original.id);
+    const gone = await adapter.get(original.id);
+    record(
+      "remove() deletes the knowledge base and everything under it",
+      removed === true && gone === null,
+      `removed=${removed}, get=${gone === null ? "null" : "still there"}`,
+    );
+    record("remove() on a missing id returns false", (await adapter.remove(original.id)) === false);
+  } catch (error) {
+    record("adapter round trip", false, error instanceof Error ? error.message : String(error));
+  } finally {
+    await client.query("rollback").catch(() => {});
+    await client
+      .query(
+        `delete from organizations where id in (
+           select organization_id from organization_members where user_id = $1
+         )`,
+        [user],
+      )
+      .catch(() => {});
+    await client
+      .query("delete from organizations where id = any($1::uuid[])", [[org, otherOrg]])
+      .catch(() => {});
+    await client.query("delete from auth.users where id = $1", [user]).catch(() => {});
+    await client.end();
+  }
+}
+
+/** Total projection rows for one version, across every projection table. */
+async function countProjection(client: Client, versionId: string): Promise<number> {
+  const { rows: tables } = await client.query<{ tablename: string }>(
+    `select c.relname as tablename from pg_class c
+     join pg_namespace n on n.oid = c.relnamespace
+     join pg_attribute a on a.attrelid = c.oid and a.attname = 'version_id'
+     where n.nspname = 'public' and c.relkind = 'r' and a.attnum > 0 and a.attnotnull`,
+  );
+  const parts = tables.map(
+    (t) => `select count(*)::int as n from ${t.tablename} where version_id = $1`,
+  );
+  const { rows } = await client.query<{ total: string }>(
+    `select sum(n)::text as total from (${parts.join(" union all ")}) counts`,
+    [versionId],
+  );
+  return Number(rows[0].total);
 }
 
 /**
