@@ -1,9 +1,15 @@
 import { z } from "zod";
-import { websiteInputSchema } from "@/lib/schema";
+import { SCRAPER_VERSION, websiteInputSchema } from "@/lib/schema";
 import { crawlSite } from "@/lib/scraper/crawler";
 import { encodeEvent, failureFor, type ScrapeEvent } from "@/lib/scraper/events";
 import { buildKnowledgeBase, enrichKnowledgeBase } from "@/lib/scraper/pipeline";
 import { blockedHost, blockedHostMessage } from "@/lib/scraper/ssrf";
+import {
+  advanceScrapeJob,
+  failScrapeJob,
+  finishScrapeJob,
+  startScrapeJob,
+} from "@/lib/storage/supabase/jobs";
 
 /**
  * `POST /api/scrape` — one request, streamed NDJSON progress, knowledge base last.
@@ -95,6 +101,11 @@ async function run(
   signal: AbortSignal,
   send: (event: ScrapeEvent) => void,
 ): Promise<void> {
+  // One row per crawl attempt, including the ones that end in nothing. A no-op
+  // unless Supabase is configured, and it never throws into the scrape: a site
+  // that imports fine must not start failing because telemetry could not write.
+  const job = await startScrapeJob(url, SCRAPER_VERSION);
+
   send({ kind: "stage", stage: "crawl", status: "start" });
 
   const crawl = await crawlSite(url, {
@@ -103,13 +114,21 @@ async function run(
   });
 
   send({ kind: "stage", stage: "crawl", status: "done" });
-  if (signal.aborted) return;
-
-  if (crawl.pages.length === 0) {
-    send({ kind: "failed", ...failureFor(crawl.warnings) });
+  if (signal.aborted) {
+    await failScrapeJob(job, "The request was cancelled.", crawl.warnings);
     return;
   }
 
+  if (crawl.pages.length === 0) {
+    const failure = failureFor(crawl.warnings);
+    // The reason the user was given, kept verbatim — it is the answer to
+    // "why did this site never import?" months later.
+    await failScrapeJob(job, failure.message, crawl.warnings);
+    send({ kind: "failed", ...failure });
+    return;
+  }
+
+  await advanceScrapeJob(job, "extracting");
   send({ kind: "stage", stage: "extract", status: "start" });
   // Extraction is synchronous and cheerio-heavy; without this the "extracting"
   // event sits in the buffer behind work that blocks the event loop, and the
@@ -120,10 +139,12 @@ async function run(
   send({ kind: "stage", stage: "extract", status: "done" });
   if (signal.aborted) return;
 
+  await advanceScrapeJob(job, "enriching");
   send({ kind: "stage", stage: "enrich", status: "start" });
   try {
     const enriched = await enrichKnowledgeBase(extraction);
     send({ kind: "stage", stage: "enrich", status: "done" });
+    await finishScrapeJob(job, crawl);
     send({
       kind: "result",
       knowledgeBase: enriched.knowledgeBase,
@@ -133,6 +154,8 @@ async function run(
     // Enrichment adds prose to a knowledge base that is already worth having.
     // Losing the whole scrape because a model call misbehaved would be absurd.
     send({ kind: "stage", stage: "enrich", status: "done" });
+    // The crawl succeeded; only enrichment fell back. The job is `done`.
+    await finishScrapeJob(job, crawl);
     send({
       kind: "result",
       knowledgeBase: extraction.knowledgeBase,

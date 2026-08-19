@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { loadEnv } from "./env";
 
 /**
  * `npm run ai:check` — one live call, to answer "is enrichment actually on?"
@@ -12,24 +12,7 @@ import { readFileSync } from "node:fs";
  * means a green run here is evidence about the thing that actually runs.
  */
 
-// `next dev` loads .env.local; a bare tsx process does not.
-function loadEnv(file: string): void {
-  let contents: string;
-  try {
-    contents = readFileSync(file, "utf8");
-  } catch {
-    return;
-  }
-  for (const line of contents.split("\n")) {
-    const match = line.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*?)\s*$/);
-    if (match && process.env[match[1]] === undefined) {
-      process.env[match[1]] = match[2].replace(/^["']|["']$/g, "");
-    }
-  }
-}
-
-loadEnv(".env.local");
-loadEnv(".env");
+loadEnv(".env.local", ".env");
 
 async function main(): Promise<void> {
   const { hasApiKey, model, runPrompt, supportsReasoningControls } = await import(

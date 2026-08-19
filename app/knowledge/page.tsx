@@ -1,6 +1,7 @@
 import { Library } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AccountMenu } from "@/components/auth/account-menu";
 import { ScrapeWorkbench } from "@/components/knowledge/scrape-workbench";
 
 export const metadata: Metadata = {
@@ -13,9 +14,11 @@ export const metadata: Metadata = {
  * `/knowledge` — the scrape page (R1, R3, R8).
  *
  * A server component that renders one client island. Nothing here needs data at
- * request time: the whole page is driven by a scrape the user starts.
+ * request time: the whole page is driven by a scrape the user starts. `async`
+ * only so the account line can read the session; it renders nothing when the
+ * app is on the local store.
  */
-export default function KnowledgePage() {
+export default async function KnowledgePage() {
   return (
     <div className="mx-auto flex min-h-dvh max-w-6xl flex-col gap-6 px-4 py-6 sm:px-6 sm:py-10">
       <header className="flex flex-wrap items-end justify-between gap-3">
@@ -46,6 +49,7 @@ export default function KnowledgePage() {
           >
             Design system
           </Link>
+          <AccountMenu />
         </div>
       </header>
 

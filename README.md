@@ -55,6 +55,11 @@ That's it — **no API keys and no external services are required.** Node 20+.
 | `npm run examples` | Rebuild [`examples/`](examples/) (`-- --check` to verify they are current) |
 | `npm run snapshot` | Re-capture the HTML fixtures (rarely needed — see below) |
 | `npm run ai:check` | One live enrichment call, to verify an API key works |
+| `npm run db:migrate` | Apply the Supabase schema and any migrations since (optional — see below) |
+| `npm run db:check` | Verify the database behaves as documented |
+| `npm run db:parity` | Verify every knowledge base field has a column in `supabase/schema.sql` |
+| `npm run db:perf` | Verify the indexes are applicable at a realistic size |
+| `npm run db:rebuild` | Rebuild the normalized tables from the stored documents |
 
 ### Optional: live AI enrichment
 
@@ -76,6 +81,73 @@ The request adapts to the model: adaptive thinking and `output_config.effort` go
 4.6-generation models and later, because earlier ones reject both with a 400. Structured
 output is used on every model. Because enrichment degrades silently by design,
 `npm run ai:check` exists to tell you whether it is actually on.
+
+
+### Optional: Supabase persistence
+
+The app ships on `LocalJsonAdapter` — that is what "no external services are required"
+above means, and it stays the default. [`supabase/schema.sql`](supabase/schema.sql) is the
+production design behind the same `StorageAdapter` seam, and the answer to the assignment's
+bonus challenge: 43 tables, 25 enum types, 85 RLS policies, multi-company and versioned.
+It has been applied to a live Supabase project and verified there, and
+[`SupabaseAdapter`](lib/storage/supabase/adapter.ts) runs the app on it when configured.
+
+Every one of the nine knowledge base categories has real tables with real column types —
+nothing that the knowledge base standard names is stored only as jsonb. That is enforced
+rather than asserted: `npm run db:parity` walks the zod schema in `lib/schema/` and fails
+if any field has no column, and `npm run db:check` loads all three committed
+`examples/*.json` into the schema to prove real scraped data fits.
+
+| Variable | Purpose |
+|---|---|
+| `SUPABASE_DB_URL` | Pooler connection string. Either port works — 6543 for the app, 5432 for migrations |
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://<project-ref>.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | The anon/publishable key. Public by design — RLS is what protects data |
+| `SUPABASE_POOL_MAX` | Connections per process (default 4) |
+| `SUPABASE_DB_URL_DIRECT` | The direct endpoint. Nothing reads it — IPv6-only without the IPv4 add-on |
+
+There is no `SUPABASE_ORG_ID`. The tenant comes from whoever is signed in — an
+environment variable naming one organization would file every user's work under it
+regardless of who they are. Scripts that have no session (`db:rebuild --all`) still accept
+one, since they genuinely have no other way to know.
+
+```bash
+npm run db:migrate  # apply the schema
+npm run db:parity   # 252 checks: every field has a typed column
+npm run db:check    # 68 checks: append-only, RLS, signup, cascades, adapter round trip
+npm run db:perf     #   9 checks: every design-critical query has an applicable index
+```
+
+**Setting `SUPABASE_DB_URL` alone does not switch the app over.** The database URL and the
+auth keys are required together: the keys say a person can sign in, the URL says there is
+somewhere for their data to go, and one without the other is a misconfiguration rather than
+a mode. Half-configured falls back to the local store and says so.
+
+### What turning it on changes
+
+Sign-in appears at `/login`, and everything that touches storage moves behind it. Creating
+an account creates a **workspace** — a `security definer` trigger on `auth.users` makes the
+new account the owner of a fresh organization — and every knowledge base after that belongs
+to it. A second person joins an existing workspace by invitation, matched on the address
+they verify; see [`docs/DATABASE.md`](docs/DATABASE.md) §4 for why that is a table and not a
+field in the signup form.
+
+Two Supabase project settings matter:
+
+- **Email confirmation** (Authentication → Sign In / Providers → Email). Off means signing
+  up returns a session immediately. Leave it on and the app tells people to check their
+  inbox, which needs SMTP configured to be usable.
+- Nothing else. There is no service-role key anywhere in this app — the anon key is used
+  only for authentication, and data access goes over the `pg` pool with the signed-in
+  user's id carried into the transaction.
+
+They write inside transactions they roll back, so they leave the database as they found it.
+They exist for the same reason `ai:check` does: the guarantees here — append-only versions,
+tenant isolation, a lock around concurrent saves — are the kind that look fine when you read
+them and are worth executing. Between them they found five real defects in a schema that had
+been reviewed and looked right, including an enum missing three of its eight values and a
+primary key that would have broken versioning on the second save.
+[`docs/DATABASE.md`](docs/DATABASE.md) §2, §3, §7 and §8 describe them.
 
 ---
 
