@@ -41,7 +41,7 @@ Nothing ships until this table is fully green. **All 28 are satisfied as of P9.*
 | R24 | Answers to 5 required questions | [`ANSWERS.md`](../ANSWERS.md) | P9 ✅ |
 | R25 | README (7 required sub-sections) | [`README.md`](../README.md) | P9 ✅ |
 | R26 | Screenshots of app in action | [`docs/screenshots/`](../docs/screenshots/) | P9 ✅ |
-| R27 | **Bonus:** Supabase schema, RLS, multi-company, versioning | `supabase/schema.sql` + `docs/DATABASE.md` | P7 |
+| R27 | **Bonus:** Supabase schema, RLS, multi-company, versioning | `supabase/schema.sql` + `docs/DATABASE.md` (applied live; `npm run db:parity` + `npm run db:check`) | P7, P10 |
 | R28 | UI visually matches MoFlo platform | Dark theme, `#2663eb` accent (§3.4) | P1, P4 |
 
 **Evaluation criteria** → scraping quality (P2–P3), knowledge design (§4), prompting (P7),
@@ -144,7 +144,7 @@ Small, demonstrable wins worth calling out in the README:
 | HTML parsing | `cheerio` | Fast, server-only, no browser download |
 | JS-rendered sites | Not supported v1; detected and reported | Playwright is a heavy dep; we detect near-empty DOM + framework markers and tell the user honestly |
 | Validation + types | `zod` schema as single source of truth, types inferred | Satisfies R17 with zero drift between runtime and compile time |
-| Persistence | `StorageAdapter` interface; `LocalJsonAdapter` default | Reviewer can `npm run dev` with zero setup; Supabase adapter documented and slot-in ready |
+| Persistence | `StorageAdapter` interface; `LocalJsonAdapter` default | Reviewer can `npm run dev` with zero setup; Supabase schema applied and verified live (`npm run db:check`), adapter slot-in ready |
 | State | `KnowledgeDraftContext` + `useReducer`, split into state/dispatch contexts | Mandated (hooks + context); reducer suits path-addressed field edits. Split + memoized record cards avoid re-render storms on a 14-offering draft |
 | Errors | Typed `Result<T, ScrapeError>`, never throw across boundary | Partial results still render — a half-scraped KB is valuable |
 
@@ -472,12 +472,37 @@ what the first live run found.
 **v1 runtime store:** `data/knowledge-bases/{id}.json` behind `StorageAdapter`, so a reviewer
 needs no credentials. Each save writes a new immutable version and moves a `current` pointer.
 
-**Documented Supabase design** (`supabase/schema.sql` + `docs/DATABASE.md`):
+**Supabase design, applied and verified** (`supabase/schema.sql` + `docs/DATABASE.md`):
 `organizations` → `companies` → `knowledge_bases` → `knowledge_base_versions` (immutable
 snapshots, `version_no`, `created_by`) with normalized child tables `people`, `offerings`,
 `testimonials`, `social_profiles`, plus `scrape_jobs` and `field_provenance`. Includes column
 types, FKs, indexes, RLS policies (tenant isolation via `organization_id` + `auth.uid()`
 membership join), and a written explanation of how versioning and multi-company support work.
+
+Applied to a live Supabase project (PostgreSQL 17.6): 42 tables, 25 enum types, 83 RLS
+policies, 38 triggers, 141 indexes. Every one of the nine knowledge base categories is
+normalized into typed tables; nothing the knowledge base standard names is stored only as
+jsonb, and `document` is retained as the immutable round-trip record the projections are
+rebuilt from.
+
+Verified by two scripts. `npm run db:parity` (252 checks) walks the zod schema and fails
+if any of the 231 field paths lacks a column, comparing every enum value by value through
+the column's own type. `npm run db:check` (33 checks) exercises behaviour and loads all
+three committed `examples/*.json` into the schema.
+
+Executing the schema found four defects that reviewing it had not:
+
+1. the append-only trigger fired on cascaded deletes, making `remove(id)` impossible and
+   an organization undeletable;
+2. `offering_category` held five of its eight values, so a `consultation` offering could
+   never be saved;
+3. record ids were `uuid`, which rejects all 289 non-UUID ids in `examples/`;
+4. projections were keyed on `id` alone, so the second save of an edited knowledge base
+   collided on the primary key — versioning broken by the tables meant to support it.
+
+RLS is exercised as the `authenticated` role, since the `postgres` role in a Supabase
+connection string has `BYPASSRLS` and would pass against policies that do nothing.
+`LocalJsonAdapter` remains the shipped default — a clone still needs no credentials.
 
 ---
 
@@ -494,7 +519,7 @@ Each phase ends with a working, committable state.
 | **P4 — Scrape page** ✅ | `/knowledge`: URL form + validation, streaming `POST /api/scrape`, NDJSON progress UI, category display, provenance + attention badges, completeness rail, JSON download — what building it changed is in §3.5 | Paste a URL → live progress → structured result; bad URLs and dead sites fail gracefully. Route tested end-to-end over a stubbed site; display presenters tested against a real fixture scrape |
 | **P5 — Edit + save** ✅ | Draft context + reducer, 8 field editors, attention triage tier, conflict resolution, gap-question form, add/remove/reorder records, localStorage autosave, unsaved-changes guard, JSON preview, `StorageAdapter` + versioned local JSON store, save/read/delete routes — design and outcomes in [`docs/EDIT-UX.md`](../docs/EDIT-UX.md) | Save with zero edits produces a schema-valid KB; an edit shows `You edited`; `Accept all safe` clears uncontested items; every save writes a new immutable version. `Regenerate` (EDIT-UX §7, third enhance affordance) deferred — it needs an enrichment endpoint |
 | **P6 — View/manage** ✅ | `/knowledge/view` card + table + detail modes, search, filters, edit, delete w/ undo, export, duplicate as template, version history + diff, re-scrape with per-field accept — design in [`docs/VIEW-PAGE.md`](../docs/VIEW-PAGE.md), what building it changed in §3.6 | Full CRUD round-trip verified end to end; all three view modes usable at 375px. Library rules and the diff engine unit-tested against real scrapes |
-| **P7 — Docs + artifacts** ✅ | `examples/*.json` generated by `npm run examples` from the committed fixtures and schema-validated on every build, `docs/DATABASE.md`, `docs/ENRICHMENT.md`, `supabase/schema.sql` (93 statements, parse-checked against the real PostgreSQL grammar), `docs/DATA-QUALITY.md` audited against shipped code, `prompts/` | Every graded artifact exists and is accurate to shipped code; `npm run examples -- --check` fails if an example drifts |
+| **P7 — Docs + artifacts** ✅ | `examples/*.json` generated by `npm run examples` from the committed fixtures and schema-validated on every build, `docs/DATABASE.md`, `docs/ENRICHMENT.md`, `supabase/schema.sql` (since rewritten to normalize all nine categories, applied live and verified — see §8), `docs/DATA-QUALITY.md` audited against shipped code, `prompts/` | Every graded artifact exists and is accurate to shipped code; `npm run examples -- --check` fails if an example drifts |
 | **P8 — Hardening** ✅ | `error.tsx` / `global-error.tsx` / `not-found.tsx` (none existed), SSRF guard on every fetched URL, keyboard focus ring restored across all form controls, horizontal-overflow fix in 14 responsive grids, accessible names on media links, model-call timeout sized against the route budget — findings in §9.1 | Adversarial URL list all handled; keyboard-only pass; no console errors — all three verified in a browser against a production build |
 | **P9 — Submission** ✅ | `README.md` rewritten around the 7 required sub-sections, `ANSWERS.md` (5 questions), 11 screenshots in `docs/screenshots/` captured from a production build, `examples/` (P7) | Traceability table (§1) fully green. Fresh `git clone && npm i && npm run dev` verified in a scratch clone: all routes serve, no key or config needed, 0 page errors on an empty store |
 
@@ -526,7 +551,7 @@ carried a label. The focus ring was the one hole, and it was invisible from the 
 
 | Decision | Chosen | Consequence |
 |---|---|---|
-| Persistence v1 | Local JSON store behind `StorageAdapter` | Zero-setup for the reviewer. Supabase ships as documented schema only (R27), adapter stub left in place |
+| Persistence v1 | Local JSON store behind `StorageAdapter` | Zero-setup for the reviewer. Supabase ships as a fully normalized schema applied and verified against a live project (R27); the adapter behind the same seam is not written yet, though its projection half is |
 | JS-rendered sites | Detect and report, no headless browser | `cheerio` only. SPA/empty-DOM detection returns partial results plus an honest message; documented as a known limitation in the README |
 | AI enrichment | **Mock by default, live Anthropic call when `ANTHROPIC_API_KEY` is set** (§10.1 — briefly moved to NVIDIA and back) | Prompts in `/prompts` are executable, not theoretical. Must degrade cleanly to mock with no key, and label output `AI (live)` vs `AI (mock)` distinctly |
 | Testing | Vitest unit tests on saved HTML fixtures | Covers extractors, reconciler, analyzers. No E2E layer |

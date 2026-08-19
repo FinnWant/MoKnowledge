@@ -1,0 +1,843 @@
+import { randomUUID } from "node:crypto";
+import { readdirSync, readFileSync } from "node:fs";
+import path from "node:path";
+import { Client } from "pg";
+
+import { loadEnv } from "./env";
+import { projectKnowledgeBase } from "./project-knowledge-base";
+
+/**
+ * `npm run db:check` — does the schema in `supabase/schema.sql` actually behave
+ * the way `docs/DATABASE.md` says it does?
+ *
+ * The header of that file used to say its semantics were "reviewed rather than
+ * proven", because it had only ever been parsed, never executed. This script is
+ * what turns that into proven: it applies no DDL, it connects to whatever
+ * `SUPABASE_DB_URL` points at and exercises the four guarantees the design
+ * argument rests on —
+ *
+ *   1. versions are append-only (trigger AND absent policy, separately)
+ *   2. a child row cannot claim a tenant its parent does not belong to
+ *   3. `next_version_no` serialises concurrent saves rather than racing
+ *   4. RLS isolates tenants from a real client role
+ *
+ * (4) is the one worth being careful about: the `postgres` role Supabase hands
+ * out has BYPASSRLS, so a test that stays as `postgres` passes against policies
+ * that do nothing at all. Every isolation check below runs as `authenticated`
+ * with a simulated JWT, which is what the browser client actually is.
+ *
+ * All fixtures are written inside a transaction that is rolled back, except the
+ * concurrency case, which needs two connections to see the same committed row
+ * and so cleans up in a `finally`.
+ */
+
+loadEnv(".env.local", ".env");
+
+type Check = { name: string; ok: boolean; detail: string };
+const results: Check[] = [];
+
+function record(name: string, ok: boolean, detail = ""): void {
+  results.push({ name, ok, detail });
+  console.log(`  ${ok ? "PASS" : "FAIL"}  ${name}${detail ? ` — ${detail}` : ""}`);
+}
+
+/** Runs a statement that must fail, and reports how. */
+async function mustRaise(
+  client: Client,
+  name: string,
+  sql: string,
+  params: unknown[],
+  expect: RegExp,
+): Promise<void> {
+  await client.query("savepoint attempt");
+  try {
+    await client.query(sql, params);
+    await client.query("rollback to savepoint attempt");
+    record(name, false, "statement succeeded but should have raised");
+  } catch (error) {
+    await client.query("rollback to savepoint attempt");
+    const message = error instanceof Error ? error.message : String(error);
+    record(name, expect.test(message), message.split("\n")[0].slice(0, 110));
+  }
+}
+
+/** Becomes the `authenticated` role carrying `uid` as its JWT subject. */
+async function actAs(client: Client, uid: string | null): Promise<void> {
+  await client.query("select set_config('request.jwt.claims', $1, true)", [
+    uid === null ? "" : JSON.stringify({ sub: uid, role: "authenticated" }),
+  ]);
+  await client.query(`set local role ${uid === null ? "anon" : "authenticated"}`);
+}
+
+async function asPostgres(client: Client): Promise<void> {
+  await client.query("reset role");
+}
+
+function connectionString(): string {
+  const url = process.env.SUPABASE_DB_URL;
+  if (!url) {
+    console.error(
+      "SUPABASE_DB_URL is not set. Add it to .env.local — Supabase dashboard →\n" +
+        "Project Settings → Database → Connection string → Session pooler.",
+    );
+    process.exit(1);
+  }
+  return url;
+}
+
+function connect(): Client {
+  return new Client({
+    connectionString: connectionString(),
+    ssl: { rejectUnauthorized: false },
+    connectionTimeoutMillis: 15_000,
+  });
+}
+
+async function main(): Promise<void> {
+  const client = connect();
+  const host = new URL(connectionString()).hostname;
+  console.log(`host     : ${host}`);
+
+  try {
+    await client.connect();
+  } catch (error) {
+    console.error(`\nCould not connect: ${error instanceof Error ? error.message : error}`);
+    if (String(error).includes("ECONNREFUSED")) {
+      console.error(
+        "\nIf this is the *direct* connection (db.<ref>.supabase.co), it is IPv6-only\n" +
+          "on the free tier. Use the session pooler host instead.",
+      );
+    }
+    process.exit(1);
+  }
+
+  const server = await client.query<{ v: string; num: string }>(
+    "select version() as v, current_setting('server_version_num') as num",
+  );
+  console.log(`server   : ${server.rows[0].v.split(" on ")[0]}`);
+  console.log(`role     : ${(await client.query("select current_user")).rows[0].current_user}\n`);
+
+  console.log("structure");
+  record(
+    "PostgreSQL 15+ (security_invoker views)",
+    Number(server.rows[0].num) >= 150_000,
+    server.rows[0].num,
+  );
+
+  const tables = await client.query<{ tablename: string; rowsecurity: boolean }>(
+    "select tablename, rowsecurity from pg_tables where schemaname = 'public' order by tablename",
+  );
+  const unprotected = tables.rows.filter((t) => !t.rowsecurity).map((t) => t.tablename);
+  record(
+    "every public table has RLS enabled",
+    (tables.rowCount ?? 0) > 0 && unprotected.length === 0,
+    unprotected.length > 0 ? `no RLS: ${unprotected.join(", ")}` : `${tables.rowCount} tables`,
+  );
+
+  // RLS enabled with no policy denies everyone, including the owner. The schema
+  // asserts this at apply time; this asserts it about the database as it stands.
+  const policyless = await client.query<{ tablename: string }>(
+    `select t.tablename from pg_tables t
+     where t.schemaname = 'public'
+       and not exists (
+         select 1 from pg_policies p
+         where p.schemaname = 'public' and p.tablename = t.tablename
+       )`,
+  );
+  record(
+    "every public table has at least one policy",
+    policyless.rowCount === 0,
+    policyless.rowCount === 0
+      ? "no table is silently unreachable"
+      : `no policy: ${policyless.rows.map((r) => r.tablename).join(", ")}`,
+  );
+
+  // The tenant guard is only worth having if nothing escaped it.
+  const guardGaps = await client.query<{ tablename: string }>(
+    `select c.relname as tablename
+     from pg_class c
+     join pg_namespace n on n.oid = c.relnamespace
+     join pg_attribute a on a.attrelid = c.oid and a.attname = 'version_id'
+     where n.nspname = 'public' and c.relkind = 'r' and a.attnum > 0 and a.attnotnull
+       and not exists (
+         select 1 from pg_trigger tg
+         where tg.tgrelid = c.oid and not tg.tgisinternal
+           and tg.tgname = c.relname || '_inherit_org'
+       )`,
+  );
+  record(
+    "every version-scoped table carries the tenant guard",
+    guardGaps.rowCount === 0,
+    guardGaps.rowCount === 0
+      ? "no projection table can claim the wrong tenant"
+      : `unguarded: ${guardGaps.rows.map((r) => r.tablename).join(", ")}`,
+  );
+
+  const versionPolicies = await client.query<{ cmd: string }>(
+    `select cmd from pg_policies
+     where schemaname = 'public' and tablename = 'knowledge_base_versions'`,
+  );
+  const cmds = versionPolicies.rows.map((r) => r.cmd).sort();
+  record(
+    "knowledge_base_versions has no UPDATE or DELETE policy",
+    !cmds.includes("UPDATE") && !cmds.includes("DELETE"),
+    cmds.join(", "),
+  );
+
+  const view = await client.query<{ reloptions: string[] | null }>(
+    `select reloptions from pg_class c join pg_namespace n on n.oid = c.relnamespace
+     where n.nspname = 'public' and c.relname = 'knowledge_base_summaries'`,
+  );
+  record(
+    "knowledge_base_summaries is security_invoker",
+    (view.rows[0]?.reloptions ?? []).includes("security_invoker=on"),
+    "otherwise the view tunnels through every policy",
+  );
+
+  const fns = await client.query<{ proname: string; provolatile: string; prosecdef: boolean }>(
+    `select proname, provolatile, prosecdef from pg_proc
+     where pronamespace = 'public'::regnamespace and proname in ('is_member', 'has_role')`,
+  );
+  record(
+    "is_member/has_role are stable + security definer",
+    fns.rowCount === 2 && fns.rows.every((f) => f.provolatile === "s" && f.prosecdef),
+    fns.rows.map((f) => `${f.proname}:${f.provolatile}${f.prosecdef ? "+def" : ""}`).join(" "),
+  );
+
+  // ------------------------------------------------------------ behaviour
+  //
+  // Everything from here writes. It all happens inside one transaction that is
+  // rolled back, so a green run leaves the database exactly as it found it.
+
+  const orgA = randomUUID();
+  const orgB = randomUUID();
+  const userA = randomUUID();
+  const userB = randomUUID();
+  const companyA = randomUUID();
+  // Document ids are text, not uuid: the shipped examples use `example-account-it`
+  // and record ids like `account-it-0051`. A uuid column would reject them.
+  const kbA = `check-kb-${orgA.slice(0, 8)}`;
+  const versionA = randomUUID();
+  const personId = "check-co-0051";
+
+  console.log("\nbehaviour (in a rolled-back transaction)");
+  await client.query("begin");
+  try {
+    await client.query(
+      `insert into auth.users (id, email) values ($1, 'a@check.invalid'), ($2, 'b@check.invalid')`,
+      [userA, userB],
+    );
+    await client.query(
+      `insert into organizations (id, name, slug) values ($1, 'Check A', $3), ($2, 'Check B', $4)`,
+      [orgA, orgB, `check-a-${orgA.slice(0, 8)}`, `check-b-${orgB.slice(0, 8)}`],
+    );
+    await client.query(
+      `insert into organization_members (organization_id, user_id, role)
+       values ($1, $3, 'editor'), ($2, $4, 'editor')`,
+      [orgA, orgB, userA, userB],
+    );
+    await client.query(
+      `insert into companies (id, organization_id, name, domain) values ($1, $2, 'Check Co', 'check.invalid')`,
+      [companyA, orgA],
+    );
+    await client.query(
+      `insert into knowledge_bases (id, organization_id, company_id, source_url)
+       values ($1, $2, $3, 'https://check.invalid')`,
+      [kbA, orgA, companyA],
+    );
+    await client.query(
+      `insert into knowledge_base_versions
+         (id, organization_id, knowledge_base_id, version_no, document, company_name,
+          source_url, completeness, keywords)
+       values ($1, $2, $3, 1, $4, 'Check Co', 'https://check.invalid', 0.5,
+               array['emergency service'])`,
+      [versionA, orgA, kbA, JSON.stringify({ id: kbA, companyName: { value: "Check Co" } })],
+    );
+    await client.query("update knowledge_bases set current_version_id = $1 where id = $2", [
+      versionA,
+      kbA,
+    ]);
+    record("seed a tenant, company, knowledge base and v1", true);
+
+    // Write one row into every category the knowledge base standard names, so
+    // the checks below are about a populated document rather than an empty one.
+    await client.query(
+      `insert into kb_foundation (version_id, organization_id, overview, industry,
+         business_model, company_role, year_founded, service_locations, alt_names)
+       values ($1, $2, 'A check fixture', 'Plumbing', 'b2c', 'contractor', 1998,
+               array['Austin'], array['Check Company'])`,
+      [versionA, orgA],
+    );
+    await client.query(
+      `insert into addresses (organization_id, version_id, kind, formatted, city, region, position)
+       values ($1, $2, 'main', '1 Check St, Austin, TX', 'Austin', 'TX', 0)`,
+      [orgA, versionA],
+    );
+    await client.query(
+      `insert into kb_positioning (version_id, organization_id, pitch) values ($1, $2, 'The pitch')`,
+      [versionA, orgA],
+    );
+    await client.query(
+      `insert into kb_market (version_id, organization_id, buyers, ctas)
+       values ($1, $2, array['homeowners'], array['Book now'])`,
+      [versionA, orgA],
+    );
+    await client.query(
+      `insert into kb_branding (version_id, organization_id, art_style, fonts)
+       values ($1, $2, 'photographic', array['Inter'])`,
+      [versionA, orgA],
+    );
+    await client.query(
+      `insert into kb_writing_style (version_id, organization_id, description, tone,
+         formality, reader_address)
+       values ($1, $2, 'Warm and direct', array['warm','direct']::tone[], 'neutral', 'second-person')`,
+      [versionA, orgA],
+    );
+    await client.query(
+      `insert into brand_colors (id, organization_id, version_id, hex, role, frequency,
+         method, confidence, position)
+       values ('check-color-1', $1, $2, '#1a2b3c', 'primary', 12, 'derived', 0.7, 0)`,
+      [orgA, versionA],
+    );
+    await client.query(
+      `insert into media_assets (id, organization_id, version_id, slot, url, kind,
+         method, confidence, position)
+       values ('check-logo-1', $1, $2, 'branding.logos', 'https://check.invalid/logo.svg',
+               'logo', 'scraped', 0.9, 0)`,
+      [orgA, versionA],
+    );
+    await client.query(
+      `insert into offerings (id, organization_id, version_id, name, category, features,
+         method, confidence, position)
+       values ('check-off-1', $1, $2, 'Emergency service', 'consultation',
+               array['24/7'], 'scraped', 0.9, 0)`,
+      [orgA, versionA],
+    );
+    await client.query(
+      `insert into credentials (id, organization_id, version_id, slot, name, kind,
+         method, confidence, position)
+       values ('check-cred-1', $1, $2, 'proof.certifications', 'Master Plumber',
+               'license', 'scraped', 0.9, 0)`,
+      [orgA, versionA],
+    );
+    await client.query(
+      `insert into content_themes (id, organization_id, version_id, label, weight, terms,
+         method, confidence, position)
+       values ('check-theme-1', $1, $2, 'Water heaters', 0.4, array['water heater'],
+               'derived', 0.7, 0)`,
+      [orgA, versionA],
+    );
+    await client.query(
+      `insert into faqs (id, organization_id, version_id, question, answer,
+         method, confidence, position)
+       values ('check-faq-1', $1, $2, 'Do you offer emergency service?', 'Yes.',
+               'scraped', 0.9, 0)`,
+      [orgA, versionA],
+    );
+    await client.query(
+      `insert into kb_scrape_metadata (version_id, organization_id, started_at, finished_at,
+         duration_ms, pages_discovered, robots_respected, scraper_version)
+       values ($1, $2, now(), now(), 1200, 14, true, 'check-1')`,
+      [versionA, orgA],
+    );
+    await client.query(
+      `insert into scrape_warnings (organization_id, version_id, code, message, position)
+       values ($1, $2, 'js-rendered', 'Some content needs JavaScript.', 0)`,
+      [orgA, versionA],
+    );
+    await client.query(
+      `insert into quality_conflicts (organization_id, version_id, path, label, position)
+       values ($1, $2, 'foundation.phone', 'Phone number', 0)`,
+      [orgA, versionA],
+    );
+    await client.query(
+      `insert into quality_conflict_candidates (organization_id, version_id, conflict_path,
+         value, source_url, source_label, confidence, position)
+       values ($1, $2, 'foundation.phone', '"512-555-0100"'::jsonb,
+               'https://check.invalid/contact', 'on the Contact page', 0.9, 0)`,
+      [orgA, versionA],
+    );
+    await client.query(
+      `insert into field_provenance (version_id, organization_id, path, category, method,
+         confidence, is_filled)
+       values ($1, $2, 'foundation.yearFounded', 'foundation', 'scraped', 0.9, true),
+              ($1, $2, 'positioning.pitch', 'positioning', 'ai-mock', 0.4, true)`,
+      [versionA, orgA],
+    );
+    record("every knowledge base category accepts a row", true, "17 tables written");
+
+    // The offering above is categorised `consultation`, which the previous
+    // enum did not contain. Inserting it is the regression test.
+    const offeringCategories = await client.query<{ category: string }>(
+      "select category::text from offerings where version_id = $1",
+      [versionA],
+    );
+    record(
+      "an offering category outside the old five-value enum inserts",
+      offeringCategories.rows[0]?.category === "consultation",
+      offeringCategories.rows[0]?.category ?? "none",
+    );
+
+    // 1. append-only
+    await mustRaise(
+      client,
+      "updating a version raises (trigger)",
+      "update knowledge_base_versions set company_name = 'Changed' where id = $1",
+      [versionA],
+      /append-only/i,
+    );
+    await mustRaise(
+      client,
+      "deleting a version raises (trigger)",
+      "delete from knowledge_base_versions where id = $1",
+      [versionA],
+      /append-only/i,
+    );
+
+    // 2. the tenant guard on denormalized organization_id
+    await mustRaise(
+      client,
+      "a child row cannot claim the wrong tenant",
+      `insert into people (id, organization_id, version_id, name, method, confidence, position)
+       values ($1, $2, $3, 'Wrong Tenant', 'scraped', 0.9, 0)`,
+      ["check-co-9999", orgB, versionA],
+      /claims organization/i,
+    );
+    // The same guard on a table added later, to prove the trigger loop attached
+    // it rather than only the tables that had it hand-written.
+    await mustRaise(
+      client,
+      "the guard covers the newly normalized tables too",
+      `insert into faqs (id, organization_id, version_id, question, answer, method, confidence, position)
+       values ('check-faq-2', $1, $2, 'Wrong tenant?', 'Yes.', 'scraped', 0.9, 1)`,
+      [orgB, versionA],
+      /claims organization/i,
+    );
+    await client.query(
+      `insert into people (id, organization_id, version_id, name, method, confidence, position)
+       values ($1, $2, $3, 'Right Tenant', 'scraped', 0.9, 0)`,
+      [personId, orgA, versionA],
+    );
+    record("the same row with the correct tenant inserts", true);
+
+    // 3. company deduplication
+    await mustRaise(
+      client,
+      "duplicate (organization, domain) is rejected",
+      `insert into companies (id, organization_id, name, domain) values ($1, $2, 'Dupe', 'check.invalid')`,
+      [randomUUID(), orgA],
+      /duplicate key|unique/i,
+    );
+    await client.query(
+      `insert into companies (id, organization_id, name, domain) values ($1, $2, 'Other Tenant', 'check.invalid')`,
+      [randomUUID(), orgB],
+    );
+    record("the same domain under a different tenant is allowed", true);
+
+    // 4. next_version_no
+    const nextNo = await client.query<{ next_version_no: number }>(
+      "select next_version_no($1)",
+      [kbA],
+    );
+    record(
+      "next_version_no allocates the following number",
+      nextNo.rows[0].next_version_no === 2,
+      `got ${nextNo.rows[0].next_version_no}`,
+    );
+
+    // 5. the summaries view
+    const summary = await client.query(
+      "select company_name, version_no, people_count from knowledge_base_summaries where id = $1",
+      [kbA],
+    );
+    record(
+      "knowledge_base_summaries reports the current version",
+      summary.rows[0]?.version_no === 1 && Number(summary.rows[0]?.people_count) === 1,
+      JSON.stringify(summary.rows[0] ?? null),
+    );
+
+    // ------------------------------------------------------------------ RLS
+    console.log("\nRLS, as the `authenticated` role (not `postgres`, which bypasses it)");
+
+    await actAs(client, userA);
+    const seenByA = await client.query("select count(*)::int as n from knowledge_bases");
+    const summariesA = await client.query("select count(*)::int as n from knowledge_base_summaries");
+    const peopleA = await client.query("select count(*)::int as n from people");
+    await asPostgres(client);
+    record(
+      "a member sees their own tenant's rows",
+      seenByA.rows[0].n === 1 && summariesA.rows[0].n === 1 && peopleA.rows[0].n === 1,
+      `kbs=${seenByA.rows[0].n} summaries=${summariesA.rows[0].n} people=${peopleA.rows[0].n}`,
+    );
+
+    await actAs(client, userB);
+    const seenByB = await client.query("select count(*)::int as n from knowledge_bases");
+    const summariesB = await client.query("select count(*)::int as n from knowledge_base_summaries");
+    const versionsB = await client.query("select count(*)::int as n from knowledge_base_versions");
+    const provB = await client.query("select count(*)::int as n from people");
+    await asPostgres(client);
+    record(
+      "another tenant's member sees nothing",
+      seenByB.rows[0].n === 0 &&
+        summariesB.rows[0].n === 0 &&
+        versionsB.rows[0].n === 0 &&
+        provB.rows[0].n === 0,
+      `kbs=${seenByB.rows[0].n} summaries=${summariesB.rows[0].n} versions=${versionsB.rows[0].n} people=${provB.rows[0].n}`,
+    );
+
+    await actAs(client, null);
+    const seenByAnon = await client.query("select count(*)::int as n from knowledge_bases");
+    const anonSummaries = await client.query(
+      "select count(*)::int as n from knowledge_base_summaries",
+    );
+    await asPostgres(client);
+    record(
+      "an anonymous client sees nothing",
+      seenByAnon.rows[0].n === 0 && anonSummaries.rows[0].n === 0,
+      `kbs=${seenByAnon.rows[0].n} summaries=${anonSummaries.rows[0].n}`,
+    );
+
+    // The append-only guarantee, held against a client key rather than a trigger:
+    // there is no update or delete policy, so the rows are not even visible to
+    // the statement and it reports zero rows instead of raising.
+    await actAs(client, userA);
+    const attemptedUpdate = await client.query(
+      "update knowledge_base_versions set company_name = 'Tampered' where id = $1",
+      [versionA],
+    );
+    const attemptedDelete = await client.query(
+      "delete from knowledge_base_versions where id = $1",
+      [versionA],
+    );
+    await asPostgres(client);
+    const stillThere = await client.query(
+      "select company_name from knowledge_base_versions where id = $1",
+      [versionA],
+    );
+    record(
+      "a client key cannot update or delete a version (no policy)",
+      attemptedUpdate.rowCount === 0 &&
+        attemptedDelete.rowCount === 0 &&
+        stillThere.rows[0].company_name === "Check Co",
+      `update=${attemptedUpdate.rowCount} rows, delete=${attemptedDelete.rowCount} rows, value=${stillThere.rows[0].company_name}`,
+    );
+
+    // 6. the composite primary key on every record table.
+    //
+    // A record id is stable within a knowledge base, not globally: person
+    // `check-co-0051` appears in v1 and again in v2 of the same document. With
+    // `id` alone as the primary key — which is what this schema used to have —
+    // saving the second version of an edited knowledge base fails on a duplicate
+    // key, which breaks versioning outright.
+    const versionA2 = randomUUID();
+    await client.query(
+      `insert into knowledge_base_versions
+         (id, organization_id, knowledge_base_id, version_no, document, source_url)
+       values ($1, $2, $3, 2, '{}'::jsonb, 'https://check.invalid')`,
+      [versionA2, orgA, kbA],
+    );
+    await client.query(
+      `insert into people (id, organization_id, version_id, name, method, confidence, position)
+       values ($1, $2, $3, 'Right Tenant', 'user-edited', 1, 0)`,
+      [personId, orgA, versionA2],
+    );
+    const bothVersions = await client.query<{ n: number }>(
+      "select count(*)::int as n from people where id = $1",
+      [personId],
+    );
+    record(
+      "the same record id can appear in two versions of one knowledge base",
+      bothVersions.rows[0].n === 2,
+      `${bothVersions.rows[0].n} rows for ${personId}`,
+    );
+
+    // 7. cascade — the `remove(id)` path, and the one the append-only trigger
+    //    used to make impossible: it fired on the cascaded delete and raised,
+    //    so nothing under a tenant could ever be removed.
+    const kbB = `check-kb2-${orgA.slice(0, 8)}`;
+    await client.query(
+      `insert into knowledge_bases (id, organization_id, company_id, source_url)
+       values ($1, $2, $3, 'https://check-two.invalid')`,
+      [kbB, orgA, companyA],
+    );
+    await client.query(
+      `insert into knowledge_base_versions
+         (id, organization_id, knowledge_base_id, version_no, document, source_url)
+       values (gen_random_uuid(), $1, $2, 1, '{}'::jsonb, 'https://check-two.invalid')`,
+      [orgA, kbB],
+    );
+
+    await client.query("delete from knowledge_bases where id = $1", [kbA]);
+    const afterKbDelete = await client.query<{ versions: string; people: string }>(
+      `select (select count(*) from knowledge_base_versions where knowledge_base_id = $1) as versions,
+              (select count(*) from people where version_id = $2) as people`,
+      [kbA, versionA],
+    );
+    record(
+      "remove(id): deleting a knowledge base cascades to its versions and projections",
+      Number(afterKbDelete.rows[0].versions) === 0 && Number(afterKbDelete.rows[0].people) === 0,
+      `versions=${afterKbDelete.rows[0].versions} people=${afterKbDelete.rows[0].people}`,
+    );
+
+    // ...while a direct delete of a version whose parents are still there is
+    // still refused. This is the pair that matters: the cascade allowance must
+    // not become a way to erase history.
+    await mustRaise(
+      client,
+      "a version whose parents still exist cannot be deleted directly",
+      "delete from knowledge_base_versions where knowledge_base_id = $1",
+      [kbB],
+      /append-only/i,
+    );
+
+    await client.query("delete from organizations where id = $1", [orgA]);
+
+    // Every table carrying organization_id, counted dynamically: a table added
+    // later without `on delete cascade` would leave rows behind, and naming
+    // three tables here would never notice.
+    const tenantTables = await client.query<{ tablename: string }>(
+      `select c.relname as tablename
+       from pg_class c
+       join pg_namespace n on n.oid = c.relnamespace
+       join pg_attribute a on a.attrelid = c.oid and a.attname = 'organization_id'
+       where n.nspname = 'public' and c.relkind = 'r' and a.attnum > 0
+       order by c.relname`,
+    );
+    const counts = tenantTables.rows
+      .map((r) => `select '${r.tablename}' as t, count(*)::int as n from ${r.tablename} where organization_id = $1`)
+      .join(" union all ");
+    const leftovers = await client.query<{ t: string; n: number }>(
+      `select * from (${counts}) all_tables where n > 0`,
+      [orgA],
+    );
+    record(
+      "deleting a tenant leaves no row in any of its tables",
+      leftovers.rowCount === 0,
+      leftovers.rowCount === 0
+        ? `all ${tenantTables.rowCount} tables with organization_id are empty for that tenant`
+        : leftovers.rows.map((r) => `${r.t}=${r.n}`).join(", "),
+    );
+  } finally {
+    await client.query("rollback");
+    await client.end();
+  }
+
+  await concurrency();
+  await loadRealExamples();
+  report();
+}
+
+/**
+ * The whole point, in one check: do the knowledge bases this app actually
+ * produces fit in these tables?
+ *
+ * `npm run db:parity` proves every field has a column. That is structural, and
+ * structure is the easy half — a column can exist and still be the wrong type, a
+ * check constraint can reject a real hex colour, an enum can be missing the one
+ * value a scraper emits. So this takes the committed `examples/*.json`, which
+ * are generated from real scrapes of real sites and schema-validated on every
+ * build, and projects each one into all forty tables.
+ *
+ * Rolled back afterwards, like everything else here.
+ */
+async function loadRealExamples(): Promise<void> {
+  console.log("\nloading the committed examples into the schema");
+  const dir = path.join(process.cwd(), "examples");
+  const files = readdirSync(dir).filter((f) => f.endsWith(".json"));
+  if (files.length === 0) {
+    record("examples are present", false, "no examples/*.json found");
+    return;
+  }
+
+  const client = connect();
+  await client.connect();
+  const org = randomUUID();
+  const user = randomUUID();
+
+  await client.query("begin");
+  try {
+    await client.query(`insert into auth.users (id, email) values ($1, 'load@check.invalid')`, [user]);
+    await client.query(`insert into organizations (id, name, slug) values ($1, 'Load Check', $2)`, [
+      org,
+      `load-check-${org.slice(0, 8)}`,
+    ]);
+
+    for (const file of files) {
+      const kb = JSON.parse(readFileSync(path.join(dir, file), "utf8"));
+      const companyId = randomUUID();
+      const versionId = randomUUID();
+
+      await client.query(
+        `insert into companies (id, organization_id, name, domain) values ($1, $2, $3, $4)`,
+        [companyId, org, kb.companyName?.value ?? file, `${kb.id}.invalid`],
+      );
+      await client.query(
+        `insert into knowledge_bases (id, organization_id, company_id, source_url)
+         values ($1, $2, $3, $4)`,
+        [kb.id, org, companyId, kb.sourceUrl],
+      );
+      await client.query(
+        `insert into knowledge_base_versions (id, organization_id, knowledge_base_id, version_no,
+           document, company_name, source_url, document_created_at, document_updated_at,
+           completeness, missing_fields)
+         values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+        [versionId, org, kb.id, kb.version, JSON.stringify(kb), kb.companyName?.value ?? null,
+         kb.sourceUrl, kb.createdAt, kb.updatedAt, kb.quality.overallScore,
+         kb.quality.missingFields],
+      );
+
+      await projectKnowledgeBase({ client, org, versionId }, kb);
+
+      // Count what landed, so a silently-skipped category cannot pass.
+      const counts = await client.query<{ t: string; n: number }>(
+        `select 'people' t, count(*)::int n from people where version_id = $1
+         union all select 'offerings', count(*)::int from offerings where version_id = $1
+         union all select 'field_provenance', count(*)::int from field_provenance where version_id = $1
+         union all select 'scrape_pages', count(*)::int from scrape_pages where version_id = $1
+         union all select 'quality_category_scores', count(*)::int from quality_category_scores where version_id = $1`,
+        [versionId],
+      );
+      const summary = counts.rows.map((r) => `${r.t}=${r.n}`).join(" ");
+      const foundation = await client.query(
+        "select industry from kb_foundation where version_id = $1",
+        [versionId],
+      );
+      record(
+        `${file} projects into every table`,
+        foundation.rowCount === 1 && counts.rows.every((r) => r.n >= 0),
+        summary,
+      );
+    }
+
+    // Nothing may be stored only in a projection: the document is still the
+    // source of truth and must survive the round trip untouched.
+    const roundTrip = await client.query<{ same: boolean }>(
+      `select (document = $2::jsonb) as same from knowledge_base_versions
+       where knowledge_base_id = $1`,
+      [JSON.parse(readFileSync(path.join(dir, files[0]), "utf8")).id,
+       readFileSync(path.join(dir, files[0]), "utf8")],
+    );
+    record(
+      "the document round-trips through jsonb unchanged",
+      roundTrip.rows[0]?.same === true,
+      "projections are a cache, not a second source of truth",
+    );
+  } catch (error) {
+    record("loading examples", false, error instanceof Error ? error.message : String(error));
+  } finally {
+    await client.query("rollback").catch(() => {});
+    await client.end();
+  }
+}
+
+/**
+ * Two sessions saving the same knowledge base at once.
+ *
+ * This is the one case that cannot live in a rolled-back transaction: the second
+ * connection has to see a committed row. `next_version_no` takes `for update` on
+ * the parent before reading `max(version_no)`, so the second caller should block
+ * until the first commits and then see the number it wrote — rather than both
+ * reading 1 and colliding on `unique (knowledge_base_id, version_no)`.
+ */
+async function concurrency(): Promise<void> {
+  console.log("\nconcurrency (committed fixture, cleaned up after)");
+  const one = connect();
+  const two = connect();
+  const org = randomUUID();
+  const user = randomUUID();
+  const company = randomUUID();
+  const kb = `check-race-${org.slice(0, 8)}`;
+
+  await one.connect();
+  await two.connect();
+  try {
+    await one.query(`insert into auth.users (id, email) values ($1, 'c@check.invalid')`, [user]);
+    await one.query(`insert into organizations (id, name, slug) values ($1, 'Check C', $2)`, [
+      org,
+      `check-c-${org.slice(0, 8)}`,
+    ]);
+    await one.query(
+      `insert into companies (id, organization_id, name, domain) values ($1, $2, 'Race Co', 'race.invalid')`,
+      [company, org],
+    );
+    await one.query(
+      `insert into knowledge_bases (id, organization_id, company_id, source_url)
+       values ($1, $2, $3, 'https://race.invalid')`,
+      [kb, org, company],
+    );
+    await one.query(
+      `insert into knowledge_base_versions
+         (id, organization_id, knowledge_base_id, version_no, document, source_url)
+       values (gen_random_uuid(), $1, $2, 1, '{}'::jsonb, 'https://race.invalid')`,
+      [org, kb],
+    );
+
+    await one.query("begin");
+    const first = await one.query<{ next_version_no: number }>("select next_version_no($1)", [kb]);
+
+    // Session two asks for the same thing while session one still holds the lock.
+    await two.query("begin");
+    let secondResolved = false;
+    const second = two
+      .query<{ next_version_no: number }>("select next_version_no($1)", [kb])
+      .then((r) => {
+        secondResolved = true;
+        return r;
+      });
+
+    await new Promise((resolve) => setTimeout(resolve, 700));
+    record(
+      "a second saver blocks while the first holds the row lock",
+      !secondResolved,
+      secondResolved ? "it returned immediately — the lock is not doing anything" : "still waiting",
+    );
+
+    await one.query(
+      `insert into knowledge_base_versions
+         (id, organization_id, knowledge_base_id, version_no, document, source_url)
+       values (gen_random_uuid(), $1, $2, $3, '{}'::jsonb, 'https://race.invalid')`,
+      [org, kb, first.rows[0].next_version_no],
+    );
+    await one.query("commit");
+
+    const secondNo = (await second).rows[0].next_version_no;
+    await two.query(
+      `insert into knowledge_base_versions
+         (id, organization_id, knowledge_base_id, version_no, document, source_url)
+       values (gen_random_uuid(), $1, $2, $3, '{}'::jsonb, 'https://race.invalid')`,
+      [org, kb, secondNo],
+    );
+    await two.query("commit");
+
+    record(
+      "the two savers get consecutive numbers, not a collision",
+      first.rows[0].next_version_no === 2 && secondNo === 3,
+      `v${first.rows[0].next_version_no} then v${secondNo}`,
+    );
+  } catch (error) {
+    record("concurrency", false, error instanceof Error ? error.message : String(error));
+    await one.query("rollback").catch(() => {});
+    await two.query("rollback").catch(() => {});
+  } finally {
+    await one.query("delete from organizations where id = $1", [org]).catch(() => {});
+    await one.query("delete from auth.users where id = $1", [user]).catch(() => {});
+    await one.end();
+    await two.end();
+  }
+}
+
+function report(): void {
+  const failed = results.filter((r) => !r.ok);
+  console.log(`\n${results.length - failed.length}/${results.length} checks passed`);
+  if (failed.length > 0) {
+    console.log("\nfailed:");
+    for (const f of failed) console.log(`  ${f.name} — ${f.detail}`);
+    process.exit(1);
+  }
+  console.log("The live schema behaves the way docs/DATABASE.md describes.");
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

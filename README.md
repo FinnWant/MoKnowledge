@@ -55,6 +55,8 @@ That's it — **no API keys and no external services are required.** Node 20+.
 | `npm run examples` | Rebuild [`examples/`](examples/) (`-- --check` to verify they are current) |
 | `npm run snapshot` | Re-capture the HTML fixtures (rarely needed — see below) |
 | `npm run ai:check` | One live enrichment call, to verify an API key works |
+| `npm run db:check` | Verify a Supabase database behaves as documented (optional — see below) |
+| `npm run db:parity` | Verify every knowledge base field has a column in `supabase/schema.sql` |
 
 ### Optional: live AI enrichment
 
@@ -76,6 +78,40 @@ The request adapts to the model: adaptive thinking and `output_config.effort` go
 4.6-generation models and later, because earlier ones reject both with a 400. Structured
 output is used on every model. Because enrichment degrades silently by design,
 `npm run ai:check` exists to tell you whether it is actually on.
+
+
+### Optional: Supabase persistence
+
+The app ships on `LocalJsonAdapter` — that is what "no external services are required"
+above means, and it stays the default. [`supabase/schema.sql`](supabase/schema.sql) is the
+production design behind the same `StorageAdapter` seam, and the answer to the assignment's
+bonus challenge: 42 tables, 25 enum types, 83 RLS policies, multi-company and versioned.
+It has been applied to a live Supabase project and verified there.
+
+Every one of the nine knowledge base categories has real tables with real column types —
+nothing that the knowledge base standard names is stored only as jsonb. That is enforced
+rather than asserted: `npm run db:parity` walks the zod schema in `lib/schema/` and fails
+if any field has no column, and `npm run db:check` loads all three committed
+`examples/*.json` into the schema to prove real scraped data fits.
+
+| Variable | Purpose |
+|---|---|
+| `SUPABASE_DB_URL` | Session-pooler connection string. Used only by `db:check` and `db:parity` |
+| `SUPABASE_DB_URL_DIRECT` | The direct endpoint. Nothing reads it today — it is IPv6-only without the IPv4 add-on |
+
+```bash
+psql "$SUPABASE_DB_URL" -f supabase/schema.sql
+npm run db:parity   # 252 checks: every field has a typed column
+npm run db:check    # 33 checks: append-only, RLS, cascades, concurrency, real data
+```
+
+Both write inside a transaction they roll back, so they leave the database as they found
+it. They exist for the same reason `ai:check` does: the guarantees here — append-only
+versions, tenant isolation, a lock around concurrent saves — are the kind that look fine
+when you read them and are worth executing. Between them they found four real defects in
+a schema that had been reviewed and looked right, including an enum missing three of its
+eight values and a primary key that would have broken versioning on the second save.
+[`docs/DATABASE.md`](docs/DATABASE.md) §2, §3 and §8 describe them.
 
 ---
 
