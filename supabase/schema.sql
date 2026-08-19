@@ -174,6 +174,131 @@ create table organization_members (
 
 create index organization_members_user_idx on organization_members (user_id);
 
+-- Invitations are how a second person joins a tenant, and they are a table
+-- rather than a flag in user metadata for one reason: `raw_user_meta_data` is
+-- supplied by the client at signup. A trigger that read an `organization_id`
+-- from there would let anyone join any tenant by typing its uuid into a signup
+-- form. The invitation has to be a row an admin created, matched on the address
+-- the user actually verified.
+create table organization_invitations (
+  id               uuid primary key default gen_random_uuid(),
+  organization_id  uuid not null references organizations (id) on delete cascade,
+  email            text not null,
+  role             member_role not null default 'editor',
+  invited_by       uuid references auth.users (id) on delete set null,
+  created_at       timestamptz not null default now(),
+  expires_at       timestamptz not null default now() + interval '14 days',
+  accepted_at      timestamptz,
+  accepted_by      uuid references auth.users (id) on delete set null
+);
+
+-- One open invitation per address per tenant. Re-inviting after acceptance is
+-- allowed (that is a re-invite, not a duplicate), hence the partial index.
+create unique index organization_invitations_pending_idx
+  on organization_invitations (organization_id, lower(email))
+  where accepted_at is null;
+
+create index organization_invitations_email_idx on organization_invitations (lower(email))
+  where accepted_at is null;
+
+-- ------------------------------------------------------ signup bootstrap
+--
+-- `organizations` has no insert policy (see §15), so a client key can never
+-- create a tenant. Signup therefore has to run above RLS, and this is that
+-- path: one SECURITY DEFINER trigger on auth.users, which is the only moment
+-- where "this person exists and has no tenant" is true.
+--
+-- Two outcomes:
+--   invited      -> join the inviting organization at the invited role
+--   not invited  -> a new organization, owned by this user
+
+create or replace function unique_org_slug(base text) returns text
+language plpgsql as $$
+declare
+  root      text;
+  candidate text;
+  n         integer := 0;
+begin
+  root := trim(both '-' from regexp_replace(lower(trim(coalesce(base, ''))), '[^a-z0-9]+', '-', 'g'));
+  if root = '' then root := 'workspace'; end if;
+  root := left(root, 40);
+
+  candidate := root;
+  loop
+    exit when not exists (select 1 from organizations where slug = candidate);
+    n := n + 1;
+    candidate := root || '-' || n::text;
+  end loop;
+  return candidate;
+end;
+$$;
+
+create or replace function handle_new_user() returns trigger
+language plpgsql security definer set search_path = public, auth as $$
+declare
+  invite    organization_invitations%rowtype;
+  new_org   uuid;
+  org_label text;
+begin
+  -- 1. An invitation, matched on the address the user signed up with. Never on
+  --    anything the client sent.
+  select * into invite
+    from organization_invitations
+   where lower(email) = lower(new.email)
+     and accepted_at is null
+     and expires_at > now()
+   order by created_at desc
+   limit 1;
+
+  if found then
+    insert into organization_members (organization_id, user_id, role)
+    values (invite.organization_id, new.id, invite.role)
+    on conflict (organization_id, user_id) do nothing;
+
+    update organization_invitations
+       set accepted_at = now(), accepted_by = new.id
+     where id = invite.id;
+
+    return new;
+  end if;
+
+  -- 2. Otherwise this is a new tenant. `organization_name` is read from client
+  --    metadata, which is safe here in a way an organization_id would not be:
+  --    it names a tenant the user is about to own, and grants nothing.
+  org_label := coalesce(
+    nullif(trim(new.raw_user_meta_data ->> 'organization_name'), ''),
+    nullif(split_part(coalesce(new.email, ''), '@', 1), ''),
+    'workspace'
+  );
+
+  -- Two people signing up at the same second can generate the same slug
+  -- between the lookup and the insert, so the unique constraint is the
+  -- authority and this retries around it.
+  for attempt in 1..5 loop
+    begin
+      insert into organizations (name, slug)
+      values (org_label, unique_org_slug(org_label))
+      returning id into new_org;
+      exit;
+    exception when unique_violation then
+      if attempt = 5 then raise; end if;
+    end;
+  end loop;
+
+  insert into organization_members (organization_id, user_id, role)
+  values (new_org, new.id, 'owner');
+
+  return new;
+end;
+$$;
+
+-- auth.users lives outside the public schema, so a teardown of `public` leaves
+-- this trigger behind. Dropping first keeps the file re-appliable.
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function handle_new_user();
+
 -- `domain` is the natural key: two people submitting https://example.com/ and
 -- https://www.example.com/about must land on the same company rather than
 -- creating a duplicate, which is the mistake that makes a multi-company library
@@ -194,6 +319,38 @@ create table companies (
 
 create index companies_org_idx on companies (organization_id);
 create index companies_name_trgm_idx on companies using gin (name gin_trgm_ops);
+
+-- Find-or-create, which is what `save()` needs and what a naive
+-- `select … else insert` gets wrong: two scrapes of the same site starting
+-- together both find nothing and both insert, and one gets a unique violation.
+-- `on conflict … do update` makes it a single atomic statement that always
+-- returns a row.
+--
+-- The domain arrives already normalized to a registrable domain by
+-- `registrableDomain()` in lib/utils/url.ts — the same function the crawler
+-- uses, so `https://example.com/` and `https://www.example.com/about` resolve
+-- to one company. Normalization stays in TypeScript deliberately: duplicating
+-- the public-suffix rules in plpgsql is how the two copies drift.
+--
+-- The conflict path deliberately does NOT overwrite `name`. A company is named
+-- once, when it is first seen; a later re-scrape that reads a different <title>
+-- should not rename the client in the directory behind the user's back.
+-- SECURITY INVOKER (the default), so companies_write still applies: a viewer
+-- calling this gets a policy violation rather than a new company.
+create or replace function resolve_company(org uuid, company_domain text, company_name text)
+returns uuid language plpgsql as $$
+declare
+  company uuid;
+begin
+  insert into companies (organization_id, name, domain)
+  values (org, company_name, lower(trim(company_domain)))
+  on conflict (organization_id, domain) do update
+    set updated_at = now()
+  returning id into company;
+
+  return company;
+end;
+$$;
 
 -- ============================================================================
 -- §3  KNOWLEDGE BASES AND VERSIONING  (bonus requirement 4, second half)
@@ -1245,6 +1402,49 @@ create policy organization_members_write on organization_members
   for all using (has_role(organization_id, array['owner', 'admin']::member_role[]))
   with check (has_role(organization_id, array['owner', 'admin']::member_role[]));
 
+-- Invitations are access control, so they get the membership rules rather than
+-- the content rules. Handing them to the generated loop below would give them
+-- the standard editor-writes policy, and an editor who can create an invitation
+-- at role `owner` — for their own second address — has just promoted
+-- themselves. Read is admin-only too: a pending invitation is somebody's email.
+create policy organization_invitations_read on organization_invitations
+  for select using (has_role(organization_id, array['owner', 'admin']::member_role[]));
+
+create policy organization_invitations_write on organization_invitations
+  for all using (has_role(organization_id, array['owner', 'admin']::member_role[]))
+  with check (has_role(organization_id, array['owner', 'admin']::member_role[]));
+
+-- The remaining half of that escalation: an admin may manage members and
+-- invitations, but must not be able to mint an owner — of the tenant or of
+-- themselves. Only an owner grants `owner`.
+--
+-- `auth.uid()` is null for the service role, which is the signup path in
+-- handle_new_user() creating the first owner of a brand new tenant. That case
+-- is allowed through deliberately; every path that has a user attached is not.
+create or replace function guard_owner_grant() returns trigger
+language plpgsql security definer set search_path = public, auth as $$
+begin
+  if new.role <> 'owner' then
+    return new;
+  end if;
+  if auth.uid() is null then
+    return new;                        -- service role: signup bootstrap
+  end if;
+  if has_role(new.organization_id, array['owner']::member_role[]) then
+    return new;
+  end if;
+  raise exception 'only an owner can grant the owner role';
+end;
+$$;
+
+create trigger organization_members_guard_owner
+  before insert or update on organization_members
+  for each row execute function guard_owner_grant();
+
+create trigger organization_invitations_guard_owner
+  before insert or update on organization_invitations
+  for each row execute function guard_owner_grant();
+
 -- Select and insert only. There is deliberately no update or delete policy on
 -- knowledge_base_versions, so the append-only guarantee holds against a
 -- compromised client key and not only against the trigger in §3. The two fail
@@ -1280,7 +1480,7 @@ begin
       and a.attnum > 0
       -- These carry their own policies above, for the reasons given there.
       and c.relname not in ('organizations', 'organization_members',
-                            'knowledge_base_versions')
+                            'organization_invitations', 'knowledge_base_versions')
     order by c.relname
   ) loop
     execute format(
@@ -1380,16 +1580,53 @@ create trigger kb_versions_inherit_org before insert on knowledge_base_versions
 -- The library grid, without touching a single `document`. This is the query
 -- KnowledgeBaseSummary exists for (lib/schema/knowledge-base.ts) and the reason
 -- the counters are denormalized onto the version row.
+--
+-- It supplies all sixteen fields of that type. Two of them are joins rather than
+-- columns, and both exist because the card shows them: without `logo_url` and
+-- `location` here, `list()` would have to fetch the document for every row —
+-- which is precisely the cost the summary type was introduced to avoid.
 create view knowledge_base_summaries as
   select
     kb.id,
     kb.organization_id,
     kb.company_id,
-    c.name        as company_name,
+    -- The document's name, not the directory's. `companies.name` is set once
+    -- when the company is first seen and deliberately never overwritten
+    -- (resolve_company), so after someone corrects the name in the review UI
+    -- the two disagree — and the library must show what the knowledge base
+    -- says. The directory name stays available as company_record_name.
+    coalesce(v.company_name, c.name) as company_name,
+    c.name        as company_record_name,
     c.domain,
     kb.source_url,
     v.version_no,
     f.industry,
+    -- The first logo in document order.
+    (
+      select m.url from media_assets m
+      where m.version_id = v.id and m.slot = 'branding.logos'
+      order by m.position
+      limit 1
+    ) as logo_url,
+    -- The one-line location, in the same order of preference as
+    -- `locationLine()` in lib/storage/types.ts: the main address if there is
+    -- one, otherwise the first other location; "City, Region" when those parts
+    -- are present, the full formatted address when they are not, and the first
+    -- area served when there is no address at all — which is normal for a
+    -- service business, three of the eight reference profiles have no address.
+    coalesce(
+      (
+        select coalesce(
+          nullif(concat_ws(', ', nullif(trim(a.city), ''), nullif(trim(a.region), '')), ''),
+          a.formatted
+        )
+        from addresses a
+        where a.version_id = v.id
+        order by (a.kind = 'main') desc, a.position
+        limit 1
+      ),
+      f.service_locations[1]
+    ) as location,
     v.completeness,
     v.attention_count,
     v.conflict_count,

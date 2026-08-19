@@ -445,15 +445,85 @@ async function main(): Promise<void> {
       `got ${nextNo.rows[0].next_version_no}`,
     );
 
-    // 5. the summaries view
-    const summary = await client.query(
-      "select company_name, version_no, people_count from knowledge_base_summaries where id = $1",
+    // 5. the summaries view — it has to serve `list()` on its own, or every
+    //    card in the library costs a document fetch.
+    const summary = await client.query<Record<string, unknown>>(
+      "select * from knowledge_base_summaries where id = $1",
       [kbA],
     );
     record(
       "knowledge_base_summaries reports the current version",
       summary.rows[0]?.version_no === 1 && Number(summary.rows[0]?.people_count) === 1,
-      JSON.stringify(summary.rows[0] ?? null),
+      `v${summary.rows[0]?.version_no}, people=${summary.rows[0]?.people_count}`,
+    );
+
+    // Every field of KnowledgeBaseSummary, by the column the adapter will read.
+    const required: Record<string, string> = {
+      id: "id",
+      version: "version_no",
+      companyName: "company_name",
+      sourceUrl: "source_url",
+      industry: "industry",
+      logoUrl: "logo_url",
+      location: "location",
+      completeness: "completeness",
+      peopleCount: "people_count",
+      offeringsCount: "offerings_count",
+      testimonialsCount: "testimonials_count",
+      attentionCount: "attention_count",
+      conflictCount: "conflict_count",
+      keywords: "keywords",
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    };
+    const present = new Set(Object.keys(summary.rows[0] ?? {}));
+    const absent = Object.entries(required)
+      .filter(([, column]) => !present.has(column))
+      .map(([field, column]) => `${field} (${column})`);
+    record(
+      "the view supplies every field of KnowledgeBaseSummary",
+      absent.length === 0,
+      absent.length === 0 ? `all ${Object.keys(required).length} fields` : `missing: ${absent.join(", ")}`,
+    );
+
+    record(
+      "logo_url is the first logo in document order",
+      summary.rows[0]?.logo_url === "https://check.invalid/logo.svg",
+      String(summary.rows[0]?.logo_url),
+    );
+    record(
+      "location prefers 'City, Region' from the main address",
+      summary.rows[0]?.location === "Austin, TX",
+      String(summary.rows[0]?.location),
+    );
+
+    // The document's name wins over the directory's, because the review UI
+    // edits the former and the library must show what the record says.
+    await client.query("update companies set name = 'Stale Directory Name' where id = $1", [
+      companyA,
+    ]);
+    const renamed = await client.query<{ company_name: string; company_record_name: string }>(
+      "select company_name, company_record_name from knowledge_base_summaries where id = $1",
+      [kbA],
+    );
+    record(
+      "company_name follows the document, not the companies row",
+      renamed.rows[0]?.company_name === "Check Co" &&
+        renamed.rows[0]?.company_record_name === "Stale Directory Name",
+      `${renamed.rows[0]?.company_name} vs ${renamed.rows[0]?.company_record_name}`,
+    );
+
+    // With no address at all, the card falls back to the first area served —
+    // normal for a service business.
+    await client.query("delete from addresses where version_id = $1", [versionA]);
+    const noAddress = await client.query<{ location: string }>(
+      "select location from knowledge_base_summaries where id = $1",
+      [kbA],
+    );
+    record(
+      "location falls back to the first area served when there is no address",
+      noAddress.rows[0]?.location === "Austin",
+      String(noAddress.rows[0]?.location),
     );
 
     // ------------------------------------------------------------------ RLS
@@ -623,8 +693,344 @@ async function main(): Promise<void> {
   }
 
   await concurrency();
+  await tenancyBootstrap();
+  await companyResolution();
   await loadRealExamples();
   report();
+}
+
+/**
+ * Signup, invitations, and the escalation paths between them.
+ *
+ * `organizations` has no insert policy, so becoming a tenant is something only
+ * the signup trigger can do. That makes `handle_new_user` the single most
+ * security-sensitive function in the schema: it runs SECURITY DEFINER, above
+ * RLS, on data that partly comes from the client.
+ */
+async function tenancyBootstrap(): Promise<void> {
+  console.log("\nsignup and tenant bootstrap");
+  const client = connect();
+  await client.connect();
+  await client.query("begin");
+  try {
+    // ---------------------------------------------- a brand new tenant
+    const founder = randomUUID();
+    await client.query(`insert into auth.users (id, email) values ($1, 'founder@check.invalid')`, [
+      founder,
+    ]);
+    const owned = await client.query<{ organization_id: string; role: string; slug: string }>(
+      `select m.organization_id, m.role::text, o.slug
+       from organization_members m join organizations o on o.id = m.organization_id
+       where m.user_id = $1`,
+      [founder],
+    );
+    record(
+      "signing up with no invitation creates a tenant you own",
+      owned.rowCount === 1 && owned.rows[0].role === "owner",
+      `role=${owned.rows[0]?.role} slug=${owned.rows[0]?.slug}`,
+    );
+    const firstOrg = owned.rows[0].organization_id;
+
+    // Slugs are derived from the address, so two people at different domains
+    // with the same local part collide unless the generator handles it.
+    const second = randomUUID();
+    await client.query(`insert into auth.users (id, email) values ($1, 'founder@other.invalid')`, [
+      second,
+    ]);
+    const slugs = await client.query<{ slug: string }>(
+      `select o.slug from organization_members m join organizations o on o.id = m.organization_id
+       where m.user_id = any($1::uuid[]) order by o.slug`,
+      [[founder, second]],
+    );
+    record(
+      "a colliding organization slug gets a suffix rather than failing",
+      slugs.rowCount === 2 && slugs.rows[0].slug !== slugs.rows[1].slug,
+      slugs.rows.map((r) => r.slug).join(" / "),
+    );
+
+    // ------------------------------------------------- joining by invitation
+    await client.query(
+      `insert into organization_invitations (organization_id, email, role, invited_by)
+       values ($1, 'Invited@Check.Invalid', 'viewer', $2)`,
+      [firstOrg, founder],
+    );
+    const invitee = randomUUID();
+    // Signs up with a different capitalisation than the invitation was sent to.
+    await client.query(`insert into auth.users (id, email) values ($1, 'invited@check.invalid')`, [
+      invitee,
+    ]);
+    const joined = await client.query<{ organization_id: string; role: string }>(
+      `select organization_id, role::text from organization_members where user_id = $1`,
+      [invitee],
+    );
+    record(
+      "an invited user joins the inviting tenant at the invited role",
+      joined.rowCount === 1 &&
+        joined.rows[0].organization_id === firstOrg &&
+        joined.rows[0].role === "viewer",
+      `${joined.rowCount} membership(s), role=${joined.rows[0]?.role}`,
+    );
+    const consumed = await client.query<{ accepted_by: string | null }>(
+      `select accepted_by from organization_invitations where organization_id = $1`,
+      [firstOrg],
+    );
+    record(
+      "the invitation is marked accepted, so it cannot be reused",
+      consumed.rows[0]?.accepted_by === invitee,
+      consumed.rows[0]?.accepted_by ? "accepted" : "still open",
+    );
+
+    // ------------------------------------------------------- the forgery
+    //
+    // The reason invitations are a table. `raw_user_meta_data` is whatever the
+    // client passed to signUp(), so if the trigger trusted an organization_id
+    // there, anyone could join any tenant by typing its uuid into a form.
+    const attacker = randomUUID();
+    await client.query(
+      `insert into auth.users (id, email, raw_user_meta_data)
+       values ($1, 'attacker@check.invalid', jsonb_build_object('organization_id', $2::text))`,
+      [attacker, firstOrg],
+    );
+    const breached = await client.query<{ n: number }>(
+      `select count(*)::int as n from organization_members
+       where user_id = $1 and organization_id = $2`,
+      [attacker, firstOrg],
+    );
+    const gotOwn = await client.query<{ n: number }>(
+      `select count(*)::int as n from organization_members where user_id = $1`,
+      [attacker],
+    );
+    record(
+      "claiming an organization_id at signup does not join that tenant",
+      breached.rows[0].n === 0 && gotOwn.rows[0].n === 1,
+      `joined target=${breached.rows[0].n}, own tenants=${gotOwn.rows[0].n}`,
+    );
+
+    // ------------------------------------------------- expired invitations
+    await client.query(
+      `insert into organization_invitations (organization_id, email, role, expires_at)
+       values ($1, 'stale@check.invalid', 'editor', now() - interval '1 day')`,
+      [firstOrg],
+    );
+    const late = randomUUID();
+    await client.query(`insert into auth.users (id, email) values ($1, 'stale@check.invalid')`, [
+      late,
+    ]);
+    const lateMembership = await client.query<{ organization_id: string }>(
+      `select organization_id from organization_members where user_id = $1`,
+      [late],
+    );
+    record(
+      "an expired invitation is ignored, and the user gets their own tenant",
+      lateMembership.rowCount === 1 && lateMembership.rows[0].organization_id !== firstOrg,
+      lateMembership.rows[0]?.organization_id === firstOrg ? "joined anyway" : "own tenant",
+    );
+
+    // ------------------------------------------------ privilege escalation
+    //
+    // An admin manages membership, which means an admin can write invitations.
+    // Without the guard, an admin invites their own second address as `owner`.
+    const admin = randomUUID();
+    await client.query(`insert into auth.users (id, email) values ($1, 'admin@check.invalid')`, [
+      admin,
+    ]);
+    await client.query(
+      `insert into organization_members (organization_id, user_id, role)
+       values ($1, $2, 'admin')
+       on conflict (organization_id, user_id) do update set role = 'admin'`,
+      [firstOrg, admin],
+    );
+
+    await actAs(client, admin);
+    let escalated = false;
+    await client.query("savepoint escalate");
+    try {
+      await client.query(
+        `insert into organization_invitations (organization_id, email, role)
+         values ($1, 'promoted@check.invalid', 'owner')`,
+        [firstOrg],
+      );
+      escalated = true;
+    } catch {
+      /* expected */
+    }
+    await client.query("rollback to savepoint escalate");
+
+    // The same admin may still invite an editor — the guard is about `owner`,
+    // not about admins generally.
+    let ordinaryInviteWorked = true;
+    await client.query("savepoint ordinary");
+    try {
+      await client.query(
+        `insert into organization_invitations (organization_id, email, role)
+         values ($1, 'colleague@check.invalid', 'editor')`,
+        [firstOrg],
+      );
+    } catch {
+      ordinaryInviteWorked = false;
+    }
+    await client.query("rollback to savepoint ordinary");
+    await asPostgres(client);
+
+    record(
+      "an admin cannot invite an owner, but can invite an editor",
+      !escalated && ordinaryInviteWorked,
+      `owner invite ${escalated ? "SUCCEEDED" : "blocked"}, editor invite ${ordinaryInviteWorked ? "allowed" : "BLOCKED"}`,
+    );
+
+    // An owner can, which is what makes the above a guard and not a wall.
+    await actAs(client, founder);
+    let ownerCanGrant = true;
+    await client.query("savepoint owner_grant");
+    try {
+      await client.query(
+        `insert into organization_invitations (organization_id, email, role)
+         values ($1, 'cofounder@check.invalid', 'owner')`,
+        [firstOrg],
+      );
+    } catch {
+      ownerCanGrant = false;
+    }
+    await client.query("rollback to savepoint owner_grant");
+    await asPostgres(client);
+    record("an owner can invite another owner", ownerCanGrant);
+
+    // A member of another tenant cannot see the invitations at all.
+    await actAs(client, second);
+    const visible = await client.query<{ n: number }>(
+      "select count(*)::int as n from organization_invitations",
+    );
+    await asPostgres(client);
+    record(
+      "invitations are invisible outside their tenant",
+      visible.rows[0].n === 0,
+      `${visible.rows[0].n} visible`,
+    );
+  } catch (error) {
+    record("tenant bootstrap", false, error instanceof Error ? error.message : String(error));
+  } finally {
+    await client.query("rollback").catch(() => {});
+    await client.end();
+  }
+}
+
+/**
+ * `resolve_company` — the find-or-create `save()` needs.
+ *
+ * The interesting case is the concurrent one. A naive select-then-insert has
+ * both callers find nothing and both insert, and one gets a unique violation;
+ * two people pasting the same company URL at the same moment is exactly the
+ * situation a multi-company library is for.
+ */
+async function companyResolution(): Promise<void> {
+  console.log("\ncompany resolution (find-or-create)");
+  const one = connect();
+  const two = connect();
+  await one.connect();
+  await two.connect();
+
+  const orgA = randomUUID();
+  const orgB = randomUUID();
+  try {
+    await one.query(`insert into organizations (id, name, slug) values ($1, 'Res A', $2), ($3, 'Res B', $4)`, [
+      orgA, `res-a-${orgA.slice(0, 8)}`, orgB, `res-b-${orgB.slice(0, 8)}`,
+    ]);
+
+    const first = await one.query<{ resolve_company: string }>(
+      "select resolve_company($1, $2, $3)",
+      [orgA, "example.com", "Example Co"],
+    );
+    const again = await one.query<{ resolve_company: string }>(
+      "select resolve_company($1, $2, $3)",
+      [orgA, "example.com", "Example Company LLC"],
+    );
+    record(
+      "resolving the same domain twice returns the same company",
+      first.rows[0].resolve_company === again.rows[0].resolve_company,
+      `${first.rows[0].resolve_company.slice(0, 8)} then ${again.rows[0].resolve_company.slice(0, 8)}`,
+    );
+
+    const name = await one.query<{ name: string }>("select name from companies where id = $1", [
+      first.rows[0].resolve_company,
+    ]);
+    record(
+      "a later scrape does not rename the company behind the user's back",
+      name.rows[0].name === "Example Co",
+      name.rows[0].name,
+    );
+
+    const otherTenant = await one.query<{ resolve_company: string }>(
+      "select resolve_company($1, $2, $3)",
+      [orgB, "example.com", "Example Co"],
+    );
+    record(
+      "the same domain in another tenant is a different company",
+      otherTenant.rows[0].resolve_company !== first.rows[0].resolve_company,
+      "uniqueness is scoped to the organization, not global",
+    );
+
+    // Two sessions resolving the same new domain at once.
+    //
+    // Sequenced rather than fired together, because firing them together and
+    // awaiting both deadlocks the *test*: the second insert blocks on the
+    // first session's uncommitted unique-index entry, and the first cannot
+    // commit while the test is still waiting on the second. That is the
+    // scheduling, not the function — so this drives it explicitly.
+    await one.query("begin");
+    const a = await one.query<{ resolve_company: string }>(
+      "select resolve_company($1, $2, $3)",
+      [orgA, "race-me.com", "Race Me"],
+    );
+
+    await two.query("begin");
+    let secondResolved = false;
+    const raceB = two
+      .query<{ resolve_company: string }>("select resolve_company($1, $2, $3)", [
+        orgA, "race-me.com", "Race Me",
+      ])
+      .then((r) => {
+        secondResolved = true;
+        return r;
+      });
+
+    await new Promise((resolve) => setTimeout(resolve, 700));
+    record(
+      "a second resolver blocks on the first's uncommitted row",
+      !secondResolved,
+      secondResolved ? "it inserted a duplicate" : "still waiting",
+    );
+
+    await one.query("commit");
+    const b = await raceB;
+    await two.query("commit");
+
+    record(
+      "once the first commits, the second returns that same company",
+      a.rows[0].resolve_company === b.rows[0].resolve_company,
+      `${a.rows[0].resolve_company.slice(0, 8)} / ${b.rows[0].resolve_company.slice(0, 8)}`,
+    );
+
+    const total = await one.query<{ n: number }>(
+      "select count(*)::int as n from companies where organization_id = $1 and domain = 'race-me.com'",
+      [orgA],
+    );
+    record("exactly one row exists for the raced domain", total.rows[0].n === 1, `${total.rows[0].n} rows`);
+  } catch (error) {
+    record("company resolution", false, error instanceof Error ? error.message : String(error));
+    await one.query("rollback").catch(() => {});
+    await two.query("rollback").catch(() => {});
+  } finally {
+    // Roll back first: if a check failed mid-transaction the connection is in
+    // an aborted state and the cleanup delete would be skipped, stranding the
+    // fixture tenants in the database.
+    await one.query("rollback").catch(() => {});
+    await two.query("rollback").catch(() => {});
+    await one
+      .query("delete from organizations where id = any($1::uuid[])", [[orgA, orgB]])
+      .catch(() => {});
+    await one.end();
+    await two.end();
+  }
 }
 
 /**
@@ -819,6 +1225,21 @@ async function concurrency(): Promise<void> {
     await one.query("rollback").catch(() => {});
     await two.query("rollback").catch(() => {});
   } finally {
+    // The signup trigger gives every new auth.users row its own organization,
+    // so this fixture creates two tenants: the one it inserts explicitly and
+    // the one handle_new_user() made. Both have to go, and the trigger's one
+    // has to go before the user, because the membership row is the only thing
+    // linking them and it cascades away with the user.
+    await one.query("rollback").catch(() => {});
+    await two.query("rollback").catch(() => {});
+    await one
+      .query(
+        `delete from organizations where id in (
+           select organization_id from organization_members where user_id = $1
+         )`,
+        [user],
+      )
+      .catch(() => {});
     await one.query("delete from organizations where id = $1", [org]).catch(() => {});
     await one.query("delete from auth.users where id = $1", [user]).catch(() => {});
     await one.end();

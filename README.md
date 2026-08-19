@@ -85,7 +85,7 @@ output is used on every model. Because enrichment degrades silently by design,
 The app ships on `LocalJsonAdapter` — that is what "no external services are required"
 above means, and it stays the default. [`supabase/schema.sql`](supabase/schema.sql) is the
 production design behind the same `StorageAdapter` seam, and the answer to the assignment's
-bonus challenge: 42 tables, 25 enum types, 83 RLS policies, multi-company and versioned.
+bonus challenge: 43 tables, 25 enum types, 85 RLS policies, multi-company and versioned.
 It has been applied to a live Supabase project and verified there.
 
 Every one of the nine knowledge base categories has real tables with real column types —
@@ -102,7 +102,7 @@ if any field has no column, and `npm run db:check` loads all three committed
 ```bash
 psql "$SUPABASE_DB_URL" -f supabase/schema.sql
 npm run db:parity   # 252 checks: every field has a typed column
-npm run db:check    # 33 checks: append-only, RLS, cascades, concurrency, real data
+npm run db:check    # 53 checks: append-only, RLS, signup, cascades, concurrency, real data
 ```
 
 Both write inside a transaction they roll back, so they leave the database as they found

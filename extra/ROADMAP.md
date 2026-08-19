@@ -479,16 +479,23 @@ snapshots, `version_no`, `created_by`) with normalized child tables `people`, `o
 types, FKs, indexes, RLS policies (tenant isolation via `organization_id` + `auth.uid()`
 membership join), and a written explanation of how versioning and multi-company support work.
 
-Applied to a live Supabase project (PostgreSQL 17.6): 42 tables, 25 enum types, 83 RLS
-policies, 38 triggers, 141 indexes. Every one of the nine knowledge base categories is
+Applied to a live Supabase project (PostgreSQL 17.6): 43 tables, 25 enum types, 85 RLS
+policies, 40 triggers, 144 indexes. Every one of the nine knowledge base categories is
 normalized into typed tables; nothing the knowledge base standard names is stored only as
 jsonb, and `document` is retained as the immutable round-trip record the projections are
 rebuilt from.
 
 Verified by two scripts. `npm run db:parity` (252 checks) walks the zod schema and fails
 if any of the 231 field paths lacks a column, comparing every enum value by value through
-the column's own type. `npm run db:check` (33 checks) exercises behaviour and loads all
+the column's own type. `npm run db:check` (53 checks) exercises behaviour and loads all
 three committed `examples/*.json` into the schema.
+
+Tenancy is now bootstrapped rather than assumed: a `security definer` trigger on
+`auth.users` either joins the tenant that invited the address or creates one the user
+owns, invitations are a table (not client metadata, which is forgeable), and only an owner
+may grant `owner`. `resolve_company()` gives `save()` an atomic find-or-create, and the
+summaries view supplies all sixteen `KnowledgeBaseSummary` fields so `list()` never parses
+a document.
 
 Executing the schema found four defects that reviewing it had not:
 

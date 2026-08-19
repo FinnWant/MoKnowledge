@@ -15,7 +15,7 @@ project (PostgreSQL 17.6) and verified there — see §8.
 | Row Level Security policy considerations | §4 — 83 policies, and what makes them work rather than merely exist |
 | Multiple companies and versioning | §2 and §5 |
 
-42 tables, 25 enum types, 83 policies, 38 triggers, 141 indexes.
+43 tables, 25 enum types, 85 policies, 40 triggers, 144 indexes.
 
 Both implement `StorageAdapter` ([`lib/storage/types.ts`](../lib/storage/types.ts)) —
 five methods, `list` / `get` / `save` / `remove` / `versions`. Swapping them is one line
@@ -28,6 +28,7 @@ in `lib/storage/index.ts`; no route or component knows which one it is talking t
 ```
 organizations                       tenant root
   ├─ organization_members           (user_id, organization_id, role) — what RLS joins on
+  ├─ organization_invitations       how a second person joins; matched on verified email
   ├─ companies                      one per client business (R27: an agency has forty)
   │    └─ knowledge_bases           stable identity; holds a pointer, not content
   │         └─ knowledge_base_versions   immutable snapshots; `document` is the whole KB
@@ -247,6 +248,43 @@ Writes additionally check `has_role(...)`: `viewer` reads, `editor` writes conte
 a tenant is a service-role operation during signup, or any authenticated user could mint
 one.
 
+### Signup, invitations, and the two escalation paths
+
+Because `organizations` is closed to client keys, becoming a tenant has to happen above
+RLS. That is `handle_new_user()`, a `security definer` trigger on `auth.users` — the one
+moment when "this person exists and has no tenant" is true. It does one of two things:
+
+- **Invited** — joins the inviting organization at the invited role, and marks the
+  invitation accepted so it cannot be reused.
+- **Not invited** — creates a new organization with this user as its `owner`.
+
+**Invitations are a table, not a field in user metadata, and that is the whole point.**
+`raw_user_meta_data` is whatever the client passed to `signUp()`. A trigger that read an
+`organization_id` from there would let anyone join any tenant by typing its uuid into a
+signup form. The invitation has to be a row an admin created, matched on the address the
+user actually verified. `npm run db:check` signs up an attacker with exactly that forged
+metadata and asserts they land in their own tenant instead.
+
+The organization name *is* read from client metadata, which is safe in a way the id is
+not: it labels a tenant the user is about to own, and grants nothing.
+
+Two escalation paths run through membership, and both are closed:
+
+- `organization_invitations` is excluded from the generated policy loop. With the standard
+  editor-writes policy, any editor could invite their own second address as `owner`.
+  Invitations get the membership rules instead — admin/owner only, for reads too, since a
+  pending invitation is somebody's email address.
+- An admin manages membership, so an admin can write invitations — but
+  `guard_owner_grant()` raises if anyone who is not already an `owner` grants the `owner`
+  role, on either table. `auth.uid()` is null for the service role, which is the signup
+  path creating the first owner of a new tenant, and that case is allowed through
+  deliberately.
+
+Slugs are derived from the address and collide (`founder@a.com` and `founder@b.com` both
+want `founder`), so `unique_org_slug()` suffixes, and the insert retries around the unique
+constraint rather than trusting the lookup — two signups in the same second would
+otherwise race between checking and inserting.
+
 **The uniform policies are generated, not typed out forty times.** Tables with special
 rules — `organizations`, `organization_members`, `knowledge_base_versions` — carry
 hand-written policies, because their rules *are* the interesting part. Every other table
@@ -275,6 +313,21 @@ useless by month three.
 
 Uniqueness is scoped to the organization, not global: two agencies may both track the
 same client, and neither should see the other's knowledge base.
+
+`resolve_company(org, domain, name)` is the find-or-create `save()` needs. It is one
+`insert … on conflict … do update … returning` rather than a select-then-insert, because
+the naive version has two scrapes of the same site starting together both find nothing,
+both insert, and one take a unique violation — and two people pasting the same URL at the
+same moment is what a multi-company library is *for*. `db:check` drives that race across
+two connections and asserts the second caller receives the first caller's company.
+
+The conflict path deliberately does **not** overwrite `name`. A company is named once,
+when first seen; a re-scrape that reads a different `<title>` should not rename the client
+in the directory behind the user's back.
+
+Normalization to a registrable domain stays in TypeScript (`registrableDomain()` in
+`lib/utils/url.ts`, the same function the crawler uses) rather than being reimplemented in
+plpgsql, because two copies of public-suffix rules is how the two drift.
 
 ## 6. Things left out, and why
 
@@ -306,9 +359,9 @@ roughly:
 
 | Method | Supabase equivalent |
 |---|---|
-| `list()` | `select * from knowledge_base_summaries` — no document parsed |
+| `list()` | `select * from knowledge_base_summaries` — all 16 summary fields, no document parsed |
 | `get(id, version?)` | one row from `knowledge_base_versions`, `document` returned as-is |
-| `save(kb)` | `next_version_no()`, insert the version, insert the projections, move `current_version_id` — one transaction |
+| `save(kb)` | `resolve_company()`, `next_version_no()`, insert the version, insert the projections, move `current_version_id` — one transaction |
 | `remove(id)` | delete the `knowledge_bases` row; cascades handle the rest |
 | `versions(id)` | `select version_no, created_at, rescraped ...` |
 
@@ -334,7 +387,7 @@ SUPABASE_DB_URL=postgresql://postgres.<ref>:<password>@aws-0-<region>.pooler.sup
 ```bash
 psql "$SUPABASE_DB_URL" -f supabase/schema.sql   # 42 tables, 83 policies, 25 enums
 npm run db:parity                                 # does every field have a column?
-npm run db:check                                  # does the database behave as described?
+npm run db:check                                  # does the database behave as described?  (53 checks)
 ```
 
 **Use the session pooler host, not the direct one.** Supabase's direct endpoint
@@ -373,6 +426,10 @@ so a green run leaves the database exactly as it found it.
 | `knowledge_base_summaries` obeys RLS | §4 — a view without `security_invoker` is a hole through every policy |
 | All three committed `examples/*.json` project into all 40 tables | §3 — the difference between "a column exists" and "the real data fits" |
 | The document round-trips through jsonb unchanged | §3 — projections are a cache, never a second source of truth |
+| Signup creates a tenant; an invitation joins one; a forged `organization_id` does neither | §4 — the trigger runs above RLS on partly client-supplied data |
+| An admin cannot mint an owner, an owner can | §4 — the escalation path through membership |
+| `resolve_company` under two concurrent callers yields one company | §5 — the save-time race |
+| The summaries view supplies all 16 `KnowledgeBaseSummary` fields | §7 — otherwise `list()` costs a document fetch per card |
 
 The last two are the ones that matter most for the bonus challenge. Structural parity says
 every field *has* somewhere to live; loading three real knowledge bases — 30 people, 18
