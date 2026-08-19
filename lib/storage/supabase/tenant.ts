@@ -20,12 +20,17 @@ export type TenantContext = {
 export type TenantResolver = () => TenantContext | Promise<TenantContext>;
 
 /**
- * The resolver used until authentication exists.
+ * The tenant, from the environment.
  *
- * `SUPABASE_ORG_ID` names the single tenant a self-hosted instance writes to.
- * When the signup flow in `handle_new_user()` is wired to a real login, this is
- * the one function that changes: it reads the session instead of the
- * environment, and everything below it already carries the tenant through.
+ * The app does **not** use this any more — it resolves the tenant from the
+ * session (`lib/auth/tenant.ts`), because with a login the tenant is a property
+ * of who is asking rather than of the deployment. Pinning it to a variable
+ * after that point would file every user's work under the same organization.
+ *
+ * It remains for the two callers that legitimately have no session: scripts
+ * (`db:rebuild --all`), and a single-tenant deployment running the database
+ * without auth configured. `SupabaseAdapter` still defaults to it so those
+ * callers can construct one without arguments.
  */
 export function envTenant(): TenantContext {
   const organizationId = process.env.SUPABASE_ORG_ID;

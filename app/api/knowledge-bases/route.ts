@@ -1,3 +1,4 @@
+import { withAuth } from "@/lib/auth/guard";
 import { knowledgeBaseSchema } from "@/lib/schema";
 import { storage } from "@/lib/storage";
 
@@ -11,7 +12,7 @@ import { storage } from "@/lib/storage";
 
 export const runtime = "nodejs";
 
-export async function GET(request: Request): Promise<Response> {
+async function handleGet(request: Request): Promise<Response> {
   const summaries = await storage.list();
 
   // `?full=1` is `Export all` (R14) — the migration path off the local store, and
@@ -29,7 +30,7 @@ export async function GET(request: Request): Promise<Response> {
   });
 }
 
-export async function POST(request: Request): Promise<Response> {
+async function handlePost(request: Request): Promise<Response> {
   let body: unknown;
   try {
     body = await request.json();
@@ -65,3 +66,6 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 }
+
+export const GET = withAuth(handleGet);
+export const POST = withAuth(handlePost);

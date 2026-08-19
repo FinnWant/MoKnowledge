@@ -371,11 +371,10 @@ source of truth, `get()` has nothing to reassemble. There is no mapping from for
 back into a `KnowledgeBase` anywhere in this codebase, and there does not need to be.
 
 **Which adapter runs is decided in one place**
-([`lib/storage/index.ts`](../lib/storage/index.ts)) by whether `SUPABASE_DB_URL` *and*
-`SUPABASE_ORG_ID` are both set. Both, deliberately: a URL says where the database is but
-not which tenant to write into, and defaulting that — to "the only organization", say —
-is a guess that silently files one customer's knowledge bases under another's account the
-day there are two. Half-configured falls back to local and says why.
+([`lib/storage/index.ts`](../lib/storage/index.ts)) by whether the database URL and the auth
+keys are all present. Together, deliberately: the keys say a person can sign in, the URL
+says there is somewhere for their data to go, and one without the other is a
+misconfiguration rather than a mode. Half-configured falls back to local and says why.
 
 ### Three things worth knowing about `save()`
 
@@ -392,6 +391,22 @@ Computing it at write time makes it a column the library can filter on.
 **Reads are transactions too.** That is what makes `set local role authenticated` safe:
 the role and JWT claim unwind on commit, so a pooled connection is never handed to the next
 caller still wearing the last caller's identity.
+
+### Where the tenant comes from
+
+`SUPABASE_ORG_ID` is gone from the app. It named one organization for the whole
+deployment, which was the only thing possible without a login and the wrong thing the
+moment there is one — the tenant is a property of who is asking.
+
+[`sessionTenant()`](../lib/auth/tenant.ts) reads the session, then the user's membership.
+That membership lookup deliberately runs with the pool's own role rather than under RLS:
+`is_member()` answers "is this user in that org", and the question here is "which org is
+this user in", asked about a user just authenticated. Answering it under a policy that
+needs the answer first is circular.
+
+One membership per user today. When someone can belong to two — an agency contractor across
+accounts — this is the single place that changes, and the `order by created_at` keeps that
+day deterministic rather than arbitrary.
 
 ### RLS, and why the adapter does not rely on it
 

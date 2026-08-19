@@ -1,41 +1,62 @@
+import { authEnabled } from "@/lib/auth/config";
 import { LocalJsonAdapter } from "./local-json";
+import { SupabaseAdapter } from "./supabase/adapter";
 import type { StorageAdapter } from "./types";
 
 /**
  * The adapter the app uses, chosen here and nowhere else.
  *
  * `LocalJsonAdapter` is the default and stays the default: a fresh clone runs
- * with no credentials and no services, which is the promise the README makes.
- * Supabase is opt-in, and opting in is setting two environment variables —
- * no route, component or test above this line changes either way.
+ * with no credentials, no services and no login, which is the promise the
+ * README makes. Supabase is opt-in, and opting in means setting the database
+ * URL *and* the auth keys — no route, component or test above this line changes
+ * either way.
  *
- * Both variables are required together on purpose. `SUPABASE_DB_URL` alone says
- * where the database is but not which tenant to write to, and defaulting that
- * (to "the only organization", say) would be a guess that silently writes one
- * customer's knowledge bases into another's account the day there are two.
+ * Both halves are required together on purpose. The keys say a person can sign
+ * in; the database URL says there is somewhere for their data to go. One
+ * without the other is a misconfiguration rather than a mode: a database with
+ * no way to authenticate has no tenant to write into, and a login with no
+ * database has nothing to protect.
+ *
+ * The tenant comes from the session, not the environment. `SUPABASE_ORG_ID` did
+ * that job while there was no login, and keeping it afterwards would pin every
+ * request to one organization no matter who was signed in — which is the exact
+ * bug the multi-tenancy is built to prevent. Scripts still accept it, because a
+ * script has no session; the app no longer reads it.
  *
  * Server-only: one touches the filesystem, the other holds a connection pool.
  */
 
 function selectAdapter(): StorageAdapter {
-  const configured = Boolean(process.env.SUPABASE_DB_URL && process.env.SUPABASE_ORG_ID);
-  if (!configured) {
-    if (process.env.SUPABASE_DB_URL && !process.env.SUPABASE_ORG_ID) {
+  if (!authEnabled()) {
+    const partial =
+      Boolean(process.env.SUPABASE_DB_URL) !==
+      Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY && process.env.NEXT_PUBLIC_SUPABASE_URL);
+    if (partial) {
       console.warn(
-        "[storage] SUPABASE_DB_URL is set but SUPABASE_ORG_ID is not — " +
-          "falling back to the local JSON store. Set both to use Supabase.",
+        "[storage] Supabase is half-configured — falling back to the local JSON store. " +
+          "Set SUPABASE_DB_URL, NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY together.",
       );
     }
     return new LocalJsonAdapter();
   }
 
-  // Required lazily so a local-only run never loads `pg` or builds a pool.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { SupabaseAdapter } = require("./supabase/adapter") as typeof import("./supabase/adapter");
-  return new SupabaseAdapter();
+  // The tenant resolver is imported at call time, not here. It reaches
+  // `next/headers` through `lib/auth/server`, which only exists inside a
+  // request — and a `require()` of it is worse than useless: `@supabase/ssr` is
+  // ESM, and CommonJS-requiring it under Turbopack yields a namespace object
+  // whose classes are not constructors, which fails at build rather than at
+  // runtime. A dynamic `import()` is both correct and still lazy.
+  return new SupabaseAdapter(async () => {
+    const { sessionTenant } = await import("@/lib/auth/tenant");
+    return sessionTenant();
+  });
 }
 
 export const storage: StorageAdapter = selectAdapter();
+
+/** True when the app is running on Postgres behind a login. */
+export { authEnabled as storageRequiresAuth } from "@/lib/auth/config";
 
 export { LocalJsonAdapter } from "./local-json";
 export { toSummary } from "./types";

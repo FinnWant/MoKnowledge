@@ -499,14 +499,25 @@ summaries view supplies all sixteen `KnowledgeBaseSummary` fields so `list()` ne
 a document.
 
 `SupabaseAdapter` (`lib/storage/supabase/`) implements the same five methods as
-`LocalJsonAdapter` and is selected only when `SUPABASE_DB_URL` and `SUPABASE_ORG_ID` are
-both set, so a fresh clone still runs with no credentials. Around it: a shared pool sized
+`LocalJsonAdapter` and is selected only when the database URL and the Supabase auth keys
+are all present, so a fresh clone still runs with no credentials and no login. Around it: a shared pool sized
 for serverless, a `withTenant` transaction wrapper that drops to the `authenticated` role
 so RLS applies rather than being bypassed by the `postgres` role's BYPASSRLS, a migration
 runner with checksummed history (`supabase/schema.sql` is migration 0001), a projection
 rebuild that replays the normalized tables from the stored documents, and `scrape_jobs`
 written by the scrape route — including for crawls that produce nothing, which is the row
 worth keeping. `npm run db:perf` seeds the forty-company case and asserts on query plans.
+
+**Authentication (P11).** Supabase Auth behind `/login`, with middleware refreshing the
+session on every request and gating everything that touches storage — a page redirect with
+a sanitised `next`, a 401 for the API. Signing up creates a workspace through the
+`handle_new_user` trigger; the tenant is then read from the session, so `SUPABASE_ORG_ID`
+is gone from the app (scripts, which have no session, still accept it). The anon key is
+used only for authentication: data access stays on the `pg` pool, carrying the signed-in
+user's id into the transaction so RLS applies rather than being bypassed by the `postgres`
+role. Verified end to end against a running build — two workspaces, a real scrape of
+moflo.ai stored under the signed-in user, and the second workspace unable to read, fetch or
+delete the first's knowledge base.
 
 Executing the schema found four defects that reviewing it had not:
 

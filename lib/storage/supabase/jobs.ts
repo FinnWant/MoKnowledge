@@ -1,6 +1,6 @@
 import type { CrawlResult } from "@/lib/scraper/crawler";
+import { authEnabled } from "@/lib/auth/config";
 import { getPool } from "./pool";
-import { envTenant } from "./tenant";
 
 /**
  * The crawl-attempt log — `scrape_jobs`, the one table that is not a projection
@@ -28,8 +28,31 @@ import { envTenant } from "./tenant";
 
 export type ScrapeJobHandle = { id: string } | null;
 
-function enabled(): boolean {
-  return Boolean(process.env.SUPABASE_DB_URL && process.env.SUPABASE_ORG_ID);
+/**
+ * The tenant to file this crawl under, or null if there is nowhere to file it.
+ *
+ * The session when there is one, since a job belongs to whoever ran the scrape.
+ * `SUPABASE_ORG_ID` remains as a fallback for a single-tenant deployment with
+ * the database configured but no login — the state the app was in before auth
+ * existed, and still a valid way to run it.
+ */
+async function jobTenant(): Promise<string | null> {
+  if (!process.env.SUPABASE_DB_URL) return null;
+
+  if (authEnabled()) {
+    try {
+      // Required lazily: this module is imported by the scrape route, which
+      // must keep working with no Supabase configured at all.
+      const { sessionTenant } = await import("@/lib/auth/tenant");
+      return (await sessionTenant()).organizationId;
+    } catch {
+      // No session, or an account with no organization. Either way there is no
+      // tenant to attribute the crawl to, and a scrape must not fail over it.
+      return null;
+    }
+  }
+
+  return process.env.SUPABASE_ORG_ID ?? null;
 }
 
 /** Records a crawl starting. Returns null when there is nothing to record to. */
@@ -37,9 +60,9 @@ export async function startScrapeJob(
   sourceUrl: string,
   scraperVersion: string,
 ): Promise<ScrapeJobHandle> {
-  if (!enabled()) return null;
+  const organizationId = await jobTenant();
+  if (!organizationId) return null;
   try {
-    const { organizationId } = envTenant();
     const { rows } = await getPool().query<{ id: string }>(
       `insert into scrape_jobs (organization_id, source_url, status, scraper_version)
        values ($1, $2, 'crawling', $3)

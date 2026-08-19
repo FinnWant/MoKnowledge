@@ -1,3 +1,4 @@
+import { withAuth } from "@/lib/auth/guard";
 import { knowledgeBaseSchema } from "@/lib/schema";
 import { storage } from "@/lib/storage";
 
@@ -13,7 +14,7 @@ export const runtime = "nodejs";
 
 type Context = { params: Promise<{ id: string }> };
 
-export async function GET(request: Request, context: Context): Promise<Response> {
+async function handleGet(request: Request, context: Context): Promise<Response> {
   const { id } = await context.params;
   const requested = new URL(request.url).searchParams.get("version");
   const version = requested ? Number(requested) : undefined;
@@ -31,7 +32,7 @@ export async function GET(request: Request, context: Context): Promise<Response>
   });
 }
 
-export async function PATCH(request: Request, context: Context): Promise<Response> {
+async function handlePatch(request: Request, context: Context): Promise<Response> {
   const { id } = await context.params;
   if (!(await storage.get(id))) return notFound();
 
@@ -64,7 +65,7 @@ export async function PATCH(request: Request, context: Context): Promise<Respons
   return Response.json({ knowledgeBase: await storage.save(parsed.data) });
 }
 
-export async function DELETE(_request: Request, context: Context): Promise<Response> {
+async function handleDelete(_request: Request, context: Context): Promise<Response> {
   const { id } = await context.params;
   return (await storage.remove(id))
     ? Response.json({ deleted: id })
@@ -74,3 +75,7 @@ export async function DELETE(_request: Request, context: Context): Promise<Respo
 function notFound(): Response {
   return Response.json({ error: "No knowledge base with that id." }, { status: 404 });
 }
+
+export const GET = withAuth(handleGet);
+export const PATCH = withAuth(handlePatch);
+export const DELETE = withAuth(handleDelete);

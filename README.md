@@ -101,9 +101,15 @@ if any field has no column, and `npm run db:check` loads all three committed
 | Variable | Purpose |
 |---|---|
 | `SUPABASE_DB_URL` | Pooler connection string. Either port works — 6543 for the app, 5432 for migrations |
-| `SUPABASE_ORG_ID` | Which organization to read and write. Required *with* the URL to switch the app over |
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://<project-ref>.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | The anon/publishable key. Public by design — RLS is what protects data |
 | `SUPABASE_POOL_MAX` | Connections per process (default 4) |
 | `SUPABASE_DB_URL_DIRECT` | The direct endpoint. Nothing reads it — IPv6-only without the IPv4 add-on |
+
+There is no `SUPABASE_ORG_ID`. The tenant comes from whoever is signed in — an
+environment variable naming one organization would file every user's work under it
+regardless of who they are. Scripts that have no session (`db:rebuild --all`) still accept
+one, since they genuinely have no other way to know.
 
 ```bash
 npm run db:migrate  # apply the schema
@@ -112,10 +118,28 @@ npm run db:check    # 68 checks: append-only, RLS, signup, cascades, adapter rou
 npm run db:perf     #   9 checks: every design-critical query has an applicable index
 ```
 
-**Setting `SUPABASE_DB_URL` alone does not switch the app over.** Both it and
-`SUPABASE_ORG_ID` are required, because a URL says where the database is but not which
-tenant to write into — and guessing that is how one customer's records end up filed under
-another's. Half-configured falls back to the local store and says so.
+**Setting `SUPABASE_DB_URL` alone does not switch the app over.** The database URL and the
+auth keys are required together: the keys say a person can sign in, the URL says there is
+somewhere for their data to go, and one without the other is a misconfiguration rather than
+a mode. Half-configured falls back to the local store and says so.
+
+### What turning it on changes
+
+Sign-in appears at `/login`, and everything that touches storage moves behind it. Creating
+an account creates a **workspace** — a `security definer` trigger on `auth.users` makes the
+new account the owner of a fresh organization — and every knowledge base after that belongs
+to it. A second person joins an existing workspace by invitation, matched on the address
+they verify; see [`docs/DATABASE.md`](docs/DATABASE.md) §4 for why that is a table and not a
+field in the signup form.
+
+Two Supabase project settings matter:
+
+- **Email confirmation** (Authentication → Sign In / Providers → Email). Off means signing
+  up returns a session immediately. Leave it on and the app tells people to check their
+  inbox, which needs SMTP configured to be usable.
+- Nothing else. There is no service-role key anywhere in this app — the anon key is used
+  only for authentication, and data access goes over the `pg` pool with the signed-in
+  user's id carried into the transaction.
 
 They write inside transactions they roll back, so they leave the database as they found it.
 They exist for the same reason `ai:check` does: the guarantees here — append-only versions,
