@@ -1,5 +1,6 @@
 import { authEnabled } from "@/lib/auth/config";
 import { currentUser } from "@/lib/auth/server";
+import { withBasePath } from "@/lib/base-path";
 
 /**
  * Who you are, and how to stop being them.
@@ -19,7 +20,7 @@ export async function AccountMenu() {
       <span className="max-w-[18ch] truncate text-ink-subtle" title={user.email ?? undefined}>
         {user.email}
       </span>
-      <form action="/auth/sign-out" method="post">
+      <form action={withBasePath("/auth/sign-out")} method="post">
         <button
           type="submit"
           className="text-ink-subtle underline underline-offset-4 transition-colors hover:text-ink"

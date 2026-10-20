@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { authEnabled } from "@/lib/auth/config";
 import { supabaseServer } from "@/lib/auth/server";
+import { withBasePath } from "@/lib/base-path";
 
 /**
  * `POST /auth/sign-out`
@@ -14,5 +15,5 @@ export async function POST(request: Request): Promise<Response> {
     const supabase = await supabaseServer();
     await supabase.auth.signOut();
   }
-  return NextResponse.redirect(new URL("/login", request.url), { status: 303 });
+  return NextResponse.redirect(new URL(withBasePath("/login"), request.url), { status: 303 });
 }

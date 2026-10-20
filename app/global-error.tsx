@@ -1,6 +1,7 @@
 "use client";
 
 import "./globals.css";
+import { withBasePath } from "@/lib/base-path";
 
 /**
  * The last boundary (P8).
@@ -43,7 +44,7 @@ export default function GlobalError({
                 Reload
               </button>
               <a
-                href="/knowledge"
+                href={withBasePath("/knowledge")}
                 className="inline-flex h-10 items-center justify-center rounded-lg border border-border bg-surface-raised px-4 text-sm font-medium text-ink transition-colors hover:border-border-strong"
               >
                 Start again

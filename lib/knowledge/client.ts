@@ -1,5 +1,6 @@
 import type { KnowledgeBase, KnowledgeBaseSummary } from "@/lib/schema";
 import type { SavedVersion } from "@/lib/storage/types";
+import { withBasePath } from "@/lib/base-path";
 
 /**
  * The library's calls to the knowledge-base routes.
@@ -19,7 +20,7 @@ async function request<T>(
 ): Promise<ApiResult<T>> {
   let response: Response;
   try {
-    response = await fetch(url, init);
+    response = await fetch(withBasePath(url), init);
   } catch {
     return { ok: false, error: "We couldn't reach the server. Check that the app is still running." };
   }
@@ -105,7 +106,7 @@ export function deleteKnowledgeBase(id: string): Promise<ApiResult<string>> {
  */
 export function deleteKnowledgeBaseOnUnload(id: string): void {
   try {
-    void fetch(`/api/knowledge-bases/${id}`, { method: "DELETE", keepalive: true });
+    void fetch(withBasePath(`/api/knowledge-bases/${id}`), { method: "DELETE", keepalive: true });
   } catch {
     // Nothing useful to do while the page is going away.
   }

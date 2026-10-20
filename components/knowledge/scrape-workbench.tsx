@@ -3,6 +3,7 @@
 import { CircleAlert } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui";
+import { withBasePath } from "@/lib/base-path";
 import { KnowledgeEditor } from "./knowledge-editor";
 import { ScrapeProgress } from "./scrape-progress";
 import { UrlForm } from "./url-form";
@@ -55,7 +56,7 @@ export function ScrapeWorkbench() {
     setPhase({ status: "running", url });
 
     try {
-      const response = await fetch("/api/scrape", {
+      const response = await fetch(withBasePath("/api/scrape"), {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ url }),

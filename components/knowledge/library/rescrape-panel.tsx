@@ -3,6 +3,7 @@
 import { CircleAlert, RefreshCw } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button, Card } from "@/components/ui";
+import { withBasePath } from "@/lib/base-path";
 import { ScrapeProgress } from "../scrape-progress";
 import { DiffPanel } from "./diff-panel";
 import { saveKnowledgeBase } from "@/lib/knowledge/client";
@@ -61,7 +62,7 @@ export function RescrapePanel({
     setPhase({ status: "running" });
 
     try {
-      const response = await fetch("/api/scrape", {
+      const response = await fetch(withBasePath("/api/scrape"), {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ url: current.sourceUrl }),
